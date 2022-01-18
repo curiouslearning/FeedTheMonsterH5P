@@ -1,0 +1,253 @@
+import React, { useEffect, useRef, useState } from 'react';
+import styled from 'styled-components';
+import './app.css';
+import { DndProvider } from 'react-dnd';
+import { HTML5Backend } from 'react-dnd-html5-backend';
+import DragDrop from './DragDrop';
+import image1 from '../../assets/images/duck.gif';
+import img from '../../assets/images/img.png'
+
+
+declare var H5P: any;
+declare var H5PIntegration: any;
+
+const Wrapper = styled.div`
+    height: 400px;
+    width: 100%;
+    position: relative;
+`;
+
+const SlideLabel = styled.h2`
+    width: 30px;
+    height: 30px;
+    background-color: red;
+    border-radius: 50%;
+    align-items: left;
+    margin: 24px auto;
+    align-content: center;
+`;
+
+const ImgWrapper = styled.div`
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 520px;
+    overflow: hidden;
+    img {
+        width: 95%;
+        height: auto;
+    }
+`;
+
+const AudioWrapper = styled.div`
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 24px auto;
+`;
+
+const PlayButton = styled.button`
+    background: none;
+    border: none;
+    width: 248px;
+    height: 248px;
+    transition: transform ease 0.3s;
+
+    svg {
+        width: 100%;
+        height: auto;
+    }
+
+    &:hover {
+        cursor: pointer;
+    }
+
+    &:active {
+        transform: scale(0.925);
+    }
+`;
+
+const WavesWrapper = styled.div`
+    width: 248px;
+    height: 248px;
+`;
+
+const Button = styled.button`
+    width: 50px;
+    height: 50px;
+`;
+
+const StartButton = styled.div`
+    width: 60px;
+    height: 60px;
+    
+`;
+
+// const SlideBackGround = styled.div`
+//     width: "100%";
+//     height: "100%";
+//     backgroundImage: url(${img});
+//     backgroundPosition: 'center';
+//     backgroundRepeat: 'no-repeat';
+//     backgroundSize: 'cover';
+//     background: "rgba(0,0,0,0.3)";
+//     display: "flex";
+//     flexDirection: "column";
+//     justifyContent: "center", transform: "translateX(0px)"
+// `;
+
+const dataText = [
+    {'alphabet': 'a'},
+    {'alphabet': 'b'},
+    {'alphabet': 'c'}
+]
+
+const Progress = ({done} : {done : string}) => {
+    const [style, setStyle] = React.useState({});  
+    setTimeout(() => {
+      const newStyle = {
+        opacity: 1,
+        width: `${done}%`
+      }
+      
+      setStyle(newStyle);
+    }, 200);
+  
+    return (
+        <div className='headItem' style={{}}>
+            <button style={{}} onClick={() => {}}>Pause</button>
+            <button style={{}} onClick={() => {}}>Restart</button>
+            <div className="progress">
+                <div className="progress-done" style={style}></div>
+            </div>
+        </div>
+    );
+}
+
+let audio: HTMLAudioElement = null;
+const SlideComponent = (props: any) => {
+    const { data } = props;
+
+    console.log(props.started);
+    console.log(data.Puzzles[0].prompt.PromptAudio)
+    // console.log(data.Puzzles)
+    const audioPlayerRef = useRef();
+    const [audioPlaying, setAudioPlaying] = useState(false);
+    var audioFile;
+    var audFile: string;
+
+    // const playAudio = () => {
+    //     var playPromise = (audioPlayerRef.current as HTMLAudioElement).play();
+    //     if (playPromise !== undefined) {
+    //         playPromise.then(() => {
+    //             setAudioPlaying(true);
+    //         }).catch((err: any) => {
+    //             console.log(err);
+    //         });
+    //     }
+    // };
+
+    const initialTime = 10;
+    const [currentCount, setCount] = useState(initialTime);
+    const [timeOver, setTimeOver] = useState(true);
+    const [correctDrop, setCorrectDrop] = useState(false)
+    const [playing, setPlaying] = useState(true);
+    const [start, setStart] = useState(false);
+    const [levelCount, setLevelCount] = useState(0);
+
+    const audioPlayRef = useRef();
+
+    let id: NodeJS.Timeout;
+
+    const answerDrop = () => {
+        setCorrectDrop(true);
+    }
+
+    const levelUp = () => {
+        setLevelCount(preCount => preCount + 1);
+    }
+
+    const timer = () => {
+        if (!playing) {
+            setCount(preValue => preValue - 1);
+        }        
+    }
+
+    useEffect(() => {
+        setStart(false)
+        return () => {
+            audio.pause()
+            audio = null
+            setCount(initialTime)
+            clearInterval(id);
+        } 
+    },[props.started])
+    
+    useEffect(() => {
+        if (currentCount <= 0 || correctDrop) {
+            setTimeOver(false)
+            return;
+        }
+        id = setInterval(timer,500, start);
+        return () => clearInterval(id);
+    }, [currentCount, start, playing])
+
+
+    // if (data) {
+    //     var re = new RegExp("^(http|https)://", "i");
+    //     var match = re.test(data.audio[0].path);
+    //     if (match) {
+    //         audioFile = data.audio[0].path;
+    //         audFile = audioFile
+    //     } else {
+    //         // If the path is not a url then we need to build the URL manually for the audioplayer to work
+    //         audioFile = H5P.getContentPath(props.contentId) + '/' + data.Puzzles[0].prompt.PromptAudio;
+    //         audFile = audioFile
+    //     }
+    // }
+
+    const onStartClick = () => {
+        setTimeout(() => {
+            setStart(true);
+        }, 0)
+        audio = new Audio("https://www.kozco.com/tech/piano2.wav")
+        audio.play();
+        audio.addEventListener('ended', ()=>{
+            setPlaying(false)
+        })
+    }
+
+    // Get the url to the img
+    // const imgSrc = H5P.getContentPath(props.contentId) + '/' + data.Puzzles[0].prompt.PromptAudio;
+
+
+    return (
+        <Wrapper>
+            {data.audio && data.audio.length > 0 ? "" : <audio src={audFile} autoPlay ref={audioPlayRef}></audio>}
+                { start ? <></> :
+                    <div style={{height: "100%", backgroundImage: `url(${props.images})`, backgroundPosition: 'center', backgroundRepeat: 'no-repeat', backgroundSize: 'cover'}}>
+                        <div style={{width: "100%", height: "100%", background: "rgba(0,0,0,0.3)", display: "flex", flexDirection: "column", justifyContent: "center", transform: "translateX(0px)"}}>
+                            <h1 style={{textAlign: "center", fontSize: "2.857em", color: "white"}}>{"Level - " + data.LevelNumber}</h1>
+                            <button onClick={() => onStartClick()} style={{marginInline: "auto"}}>Start</button>
+                        </div>
+                    </div>
+                }
+            {!start ? <div></div> : <>
+                    <Progress done={(currentCount * 10).toString()} />
+                    <DndProvider backend={HTML5Backend}>
+                        <div className="dragAndDrop" style={{height: "200px"}}>
+                            <DragDrop timeOver={timeOver} answerDrop={answerDrop} startDrag={false} props={data.Puzzles[levelCount]} />
+                        </div>
+                    </DndProvider>
+                </>
+            }
+                
+                {/* { data.audio && data.audio.length > 0 ? <AudioWrapper>
+                { audioPlaying ? <WavesWrapper><SoundWaves /></WavesWrapper> :  <PlayButton onClick={playAudio}><Play /></PlayButton> }
+                <audio src={audioFile} autoPlay ref={audioPlayerRef}  onEnded={() => setAudioPlaying(false)}></audio>
+            </AudioWrapper> : null} */}
+        </Wrapper>
+    );
+}
+
+export default SlideComponent;
