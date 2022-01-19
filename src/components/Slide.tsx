@@ -83,25 +83,6 @@ const StartButton = styled.div`
     
 `;
 
-// const SlideBackGround = styled.div`
-//     width: "100%";
-//     height: "100%";
-//     backgroundImage: url(${img});
-//     backgroundPosition: 'center';
-//     backgroundRepeat: 'no-repeat';
-//     backgroundSize: 'cover';
-//     background: "rgba(0,0,0,0.3)";
-//     display: "flex";
-//     flexDirection: "column";
-//     justifyContent: "center", transform: "translateX(0px)"
-// `;
-
-const dataText = [
-    {'alphabet': 'a'},
-    {'alphabet': 'b'},
-    {'alphabet': 'c'}
-]
-
 const Progress = ({done} : {done : string}) => {
     const [style, setStyle] = React.useState({});  
     setTimeout(() => {
@@ -125,12 +106,12 @@ const Progress = ({done} : {done : string}) => {
 }
 
 let audio: HTMLAudioElement = null;
+let initialTime = 10;
 const SlideComponent = (props: any) => {
     const { data } = props;
 
     console.log(props.started);
     console.log(data.Puzzles[0].prompt.PromptAudio)
-    // console.log(data.Puzzles)
     const audioPlayerRef = useRef();
     const [audioPlaying, setAudioPlaying] = useState(false);
     var audioFile;
@@ -146,8 +127,6 @@ const SlideComponent = (props: any) => {
     //         });
     //     }
     // };
-
-    const initialTime = 10;
     const [currentCount, setCount] = useState(initialTime);
     const [timeOver, setTimeOver] = useState(true);
     const [correctDrop, setCorrectDrop] = useState(false)
@@ -176,9 +155,11 @@ const SlideComponent = (props: any) => {
     useEffect(() => {
         setStart(false)
         return () => {
-            audio.pause()
+            if (audioPlaying || audio!=null) {
+                audio.pause()
+            }
             audio = null
-            setCount(initialTime)
+            initialTime = 10
             clearInterval(id);
         } 
     },[props.started])
@@ -211,7 +192,14 @@ const SlideComponent = (props: any) => {
             setStart(true);
         }, 0)
         audio = new Audio("https://www.kozco.com/tech/piano2.wav")
-        audio.play();
+        var playPromise =  audio.play();
+        if (playPromise !== undefined) {
+            playPromise.then(() => {
+                setAudioPlaying(true);
+            }).catch((err: any) => {
+                console.log(err);
+            });
+        }
         audio.addEventListener('ended', ()=>{
             setPlaying(false)
         })

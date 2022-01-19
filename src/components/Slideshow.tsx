@@ -29,6 +29,7 @@ const NavButton = styled.button`
     }
 `
 let nextToggle = true
+const initialTime = 10;
 
 const Slideshow = (props: any) => {
     const {data}  = props;
@@ -51,7 +52,7 @@ const Slideshow = (props: any) => {
 
     return (
         <div>
-            <SlideComponent data={data[activeSlide]} images = {img[activeSlide]} contentId={props.contentId} started={strt} />
+            <SlideComponent data={data[activeSlide]} images = {img[activeSlide]} contentId={props.contentId} started={strt} time={initialTime} />
             <NavWrapper>
                 <NavButton onClick={() => handleNav(-1)} disabled={data.length < 2}>
                     Back

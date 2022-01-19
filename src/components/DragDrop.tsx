@@ -29,7 +29,16 @@ let optionDataSet: { id: number; alphabet: string; }[] = []
 
 const DragDrop = ({timeOver, answerDrop, startDrag, props} : {timeOver : boolean, answerDrop : Function, startDrag: boolean, props: any}) => {
 
-    const collectData = (options: string | any[]) => {
+    const answerCollectionData = (correctAns: string) => {
+        let data = {
+            id: 1,
+            alphabet: ""
+        }
+        data.alphabet = correctAns
+        answerText.push(data)
+    }
+
+    const optionCollectData = (options: string | any[]) => {
         for (let i = 0; i< options.length; i++) {
             let incomingData = {
                 id: 100,
@@ -43,12 +52,15 @@ const DragDrop = ({timeOver, answerDrop, startDrag, props} : {timeOver : boolean
         }
         setDataList(optionDataSet)
     }
+
     let options = [props.targetstones[0], ...props.foilstones]
     useEffect(() => {
-        collectData(options)
+        optionCollectData(options)
+        answerCollectionData(props.targetstones[0].StoneText)
         return () => {
             options=[]
             optionDataSet=[]
+            answerText=[]
         }
     }, [])
 
@@ -56,7 +68,7 @@ const DragDrop = ({timeOver, answerDrop, startDrag, props} : {timeOver : boolean
     const [dragging, setDragging] = useState(false);
     const [dropped, setDropped] = useState(false);
 
-    const [drop, setDropping] = useState(dropText);
+    const [drop, setDropping] = useState(props.targetstones[0]);
     const dragItem = useRef();
     const dragNode = useRef();
     const dragId = useRef();
@@ -77,13 +89,13 @@ const DragDrop = ({timeOver, answerDrop, startDrag, props} : {timeOver : boolean
 
     const handleDragEnd = (e: any) => {
 
-        if (dropText[0].alphabet == dragItem.current) {
+        if (answerText[0].alphabet == dragItem.current) {
             const newDropText = {
                 id : dragId.current,
                 alphabet : dragItem.current
             }
-            dropText = [];
-            dropText.push(newDropText)
+            answerText = [];
+            answerText.push(newDropText)
             const cList = optionDataSet.filter((item) => item.id != dragId.current)
             optionDataSet = [];
             setDropped(true);
@@ -113,7 +125,7 @@ const DragDrop = ({timeOver, answerDrop, startDrag, props} : {timeOver : boolean
                         </div>
             })}
             <div className="drop" id="droop" ref={dropNode}>
-                {dropText.map((item) => {
+                {answerText.map((item) => {
                     return <div 
                             className={dropped ? "balls" : 'bol' }
                             key={item.id}
