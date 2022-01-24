@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import { useDrag  } from "react-dnd";
+import SlideComponent from './Slide'
 
 // let optionDataSet = [
 //     {
@@ -120,7 +121,7 @@ const DragDrop = ({timeOver, answerDrop, startDrag, props} : {timeOver : boolean
     return (
         <>
             {optionDataSet.map((item, index) => {
-                return <div className={dragging ? getStyles(item.alphabet) :  "balls"} draggable = {timeOver} key={item.id} onDragStart = {(e) => {handleDragStart(item.alphabet, e, item.id)}}>
+                return <div className={dragging ? getStyles(item.alphabet) :  "balls"} draggable = {!timeOver} key={item.id} onDragStart = {(e) => {handleDragStart(item.alphabet, e, item.id)}}>
                     <p style={{fontSize: "1.4em", color: "white"}}>{item.alphabet}</p>
                         </div>
             })}
@@ -134,7 +135,7 @@ const DragDrop = ({timeOver, answerDrop, startDrag, props} : {timeOver : boolean
                 })}
             </div>
             <div className="right-answer">{dropped ? "Correct" : ""}</div>
-            <div style={{display: "flex", alignItems: "center", justifyContent: "center"}}>{!timeOver && !dropped ? "Try Again time excedded" : ""}</div>
+            <div style={{display: "flex", alignItems: "center", justifyContent: "center"}}>{timeOver && !dropped ? "Try Again time excedded" : ""}</div>
         </>
     );
 }

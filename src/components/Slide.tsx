@@ -4,83 +4,15 @@ import './app.css';
 import { DndProvider } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
 import DragDrop from './DragDrop';
-import image1 from '../../assets/images/duck.gif';
-import img from '../../assets/images/img.png'
+import { trim } from 'jquery';
 
-
-declare var H5P: any;
-declare var H5PIntegration: any;
+let audio: HTMLAudioElement = null;
+let initialTime = 10;
 
 const Wrapper = styled.div`
     height: 400px;
     width: 100%;
     position: relative;
-`;
-
-const SlideLabel = styled.h2`
-    width: 30px;
-    height: 30px;
-    background-color: red;
-    border-radius: 50%;
-    align-items: left;
-    margin: 24px auto;
-    align-content: center;
-`;
-
-const ImgWrapper = styled.div`
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 520px;
-    overflow: hidden;
-    img {
-        width: 95%;
-        height: auto;
-    }
-`;
-
-const AudioWrapper = styled.div`
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin: 24px auto;
-`;
-
-const PlayButton = styled.button`
-    background: none;
-    border: none;
-    width: 248px;
-    height: 248px;
-    transition: transform ease 0.3s;
-
-    svg {
-        width: 100%;
-        height: auto;
-    }
-
-    &:hover {
-        cursor: pointer;
-    }
-
-    &:active {
-        transform: scale(0.925);
-    }
-`;
-
-const WavesWrapper = styled.div`
-    width: 248px;
-    height: 248px;
-`;
-
-const Button = styled.button`
-    width: 50px;
-    height: 50px;
-`;
-
-const StartButton = styled.div`
-    width: 60px;
-    height: 60px;
-    
 `;
 
 const Progress = ({done} : {done : string}) => {
@@ -105,35 +37,22 @@ const Progress = ({done} : {done : string}) => {
     );
 }
 
-let audio: HTMLAudioElement = null;
-let initialTime = 10;
 const SlideComponent = (props: any) => {
     const { data } = props;
 
     console.log(props.started);
     console.log(data.Puzzles[0].prompt.PromptAudio)
-    const audioPlayerRef = useRef();
-    const [audioPlaying, setAudioPlaying] = useState(false);
-    var audioFile;
+    // const audioPlayerRef = useRef();
+    // var audioFile;
     var audFile: string;
 
-    // const playAudio = () => {
-    //     var playPromise = (audioPlayerRef.current as HTMLAudioElement).play();
-    //     if (playPromise !== undefined) {
-    //         playPromise.then(() => {
-    //             setAudioPlaying(true);
-    //         }).catch((err: any) => {
-    //             console.log(err);
-    //         });
-    //     }
-    // };
-    const [currentCount, setCount] = useState(initialTime);
-    const [timeOver, setTimeOver] = useState(true);
+    // const [audioPlaying, setAudioPlaying] = useState(false);
+    const [currentProgressCount, setProgressCount] = useState(initialTime);
+    const [timeOver, setTimeOver] = useState(false);
     const [correctDrop, setCorrectDrop] = useState(false)
-    const [playing, setPlaying] = useState(true);
+    const [playing, setPlaying] = useState(false);
     const [start, setStart] = useState(false);
     const [levelCount, setLevelCount] = useState(0);
-
     const audioPlayRef = useRef();
 
     let id: NodeJS.Timeout;
@@ -147,15 +66,15 @@ const SlideComponent = (props: any) => {
     }
 
     const timer = () => {
-        if (!playing) {
-            setCount(preValue => preValue - 1);
+        if (playing) {
+            setProgressCount(preValue => preValue - 1);
         }        
     }
 
     useEffect(() => {
         setStart(false)
         return () => {
-            if (audioPlaying || audio!=null) {
+            if (playing || audio!=null) {
                 audio.pause()
             }
             audio = null
@@ -165,27 +84,31 @@ const SlideComponent = (props: any) => {
     },[props.started])
     
     useEffect(() => {
-        if (currentCount <= 0 || correctDrop) {
+
+        if (!start) {
+            setProgressCount(10);
+            setPlaying(false);
+            return;
+        }
+
+        if (currentProgressCount <= 0 && !timeOver) {
+            setTimeout(() => {
+                setProgressCount(10);
+                setPlaying(false);
+                return
+            }, 1000)
+        }
+
+        if (currentProgressCount <= 0 || correctDrop) {
             setTimeOver(false)
             return;
         }
+
         id = setInterval(timer,500, start);
+
         return () => clearInterval(id);
-    }, [currentCount, start, playing])
+    }, [currentProgressCount, start, playing])
 
-
-    // if (data) {
-    //     var re = new RegExp("^(http|https)://", "i");
-    //     var match = re.test(data.audio[0].path);
-    //     if (match) {
-    //         audioFile = data.audio[0].path;
-    //         audFile = audioFile
-    //     } else {
-    //         // If the path is not a url then we need to build the URL manually for the audioplayer to work
-    //         audioFile = H5P.getContentPath(props.contentId) + '/' + data.Puzzles[0].prompt.PromptAudio;
-    //         audFile = audioFile
-    //     }
-    // }
 
     const onStartClick = () => {
         setTimeout(() => {
@@ -195,19 +118,15 @@ const SlideComponent = (props: any) => {
         var playPromise =  audio.play();
         if (playPromise !== undefined) {
             playPromise.then(() => {
-                setAudioPlaying(true);
+                // setPlaying(true);
             }).catch((err: any) => {
                 console.log(err);
             });
         }
         audio.addEventListener('ended', ()=>{
-            setPlaying(false)
+            setPlaying(true);
         })
     }
-
-    // Get the url to the img
-    // const imgSrc = H5P.getContentPath(props.contentId) + '/' + data.Puzzles[0].prompt.PromptAudio;
-
 
     return (
         <Wrapper>
@@ -221,7 +140,7 @@ const SlideComponent = (props: any) => {
                     </div>
                 }
             {!start ? <div></div> : <>
-                    <Progress done={(currentCount * 10).toString()} />
+                    <Progress done={(currentProgressCount * 10).toString()} />
                     <DndProvider backend={HTML5Backend}>
                         <div className="dragAndDrop" style={{height: "200px"}}>
                             <DragDrop timeOver={timeOver} answerDrop={answerDrop} startDrag={false} props={data.Puzzles[levelCount]} />
@@ -239,3 +158,105 @@ const SlideComponent = (props: any) => {
 }
 
 export default SlideComponent;
+
+// Get the url to the img
+    
+// const imgSrc = H5P.getContentPath(props.contentId) + '/' + data.Puzzles[0].prompt.PromptAudio;
+
+
+// const playAudio = () => {
+//     var playPromise = (audioPlayerRef.current as HTMLAudioElement).play();
+//     if (playPromise !== undefined) {
+//         playPromise.then(() => {
+//             setAudioPlaying(true);
+//         }).catch((err: any) => {
+//             console.log(err);
+//         });
+//     }
+// };
+
+// if (data) {
+//     var re = new RegExp("^(http|https)://", "i");
+//     var match = re.test(data.audio[0].path);
+//     if (match) {
+//         audioFile = data.audio[0].path;
+//         audFile = audioFile
+//     } else {
+//         // If the path is not a url then we need to build the URL manually for the audioplayer to work
+//         audioFile = H5P.getContentPath(props.contentId) + '/' + data.Puzzles[0].prompt.PromptAudio;
+//         audFile = audioFile
+//     }
+// }
+
+// const SlideLabel = styled.h2`
+//     width: 30px;
+//     height: 30px;
+//     background-color: red;
+//     border-radius: 50%;
+//     align-items: left;
+//     margin: 24px auto;
+//     align-content: center;
+// `;
+
+// const ImgWrapper = styled.div`
+//     display: flex;
+//     justify-content: center;
+//     align-items: center;
+//     height: 520px;
+//     overflow: hidden;
+//     img {
+//         width: 95%;
+//         height: auto;
+//     }
+// `;
+
+// const AudioWrapper = styled.div`
+//     display: flex;
+//     align-items: center;
+//     justify-content: center;
+//     margin: 24px auto;
+// `;
+
+// const PlayButton = styled.button`
+//     background: none;
+//     border: none;
+//     width: 248px;
+//     height: 248px;
+//     transition: transform ease 0.3s;
+
+//     svg {
+//         width: 100%;
+//         height: auto;
+//     }
+
+//     &:hover {
+//         cursor: pointer;
+//     }
+
+//     &:active {
+//         transform: scale(0.925);
+//     }
+// `;
+
+// const WavesWrapper = styled.div`
+//     width: 248px;
+//     height: 248px;
+// `;
+
+// const Button = styled.button`
+//     width: 50px;
+//     height: 50px;
+// `;
+
+// const StartButton = styled.div`
+//     width: 60px;
+//     height: 60px;
+    
+// `;
+
+
+// declare var H5P: any;
+// declare var H5PIntegration: any;
+
+// import image1 from '../../assets/images/duck.gif';
+// import img from '../../assets/images/img.png'
