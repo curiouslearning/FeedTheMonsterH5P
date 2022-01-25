@@ -8,6 +8,7 @@ import { trim } from 'jquery';
 
 let audio: HTMLAudioElement = null;
 let initialTime = 10;
+let id: NodeJS.Timeout;
 
 const Wrapper = styled.div`
     height: 400px;
@@ -37,38 +38,105 @@ const Progress = ({done} : {done : string}) => {
     );
 }
 
-const SlideComponent = (props: any) => {
-    const { data } = props;
+const DragDropComp = (props: any) => {
 
-    console.log(props.started);
-    console.log(data.Puzzles[0].prompt.PromptAudio)
-    // const audioPlayerRef = useRef();
-    // var audioFile;
-    var audFile: string;
+    console.log(props)
 
-    // const [audioPlaying, setAudioPlaying] = useState(false);
-    const [currentProgressCount, setProgressCount] = useState(initialTime);
     const [timeOver, setTimeOver] = useState(false);
-    const [correctDrop, setCorrectDrop] = useState(false)
-    const [playing, setPlaying] = useState(false);
-    const [start, setStart] = useState(false);
+    const [correctDrop, setCorrectDrop] = useState(false);
     const [levelCount, setLevelCount] = useState(0);
-    const audioPlayRef = useRef();
-
-    let id: NodeJS.Timeout;
+    const [currentProgressCount, setProgressCount] = useState(initialTime);
 
     const answerDrop = () => {
         setCorrectDrop(true);
     }
 
     const levelUp = () => {
+        console.log("exece")
         setLevelCount(preCount => preCount + 1);
     }
 
     const timer = () => {
-        if (playing) {
+        console.log(props.playing)
+        if (props.playing) {
             setProgressCount(preValue => preValue - 1);
         }        
+    }
+
+    useEffect(() => {
+
+        if (!props.start) {
+            setProgressCount(10);
+            props.stopPlaying()
+            return;
+        }
+
+        if (currentProgressCount <= 0 && !timeOver) {
+            setTimeout(() => {
+                setProgressCount(10);
+                props.stopPlaying()
+                return
+            }, 1000)
+        }
+
+        if (currentProgressCount <= 0 || correctDrop) {
+            setTimeOver(false)
+            return;
+        }
+
+        id = setInterval(timer,500, props.start);
+
+        return () => clearInterval(id);
+    }, [currentProgressCount, props.start, props.playing])
+
+
+    return <div>
+        <Progress done={(currentProgressCount * 10).toString()} />
+        <DndProvider backend={HTML5Backend}>
+            <div className="dragAndDrop" style={{height: "200px"}}>
+                <DragDrop timeOver={timeOver} answerDrop={answerDrop} startDrag={false} props={props.puzzles[levelCount]} changePuzzel={levelUp} />
+            </div>
+        </DndProvider>
+    </div>
+}
+
+const SlideComponent = (props: any) => {
+    const { data } = props;
+
+    // console.log(props.started);
+    // console.log(data.Puzzles[0].prompt.PromptAudio)
+    // const audioPlayerRef = useRef();
+    // var audioFile;
+    var audFile: string;
+
+    // const [audioPlaying, setAudioPlaying] = useState(false);
+    // const [currentProgressCount, setProgressCount] = useState(initialTime);
+    // const [timeOver, setTimeOver] = useState(false);
+    // const [correctDrop, setCorrectDrop] = useState(false);
+    const [playing, setPlaying] = useState(false);
+    const [start, setStart] = useState(false);
+    // const [levelCount, setLevelCount] = useState(0);
+    // const audioPlayRef = useRef();
+
+    // let id: NodeJS.Timeout;
+
+    // const answerDrop = () => {
+    //     setCorrectDrop(true);
+    // }
+
+    // const levelUp = () => {
+    //     console.log("exece")
+    //     setLevelCount(preCount => preCount + 1);
+    // }
+
+    // const timer = () => {
+    //     if (playing) {
+    //         setProgressCount(preValue => preValue - 1);
+    //     }        
+    // }
+
+    const stopPlaying = () => {
+        setPlaying(false);
     }
 
     useEffect(() => {
@@ -80,34 +148,35 @@ const SlideComponent = (props: any) => {
             audio = null
             initialTime = 10
             clearInterval(id);
+            setPlaying(false)
         } 
     },[props.started])
     
-    useEffect(() => {
+    // useEffect(() => {
 
-        if (!start) {
-            setProgressCount(10);
-            setPlaying(false);
-            return;
-        }
+    //     if (!start) {
+    //         setProgressCount(10);
+    //         setPlaying(false);
+    //         return;
+    //     }
 
-        if (currentProgressCount <= 0 && !timeOver) {
-            setTimeout(() => {
-                setProgressCount(10);
-                setPlaying(false);
-                return
-            }, 1000)
-        }
+    //     if (currentProgressCount <= 0 && !timeOver) {
+    //         setTimeout(() => {
+    //             setProgressCount(10);
+    //             setPlaying(false);
+    //             return
+    //         }, 1000)
+    //     }
 
-        if (currentProgressCount <= 0 || correctDrop) {
-            setTimeOver(false)
-            return;
-        }
+    //     if (currentProgressCount <= 0 || correctDrop) {
+    //         setTimeOver(false)
+    //         return;
+    //     }
 
-        id = setInterval(timer,500, start);
+    //     id = setInterval(timer,500, start);
 
-        return () => clearInterval(id);
-    }, [currentProgressCount, start, playing])
+    //     return () => clearInterval(id);
+    // }, [currentProgressCount, start, playing])
 
 
     const onStartClick = () => {
@@ -130,7 +199,7 @@ const SlideComponent = (props: any) => {
 
     return (
         <Wrapper>
-            {data.audio && data.audio.length > 0 ? "" : <audio src={audFile} autoPlay ref={audioPlayRef}></audio>}
+            {data.audio && data.audio.length > 0 ? "" : <audio src={audFile} autoPlay></audio>}
                 { start ? <></> :
                     <div style={{height: "100%", backgroundImage: `url(${props.images})`, backgroundPosition: 'center', backgroundRepeat: 'no-repeat', backgroundSize: 'cover'}}>
                         <div style={{width: "100%", height: "100%", background: "rgba(0,0,0,0.3)", display: "flex", flexDirection: "column", justifyContent: "center", transform: "translateX(0px)"}}>
@@ -140,12 +209,13 @@ const SlideComponent = (props: any) => {
                     </div>
                 }
             {!start ? <div></div> : <>
-                    <Progress done={(currentProgressCount * 10).toString()} />
-                    <DndProvider backend={HTML5Backend}>
+                    {/* <Progress done={(currentProgressCount * 10).toString()} /> */}
+                    <DragDropComp playing={playing} start={start} puzzles={data.Puzzles} stopPlaying={stopPlaying} />
+                    {/* <DndProvider backend={HTML5Backend}>
                         <div className="dragAndDrop" style={{height: "200px"}}>
-                            <DragDrop timeOver={timeOver} answerDrop={answerDrop} startDrag={false} props={data.Puzzles[levelCount]} />
+                            <DragDrop timeOver={timeOver} answerDrop={answerDrop} startDrag={false} props={data.Puzzles[levelCount]} changePuzzel={levelUp} />
                         </div>
-                    </DndProvider>
+                    </DndProvider> */}
                 </>
             }
                 

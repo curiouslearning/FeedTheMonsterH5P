@@ -28,7 +28,7 @@ let answerText: { id: number; alphabet: string; }[] = []
 let optionDataSet: { id: number; alphabet: string; }[] = []
 
 
-const DragDrop = ({timeOver, answerDrop, startDrag, props} : {timeOver : boolean, answerDrop : Function, startDrag: boolean, props: any}) => {
+const DragDrop = ({timeOver, answerDrop, startDrag, props, changePuzzel} : {timeOver : boolean, answerDrop : Function, startDrag: boolean, props: any, changePuzzel: Function}) => {
 
     const answerCollectionData = (correctAns: string) => {
         let data = {
@@ -101,6 +101,7 @@ const DragDrop = ({timeOver, answerDrop, startDrag, props} : {timeOver : boolean
             optionDataSet = [];
             setDropped(true);
             answerDrop();
+            changePuzzel();
         }
 
         setDragging(false)
