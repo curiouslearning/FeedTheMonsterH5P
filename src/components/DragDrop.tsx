@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
-import { useDrag  } from "react-dnd";
-import SlideComponent from './Slide'
+import { useDrag } from "react-dnd";
 
+import { spritesheetobj } from "./Slide";
 // let optionDataSet = [
 //     {
 //         id: 1,
@@ -17,128 +17,143 @@ import SlideComponent from './Slide'
 //     }
 // ]
 let dropText: any[] = [
-    {
-        id: 1,
-        alphabet: 'a'
+  {
+    id: 1,
+    alphabet: "a",
+  },
+];
+
+let answerText: { id: number; alphabet: string }[] = [];
+
+let optionDataSet: { id: number; alphabet: string }[] = [];
+
+const DragDrop = ({
+  timeOver,
+  answerDrop,
+  startDrag,
+  props,
+}: {
+  timeOver: boolean;
+  answerDrop: Function;
+  startDrag: boolean;
+  props: any;
+}) => {
+  const collectData = (options: string | any[]) => {
+    for (let i = 0; i < options.length; i++) {
+      let incomingData = {
+        id: 100,
+        alphabet: "",
+      };
+
+      incomingData.id = i;
+      incomingData.alphabet = options[i].StoneText;
+      optionDataSet.push(incomingData);
     }
-]
+    setDataList(optionDataSet);
+  };
+  let options = [props.targetstones[0], ...props.foilstones];
+  useEffect(() => {
+    collectData(options);
+    return () => {
+      options = [];
+      optionDataSet = [];
+    };
+  }, []);
 
-let answerText: { id: number; alphabet: string; }[] = []
+  const [dataList, setDataList] = useState(options);
+  const [dragging, setDragging] = useState(false);
+  const [dropped, setDropped] = useState(false);
 
-let optionDataSet: { id: number; alphabet: string; }[] = []
+  const [drop, setDropping] = useState(dropText);
+  const dragItem = useRef();
+  const dragNode = useRef();
+  const dragId = useRef();
+  const dropNode = useRef();
 
+  const handleDragStart = (data: any, e: any, id: any) => {
+    dragItem.current = data;
+    dragId.current = id;
+    dragNode.current = e.target;
+    e.target.addEventListener("dragend", handleDragEnd);
+    e.target.addEventListener("drag", () => {});
+    setTimeout(() => {
+      setDragging(true);
+    }, 0);
+  };
 
-const DragDrop = ({timeOver, answerDrop, startDrag, props, changePuzzel} : {timeOver : boolean, answerDrop : Function, startDrag: boolean, props: any, changePuzzel: Function}) => {
-
-    const answerCollectionData = (correctAns: string) => {
-        let data = {
-            id: 1,
-            alphabet: ""
-        }
-        data.alphabet = correctAns
-        answerText.push(data)
-    }
-
-    const optionCollectData = (options: string | any[]) => {
-        for (let i = 0; i< options.length; i++) {
-            let incomingData = {
-                id: 100,
-                alphabet: ""
-            }
-
-            incomingData.id = i;
-            incomingData.alphabet = options[i].StoneText;
-            optionDataSet.push(incomingData);
-
-        }
-        setDataList(optionDataSet)
-    }
-
-    let options = [props.targetstones[0], ...props.foilstones]
-    useEffect(() => {
-        optionCollectData(options)
-        answerCollectionData(props.targetstones[0].StoneText)
-        return () => {
-            options=[]
-            optionDataSet=[]
-            answerText=[]
-        }
-    }, [])
-
-    const [dataList, setDataList] = useState(options);
-    const [dragging, setDragging] = useState(false);
-    const [dropped, setDropped] = useState(false);
-
-    const [drop, setDropping] = useState(props.targetstones[0]);
-    const dragItem = useRef();
-    const dragNode = useRef();
-    const dragId = useRef();
-    const dropNode = useRef();
-
-    const handleDragStart = (data: any, e: any, id: any ) => {
-        dragItem.current = data;
-        dragId.current = id;
-        dragNode.current = e.target;
-        e.target.addEventListener('dragend', handleDragEnd)
-        e.target.addEventListener('drag', ()=> {
-             
-        })
-        setTimeout(() => {
-            setDragging(true);
-        }, 0)
-    }
-
-    const handleDragEnd = (e: any) => {
-
-        if (answerText[0].alphabet == dragItem.current) {
-            const newDropText = {
-                id : dragId.current,
-                alphabet : dragItem.current
-            }
-            answerText = [];
-            answerText.push(newDropText)
-            const cList = optionDataSet.filter((item) => item.id != dragId.current)
-            optionDataSet = [];
-            setDropped(true);
-            answerDrop();
-            changePuzzel();
-        }
-
-        setDragging(false)
-        e.target.removeEventListener('dragend', handleDragEnd)
-        // setDropping(dragItem.current);
-        dragItem.current = null;
-        dragNode.current = null;
+  const handleDragEnd = (e: any) => {
+    if (dropText[0].alphabet == dragItem.current) {
+      console.log("Yes you got it");
+      const newDropText = {
+        id: dragId.current,
+        alphabet: dragItem.current,
+      };
+      dropText = [];
+      dropText.push(newDropText);
+      const cList = optionDataSet.filter((item) => item.id != dragId.current);
+      optionDataSet = [];
+      setDropped(true);
+      answerDrop();
+    } else {
+      console.log("No you dont");
+      console.log(spritesheetobj);
+      spritesheetobj.goToAndPlay(1);
     }
 
-    const getStyles = (params: any) => {
-        const currentItem = dragItem.current;
-        if (currentItem == params) {
-            return "no-balls";
-        }
-        return "balls";
-    }
+    setDragging(false);
+    e.target.removeEventListener("dragend", handleDragEnd);
+    // setDropping(dragItem.current);
+    dragItem.current = null;
+    dragNode.current = null;
+  };
 
-    return (
-        <>
-            {optionDataSet.map((item, index) => {
-                return <div className={dragging ? getStyles(item.alphabet) :  "balls"} draggable = {!timeOver} key={item.id} onDragStart = {(e) => {handleDragStart(item.alphabet, e, item.id)}}>
-                    <p style={{fontSize: "1.4em", color: "white"}}>{item.alphabet}</p>
-                        </div>
-            })}
-            <div className="drop" id="droop" ref={dropNode}>
-                {answerText.map((item) => {
-                    return <div 
-                            className={dropped ? "balls" : 'bol' }
-                            key={item.id}
-                            ><p style={{fontSize: "1.4em", color: "white"}}>{item.alphabet}</p>
-                        </div>
-                })}
+  const getStyles = (params: any) => {
+    const currentItem = dragItem.current;
+    if (currentItem == params) {
+      return "no-balls";
+    }
+    return "balls";
+  };
+
+  return (
+    <>
+      {optionDataSet.map((item, index) => {
+        return (
+          <div
+            className={dragging ? getStyles(item.alphabet) : "balls"}
+            draggable={timeOver}
+            key={item.id}
+            onDragStart={(e) => {
+              handleDragStart(item.alphabet, e, item.id);
+            }}
+          >
+            <p style={{ fontSize: "1.4em", color: "white" }}>{item.alphabet}</p>
+          </div>
+        );
+      })}
+      <div className="drop" id="droop" ref={dropNode}>
+        {dropText.map((item) => {
+          return (
+            <div className={dropped ? "balls" : "bol"} key={item.id}>
+              <p style={{ fontSize: "1.4em", color: "white" }}>
+                {item.alphabet}
+              </p>
             </div>
-            <div className="right-answer">{dropped ? "Correct" : ""}</div>
-            <div style={{display: "flex", alignItems: "center", justifyContent: "center"}}>{timeOver && !dropped ? "Try Again time excedded" : ""}</div>
-        </>
-    );
-}
+          );
+        })}
+      </div>
+      <div className="right-answer">{dropped ? "Correct" : ""}</div>
+      <div
+        style={{
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+        }}
+      >
+        {!timeOver && !dropped ? "Try Again time excedded" : ""}
+      </div>
+    </>
+  );
+};
 
 export default DragDrop;
