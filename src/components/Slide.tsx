@@ -8,6 +8,7 @@ import image1 from "../../assets/images/duck.gif";
 import img from "../../assets/images/img.png";
 import Spritesheet from "react-responsive-spritesheet";
 import spsheet from "../../assets/images/spritesheet.png";
+import bg from "../../assets/images/bg.jpg";
 declare var H5P: any;
 declare var H5PIntegration: any;
 
@@ -281,7 +282,7 @@ const SlideComponent = (props: any) => {
               width: 300,
               height: 300,
               overflow: "hidden",
-              // backgroundImage: `url(${background})`,
+              // backgroundImage: `url(${bg})`,
               backgroundSize: "cover",
               position: "absolute",
             }}
