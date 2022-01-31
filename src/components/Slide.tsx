@@ -40,20 +40,32 @@ const Progress = ({done} : {done : string}) => {
 
 const DragDropComp = (props: any) => {
 
-    console.log(props)
+    console.log(props.promptVisibility + "<------");
 
     const [timeOver, setTimeOver] = useState(false);
     const [correctDrop, setCorrectDrop] = useState(false);
     const [levelCount, setLevelCount] = useState(0);
     const [currentProgressCount, setProgressCount] = useState(initialTime);
+    const [prompted, setPromted] = useState(props.promptVisibility);
+
+    const levelChange = useRef<number>();
+
+    let prompT = props.puzzles[levelCount].prompt.PromptText.toString();
 
     const answerDrop = () => {
         setCorrectDrop(true);
     }
 
     const levelUp = () => {
-        console.log("exece")
-        setLevelCount(preCount => preCount + 1);
+        console.log("changedd")
+        setTimeout(() => {
+            setLevelCount(preCount => preCount + 1)
+            setCorrectDrop(false)
+            setProgressCount(initialTime);
+            setPromted(true);
+            props.stopPlaying();
+            props.playAudio();
+        }, 4000)
     }
 
     const timer = () => {
@@ -63,7 +75,17 @@ const DragDropComp = (props: any) => {
         }        
     }
 
+    const pauseGame = () => {
+        props.stopPlaying();
+    }
+
     useEffect(() => {
+
+        if (props.playing) {
+            if (prompted) {
+                setPromted(false);
+            }
+        }
 
         if (!props.start) {
             setProgressCount(10);
@@ -73,8 +95,9 @@ const DragDropComp = (props: any) => {
 
         if (currentProgressCount <= 0 && !timeOver) {
             setTimeout(() => {
-                setProgressCount(10);
-                props.stopPlaying()
+                // setProgressCount(10);
+                // props.stopPlaying()
+                levelUp()
                 return
             }, 1000)
         }
@@ -83,60 +106,38 @@ const DragDropComp = (props: any) => {
             setTimeOver(false)
             return;
         }
-
         id = setInterval(timer,500, props.start);
 
         return () => clearInterval(id);
-    }, [currentProgressCount, props.start, props.playing])
+    }, [currentProgressCount, props.start, props.playing, timeOver, correctDrop])
 
 
     return <div>
         <Progress done={(currentProgressCount * 10).toString()} />
-        <DndProvider backend={HTML5Backend}>
+        {prompted ? <div style={{width: "300px", height: "300px", backgroundColor: "grey", display: "flex", justifyContent: "center", flexDirection: "column", alignItems: "center", margin: "auto", marginTop: "20px"}}>
+            <p style={{color: "black", fontSize: "1.857em"}}>NEXT PUZZLE</p>
+            <p style={{color: "black", fontSize: "2.857em"}}>{ props.puzzles[levelCount].prompt.PromptText}</p>
+        </div> : <DndProvider backend={HTML5Backend}>
             <div className="dragAndDrop" style={{height: "200px"}}>
-                <DragDrop timeOver={timeOver} answerDrop={answerDrop} startDrag={false} props={props.puzzles[levelCount]} changePuzzel={levelUp} />
+                <DragDrop timeOver={timeOver} answerDrop={answerDrop} startDrag={false} props={props.puzzles[levelCount]} changePuzzel={levelUp} levelCount={levelCount} />
             </div>
-        </DndProvider>
+        </DndProvider>}
     </div>
 }
 
+
 const SlideComponent = (props: any) => {
     const { data } = props;
-
-    // console.log(props.started);
-    // console.log(data.Puzzles[0].prompt.PromptAudio)
-    // const audioPlayerRef = useRef();
-    // var audioFile;
     var audFile: string;
 
-    // const [audioPlaying, setAudioPlaying] = useState(false);
-    // const [currentProgressCount, setProgressCount] = useState(initialTime);
-    // const [timeOver, setTimeOver] = useState(false);
-    // const [correctDrop, setCorrectDrop] = useState(false);
     const [playing, setPlaying] = useState(false);
     const [start, setStart] = useState(false);
-    // const [levelCount, setLevelCount] = useState(0);
-    // const audioPlayRef = useRef();
-
-    // let id: NodeJS.Timeout;
-
-    // const answerDrop = () => {
-    //     setCorrectDrop(true);
-    // }
-
-    // const levelUp = () => {
-    //     console.log("exece")
-    //     setLevelCount(preCount => preCount + 1);
-    // }
-
-    // const timer = () => {
-    //     if (playing) {
-    //         setProgressCount(preValue => preValue - 1);
-    //     }        
-    // }
 
     const stopPlaying = () => {
-        setPlaying(false);
+        if (playing) {
+            console.log("stoppppp");
+            setPlaying(false);
+        }
     }
 
     useEffect(() => {
@@ -150,39 +151,10 @@ const SlideComponent = (props: any) => {
             clearInterval(id);
             setPlaying(false)
         } 
+
     },[props.started])
     
-    // useEffect(() => {
-
-    //     if (!start) {
-    //         setProgressCount(10);
-    //         setPlaying(false);
-    //         return;
-    //     }
-
-    //     if (currentProgressCount <= 0 && !timeOver) {
-    //         setTimeout(() => {
-    //             setProgressCount(10);
-    //             setPlaying(false);
-    //             return
-    //         }, 1000)
-    //     }
-
-    //     if (currentProgressCount <= 0 || correctDrop) {
-    //         setTimeOver(false)
-    //         return;
-    //     }
-
-    //     id = setInterval(timer,500, start);
-
-    //     return () => clearInterval(id);
-    // }, [currentProgressCount, start, playing])
-
-
-    const onStartClick = () => {
-        setTimeout(() => {
-            setStart(true);
-        }, 0)
+    const playAudio = () => {
         audio = new Audio("https://www.kozco.com/tech/piano2.wav")
         var playPromise =  audio.play();
         if (playPromise !== undefined) {
@@ -193,8 +165,16 @@ const SlideComponent = (props: any) => {
             });
         }
         audio.addEventListener('ended', ()=>{
+            console.log("aaaa")
             setPlaying(true);
         })
+    }
+
+    const onStartClick = () => {
+        setTimeout(() => {
+            setStart(true);
+        }, 0)
+        playAudio();
     }
 
     return (
@@ -209,13 +189,7 @@ const SlideComponent = (props: any) => {
                     </div>
                 }
             {!start ? <div></div> : <>
-                    {/* <Progress done={(currentProgressCount * 10).toString()} /> */}
-                    <DragDropComp playing={playing} start={start} puzzles={data.Puzzles} stopPlaying={stopPlaying} />
-                    {/* <DndProvider backend={HTML5Backend}>
-                        <div className="dragAndDrop" style={{height: "200px"}}>
-                            <DragDrop timeOver={timeOver} answerDrop={answerDrop} startDrag={false} props={data.Puzzles[levelCount]} changePuzzel={levelUp} />
-                        </div>
-                    </DndProvider> */}
+                    <DragDropComp playing={playing} start={start} levelType={data.LevelMeta.LevelType == "LetterInWord" ? true : false} promptVisibility={data.LevelMeta.PromptType == "Visible" ? true : false} puzzles={data.Puzzles} stopPlaying={stopPlaying} playAudio={playAudio} />
                 </>
             }
                 
@@ -228,6 +202,11 @@ const SlideComponent = (props: any) => {
 }
 
 export default SlideComponent;
+
+// const [audioPlaying, setAudioPlaying] = useState(false);
+    // const [currentProgressCount, setProgressCount] = useState(initialTime);
+    // const [timeOver, setTimeOver] = useState(false);
+    // const [correctDrop, setCorrectDrop] = useState(false);
 
 // Get the url to the img
     
@@ -330,3 +309,50 @@ export default SlideComponent;
 
 // import image1 from '../../assets/images/duck.gif';
 // import img from '../../assets/images/img.png'
+
+// useEffect(() => {
+
+    //     if (!start) {
+    //         setProgressCount(10);
+    //         setPlaying(false);
+    //         return;
+    //     }
+
+    //     if (currentProgressCount <= 0 && !timeOver) {
+    //         setTimeout(() => {
+    //             setProgressCount(10);
+    //             setPlaying(false);
+    //             return
+    //         }, 1000)
+    //     }
+
+    //     if (currentProgressCount <= 0 || correctDrop) {
+    //         setTimeOver(false)
+    //         return;
+    //     }
+
+    //     id = setInterval(timer,500, start);
+
+    //     return () => clearInterval(id);
+    // }, [currentProgressCount, start, playing])
+
+    // const [levelCount, setLevelCount] = useState(0);
+    // const audioPlayRef = useRef();
+
+    // let id: NodeJS.Timeout;
+
+    // const answerDrop = () => {
+    //     setCorrectDrop(true);
+    // }
+
+    // const levelUp = () => {
+    //     console.log("exece")
+    //     setLevelCount(preCount => preCount + 1);
+    // }
+
+    // const timer = () => {
+    //     if (playing) {
+    //         setProgressCount(preValue => preValue - 1);
+    //     }        
+    // }
+

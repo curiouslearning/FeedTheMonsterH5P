@@ -62,7 +62,7 @@ const gameData = {
 				"SubSkillName": "vwl_E",
 				"SubSkillPoints": 25,
 				"LevelType": "LetterOnly",
-				"PromptType": "Fadeout",
+				"PromptType": "hidden",
 				"PromptFadeout": 4
 			},
 			"Puzzles": [
@@ -103,38 +103,38 @@ const gameData = {
 			"LevelMeta": {
 				"SubSkillName": "vwl_E",
 				"SubSkillPoints": 25,
-				"LevelType": "LetterOnly",
-				"PromptType": "Hidden",
+				"LevelType": "LetterInWord",
+				"PromptType": "Visible",
 				"PromptFadeout": 0
 			},
 			"Puzzles": [
 				{
 					"SegmentNumber": 0,
-					"prompt": {"PromptText": "e", "PromptAudio": "https://www.kozco.com/tech/piano2.wav"},
+					"prompt": {"PromptText": "eat", "PromptAudio": "http://server.com/audio/english/letters/e.wav"},
 					"targetstones": [ {"StoneText": "e"} ],
 					"foilstones": [ {"StoneText": "m"}, {"StoneText": "b"}, {"StoneText": "o"} ]
 				},
 				{
 					"SegmentNumber": 1,
-					"prompt": {"PromptText": "m", "PromptAudio": "https://www.kozco.com/tech/piano2.wav"},
+					"prompt": {"PromptText": "men", "PromptAudio": "http://server.com/audio/english/letters/m.wav"},
 					"targetstones": [ {"StoneText": "m"} ],
 					"foilstones": [ {"StoneText": "e"}, {"StoneText": "b"}, {"StoneText": "o"} ]
 				},
 				{
 					"SegmentNumber": 2,
-					"prompt": {"PromptText": "b", "PromptAudio": "https://www.kozco.com/tech/piano2.wav"},
+					"prompt": {"PromptText": "bed", "PromptAudio": "http://server.com/audio/english/letters/b.wav"},
 					"targetstones": [ {"StoneText": "b"} ],
 					"foilstones": [ {"StoneText": "m"}, {"StoneText": "e"}, {"StoneText": "o"} ]
 				},
 				{
 					"SegmentNumber": 3,
-					"prompt": {"PromptText": "e", "PromptAudio": "https://www.kozco.com/tech/piano2.wav"},
+					"prompt": {"PromptText": "end", "PromptAudio": "http://server.com/audio/english/letters/e.wav"},
 					"targetstones": [ {"StoneText": "e"} ],
 					"foilstones": [ {"StoneText": "m"}, {"StoneText": "b"}, {"StoneText": "o"} ]
 				},
 				{
 					"SegmentNumber": 4,
-					"prompt": {"PromptText": "o", "PromptAudio": "https://www.kozco.com/tech/piano2.wav"},
+					"prompt": {"PromptText": "one", "PromptAudio": "http://server.com/audio/english/letters/o.wav"},
 					"targetstones": [ {"StoneText": "o"} ],
 					"foilstones": [ {"StoneText": "m"}, {"StoneText": "b"}, {"StoneText": "e"} ]
 				}

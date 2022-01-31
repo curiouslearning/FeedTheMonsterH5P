@@ -28,7 +28,19 @@ let answerText: { id: number; alphabet: string; }[] = []
 let optionDataSet: { id: number; alphabet: string; }[] = []
 
 
-const DragDrop = ({timeOver, answerDrop, startDrag, props, changePuzzel} : {timeOver : boolean, answerDrop : Function, startDrag: boolean, props: any, changePuzzel: Function}) => {
+const DragDrop = ({timeOver, answerDrop, startDrag, props, changePuzzel, levelCount} : {timeOver : boolean, answerDrop : Function, startDrag: boolean, props: any, changePuzzel: Function, levelCount: number}) => {
+
+    let options = [props.targetstones[0], ...props.foilstones]
+
+    const [dataList, setDataList] = useState(options);
+    const [dragging, setDragging] = useState(false);
+    const [dropped, setDropped] = useState(false);
+
+    const [drop, setDropping] = useState(props.targetstones[0]);
+    const dragItem = useRef();
+    const dragNode = useRef();
+    const dragId = useRef();
+    const dropNode = useRef();
 
     const answerCollectionData = (correctAns: string) => {
         let data = {
@@ -54,7 +66,6 @@ const DragDrop = ({timeOver, answerDrop, startDrag, props, changePuzzel} : {time
         setDataList(optionDataSet)
     }
 
-    let options = [props.targetstones[0], ...props.foilstones]
     useEffect(() => {
         optionCollectData(options)
         answerCollectionData(props.targetstones[0].StoneText)
@@ -63,17 +74,7 @@ const DragDrop = ({timeOver, answerDrop, startDrag, props, changePuzzel} : {time
             optionDataSet=[]
             answerText=[]
         }
-    }, [])
-
-    const [dataList, setDataList] = useState(options);
-    const [dragging, setDragging] = useState(false);
-    const [dropped, setDropped] = useState(false);
-
-    const [drop, setDropping] = useState(props.targetstones[0]);
-    const dragItem = useRef();
-    const dragNode = useRef();
-    const dragId = useRef();
-    const dropNode = useRef();
+    }, [levelCount])
 
     const handleDragStart = (data: any, e: any, id: any ) => {
         dragItem.current = data;
@@ -102,6 +103,7 @@ const DragDrop = ({timeOver, answerDrop, startDrag, props, changePuzzel} : {time
             setDropped(true);
             answerDrop();
             changePuzzel();
+            setDropped(false);
         }
 
         setDragging(false)
