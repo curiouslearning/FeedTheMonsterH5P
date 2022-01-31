@@ -52,9 +52,11 @@ const Slideshow = (props: any) => {
 
   return (
     <div
-      style={{
-        backgroundImage: `url(${bg})`,
-      }}
+      style={
+        {
+          // backgroundImage: `url(${bg})`,
+        }
+      }
     >
       <SlideComponent
         data={data[activeSlide]}

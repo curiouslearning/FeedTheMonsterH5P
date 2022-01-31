@@ -8,6 +8,7 @@ import image1 from "../../assets/images/duck.gif";
 import img from "../../assets/images/img.png";
 import Spritesheet from "react-responsive-spritesheet";
 import spsheet from "../../assets/images/spritesheet.png";
+import cloud from "../../assets/images/cloud.png";
 import bg from "../../assets/images/bg.jpg";
 declare var H5P: any;
 declare var H5PIntegration: any;
@@ -277,6 +278,16 @@ const SlideComponent = (props: any) => {
         <div></div>
       ) : (
         <div>
+          <div
+            className="cloud-css"
+            style={{
+              backgroundImage: `url(${cloud})`,
+              width: "210px",
+              height: "110px",
+              backgroundSize: "cover",
+              position: "absolute",
+            }}
+          ></div>
           <div
             style={{
               width: 300,
