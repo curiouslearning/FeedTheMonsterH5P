@@ -1,14 +1,14 @@
 import React from "react";
 import "./app.css";
 import Spritesheet from "react-responsive-spritesheet";
-import spsheet from "../../assets/images/spritesheet.png";
 
 var spritesheetobj: Spritesheet;
-const SpriteAnimationComponent = () => {
+const SpriteAnimationComponent = (props: any) => {
+  const { spImage } = props;
   return (
     <Spritesheet
       direction={`forward`}
-      image={spsheet}
+      image={spImage}
       widthFrame={1024}
       heightFrame={1024}
       steps={21}

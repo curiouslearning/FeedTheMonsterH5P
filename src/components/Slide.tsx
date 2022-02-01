@@ -6,15 +6,14 @@ import { HTML5Backend } from "react-dnd-html5-backend";
 import DragDrop from "./DragDrop";
 import image1 from "../../assets/images/duck.gif";
 import img from "../../assets/images/img.png";
-// import Spritesheet from "react-responsive-spritesheet";
-// import spsheet from "../../assets/images/spritesheet.png";
+import spsheet from "../../assets/images/spritesheet.png";
 import cloud from "../../assets/images/cloud.png";
 import { MovingBackGroundComponent } from "./MovingBackground";
 import bg from "../../assets/images/bg.jpg";
 declare var H5P: any;
 declare var H5PIntegration: any;
 import { SpriteAnimationComponent } from "./SpriteAnimation";
-// let spritesheetobj: Spritesheet;
+
 const Wrapper = styled.div`
   height: 400px;
   width: 100%;
@@ -290,7 +289,7 @@ const SlideComponent = (props: any) => {
               position: "absolute",
             }}
           >
-            <SpriteAnimationComponent />
+            <SpriteAnimationComponent spImage={spsheet} />
           </div>
           <Progress done={(currentCount * 10).toString()} />
           <DndProvider backend={HTML5Backend}>
