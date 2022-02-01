@@ -6,14 +6,15 @@ import { HTML5Backend } from "react-dnd-html5-backend";
 import DragDrop from "./DragDrop";
 import image1 from "../../assets/images/duck.gif";
 import img from "../../assets/images/img.png";
-import Spritesheet from "react-responsive-spritesheet";
-import spsheet from "../../assets/images/spritesheet.png";
+// import Spritesheet from "react-responsive-spritesheet";
+// import spsheet from "../../assets/images/spritesheet.png";
 import cloud from "../../assets/images/cloud.png";
+import { MovingBackGroundComponent } from "./MovingBackground";
 import bg from "../../assets/images/bg.jpg";
 declare var H5P: any;
 declare var H5PIntegration: any;
-
-let spritesheetobj: Spritesheet;
+import { SpriteAnimationComponent } from "./SpriteAnimation";
+// let spritesheetobj: Spritesheet;
 const Wrapper = styled.div`
   height: 400px;
   width: 100%;
@@ -278,16 +279,7 @@ const SlideComponent = (props: any) => {
         <div></div>
       ) : (
         <div>
-          <div
-            className="cloud-css"
-            style={{
-              backgroundImage: `url(${cloud})`,
-              width: "210px",
-              height: "110px",
-              backgroundSize: "cover",
-              position: "absolute",
-            }}
-          ></div>
+          <MovingBackGroundComponent bgImage={cloud} />
           <div
             style={{
               width: 300,
@@ -298,20 +290,7 @@ const SlideComponent = (props: any) => {
               position: "absolute",
             }}
           >
-            <Spritesheet
-              direction={`forward`}
-              image={spsheet}
-              widthFrame={1024}
-              heightFrame={1024}
-              steps={21}
-              fps={5}
-              // autoPlay={false}
-              // loop={true}
-              onInit={(spritesheet) => {
-                console.log("onInit");
-                spritesheetobj = spritesheet;
-              }}
-            />
+            <SpriteAnimationComponent />
           </div>
           <Progress done={(currentCount * 10).toString()} />
           <DndProvider backend={HTML5Backend}>
@@ -334,5 +313,5 @@ const SlideComponent = (props: any) => {
     </Wrapper>
   );
 };
-export { spritesheetobj };
+// export { spritesheetobj };
 export default SlideComponent;

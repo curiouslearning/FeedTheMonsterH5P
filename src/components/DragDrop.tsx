@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import { useDrag } from "react-dnd";
 
-import { spritesheetobj } from "./Slide";
+import { spritesheetobj} from "./SpriteAnimation";
 // let optionDataSet = [
 //     {
 //         id: 1,
