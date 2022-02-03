@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import { useDrag } from "react-dnd";
+import SlideComponent from "./Slide";
 
-import { spritesheetobj} from "./SpriteAnimation";
 // let optionDataSet = [
 //     {
 //         id: 1,
@@ -32,13 +32,38 @@ const DragDrop = ({
   answerDrop,
   startDrag,
   props,
+  changePuzzel,
+  levelCount,
 }: {
   timeOver: boolean;
   answerDrop: Function;
   startDrag: boolean;
   props: any;
+  changePuzzel: Function;
+  levelCount: number;
 }) => {
-  const collectData = (options: string | any[]) => {
+  let options = [props.targetstones[0], ...props.foilstones];
+
+  const [dataList, setDataList] = useState(options);
+  const [dragging, setDragging] = useState(false);
+  const [dropped, setDropped] = useState(false);
+
+  const [drop, setDropping] = useState(props.targetstones[0]);
+  const dragItem = useRef();
+  const dragNode = useRef();
+  const dragId = useRef();
+  const dropNode = useRef();
+
+  const answerCollectionData = (correctAns: string) => {
+    let data = {
+      id: 1,
+      alphabet: "",
+    };
+    data.alphabet = correctAns;
+    answerText.push(data);
+  };
+
+  const optionCollectData = (options: string | any[]) => {
     for (let i = 0; i < options.length; i++) {
       let incomingData = {
         id: 100,
@@ -51,24 +76,16 @@ const DragDrop = ({
     }
     setDataList(optionDataSet);
   };
-  let options = [props.targetstones[0], ...props.foilstones];
+
   useEffect(() => {
-    collectData(options);
+    optionCollectData(options);
+    answerCollectionData(props.targetstones[0].StoneText);
     return () => {
       options = [];
       optionDataSet = [];
+      answerText = [];
     };
-  }, []);
-
-  const [dataList, setDataList] = useState(options);
-  const [dragging, setDragging] = useState(false);
-  const [dropped, setDropped] = useState(false);
-
-  const [drop, setDropping] = useState(dropText);
-  const dragItem = useRef();
-  const dragNode = useRef();
-  const dragId = useRef();
-  const dropNode = useRef();
+  }, [levelCount]);
 
   const handleDragStart = (data: any, e: any, id: any) => {
     dragItem.current = data;
@@ -82,22 +99,19 @@ const DragDrop = ({
   };
 
   const handleDragEnd = (e: any) => {
-    if (dropText[0].alphabet == dragItem.current) {
-      console.log("Yes you got it");
+    if (answerText[0].alphabet == dragItem.current) {
       const newDropText = {
         id: dragId.current,
         alphabet: dragItem.current,
       };
-      dropText = [];
-      dropText.push(newDropText);
+      answerText = [];
+      answerText.push(newDropText);
       const cList = optionDataSet.filter((item) => item.id != dragId.current);
       optionDataSet = [];
       setDropped(true);
       answerDrop();
-    } else {
-      console.log("No you dont");
-      console.log(spritesheetobj);
-      spritesheetobj.goToAndPlay(1);
+      changePuzzel();
+      setDropped(false);
     }
 
     setDragging(false);
@@ -121,7 +135,7 @@ const DragDrop = ({
         return (
           <div
             className={dragging ? getStyles(item.alphabet) : "balls"}
-            draggable={timeOver}
+            draggable={!timeOver}
             key={item.id}
             onDragStart={(e) => {
               handleDragStart(item.alphabet, e, item.id);
@@ -132,7 +146,7 @@ const DragDrop = ({
         );
       })}
       <div className="drop" id="droop" ref={dropNode}>
-        {dropText.map((item) => {
+        {answerText.map((item) => {
           return (
             <div className={dropped ? "balls" : "bol"} key={item.id}>
               <p style={{ fontSize: "1.4em", color: "white" }}>
@@ -150,7 +164,7 @@ const DragDrop = ({
           justifyContent: "center",
         }}
       >
-        {!timeOver && !dropped ? "Try Again time excedded" : ""}
+        {timeOver && !dropped ? "Try Again time excedded" : ""}
       </div>
     </>
   );
