@@ -5,6 +5,16 @@ import { DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
 import DragDrop from "./DragDrop";
 import { trim } from "jquery";
+import image1 from "../../assets/images/duck.gif";
+import img from "../../assets/images/img.png";
+import eggspSheet from "../../assets/images/eggSpritesheet.png";
+import eatingspSheet from "../../assets/images/eating.png";
+import cloud from "../../assets/images/cloud.png";
+import { MovingBackGroundComponent } from "./MovingBackground";
+import bg from "../../assets/images/bg.jpg";
+declare var H5P: any;
+declare var H5PIntegration: any;
+import { SpriteAnimationComponent } from "./SpriteAnimation";
 
 let audio: HTMLAudioElement = null;
 let initialTime = 10;
@@ -257,6 +267,16 @@ const SlideComponent = (props: any) => {
         <div></div>
       ) : (
         <>
+          {/* <MovingBackGroundComponent bgImage={cloud} /> */}
+          <div
+            style={{
+              width: 300,
+              height: 410,
+              position: "absolute",
+            }}
+          >
+            <SpriteAnimationComponent spImage={eatingspSheet} nFrames={18} />
+          </div>
           <DragDropComp
             playing={playing}
             start={start}

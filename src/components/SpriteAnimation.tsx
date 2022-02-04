@@ -4,14 +4,14 @@ import Spritesheet from "react-responsive-spritesheet";
 
 var spritesheetobj: Spritesheet;
 const SpriteAnimationComponent = (props: any) => {
-  const { spImage } = props;
+  const { spImage, nFrames } = props;
   return (
     <Spritesheet
       direction={`forward`}
       image={spImage}
-      widthFrame={1024}
-      heightFrame={1024}
-      steps={21}
+      widthFrame={768}
+      heightFrame={1366}
+      steps={nFrames}
       fps={5}
       onInit={(spritesheet) => {
         console.log("onInit");
