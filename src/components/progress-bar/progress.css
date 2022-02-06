@@ -1,0 +1,22 @@
+.time-container {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.progress {
+	background-color: #d8d8d8;
+	border-radius: 20px;
+	height: 30px;
+	width: 400px;
+    margin-top: 20px;
+}
+
+.progress-done {
+	background: linear-gradient(to left, #F2709C, #FF9472);
+	box-shadow: 0 3px 3px -5px #F2709C, 0 2px 5px #F2709C;
+	border-radius: 20px;
+	color: #fff;
+	height: 100%;
+	opacity: 0;
+}

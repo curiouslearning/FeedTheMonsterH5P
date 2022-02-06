@@ -5,6 +5,11 @@ import { DndProvider } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
 import DragDrop from './DragDrop';
 import { trim } from 'jquery';
+import Progress from './progress-bar/progress';
+import PuzzelBar from './puzzel-bar/PuzzelBar';
+import ScoreBoard from './score-board/ScoreBoard';
+import PauseMenu from './pause-menu/PauseMenu';
+import PromptText from './prompt-text/PromptText';
 
 let audio: HTMLAudioElement = null;
 let initialTime = 10;
@@ -16,27 +21,27 @@ const Wrapper = styled.div`
     position: relative;
 `;
 
-const Progress = ({done} : {done : string}) => {
-    const [style, setStyle] = React.useState({});  
-    setTimeout(() => {
-      const newStyle = {
-        opacity: 1,
-        width: `${done}%`
-      }
+// const Progress = ({done} : {done : string}) => {
+//     const [style, setStyle] = React.useState({});  
+//     setTimeout(() => {
+//       const newStyle = {
+//         opacity: 1,
+//         width: `${done}%`
+//       }
       
-      setStyle(newStyle);
-    }, 200);
+//       setStyle(newStyle);
+//     }, 200);
   
-    return (
-        <div className='headItem' style={{}}>
-            <button style={{}} onClick={() => {}}>Pause</button>
-            <button style={{}} onClick={() => {}}>Restart</button>
-            <div className="progress">
-                <div className="progress-done" style={style}></div>
-            </div>
-        </div>
-    );
-}
+//     return (
+//         <div className='headItem' style={{}}>
+//             <button style={{}} onClick={() => {}}>Pause</button>
+//             <button style={{}} onClick={() => {}}>Restart</button>
+//             <div className="progress">
+//                 <div className="progress-done" style={style}></div>
+//             </div>
+//         </div>
+//     );
+// }
 
 const DragDropComp = (props: any) => {
 
@@ -113,11 +118,14 @@ const DragDropComp = (props: any) => {
 
 
     return <div>
+        <div style={{display: 'flex', justifyContent: "space-between", marginInline: "50px", marginTop: "20px"}}>
+            <PuzzelBar puzzelCount={4}/>
+            <ScoreBoard score={280}/>
+            <PauseMenu />
+        </div>
         <Progress done={(currentProgressCount * 10).toString()} />
-        {prompted ? <div style={{width: "300px", height: "300px", backgroundColor: "grey", display: "flex", justifyContent: "center", flexDirection: "column", alignItems: "center", margin: "auto", marginTop: "20px"}}>
-            <p style={{color: "black", fontSize: "1.857em"}}>NEXT PUZZLE</p>
-            <p style={{color: "black", fontSize: "2.857em"}}>{ props.puzzles[levelCount].prompt.PromptText}</p>
-        </div> : <DndProvider backend={HTML5Backend}>
+        <PromptText letter={ props.puzzles[levelCount].prompt.PromptText} /> 
+        {prompted ? <></> : <DndProvider backend={HTML5Backend}>
             <div className="dragAndDrop" style={{height: "200px"}}>
                 <DragDrop timeOver={timeOver} answerDrop={answerDrop} startDrag={false} props={props.puzzles[levelCount]} changePuzzel={levelUp} levelCount={levelCount} />
             </div>

@@ -1,0 +1,15 @@
+.score-board {
+    display: flex;
+    height: 40px;
+    width: 70px;
+    border: 2px solid red;
+    background: black;
+    align-items: center;
+    justify-content: center;
+}
+
+h3 {
+    color: white;
+    padding: 0px;
+    margin: 0px;
+}

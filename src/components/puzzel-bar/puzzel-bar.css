@@ -1,0 +1,25 @@
+.puzzel-indicator-container {
+    display: flex;
+    border: solid 1px red;
+    height: 40px;
+    width: 150px;
+    justify-content: space-between;
+    align-items: center;
+    background: black;
+}
+
+.completed-puzzel {
+    display: flex;
+    background: red;
+    border: solid 1px red;
+    height: 15px;
+    width: 15px;
+    border-radius: 50%;
+    margin: 10px;
+    opacity: 50%;
+}
+
+.active-indicator {
+    opacity: 100%;
+}
+

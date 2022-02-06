@@ -36,7 +36,7 @@ const DragDrop = ({timeOver, answerDrop, startDrag, props, changePuzzel, levelCo
     const [dragging, setDragging] = useState(false);
     const [dropped, setDropped] = useState(false);
 
-    const [drop, setDropping] = useState(props.targetstones[0]);
+    // const [drop, setDropping] = useState(props.targetstones[0]);
     const dragItem = useRef();
     const dragNode = useRef();
     const dragId = useRef();
@@ -80,13 +80,14 @@ const DragDrop = ({timeOver, answerDrop, startDrag, props, changePuzzel, levelCo
         dragItem.current = data;
         dragId.current = id;
         dragNode.current = e.target;
-        e.target.addEventListener('dragend', handleDragEnd)
-        e.target.addEventListener('drag', ()=> {
-             
-        })
+        e.target.addEventListener('dragend', handleDragEnd);
         setTimeout(() => {
             setDragging(true);
         }, 0)
+    }
+
+    const checkDrop = (e : any) => {
+
     }
 
     const handleDragEnd = (e: any) => {
@@ -128,7 +129,7 @@ const DragDrop = ({timeOver, answerDrop, startDrag, props, changePuzzel, levelCo
                     <p style={{fontSize: "1.4em", color: "white"}}>{item.alphabet}</p>
                         </div>
             })}
-            <div className="drop" id="droop" ref={dropNode}>
+            <div className="drop" id="droop" ref={dropNode} onDrop={() => {}}>
                 {answerText.map((item) => {
                     return <div 
                             className={dropped ? "balls" : 'bol' }
