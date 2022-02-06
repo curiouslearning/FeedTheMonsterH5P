@@ -7,9 +7,10 @@ const SpriteAnimationComponent = (props: any) => {
   return (
     <Spritesheet
       direction={`forward`}
+      style={{width:'100%',height:'100%',display:'inline-block'}}
       image={spImage}
       widthFrame={768}
-      heightFrame={1366}
+      heightFrame={632}
       steps={nFrames}
       fps={5}
       onInit={(spritesheet) => {

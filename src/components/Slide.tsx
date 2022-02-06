@@ -11,14 +11,14 @@ import ScoreBoard from './score-board/ScoreBoard';
 import PauseMenu from './pause-menu/PauseMenu';
 import PromptText from './prompt-text/PromptText';
 import { SpriteAnimationComponent } from './animations/SpriteAnimation';
-import eatingspSheet from "../../assets/images/eating.png";
+import eatingspSheet from "../../assets/images/eating1.png";
 
 let audio: HTMLAudioElement = null;
 let initialTime = 10;
 let id: NodeJS.Timeout;
 
 const Wrapper = styled.div`
-    height: 400px;
+    height: 600px;
     width: 100%;
     position: relative;
 `;
@@ -200,15 +200,25 @@ const SlideComponent = (props: any) => {
                         </div>
                     </div>
                 }
-            {!start ? <div></div> : <><div
+            {!start ? <div></div> : <>
+            {/* <div
                         style={{
-                        width: 300,
-                        height: 410,
-                        position: "absolute",
+                        width: '200px',
+                        height: '200px',
+                        top:'250px',
+                        left:'250px',
+                        position:'absolute'
+                        // bottom:'50%',
+                        // left:'50%',
+                        // right:'50%'            
+                        
+                        
+                        
+                       
                         }}
                     >
                         <SpriteAnimationComponent spImage={eatingspSheet} nFrames={18} />
-                    </div>
+                    </div> */}
                     <DragDropComp playing={playing} start={start} levelType={data.LevelMeta.LevelType == "LetterInWord" ? true : false} promptVisibility={data.LevelMeta.PromptType == "Visible" ? true : false} puzzles={data.Puzzles} stopPlaying={stopPlaying} playAudio={playAudio} />
                 </>
             }

@@ -2,6 +2,8 @@ import React, { useEffect, useRef, useState } from "react";
 import { useDrag  } from "react-dnd";
 import { spritesheetobj } from "./animations/SpriteAnimation";
 import SlideComponent from './Slide'
+import { SpriteAnimationComponent } from './animations/SpriteAnimation';
+import eatingspSheet from "../../assets/images/eating1.png";
 
 // let optionDataSet = [
 //     {
@@ -126,6 +128,17 @@ const DragDrop = ({timeOver, answerDrop, startDrag, props, changePuzzel, levelCo
         }
         return "balls";
     }
+    const checkResult = (dropData: any) => {
+      console.log(props.targetstones[0].StoneText, "resultin progress", dropData);
+      let targetStone = props.targetstones[0].StoneText;
+      if (targetStone === dropData) {
+          console.log("answer correct");
+          // switch to next level
+          optionCollectData(options)
+      } else {
+          console.log("answer Incorrect");
+      }
+    }
 
     return (
         <>
@@ -134,14 +147,27 @@ const DragDrop = ({timeOver, answerDrop, startDrag, props, changePuzzel, levelCo
                     <p style={{fontSize: "1.4em", color: "white"}}>{item.alphabet}</p>
                         </div>
             })}
-            <div className="drop" id="droop" ref={dropNode} onDrop={() => {}}>
-                {answerText.map((item) => {
+            <div  style={{
+                        width: '300px',
+                        height: '100px',
+                        top:'400px',
+                        left:'250px',
+                        position:'absolute'
+                        // bottom:'50%',
+                        // left:'50%',
+                        // right:'50%'      
+                      }} ref={dropNode} onDrop={(e) => { checkResult(e.dataTransfer.getData("item.alphabet"));
+                      console.log("::onDrop", e.dataTransfer.getData("item.alphabet"))
+                      }}>
+              
+            <SpriteAnimationComponent spImage={eatingspSheet} nFrames={18} />
+                {/* {answerText.map((item) => {
                     return <div 
                             className={dropped ? "balls" : 'bol' }
                             key={item.id}
                             ><p style={{fontSize: "1.4em", color: "white"}}>{item.alphabet}</p>
                         </div>
-                })}
+                })} */}
             </div>
             <div className="right-answer">{dropped ? "Correct" : ""}</div>
             <div style={{display: "flex", alignItems: "center", justifyContent: "center"}}>{timeOver && !dropped ? "Try Again time excedded" : ""}</div>
