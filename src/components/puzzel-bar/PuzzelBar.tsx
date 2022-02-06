@@ -4,26 +4,29 @@ import classNames from 'classnames';
 
 const PuzzelBar = (props: any) => {
 
-  const { activeIndicators,  setActiveIndicator } = PuzzelBarHook();
-  const puzzels = [];
-
-  for(let i = 0; i < props.puzzelCount; i++) {
-    puzzels.push(<div className={classNames('completed-puzzel', {'active-indicator' : i < activeIndicators})} key={i}></div>)
-  }
-
+  const { puzzelsIndicators } = PuzzelBarHook(props.puzzelCount, props.activeIndicators);
+  const puzzels = puzzelsIndicators();
   return <div className='puzzel-indicator-container'>
     {
-      puzzels.map((element, index) => {
+      puzzels.map((element: any, index: any) => {
         return element;
       })
     }
   </div>;
 }
 
-export const PuzzelBarHook = () => {
+export const PuzzelBarHook = (puzzelCount: any, activeIndicators: any) => {
   
-  const [activeIndicators, setActiveIndicator] = useState(2);
-  return { activeIndicators, setActiveIndicator }
+  const puzzels: any = [];
+  const puzzelsIndicators = () => {
+    for(let i = 0; i < puzzelCount; i++) {
+      console.log(puzzels[i])
+      puzzels.push(<div className={classNames('completed-puzzel', {'active-indicator' : i < activeIndicators})} key={i}></div>)
+    }
+
+    return puzzels;
+  }
+  return { puzzelsIndicators }
 }
 
 export default PuzzelBar;

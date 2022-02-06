@@ -6,7 +6,7 @@ import { HTML5Backend } from 'react-dnd-html5-backend';
 import DragDrop from './DragDrop';
 import { trim } from 'jquery';
 import Progress from './progress-bar/progress';
-import PuzzelBar from './puzzel-bar/PuzzelBar';
+import PuzzelBar, { PuzzelBarHook } from './puzzel-bar/PuzzelBar';
 import ScoreBoard from './score-board/ScoreBoard';
 import PauseMenu from './pause-menu/PauseMenu';
 import PromptText from './prompt-text/PromptText';
@@ -52,6 +52,7 @@ const DragDropComp = (props: any) => {
     const [levelCount, setLevelCount] = useState(0);
     const [currentProgressCount, setProgressCount] = useState(initialTime);
     const [prompted, setPromted] = useState(props.promptVisibility);
+    const [activeIndicators, setActiveIndicator] = useState(0);
 
     const levelChange = useRef<number>();
 
@@ -67,6 +68,7 @@ const DragDropComp = (props: any) => {
             setLevelCount(preCount => preCount + 1)
             setCorrectDrop(false)
             setProgressCount(initialTime);
+            setActiveIndicator(pre => pre + 1);
             setPromted(true);
             props.stopPlaying();
             props.playAudio();
@@ -119,7 +121,7 @@ const DragDropComp = (props: any) => {
 
     return <div>
         <div style={{display: 'flex', justifyContent: "space-between", marginInline: "50px", marginTop: "20px"}}>
-            <PuzzelBar puzzelCount={4}/>
+            <PuzzelBar puzzelCount={4} activeIndicators={activeIndicators}/>
             <ScoreBoard score={280}/>
             <PauseMenu />
         </div>
