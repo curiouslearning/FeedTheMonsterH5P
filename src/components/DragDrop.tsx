@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import { useDrag  } from "react-dnd";
+import { spritesheetobj } from "./animations/SpriteAnimation";
 import SlideComponent from './Slide'
 
 // let optionDataSet = [
@@ -105,6 +106,10 @@ const DragDrop = ({timeOver, answerDrop, startDrag, props, changePuzzel, levelCo
             answerDrop();
             changePuzzel();
             setDropped(false);
+        } else {
+            console.log("No you dont");
+            console.log(spritesheetobj);
+            spritesheetobj.goToAndPlay(1);
         }
 
         setDragging(false)

@@ -10,6 +10,8 @@ import PuzzelBar, { PuzzelBarHook } from './puzzel-bar/PuzzelBar';
 import ScoreBoard from './score-board/ScoreBoard';
 import PauseMenu from './pause-menu/PauseMenu';
 import PromptText from './prompt-text/PromptText';
+import { SpriteAnimationComponent } from './animations/SpriteAnimation';
+import eatingspSheet from "../../assets/images/eating.png";
 
 let audio: HTMLAudioElement = null;
 let initialTime = 10;
@@ -198,7 +200,15 @@ const SlideComponent = (props: any) => {
                         </div>
                     </div>
                 }
-            {!start ? <div></div> : <>
+            {!start ? <div></div> : <><div
+                        style={{
+                        width: 300,
+                        height: 410,
+                        position: "absolute",
+                        }}
+                    >
+                        <SpriteAnimationComponent spImage={eatingspSheet} nFrames={18} />
+                    </div>
                     <DragDropComp playing={playing} start={start} levelType={data.LevelMeta.LevelType == "LetterInWord" ? true : false} promptVisibility={data.LevelMeta.PromptType == "Visible" ? true : false} puzzles={data.Puzzles} stopPlaying={stopPlaying} playAudio={playAudio} />
                 </>
             }
