@@ -1,6 +1,6 @@
 .puzzel-indicator-container {
     display: flex;
-    border: solid 1px red;
+    border: solid 1px greenyellow;
     height: 40px;
     width: 150px;
     justify-content: space-between;
@@ -10,8 +10,8 @@
 
 .completed-puzzel {
     display: flex;
-    background: red;
-    border: solid 1px red;
+    background: greenyellow;
+    border: solid 1px greenyellow;
     height: 15px;
     width: 15px;
     border-radius: 50%;

@@ -23,31 +23,7 @@ const Wrapper = styled.div`
     position: relative;
 `;
 
-// const Progress = ({done} : {done : string}) => {
-//     const [style, setStyle] = React.useState({});  
-//     setTimeout(() => {
-//       const newStyle = {
-//         opacity: 1,
-//         width: `${done}%`
-//       }
-      
-//       setStyle(newStyle);
-//     }, 200);
-  
-//     return (
-//         <div className='headItem' style={{}}>
-//             <button style={{}} onClick={() => {}}>Pause</button>
-//             <button style={{}} onClick={() => {}}>Restart</button>
-//             <div className="progress">
-//                 <div className="progress-done" style={style}></div>
-//             </div>
-//         </div>
-//     );
-// }
-
 const DragDropComp = (props: any) => {
-
-    console.log(props.promptVisibility + "<------");
 
     const [timeOver, setTimeOver] = useState(false);
     const [correctDrop, setCorrectDrop] = useState(false);
@@ -56,16 +32,11 @@ const DragDropComp = (props: any) => {
     const [prompted, setPromted] = useState(props.promptVisibility);
     const [activeIndicators, setActiveIndicator] = useState(0);
 
-    const levelChange = useRef<number>();
-
-    let prompT = props.puzzles[levelCount].prompt.PromptText.toString();
-
     const answerDrop = () => {
         setCorrectDrop(true);
     }
 
     const levelUp = () => {
-        console.log("changedd")
         setTimeout(() => {
             setLevelCount(preCount => preCount + 1)
             setCorrectDrop(false)
@@ -78,15 +49,14 @@ const DragDropComp = (props: any) => {
     }
 
     const timer = () => {
-        console.log(props.playing)
         if (props.playing) {
             setProgressCount(preValue => preValue - 1);
         }        
     }
 
-    const pauseGame = () => {
-        props.stopPlaying();
-    }
+    // const pauseGame = () => {
+    //     props.stopPlaying();
+    // }
 
     useEffect(() => {
 
@@ -147,7 +117,6 @@ const SlideComponent = (props: any) => {
 
     const stopPlaying = () => {
         if (playing) {
-            console.log("stoppppp");
             setPlaying(false);
         }
     }
@@ -177,7 +146,6 @@ const SlideComponent = (props: any) => {
             });
         }
         audio.addEventListener('ended', ()=>{
-            console.log("aaaa")
             setPlaying(true);
         })
     }
@@ -200,189 +168,13 @@ const SlideComponent = (props: any) => {
                         </div>
                     </div>
                 }
-            {!start ? <div></div> : <>
-            {/* <div
-                        style={{
-                        width: '200px',
-                        height: '200px',
-                        top:'250px',
-                        left:'250px',
-                        position:'absolute'
-                        // bottom:'50%',
-                        // left:'50%',
-                        // right:'50%'            
-                        
-                        
-                        
-                       
-                        }}
-                    >
-                        <SpriteAnimationComponent spImage={eatingspSheet} nFrames={18} />
-                    </div> */}
-                    <DragDropComp playing={playing} start={start} levelType={data.LevelMeta.LevelType == "LetterInWord" ? true : false} promptVisibility={data.LevelMeta.PromptType == "Visible" ? true : false} puzzles={data.Puzzles} stopPlaying={stopPlaying} playAudio={playAudio} />
-                </>
+            {!start ? <div></div> : 
+                <DragDropComp playing={playing} start={start} levelType={data.LevelMeta.LevelType == "LetterInWord" ? true : false} promptVisibility={data.LevelMeta.PromptType == "Visible" ? true : false} puzzles={data.Puzzles} stopPlaying={stopPlaying} playAudio={playAudio} />
             }
-                
-                {/* { data.audio && data.audio.length > 0 ? <AudioWrapper>
-                { audioPlaying ? <WavesWrapper><SoundWaves /></WavesWrapper> :  <PlayButton onClick={playAudio}><Play /></PlayButton> }
-                <audio src={audioFile} autoPlay ref={audioPlayerRef}  onEnded={() => setAudioPlaying(false)}></audio>
-            </AudioWrapper> : null} */}
         </Wrapper>
     );
 }
 
 export default SlideComponent;
 
-// const [audioPlaying, setAudioPlaying] = useState(false);
-    // const [currentProgressCount, setProgressCount] = useState(initialTime);
-    // const [timeOver, setTimeOver] = useState(false);
-    // const [correctDrop, setCorrectDrop] = useState(false);
-
-// Get the url to the img
-    
-// const imgSrc = H5P.getContentPath(props.contentId) + '/' + data.Puzzles[0].prompt.PromptAudio;
-
-
-// const playAudio = () => {
-//     var playPromise = (audioPlayerRef.current as HTMLAudioElement).play();
-//     if (playPromise !== undefined) {
-//         playPromise.then(() => {
-//             setAudioPlaying(true);
-//         }).catch((err: any) => {
-//             console.log(err);
-//         });
-//     }
-// };
-
-// if (data) {
-//     var re = new RegExp("^(http|https)://", "i");
-//     var match = re.test(data.audio[0].path);
-//     if (match) {
-//         audioFile = data.audio[0].path;
-//         audFile = audioFile
-//     } else {
-//         // If the path is not a url then we need to build the URL manually for the audioplayer to work
-//         audioFile = H5P.getContentPath(props.contentId) + '/' + data.Puzzles[0].prompt.PromptAudio;
-//         audFile = audioFile
-//     }
-// }
-
-// const SlideLabel = styled.h2`
-//     width: 30px;
-//     height: 30px;
-//     background-color: red;
-//     border-radius: 50%;
-//     align-items: left;
-//     margin: 24px auto;
-//     align-content: center;
-// `;
-
-// const ImgWrapper = styled.div`
-//     display: flex;
-//     justify-content: center;
-//     align-items: center;
-//     height: 520px;
-//     overflow: hidden;
-//     img {
-//         width: 95%;
-//         height: auto;
-//     }
-// `;
-
-// const AudioWrapper = styled.div`
-//     display: flex;
-//     align-items: center;
-//     justify-content: center;
-//     margin: 24px auto;
-// `;
-
-// const PlayButton = styled.button`
-//     background: none;
-//     border: none;
-//     width: 248px;
-//     height: 248px;
-//     transition: transform ease 0.3s;
-
-//     svg {
-//         width: 100%;
-//         height: auto;
-//     }
-
-//     &:hover {
-//         cursor: pointer;
-//     }
-
-//     &:active {
-//         transform: scale(0.925);
-//     }
-// `;
-
-// const WavesWrapper = styled.div`
-//     width: 248px;
-//     height: 248px;
-// `;
-
-// const Button = styled.button`
-//     width: 50px;
-//     height: 50px;
-// `;
-
-// const StartButton = styled.div`
-//     width: 60px;
-//     height: 60px;
-    
-// `;
-
-
-// declare var H5P: any;
-// declare var H5PIntegration: any;
-
-// import image1 from '../../assets/images/duck.gif';
-// import img from '../../assets/images/img.png'
-
-// useEffect(() => {
-
-    //     if (!start) {
-    //         setProgressCount(10);
-    //         setPlaying(false);
-    //         return;
-    //     }
-
-    //     if (currentProgressCount <= 0 && !timeOver) {
-    //         setTimeout(() => {
-    //             setProgressCount(10);
-    //             setPlaying(false);
-    //             return
-    //         }, 1000)
-    //     }
-
-    //     if (currentProgressCount <= 0 || correctDrop) {
-    //         setTimeOver(false)
-    //         return;
-    //     }
-
-    //     id = setInterval(timer,500, start);
-
-    //     return () => clearInterval(id);
-    // }, [currentProgressCount, start, playing])
-
-    // const [levelCount, setLevelCount] = useState(0);
-    // const audioPlayRef = useRef();
-
-    // let id: NodeJS.Timeout;
-
-    // const answerDrop = () => {
-    //     setCorrectDrop(true);
-    // }
-
-    // const levelUp = () => {
-    //     console.log("exece")
-    //     setLevelCount(preCount => preCount + 1);
-    // }
-
-    // const timer = () => {
-    //     if (playing) {
-    //         setProgressCount(preValue => preValue - 1);
-    //     }        
-    // }
 
