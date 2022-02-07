@@ -16,6 +16,9 @@ declare var H5P: any;
 declare var H5PIntegration: any;
 import { SpriteAnimationComponent } from "./SpriteAnimation";
 
+const spriteSheetArray = [eggspSheet, eatingspSheet];
+const spriteSheetArrayTotalFrame = [20, 18];
+
 let audio: HTMLAudioElement = null;
 let initialTime = 10;
 let id: NodeJS.Timeout;
@@ -275,7 +278,18 @@ const SlideComponent = (props: any) => {
               position: "absolute",
             }}
           >
-            <SpriteAnimationComponent spImage={eatingspSheet} nFrames={18} />
+            <SpriteAnimationComponent
+              spImage={
+                spriteSheetArray[
+                  (data.LevelNumber - 1) % spriteSheetArray.length
+                ]
+              }
+              nFrames={
+                spriteSheetArrayTotalFrame[
+                  (data.LevelNumber - 1) % spriteSheetArrayTotalFrame.length
+                ]
+              }
+            />
           </div>
           <DragDropComp
             playing={playing}
