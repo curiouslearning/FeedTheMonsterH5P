@@ -4,7 +4,7 @@ import { spritesheetobj } from "./animations/SpriteAnimation";
 import SlideComponent from './Slide'
 import { SpriteAnimationComponent } from './animations/SpriteAnimation';
 import eatingspSheet from "../../assets/images/eating1.png";
-
+import AnimationType from './animations/AnimationType'
 // let optionDataSet = [
 //     {
 //         id: 1,
@@ -38,7 +38,7 @@ const DragDrop = ({timeOver, answerDrop, startDrag, props, changePuzzel, levelCo
     const [dataList, setDataList] = useState(options);
     const [dragging, setDragging] = useState(false);
     const [dropped, setDropped] = useState(false);
-
+    const [animationType,setAnimationType]=useState('idle');
     // const [drop, setDropping] = useState(props.targetstones[0]);
     const dragItem = useRef();
     const dragNode = useRef();
@@ -105,13 +105,15 @@ const DragDrop = ({timeOver, answerDrop, startDrag, props, changePuzzel, levelCo
             const cList = optionDataSet.filter((item) => item.id != dragId.current)
             optionDataSet = [];
             setDropped(true);
+            setAnimationType('eat');
             answerDrop();
             changePuzzel();
             setDropped(false);
         } else {
             console.log("No you dont");
             console.log(spritesheetobj);
-            spritesheetobj.goToAndPlay(1);
+            setAnimationType('spit');
+            // spritesheetobj.goToAndPlay(1);
         }
 
         setDragging(false)
@@ -160,7 +162,8 @@ const DragDrop = ({timeOver, answerDrop, startDrag, props, changePuzzel, levelCo
                       console.log("::onDrop", e.dataTransfer.getData("item.alphabet"))
                       }}>
               
-            <SpriteAnimationComponent spImage={eatingspSheet} nFrames={18} />
+            {/* <SpriteAnimationComponent spImage={eatingspSheet} nFrames={18} /> */}
+                <AnimationType type={animationType}/>
                 {/* {answerText.map((item) => {
                     return <div 
                             className={dropped ? "balls" : 'bol' }
