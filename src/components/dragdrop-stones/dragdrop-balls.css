@@ -1,96 +1,29 @@
-.mainDiv {
-    width: 47em;
-    display: flex;
-    flex-wrap: wrap;
-    margin: auto;
-    justify-content: space-around;
-}
-
-.buttonStyle{
-    width: 16em;
-    text-align: center;
-    line-height: 3em;
-    justify-content: center;
-}
-
-.dropArea {
-    display: flex;
-    width: 100px;
-    height: 100px;
-    background-color: green;
-    border-radius: 50%;
-    align-items: center;
-    justify-content: center;
-    margin: 24px auto;
-}
-
-.drop {
-    display: flex;
-    width: 100px;
-    height: 100px;
-    background-color: green;
-    border-radius: 50%;
-    align-items: center;
-    justify-content: center;
-    margin: 24px auto;
-    text-align: center;
-}
-
-.balls {
-    width: 30px;
-    height: 30px;
-    background-color: red;
-    border-radius: 50%;
-    align-items: left;
-    margin: 24px auto;
-    text-align: center;
-}
-
-.right-answer {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.bal {
-    width: 30px;
-    height: 30px;
-    background-color: red;
-    border-radius: 50%;
-    margin: 24px auto;
-}
-
-p {
-    color: black;
-    font-size: 1.2em;
-    text-align: center;
-}
-
-.no-balls {
-    width: 30px;
-    height: 30px;
-    background-color:white;
-    color: white;
-    border-radius: 50%;
-    display: flex;
-    flex-direction: "row";
-}
-
-.current {
-    width: 30px;
-    height: 30px;
-    background-color:red;
-    border-radius: 50%;
-    align-items: left;
-    margin: 24px auto;
-}
-
-/* .ball1{
+.ball{
     position: relative;
     width: 30px;
     height: 30px;
     background-color: red;
     border-radius: 50%;
+}
+
+.ball0 {
+    position: relative;
+    width: 30px;
+    height: 30px;
+    background-color: red;
+    border-radius: 50%;
+    top: 120%;
+    left: 10%
+}
+
+.ball1 {
+    position: relative;
+    width: 30px;
+    height: 30px;
+    background-color: red;
+    border-radius: 50%;
+    top: 180%;
+    left: 25%
 }
 
 .ball2{
@@ -99,6 +32,8 @@ p {
     height: 30px;
     background-color: red;
     border-radius: 50%;
+    top: 164%;
+    left: 75%;
 }
 
 .ball3{
@@ -107,6 +42,8 @@ p {
     height: 30px;
     background-color: red;
     border-radius: 50%;
+    top: 65%;
+    left: 85%
 }
 
 .ball4{
@@ -115,6 +52,8 @@ p {
     height: 30px;
     background-color: red;
     border-radius: 50%;
+    top: 65%;
+    left: 85%
 }
 
 .ball5{
@@ -149,36 +88,48 @@ p {
     border-radius: 50%;
 }
 
-.no-ball1 {
+.no-ball0 {
+    position: relative;
     width: 30px;
     height: 30px;
     background-color:white;
     color: white;
     border-radius: 50%;
+    top: 120%;
+    left: 10%
+}
+
+.no-ball1 {
+    position: relative;
+    width: 30px;
+    height: 30px;
+    background-color:white;
+    color: white;
+    border-radius: 50%;
+    top: 180%;
+    left: 25%
 }
 
 .no-ball2 {
+    position: relative;
     width: 30px;
     height: 30px;
     background-color:white;
     color: white;
     border-radius: 50%;
+    top: 164%;
+    left: 75%;
 }
 
 .no-ball3 {
+    position: relative;
     width: 30px;
     height: 30px;
     background-color:white;
     color: white;
     border-radius: 50%;
-}
-
-.no-ball4 {
-    width: 30px;
-    height: 30px;
-    background-color:white;
-    color: white;
-    border-radius: 50%;
+    top: 65%;
+    left: 85%;
 }
 
 .no-ball5 {
@@ -212,4 +163,3 @@ p {
     color: white;
     border-radius: 50%;
 }
- */

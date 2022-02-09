@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import './app.css';
 import { DndProvider } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
-import DragDrop from './DragDrop';
+import DragDrop from './dragdrop-stones/DragDrop';
 import { trim } from 'jquery';
 import Progress from './progress-bar/progress';
 import PuzzelBar, { PuzzelBarHook } from './puzzel-bar/PuzzelBar';
@@ -12,6 +12,7 @@ import PauseMenu from './pause-menu/PauseMenu';
 import PromptText from './prompt-text/PromptText';
 import { SpriteAnimationComponent } from './animations/SpriteAnimation';
 import eatingspSheet from "../../assets/images/eating1.png";
+import PopupMenu from './popup-menu/PopupMenu';
 
 let audio: HTMLAudioElement = null;
 let initialTime = 10;
@@ -31,6 +32,14 @@ const DragDropComp = (props: any) => {
     const [currentProgressCount, setProgressCount] = useState(initialTime);
     const [prompted, setPromted] = useState(props.promptVisibility);
     const [activeIndicators, setActiveIndicator] = useState(0);
+    const [ isMenuPopup, setPauseMenu ] = useState(false)
+
+    const onClickPauseMenu = () => {
+        setPauseMenu(true);
+        if (props.playing) {
+            audio.pause();
+        }
+    }
 
     const answerDrop = () => {
         setCorrectDrop(true);
@@ -50,13 +59,10 @@ const DragDropComp = (props: any) => {
 
     const timer = () => {
         if (props.playing) {
-            setProgressCount(preValue => preValue - 1);
+            setProgressCount(preValue => preValue - 0.5);
         }        
     }
 
-    // const pauseGame = () => {
-    //     props.stopPlaying();
-    // }
 
     useEffect(() => {
 
@@ -90,13 +96,13 @@ const DragDropComp = (props: any) => {
         return () => clearInterval(id);
     }, [currentProgressCount, props.start, props.playing, timeOver, correctDrop])
 
-
     return <div>
         <div style={{display: 'flex', justifyContent: "space-between", marginInline: "50px", marginTop: "20px"}}>
             <PuzzelBar puzzelCount={4} activeIndicators={activeIndicators}/>
             <ScoreBoard score={280}/>
-            <PauseMenu />
+            <PauseMenu onClickPauseMenu={onClickPauseMenu} />
         </div>
+        {isMenuPopup ? <PopupMenu /> : <></>} 
         <Progress done={(currentProgressCount * 10).toString()} />
         <PromptText letter={ props.puzzles[levelCount].prompt.PromptText} /> 
         {prompted ? <></> : <DndProvider backend={HTML5Backend}>
