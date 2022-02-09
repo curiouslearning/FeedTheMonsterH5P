@@ -1,5 +1,7 @@
 import React from "react";
 import Spritesheet from "react-responsive-spritesheet";
+import eatingspSheet from "../../assets/images/eating1.png";
+import spit from  "../../assets/images/eating1.png";
 
 var spritesheetobj: Spritesheet;
 const SpriteAnimationComponent = (props: any) => {
@@ -11,7 +13,8 @@ const SpriteAnimationComponent = (props: any) => {
       image={spImage}
       widthFrame={768}
       heightFrame={632}
-      steps={nFrames}
+      steps={6}
+      loop={true}
       fps={5}
       onInit={(spritesheet) => {
         console.log("onInit");
