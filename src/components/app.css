@@ -36,6 +36,23 @@
     text-align: center;
 }
 
+@keyframes cloud-moving {
+    from {
+      left: 0px;
+    }
+    to {
+      left: 500px;
+    }
+  }
+
+.cloud-css {
+    animation-name: cloud-moving;
+    animation-duration: 15s;
+    animation-delay: 1s;
+    animation-iteration-count: infinite;
+    animation-direction: alternate;
+  }
+
 .balls {
     width: 30px;
     height: 30px;

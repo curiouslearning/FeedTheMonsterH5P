@@ -1,6 +1,8 @@
 import { removeData } from 'jquery';
 import React, { useState } from 'react';
 import styled from 'styled-components';
+import { MovingBackGroundComponent } from "./MovingBackground";
+import cloud from "../../assets/images/cloud.png";
 
 import SlideComponent from './Slide';
 
@@ -32,13 +34,13 @@ let nextToggle = true
 const initialTime = 10;
 
 const Slideshow = (props: any) => {
-    const {data}  = props;
+    const { data } = props;
     const [activeSlide, setActiveSlide] = useState(0);
     const [strt, setStrt] = useState(true);
     const handleNav = (direction: number) => {
         const newSlide = activeSlide + direction;
         nextToggle = !nextToggle
-        if (newSlide >= 0 && newSlide < data.length ) {
+        if (newSlide >= 0 && newSlide < data.length) {
             setActiveSlide(newSlide);
             setStrt(nextToggle);
         } else if (newSlide < 0) {
@@ -52,7 +54,8 @@ const Slideshow = (props: any) => {
 
     return (
         <div>
-            <SlideComponent data={data[activeSlide]} images = {img[activeSlide]} contentId={props.contentId} started={strt} time={initialTime} nextLevel={handleNav} />
+            <MovingBackGroundComponent bgImage={cloud} />
+            <SlideComponent data={data[activeSlide]} images={img[activeSlide]} contentId={props.contentId} started={strt} time={initialTime} nextLevel={handleNav} />
             <NavWrapper>
                 <NavButton onClick={() => handleNav(-1)} disabled={data.length < 2}>
                     Back
