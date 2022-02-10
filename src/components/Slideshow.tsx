@@ -52,7 +52,7 @@ const Slideshow = (props: any) => {
 
     return (
         <div>
-            <SlideComponent data={data[activeSlide]} images = {img[activeSlide]} contentId={props.contentId} started={strt} time={initialTime} />
+            <SlideComponent data={data[activeSlide]} images = {img[activeSlide]} contentId={props.contentId} started={strt} time={initialTime} nextLevel={handleNav} />
             <NavWrapper>
                 <NavButton onClick={() => handleNav(-1)} disabled={data.length < 2}>
                     Back

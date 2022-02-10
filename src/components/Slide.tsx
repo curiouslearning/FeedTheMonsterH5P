@@ -32,12 +32,29 @@ const DragDropComp = (props: any) => {
     const [currentProgressCount, setProgressCount] = useState(initialTime);
     const [prompted, setPromted] = useState(props.promptVisibility);
     const [activeIndicators, setActiveIndicator] = useState(0);
-    const [ isMenuPopup, setPauseMenu ] = useState(false)
+    const [ isMenuPopup, setPauseMenu ] = useState(false);
+
+
+    const onClickRestart = () => {
+        setTimeout(() => {
+            setLevelCount(0);
+            setPauseMenu(false);
+            setProgressCount(initialTime);
+            setActiveIndicator(0)
+        }, 1000)
+    }
 
     const onClickPauseMenu = () => {
-        setPauseMenu(true);
-        if (props.playing) {
-            audio.pause();
+        
+        if (!isMenuPopup) {
+            setPauseMenu(true);
+            if (props.playing) {
+                audio.pause();
+            }
+        }
+
+        if (isMenuPopup) {
+            setPauseMenu(false);
         }
     }
 
@@ -58,7 +75,7 @@ const DragDropComp = (props: any) => {
     }
 
     const timer = () => {
-        if (props.playing) {
+        if (props.playing && !isMenuPopup) {
             setProgressCount(preValue => preValue - 0.5);
         }        
     }
@@ -94,7 +111,7 @@ const DragDropComp = (props: any) => {
         id = setInterval(timer,500, props.start);
 
         return () => clearInterval(id);
-    }, [currentProgressCount, props.start, props.playing, timeOver, correctDrop])
+    }, [currentProgressCount, props.start, props.playing, timeOver, correctDrop, isMenuPopup])
 
     return <div>
         <div style={{display: 'flex', justifyContent: "space-between", marginInline: "50px", marginTop: "20px"}}>
@@ -102,12 +119,12 @@ const DragDropComp = (props: any) => {
             <ScoreBoard score={280}/>
             <PauseMenu onClickPauseMenu={onClickPauseMenu} />
         </div>
-        {isMenuPopup ? <PopupMenu /> : <></>} 
+        {isMenuPopup ? <PopupMenu onClickPauseMenu={onClickPauseMenu} onClickRestart={onClickRestart} nextLevel={props.nextLevel}/> : <></>} 
         <Progress done={(currentProgressCount * 10).toString()} />
         <PromptText letter={ props.puzzles[levelCount].prompt.PromptText} /> 
         {prompted ? <></> : <DndProvider backend={HTML5Backend}>
             <div className="dragAndDrop" style={{height: "200px"}}>
-                <DragDrop timeOver={timeOver} answerDrop={answerDrop} startDrag={false} props={props.puzzles[levelCount]} changePuzzel={levelUp} levelCount={levelCount} />
+                <DragDrop timeOver={timeOver} answerDrop={answerDrop} startDrag={false} props={props.puzzles[levelCount]} changePuzzel={levelUp} levelCount={levelCount} isMenuOpen={isMenuPopup} />
             </div>
         </DndProvider>}
     </div>
@@ -175,7 +192,7 @@ const SlideComponent = (props: any) => {
                     </div>
                 }
             {!start ? <div></div> : 
-                <DragDropComp playing={playing} start={start} levelType={data.LevelMeta.LevelType == "LetterInWord" ? true : false} promptVisibility={data.LevelMeta.PromptType == "Visible" ? true : false} puzzles={data.Puzzles} stopPlaying={stopPlaying} playAudio={playAudio} />
+                <DragDropComp playing={playing} start={start} levelType={data.LevelMeta.LevelType == "LetterInWord" ? true : false} promptVisibility={data.LevelMeta.PromptType == "Visible" ? true : false} puzzles={data.Puzzles} stopPlaying={stopPlaying} playAudio={playAudio} nextLevel={props.nextLevel} />
             }
         </Wrapper>
     );
