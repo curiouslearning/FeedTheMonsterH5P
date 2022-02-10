@@ -4,14 +4,11 @@ import './app.css';
 import { DndProvider } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
 import DragDrop from './dragdrop-stones/DragDrop';
-import { trim } from 'jquery';
 import Progress from './progress-bar/progress';
 import PuzzelBar, { PuzzelBarHook } from './puzzel-bar/PuzzelBar';
 import ScoreBoard from './score-board/ScoreBoard';
 import PauseMenu from './pause-menu/PauseMenu';
 import PromptText from './prompt-text/PromptText';
-import { SpriteAnimationComponent } from './animations/SpriteAnimation';
-import eatingspSheet from "../../assets/images/eating1.png";
 import PopupMenu from './popup-menu/PopupMenu';
 
 let audio: HTMLAudioElement = null;
@@ -79,7 +76,6 @@ const DragDropComp = (props: any) => {
             setProgressCount(preValue => preValue - 0.5);
         }        
     }
-
 
     useEffect(() => {
 

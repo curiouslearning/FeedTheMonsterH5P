@@ -3,6 +3,7 @@ import { SpriteAnimationComponent } from '../animations/SpriteAnimation';
 import eatingspSheet from "../../../assets/images/eating1.png";
 import './dragdrop-balls.css';
 import classNames from "classnames";
+import AnimationType from "../animations/AnimationType";
 
 let optionDataSet: { id: number; alphabet: string; }[] = []
 
@@ -13,6 +14,7 @@ const DragDrop = ({timeOver, answerDrop, startDrag, props, changePuzzel, levelCo
     const [dataList, setDataList] = useState(options);
     const [dragging, setDragging] = useState(false);
     const [dropped, setDropped] = useState(false);
+    const [animationType, setAnimationType] = useState('idle');
 
     const dragItem = useRef();
     const dragId = useRef();
@@ -69,18 +71,34 @@ const DragDrop = ({timeOver, answerDrop, startDrag, props, changePuzzel, levelCo
         // console.log("hihihih")
         console.log(props.targetstones[0].StoneText, "resultin progress", dropData);
         let targetStone = props.targetstones[0].StoneText;
+        optionDataSet.filter((item) => item.id != dragId.current)
+        optionDataSet = [];
+        setDropped(true);
+        answerDrop();
+        changePuzzel();
+        setDropped(false);
+        setDragging(false);
+
         if (targetStone === dropData) {
-            optionDataSet.filter((item) => item.id != dragId.current)
-            optionDataSet = [];
-            setDropped(true);
-            answerDrop();
-            changePuzzel();
-            setDropped(false);
+            setAnimationType('eat');
         } else {
-            // console.log("answer Incorrect");
-            setDragging(false)
-            dragItem.current = null;
+            setAnimationType('spit');
         }
+        dragItem.current = null;
+
+        // if (targetStone === dropData) {
+        //     optionDataSet.filter((item) => item.id != dragId.current)
+        //     optionDataSet = [];
+        //     setDropped(true);
+        //     answerDrop();
+        //     changePuzzel();
+        //     setDropped(false);
+        //     setAnimationType('eat');
+        // } else {
+        //     setDragging(false)
+        //     dragItem.current = null;
+        //     setAnimationType('spit');
+        // }
     }
 
     return (
@@ -100,7 +118,7 @@ const DragDrop = ({timeOver, answerDrop, startDrag, props, changePuzzel, levelCo
                     console.log("::onDrop")
                 }}>
                 
-                <SpriteAnimationComponent spImage={eatingspSheet} nFrames={18} />
+                <AnimationType type={animationType}/>
             </div>
             {optionDataSet.map((item, index) => {
                 return <div 
