@@ -10,6 +10,8 @@ import ScoreBoard from './score-board/ScoreBoard';
 import PauseMenu from './pause-menu/PauseMenu';
 import PromptText from './prompt-text/PromptText';
 import PopupMenu from './popup-menu/PopupMenu';
+import bg from '../../assets/images/bg.jpg';
+import { url } from 'inspector';
 
 let audio: HTMLAudioElement = null;
 let initialTime = 10;
@@ -178,6 +180,7 @@ const SlideComponent = (props: any) => {
 
     return (
         <Wrapper>
+            <img src={bg} style={{position: "absolute", width: "100%", height: "600px", zIndex: -2}}></img>
             {data.audio && data.audio.length > 0 ? "" : <audio src={audFile} autoPlay></audio>}
                 { start ? <></> :
                     <div style={{height: "100%", backgroundImage: `url(${props.images})`, backgroundPosition: 'center', backgroundRepeat: 'no-repeat', backgroundSize: 'cover'}}>

@@ -85,20 +85,6 @@ const DragDrop = ({timeOver, answerDrop, startDrag, props, changePuzzel, levelCo
             setAnimationType('spit');
         }
         dragItem.current = null;
-
-        // if (targetStone === dropData) {
-        //     optionDataSet.filter((item) => item.id != dragId.current)
-        //     optionDataSet = [];
-        //     setDropped(true);
-        //     answerDrop();
-        //     changePuzzel();
-        //     setDropped(false);
-        //     setAnimationType('eat');
-        // } else {
-        //     setDragging(false)
-        //     dragItem.current = null;
-        //     setAnimationType('spit');
-        // }
     }
 
     return (
