@@ -28,7 +28,7 @@ const gameData = {
 					"SegmentNumber": 0,
 					"prompt": {"PromptText": "e", "PromptAudio": 'https://www.kozco.com/tech/piano2.wav'},
 					"targetstones": [ {"StoneText": "e"} ],
-					"foilstones": [ {"StoneText": "m"}, {"StoneText": "b"}, {"StoneText": "o"} ]
+					"foilstones": [ {"StoneText": "m"}, {"StoneText": "b"}, {"StoneText": "o"}, {"StoneText": "n"},{"StoneText": "p"},{"StoneText": "q"},{"StoneText": "r"}, ]
 				},
 				{
 					"SegmentNumber": 1,

@@ -6,78 +6,93 @@
     border-radius: 50%;
 }
 
+.stones-letter {
+    font-size: 2.4em;
+    color: white;
+    position: absolute;
+    top: -10%;
+    width: 100%;
+    height: 100%;
+}
+
 .ball0 {
     position: relative;
-    width: 30px;
-    height: 30px;
+    width: 50px;
+    height: 50px;
     background-color: red;
     border-radius: 50%;
-    top: 120%;
-    left: 10%
+    top: 125%;
+    left: 15%
 }
 
 .ball1 {
     position: relative;
-    width: 30px;
-    height: 30px;
+    width: 50px;
+    height: 50px;
     background-color: red;
     border-radius: 50%;
-    top: 180%;
-    left: 25%
+    top: 106%;
+    left: 80%
 }
 
 .ball2{
     position: relative;
-    width: 30px;
-    height: 30px;
+    width: 50px;
+    height: 50px;
     background-color: red;
     border-radius: 50%;
-    top: 164%;
-    left: 75%;
+    top: -21%;
+    left: 50%;
 }
 
 .ball3{
     position: relative;
-    width: 30px;
-    height: 30px;
+    width: 50px;
+    height: 50px;
     background-color: red;
     border-radius: 50%;
-    top: 65%;
-    left: 85%
+    top: 0%;
+    left: 5%
 }
 
 .ball4{
     position: relative;
-    width: 30px;
-    height: 30px;
+    width: 50px;
+    height: 50px;
     background-color: red;
     border-radius: 50%;
-    top: 65%;
-    left: 85%
+    top: -22%;
+    left: 90%
 }
 
 .ball5{
     position: relative;
-    width: 30px;
-    height: 30px;
+    width: 50px;
+    height: 50px;
     background-color: red;
     border-radius: 50%;
+    top: 60%;
+    left: 48%
 }
 
 .ball6{
     position: relative;
-    width: 30px;
-    height: 30px;
+    width: 50px;
+    height: 50px;
     background-color: red;
     border-radius: 50%;
+    top: 23%;
+    left: 5%
 }
 
 .ball7{
     position: relative;
-    width: 30px;
-    height: 30px;
+    width: 50px;
+    height: 50px;
     background-color: red;
     border-radius: 50%;
+    top: 1%;
+    left: 90%;
 }
 
 .ball8{
@@ -90,76 +105,88 @@
 
 .no-ball0 {
     position: relative;
-    width: 30px;
-    height: 30px;
+    width: 50px;
+    height: 50px;
     background-color:white;
     color: white;
     border-radius: 50%;
-    top: 120%;
-    left: 10%
+    top: 125%;
+    left: 15%
 }
 
 .no-ball1 {
     position: relative;
-    width: 30px;
-    height: 30px;
+    width: 50px;
+    height: 50px;
     background-color:white;
     color: white;
     border-radius: 50%;
-    top: 180%;
-    left: 25%
+    top: 106%;
+    left: 80%
 }
 
 .no-ball2 {
     position: relative;
-    width: 30px;
-    height: 30px;
+    width: 50px;
+    height: 50px;
     background-color:white;
     color: white;
     border-radius: 50%;
-    top: 164%;
-    left: 75%;
+    top: -21%;
+    left: 50%;
 }
 
 .no-ball3 {
     position: relative;
-    width: 30px;
-    height: 30px;
+    width: 50px;
+    height: 50px;
     background-color:white;
     color: white;
     border-radius: 50%;
-    top: 65%;
-    left: 85%;
+    top: 0%;
+    left: 5%
+}
+
+.no-ball4 {
+    position: relative;
+    width: 50px;
+    height: 50px;
+    background-color:white;
+    color: white;
+    border-radius: 50%;
+    top: -22%;
+    left: 90%
 }
 
 .no-ball5 {
-    width: 30px;
-    height: 30px;
+    position: relative;
+    width: 50px;
+    height: 50px;
     background-color:white;
     color: white;
     border-radius: 50%;
+    top: 60%;
+    left: 48%
 }
 
 .no-ball6 {
-    width: 30px;
-    height: 30px;
+    position: relative;
+    width: 50px;
+    height: 50px;
     background-color:white;
     color: white;
     border-radius: 50%;
+    top: 23%;
+    left: 5%
 }
 
 .no-ball7 {
-    width: 30px;
-    height: 30px;
+    position: relative;
+    width: 50px;
+    height: 50px;
     background-color:white;
     color: white;
     border-radius: 50%;
-}
-
-.no-ball8 {
-    width: 30px;
-    height: 30px;
-    background-color:white;
-    color: white;
-    border-radius: 50%;
+    top: 1%;
+    left: 90%;
 }

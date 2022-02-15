@@ -1,6 +1,4 @@
 import React, { useEffect, useRef, useState } from "react";
-import { SpriteAnimationComponent } from '../animations/SpriteAnimation';
-import eatingspSheet from "../../../assets/images/eating1.png";
 import './dragdrop-balls.css';
 import classNames from "classnames";
 import AnimationType from "../animations/AnimationType";
@@ -117,7 +115,7 @@ const DragDrop = ({timeOver, answerDrop, startDrag, props, changePuzzel, levelCo
                         handleDragStart(item.alphabet, e, item.id)
                         e.dataTransfer.setData("item.alphabet", item.alphabet)
                     }}>
-                    <p style={{fontSize: "1.4em", color: "white"}}>{item.alphabet}</p>
+                    <p className="stones-letter">{item.alphabet}</p>
                 </div>
             })}
         </>
