@@ -13,6 +13,8 @@ import PopupMenu from './popup-menu/PopupMenu';
 import bg from '../../assets/images/bg.jpg';
 import { url } from 'inspector';
 
+
+
 let audio: HTMLAudioElement = null;
 let initialTime = 10;
 let id: NodeJS.Timeout;
@@ -120,9 +122,9 @@ const DragDropComp = (props: any) => {
         {isMenuPopup ? <PopupMenu onClickPauseMenu={onClickPauseMenu} onClickRestart={onClickRestart} nextLevel={props.nextLevel}/> : <></>} 
         <Progress done={(currentProgressCount * 10).toString()} />
         <PromptText letter={ props.puzzles[levelCount].prompt.PromptText} /> 
-        {prompted ? <></> : <DndProvider backend={HTML5Backend}>
+        { <DndProvider backend={HTML5Backend}>
             <div className="dragAndDrop" style={{height: "200px"}}>
-                <DragDrop timeOver={timeOver} answerDrop={answerDrop} startDrag={false} props={props.puzzles[levelCount]} changePuzzel={levelUp} levelCount={levelCount} isMenuOpen={isMenuPopup} />
+                <DragDrop timeOver={timeOver} promted={prompted} answerDrop={answerDrop} startDrag={false} props={props.puzzles[levelCount]} changePuzzel={levelUp} levelCount={levelCount} isMenuOpen={isMenuPopup} />
             </div>
         </DndProvider>}
     </div>
@@ -181,6 +183,7 @@ const SlideComponent = (props: any) => {
     return (
         <Wrapper>
             <img src={bg} style={{position: "absolute", width: "100%", height: "600px", zIndex: -2}}></img>
+            
             {data.audio && data.audio.length > 0 ? "" : <audio src={audFile} autoPlay></audio>}
                 { start ? <></> :
                     <div style={{height: "100%", backgroundImage: `url(${props.images})`, backgroundPosition: 'center', backgroundRepeat: 'no-repeat', backgroundSize: 'cover'}}>

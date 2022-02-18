@@ -5,7 +5,7 @@ import AnimationType from "../animations/AnimationType";
 
 let optionDataSet: { id: number; alphabet: string; }[] = []
 
-const DragDrop = ({timeOver, answerDrop, startDrag, props, changePuzzel, levelCount, isMenuOpen} : {timeOver : boolean, answerDrop : Function, startDrag: boolean, props: any, changePuzzel: Function, levelCount: number, isMenuOpen: boolean}) => {
+const DragDrop = ({timeOver,promted, answerDrop, startDrag, props, changePuzzel, levelCount, isMenuOpen} : {timeOver : boolean,promted:boolean, answerDrop : Function, startDrag: boolean, props: any, changePuzzel: Function, levelCount: number, isMenuOpen: boolean}) => {
 
     let options = [props.targetstones[0], ...props.foilstones]
 
@@ -16,7 +16,7 @@ const DragDrop = ({timeOver, answerDrop, startDrag, props, changePuzzel, levelCo
 
     const dragItem = useRef();
     const dragId = useRef();
-
+    console.log(promted)
     const optionCollectData = (options: string | any[]) => {
         for (let i = 0; i< options.length; i++) {
             let incomingData = {
@@ -31,7 +31,7 @@ const DragDrop = ({timeOver, answerDrop, startDrag, props, changePuzzel, levelCo
         }
         setDataList(optionDataSet)
     }
-
+   
     useEffect(() => {
         optionCollectData(options)
         return () => {
@@ -79,8 +79,14 @@ const DragDrop = ({timeOver, answerDrop, startDrag, props, changePuzzel, levelCo
 
         if (targetStone === dropData) {
             setAnimationType('eat');
+            setTimeout(() => {
+                setAnimationType('idle');
+            }, 2000)
         } else {
             setAnimationType('spit');
+            setTimeout(() => {
+                setAnimationType('idle');
+            }, 2000)
         }
         dragItem.current = null;
     }
@@ -105,18 +111,24 @@ const DragDrop = ({timeOver, answerDrop, startDrag, props, changePuzzel, levelCo
                 <AnimationType type={animationType}/>
             </div>
             {optionDataSet.map((item, index) => {
-                return <div 
-                    className={classNames(dragging ? getStyles(item.alphabet, index) :  "ball"+index)} 
-                    draggable = {!timeOver && !isMenuOpen} 
-                    key={item.id} 
-                    onDragEnd={(e) => {
-                        handleDragEnd();
-                    }} onDragStart = {(e) => {
-                        handleDragStart(item.alphabet, e, item.id)
-                        e.dataTransfer.setData("item.alphabet", item.alphabet)
-                    }}>
-                    <p className="stones-letter">{item.alphabet}</p>
-                </div>
+                if(promted)
+                {
+                    return <div key={index}></div>
+                }
+                else{
+                        return<div 
+                            className={classNames(dragging ? getStyles(item.alphabet, index) :  "ball"+index)} 
+                            draggable = {!timeOver && !isMenuOpen} 
+                            key={item.id} 
+                            onDragEnd={(e) => {
+                                handleDragEnd();
+                            }} onDragStart = {(e) => {
+                                handleDragStart(item.alphabet, e, item.id)
+                                e.dataTransfer.setData("item.alphabet", item.alphabet)
+                            }}>
+                            <p className="stones-letter">{item.alphabet}</p>
+                        </div>
+                }
             })}
         </>
     );
