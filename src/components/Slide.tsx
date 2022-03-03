@@ -165,6 +165,7 @@ const DragDropComp = (props: any) => {
   );
 };
 
+
 const SlideComponent = (props: any) => {
   const { data } = props;
   var audFile: string;
