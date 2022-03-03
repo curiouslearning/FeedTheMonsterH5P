@@ -13,6 +13,7 @@ const DragDrop = ({
   changePuzzel,
   levelCount,
   isMenuOpen,
+  setScore
 }: {
   timeOver: boolean;
   answerDrop: Function;
@@ -21,6 +22,7 @@ const DragDrop = ({
   changePuzzel: Function;
   levelCount: number;
   isMenuOpen: boolean;
+  setScore?:Function,
 }) => {
   let options = [props.targetstones[0], ...props.foilstones];
 
@@ -92,6 +94,7 @@ const DragDrop = ({
     setDragging(false);
 
     if (targetStone === dropData) {
+      setScore(100)
       setAnimationType("eat");
     } else {
       setAnimationType("spit");

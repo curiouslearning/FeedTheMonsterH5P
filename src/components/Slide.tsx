@@ -18,6 +18,7 @@ let audio: HTMLAudioElement = null;
 let initialTime = 10;
 let id: NodeJS.Timeout;
 
+
 const Wrapper = styled.div`
   height: 600px;
   width: 100%;
@@ -32,6 +33,7 @@ const DragDropComp = (props: any) => {
   const [prompted, setPromted] = useState(props.promptVisibility);
   const [activeIndicators, setActiveIndicator] = useState(0);
   const [isMenuPopup, setPauseMenu] = useState(false);
+  const [score, setScore] = useState(0);
 
   const onClickRestart = () => {
     setTimeout(() => {
@@ -130,7 +132,7 @@ const DragDropComp = (props: any) => {
         }}
       >
         <PuzzelBar puzzelCount={4} activeIndicators={activeIndicators} />
-        <ScoreBoard score={280} />
+        <ScoreBoard score={score} />
         <PauseMenu onClickPauseMenu={onClickPauseMenu} />
       </div>
       {isMenuPopup ? (
@@ -157,6 +159,9 @@ const DragDropComp = (props: any) => {
               changePuzzel={levelUp}
               levelCount={levelCount}
               isMenuOpen={isMenuPopup}
+              setScore={(count: number) => {
+                setScore(score+count);
+              }}
             />
           </div>
         </DndProvider>
@@ -164,7 +169,6 @@ const DragDropComp = (props: any) => {
     </div>
   );
 };
-
 
 const SlideComponent = (props: any) => {
   const { data } = props;
