@@ -1,0 +1,13 @@
+.pop-up {
+    width: "100px";
+    height: "100px";
+    background: grey;
+    margin: auto;
+    margin-top: "20px"
+}
+
+.pop-up .pop-up-text {
+    color: "black";
+    font-size: "1.857em";
+    text-align: "center";
+}
