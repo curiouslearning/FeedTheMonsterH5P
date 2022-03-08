@@ -13,6 +13,7 @@ import PopupMenu from "./popup-menu/PopupMenu";
 import bg from "../../assets/images/bg.jpg";
 import { url } from "inspector";
 import AnimationType from "./animations/AnimationType";
+import AudioComponent from "./common/AudioComponent";
 
 let audio: HTMLAudioElement = null;
 let initialTime = 10;
@@ -25,6 +26,8 @@ const Wrapper = styled.div`
 `;
 
 const DragDropComp = (props: any) => {
+
+  console.log(props);
   const [timeOver, setTimeOver] = useState(false);
   const [correctDrop, setCorrectDrop] = useState(false);
   const [levelCount, setLevelCount] = useState(0);
@@ -79,7 +82,6 @@ const DragDropComp = (props: any) => {
 
   useEffect(() => {
     if (props.playing) {
-      console.log("times");
       props.monsterRef.current.style.display = "none";
       if (prompted) {
         setPromted(false);
@@ -143,7 +145,7 @@ const DragDropComp = (props: any) => {
         <></>
       )}
       <Progress done={(currentProgressCount * 10).toString()} />
-      <PromptText letter={props.puzzles[levelCount].prompt.PromptText} />
+      <PromptText letter={props.puzzles[levelCount].prompt.PromptText} data={props} isAudioPlaying={props.playing} textVisbility={props.promptVisibility} levelType={props.levelType} />
       {prompted ? (
         <></>
       ) : (
@@ -157,6 +159,7 @@ const DragDropComp = (props: any) => {
               changePuzzel={levelUp}
               levelCount={levelCount}
               isMenuOpen={isMenuPopup}
+              levelType={props.levelType}
             />
           </div>
         </DndProvider>
@@ -169,8 +172,10 @@ const SlideComponent = (props: any) => {
   const { data } = props;
   var audFile: string;
 
-  const [playing, setPlaying] = useState(false);
+  const { playing, setPlaying, playAudio } = AudioComponent();
   const [start, setStart] = useState(false);
+
+  const promptTextVisibilty = data.LevelMeta.PromptType == "Visible" ? true : false; 
 
   const stopPlaying = () => {
     if (playing) {
@@ -181,8 +186,10 @@ const SlideComponent = (props: any) => {
   useEffect(() => {
     setStart(false);
     return () => {
-      if (playing || audio != null) {
-        audio.pause();
+      if (playing) {
+        if (audio != null) {
+          audio.pause();
+        }
       }
       audio = null;
       initialTime = 10;
@@ -191,23 +198,7 @@ const SlideComponent = (props: any) => {
     };
   }, [props.started]);
 
-  const playAudio = () => {
-    audio = new Audio("https://www.kozco.com/tech/piano2.wav");
-    var playPromise = audio.play();
-    if (playPromise !== undefined) {
-      playPromise
-        .then(() => {
-          // setPlaying(true);
-        })
-        .catch((err: any) => {
-          console.log(err);
-        });
-    }
-    audio.addEventListener("ended", () => {
-      setPlaying(true);
-    });
-  };
-
+  
   const onStartClick = () => {
     setTimeout(() => {
       setStart(true);
@@ -264,6 +255,11 @@ const SlideComponent = (props: any) => {
             >
               {"Level - " + data.LevelNumber}
             </h1>
+            <h3 style={{
+                textAlign: "center",
+                fontSize: "2.857em",
+                color: "white",
+              }}>{data.LevelMeta.LevelType}</h3>
             <button
               onClick={() => onStartClick()}
               style={{ marginInline: "auto" }}
@@ -281,10 +277,10 @@ const SlideComponent = (props: any) => {
             playing={playing}
             start={start}
             levelType={
-              data.LevelMeta.LevelType == "LetterInWord" ? true : false
+              data.LevelMeta.LevelType
             }
             promptVisibility={
-              data.LevelMeta.PromptType == "Visible" ? true : false
+              promptTextVisibilty
             }
             puzzles={data.Puzzles}
             stopPlaying={stopPlaying}
