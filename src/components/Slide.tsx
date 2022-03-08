@@ -13,11 +13,11 @@ import PopupMenu from "./popup-menu/PopupMenu";
 import bg from "../../assets/images/bg.jpg";
 import { url } from "inspector";
 import AnimationType from "./animations/AnimationType";
+import { Grid } from "@material-ui/core";
 
 let audio: HTMLAudioElement = null;
 let initialTime = 10;
 let id: NodeJS.Timeout;
-
 
 const Wrapper = styled.div`
   height: 600px;
@@ -160,7 +160,7 @@ const DragDropComp = (props: any) => {
               levelCount={levelCount}
               isMenuOpen={isMenuPopup}
               setScore={(count: number) => {
-                setScore(score+count);
+                setScore(score + count);
               }}
             />
           </div>
@@ -173,8 +173,9 @@ const DragDropComp = (props: any) => {
 const SlideComponent = (props: any) => {
   const { data } = props;
   var audFile: string;
-
+  const levels: Array<any> = data;
   const [playing, setPlaying] = useState(false);
+  const [levData, setlevData] = useState(data);
   const [start, setStart] = useState(false);
 
   const stopPlaying = () => {
@@ -232,7 +233,7 @@ const SlideComponent = (props: any) => {
           zIndex: -2,
         }}
       ></img>
-      {data.audio && data.audio.length > 0 ? (
+      {levData.audio && levData.audio.length > 0 ? (
         ""
       ) : (
         <audio src={audFile} autoPlay></audio>
@@ -250,6 +251,47 @@ const SlideComponent = (props: any) => {
           }}
         >
           <div
+            style={{
+              width: "100%",
+              height: "100%",
+              background: "rgba(0,0,0,0.3)",
+              display: "flex",
+              flexDirection: "row",
+              justifyContent: "center",
+              transform: "translateX(0px)",
+              flexWrap: "wrap",
+              overflowY: "scroll",
+            }}
+          >
+            {levels.map((data1, index) => {
+              return (
+                <div key={index} style={{ margin: 10 }}>
+                  <button
+                    style={{
+                      width: 100,
+                      height: 100,
+                      backgroundColor: "wheat",
+                      borderRadius: 100,
+                    }}
+                    onClick={() => {
+                      setlevData(data1);
+                      console.log('@',data1)
+                      onStartClick();
+                    }}
+                  >
+                    <div>
+                      <h2>Click</h2>
+                    </div>
+                  </button>
+                  <h2 style={{ color: "white" }}>
+                    {data1.LevelMeta.LevelType}
+                  </h2>
+                </div>
+              );
+            })}
+          </div>
+
+          {/* <div
             style={{
               width: "100%",
               height: "100%",
@@ -275,7 +317,7 @@ const SlideComponent = (props: any) => {
             >
               Start
             </button>
-          </div>
+          </div> */}
         </div>
       )}
       {!start ? (
@@ -286,12 +328,12 @@ const SlideComponent = (props: any) => {
             playing={playing}
             start={start}
             levelType={
-              data.LevelMeta.LevelType == "LetterInWord" ? true : false
+              levData.LevelMeta.LevelType == "LetterInWord" ? true : false
             }
             promptVisibility={
-              data.LevelMeta.PromptType == "Visible" ? true : false
+              levData.LevelMeta.PromptType == "Visible" ? true : false
             }
-            puzzles={data.Puzzles}
+            puzzles={levData.Puzzles}
             stopPlaying={stopPlaying}
             playAudio={playAudio}
             nextLevel={props.nextLevel}

@@ -18,6 +18,7 @@ export default class ReactDemoApp extends (H5P.EventDispatcher as { new(): any }
     }
 
     attach = function($wrapper: JQuery) {
+        console.log('@',gameData.Levels.length)
         $wrapper.get(0).appendChild(this.$element);
         render(<Slideshow data={this.config} contentId={this.contentId} />, this.$element);
     }
