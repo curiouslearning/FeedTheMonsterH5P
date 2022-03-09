@@ -120,7 +120,7 @@ const DragDropComp = (props: any) => {
     correctDrop,
     isMenuPopup,
   ]);
-
+  console.log(props)
   return (
     <div>
       <div
@@ -145,7 +145,7 @@ const DragDropComp = (props: any) => {
         <></>
       )}
       <Progress done={(currentProgressCount * 10).toString()} />
-      <PromptText letter={props.puzzles[levelCount].prompt.PromptText} />
+      <PromptText letter={props.puzzles[levelCount].PromptText} /> 
       {prompted ? (
         <></>
       ) : (
@@ -162,6 +162,7 @@ const DragDropComp = (props: any) => {
               setScore={(count: number) => {
                 setScore(score+count);
               }}
+              editorData={props.editorData}
             />
           </div>
         </DndProvider>
@@ -173,9 +174,11 @@ const DragDropComp = (props: any) => {
 const SlideComponent = (props: any) => {
   const { data } = props;
   var audFile: string;
-
+  console.log(data)
+  console.log(props)
   const [playing, setPlaying] = useState(false);
   const [start, setStart] = useState(false);
+  const promptTextVisibilty = props.editorData ? data.PromptType == "Visible" ? true : false : data.LevelMeta.PromptType == "Visible" ? true : false;
 
   const stopPlaying = () => {
     if (playing) {
@@ -221,6 +224,7 @@ const SlideComponent = (props: any) => {
   };
 
   const monsterRef = useRef();
+  console.log(data.puzzles)
   return (
     <Wrapper>
       <img
@@ -286,16 +290,19 @@ const SlideComponent = (props: any) => {
             playing={playing}
             start={start}
             levelType={
-              data.LevelMeta.LevelType == "LetterInWord" ? true : false
+              data.LevelType == "LetterInWord" ? true : false
             }
+           // promptVisibility={true}
             promptVisibility={
-              data.LevelMeta.PromptType == "Visible" ? true : false
+                promptTextVisibilty
+              
             }
-            puzzles={data.Puzzles}
+            puzzles={data.puzzles}
             stopPlaying={stopPlaying}
             playAudio={playAudio}
             nextLevel={props.nextLevel}
             monsterRef={monsterRef}
+            editorData={props.editorData}
           />
           <div
             ref={monsterRef}

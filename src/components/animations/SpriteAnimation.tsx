@@ -15,7 +15,7 @@ const SpriteAnimationComponent = (props: any) => {
       heightFrame={632}
       steps={6}
       loop={true}
-      fps={5}
+      fps={9}
       onInit={(spritesheet) => {
         console.log("onInit");
         spritesheetobj = spritesheet;
