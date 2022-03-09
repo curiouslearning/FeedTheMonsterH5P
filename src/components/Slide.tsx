@@ -13,10 +13,12 @@ import PopupMenu from "./popup-menu/PopupMenu";
 import bg from "../../assets/images/bg.jpg";
 import { url } from "inspector";
 import AnimationType from "./animations/AnimationType";
+import { SpriteAnimationContainer } from "./animations/SpriteAnimationContainer";
 
 let audio: HTMLAudioElement = null;
 let initialTime = 10;
 let id: NodeJS.Timeout;
+let timeoutId: NodeJS.Timeout;
 
 const Wrapper = styled.div`
   height: 600px;
@@ -32,6 +34,8 @@ const DragDropComp = (props: any) => {
   const [prompted, setPromted] = useState(props.promptVisibility);
   const [activeIndicators, setActiveIndicator] = useState(0);
   const [isMenuPopup, setPauseMenu] = useState(false);
+  const [isLevelEnded, setIsLevelEnded] = useState(false);
+  const [isScoreGood, setIsScoreGood] = useState(true);
 
   const onClickRestart = () => {
     setTimeout(() => {
@@ -60,15 +64,21 @@ const DragDropComp = (props: any) => {
   };
 
   const levelUp = () => {
-    setTimeout(() => {
-      setLevelCount((preCount) => preCount + 1);
-      setCorrectDrop(false);
-      setProgressCount(initialTime);
-      setActiveIndicator((pre) => pre + 1);
-      setPromted(true);
-      props.stopPlaying();
-      props.playAudio();
-    }, 4000);
+    // TODo here
+    if (props.lengthOfCurrentLevel - 1 == levelCount) {
+      setIsLevelEnded(true);
+    } else {
+      setTimeout(() => {
+        setLevelCount((preCount) => preCount + 1);
+        setCorrectDrop(false);
+        setProgressCount(initialTime);
+        setActiveIndicator((pre) => pre + 1);
+        setPromted(true);
+        setIsLevelEnded(false);
+        props.stopPlaying();
+        props.playAudio();
+      }, 4000);
+    }
   };
 
   const timer = () => {
@@ -78,6 +88,7 @@ const DragDropComp = (props: any) => {
   };
 
   useEffect(() => {
+    if (isLevelEnded) return;
     if (props.playing) {
       console.log("times");
       props.monsterRef.current.style.display = "none";
@@ -95,7 +106,7 @@ const DragDropComp = (props: any) => {
     }
 
     if (currentProgressCount <= 0 && !timeOver) {
-      setTimeout(() => {
+      timeoutId = setTimeout(() => {
         // setProgressCount(10);
         // props.stopPlaying()
         levelUp();
@@ -109,7 +120,10 @@ const DragDropComp = (props: any) => {
     }
     id = setInterval(timer, 500, props.start);
 
-    return () => clearInterval(id);
+    return () => {
+      clearInterval(id);
+      clearTimeout(timeoutId);
+    };
   }, [
     currentProgressCount,
     props.start,
@@ -117,9 +131,16 @@ const DragDropComp = (props: any) => {
     timeOver,
     correctDrop,
     isMenuPopup,
+    isLevelEnded,
   ]);
 
-  return (
+  return isLevelEnded ? (
+    isScoreGood ? (
+      <SpriteAnimationContainer type="happy" />
+    ) : (
+      <SpriteAnimationContainer type="sad" />
+    )
+  ) : (
     <div>
       <div
         style={{
@@ -143,7 +164,13 @@ const DragDropComp = (props: any) => {
         <></>
       )}
       <Progress done={(currentProgressCount * 10).toString()} />
-      <PromptText letter={props.puzzles[levelCount].prompt.PromptText} />
+      <PromptText
+        letter={
+          props.puzzles[levelCount]
+            ? props.puzzles[levelCount].prompt.PromptText
+            : ""
+        }
+      />
       {prompted ? (
         <></>
       ) : (
@@ -168,7 +195,7 @@ const DragDropComp = (props: any) => {
 const SlideComponent = (props: any) => {
   const { data } = props;
   var audFile: string;
-
+  const lengthOfCurrentLevel = props.data.Puzzles.length;
   const [playing, setPlaying] = useState(false);
   const [start, setStart] = useState(false);
 
@@ -291,6 +318,7 @@ const SlideComponent = (props: any) => {
             playAudio={playAudio}
             nextLevel={props.nextLevel}
             monsterRef={monsterRef}
+            lengthOfCurrentLevel={lengthOfCurrentLevel}
           />
           <div
             ref={monsterRef}
