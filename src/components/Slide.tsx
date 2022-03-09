@@ -36,6 +36,7 @@ const DragDropComp = (props: any) => {
   const [isMenuPopup, setPauseMenu] = useState(false);
   const [isLevelEnded, setIsLevelEnded] = useState(false);
   const [isScoreGood, setIsScoreGood] = useState(true);
+  const [score, setScore] = useState(0);
 
   const onClickRestart = () => {
     setTimeout(() => {
@@ -151,7 +152,7 @@ const DragDropComp = (props: any) => {
         }}
       >
         <PuzzelBar puzzelCount={4} activeIndicators={activeIndicators} />
-        <ScoreBoard score={280} />
+        <ScoreBoard score={score} />
         <PauseMenu onClickPauseMenu={onClickPauseMenu} />
       </div>
       {isMenuPopup ? (
@@ -184,6 +185,9 @@ const DragDropComp = (props: any) => {
               changePuzzel={levelUp}
               levelCount={levelCount}
               isMenuOpen={isMenuPopup}
+              setScore={(count: number) => {
+                setScore(score + count);
+              }}
             />
           </div>
         </DndProvider>
