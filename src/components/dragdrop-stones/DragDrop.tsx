@@ -95,39 +95,36 @@ const DragDrop = ({
           item.alphabet = "";
         }
       })
-      console.log(optionDataSet)
-      setDropped(true);
-      setDropped(false);
-      setDragging(false);
+
       i++;
       if (i == props.targetstones.length) {
         i = 0;
+        optionDataSet = [];
         answerDrop();
         changePuzzel();
       }
     } else {
         optionDataSet = [];
         i = 0;
-        setDropped(true);
         answerDrop();
         changePuzzel();
-        setDropped(false);
-        setDragging(false);
     }
-    
-    // setDropped(true);
-    // answerDrop();
-    // changePuzzel();
-    // setDropped(false);
-    // setDragging(false);
 
-    if (targetStone.includes(dropData)) {
+    setDropped(true);
+    setDropped(false);
+    setDragging(false);
+
+    if (targetStone == dropData) {
       setAnimationType('eat');
       setTimeout(() => {
           setAnimationType('idle');
       }, 2000)
     } else {
       setAnimationType('spit');
+      i = 0;
+      optionDataSet = []
+      answerDrop()
+      changePuzzel();
       setTimeout(() => {
           setAnimationType('idle');
       }, 2000)
