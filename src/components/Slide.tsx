@@ -35,7 +35,6 @@ const DragDropComp = (props: any) => {
   const [activeIndicators, setActiveIndicator] = useState(0);
   const [isMenuPopup, setPauseMenu] = useState(false);
   const [isLevelEnded, setIsLevelEnded] = useState(false);
-  const [isScoreGood, setIsScoreGood] = useState(true);
   const [score, setScore] = useState(0);
 
   const onClickRestart = () => {
@@ -136,7 +135,7 @@ const DragDropComp = (props: any) => {
   ]);
 
   return isLevelEnded ? (
-    isScoreGood ? (
+    score > 50 ? (
       <SpriteAnimationContainer type="happy" />
     ) : (
       <SpriteAnimationContainer type="sad" />
