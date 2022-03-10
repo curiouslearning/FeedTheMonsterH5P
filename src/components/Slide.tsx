@@ -267,7 +267,7 @@ const SlideComponent = (props: any) => {
           zIndex: -2,
         }}
       ></img>
-      {levData.audio && levData.audio.length > 0 ? (
+      {data.audio && data.audio.length > 0 ? (
         ""
       ) : (
         <audio src={audFile} autoPlay></audio>
@@ -317,7 +317,7 @@ const SlideComponent = (props: any) => {
                       <h2>Click</h2>
                     </div>
                   </button>
-                  <h2 style={{ color: "white" }}>
+                  <h2 style={{ color: "white",textAlign:'center' }}>
                     {data1.LevelMeta.LevelType}
                   </h2>
                 </div>
