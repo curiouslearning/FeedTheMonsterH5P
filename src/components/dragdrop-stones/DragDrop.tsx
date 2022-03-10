@@ -4,6 +4,7 @@ import classNames from "classnames";
 import AnimationType from "../animations/AnimationType";
 
 let optionDataSet: { id: number; alphabet: string }[] = [];
+let i = 0;
 
 const DragDrop = ({
   timeOver,
@@ -13,7 +14,9 @@ const DragDrop = ({
   changePuzzel,
   levelCount,
   isMenuOpen,
-  setScore
+  levelType,
+  setScore,
+  editorData
 }: {
   timeOver: boolean;
   answerDrop: Function;
@@ -22,9 +25,12 @@ const DragDrop = ({
   changePuzzel: Function;
   levelCount: number;
   isMenuOpen: boolean;
+  levelType: string;
   setScore?:Function,
+  editorData: boolean
 }) => {
-  let options = [props.targetstones[0], ...props.foilstones];
+  console.log(props.targetstones)
+  let options = [...props.targetstones, ...props.foilstones];
 
   const [dataList, setDataList] = useState(options);
   const [dragging, setDragging] = useState(false);
@@ -42,7 +48,7 @@ const DragDrop = ({
       };
 
       incomingData.id = i;
-      incomingData.alphabet = options[i].StoneText;
+      incomingData.alphabet = (editorData)?options[i]:options[i].StoneText;
       optionDataSet.push(incomingData);
     }
     setDataList(optionDataSet);
@@ -70,8 +76,6 @@ const DragDrop = ({
   };
 
   const getStyles = (params: any, index: any) => {
-    console.log(index);
-    console.log(params);
     const currentItem = dragItem.current;
     if (currentItem == params) {
       let str = "no-ball";
@@ -82,22 +86,54 @@ const DragDrop = ({
   };
 
   const checkResult = (dropData: any) => {
-    // console.log("hihihih")
-    console.log(props.targetstones[0].StoneText, "resultin progress", dropData);
-    let targetStone = props.targetstones[0].StoneText;
-    optionDataSet.filter((item) => item.id != dragId.current);
-    optionDataSet = [];
+    // console.log(props.targetstones[0].StoneText, "resultin progress", dropData);
+    let targetStone = "";
+    
+    for (; i < props.targetstones.length; i++) {
+      targetStone = props.targetstones[i].StoneText;
+      break;
+    }
+
+    if (levelType == "Word") {
+      optionDataSet.filter((item) => {
+        if (dragId.current == item.id) {
+          item.alphabet = "";
+        }
+      })
+
+      i++;
+      if (i == props.targetstones.length) {
+        i = 0;
+        optionDataSet = [];
+        answerDrop();
+        changePuzzel();
+      }
+    } else {
+        optionDataSet = [];
+        i = 0;
+        answerDrop();
+        changePuzzel();
+    }
+
     setDropped(true);
-    answerDrop();
-    changePuzzel();
     setDropped(false);
     setDragging(false);
 
-    if (targetStone === dropData) {
+    if (targetStone == dropData) {
+      setAnimationType('eat');
       setScore(100)
-      setAnimationType("eat");
+      setTimeout(() => {
+          setAnimationType('idle');
+      }, 2000)
     } else {
-      setAnimationType("spit");
+      setAnimationType('spit');
+      i = 0;
+      optionDataSet = []
+      answerDrop()
+      changePuzzel();
+      setTimeout(() => {
+          setAnimationType('idle');
+      }, 2000)
     }
     dragItem.current = null;
   };
@@ -112,36 +148,39 @@ const DragDrop = ({
           position: "absolute",
         }}
         onDragOver={(e) => {
-          console.log("onDragOver::");
+          // console.log("onDragOver::");
           e.stopPropagation();
           e.preventDefault();
         }}
         onDrop={(e) => {
           checkResult(e.dataTransfer.getData("item.alphabet"));
-          console.log("::onDrop");
+          // console.log("::onDrop");
         }}
       >
         <AnimationType type={animationType} />
       </div>
       {optionDataSet.map((item, index) => {
-        return (
-          <div
-            className={classNames(
-              dragging ? getStyles(item.alphabet, index) : "ball" + index
-            )}
-            draggable={!timeOver && !isMenuOpen}
-            key={item.id}
-            onDragEnd={(e) => {
-              handleDragEnd();
-            }}
-            onDragStart={(e) => {
-              handleDragStart(item.alphabet, e, item.id);
-              e.dataTransfer.setData("item.alphabet", item.alphabet);
-            }}
-          >
-            <p className="stones-letter">{item.alphabet}</p>
-          </div>
-        );
+
+        if (item.alphabet != "") {
+          return (
+            <div
+              className={classNames(
+                dragging ? getStyles(item.alphabet, index) : "ball" + index
+              )}
+              draggable={!timeOver && !isMenuOpen}
+              key={item.id}
+              onDragEnd={(e) => {
+                handleDragEnd();
+              }}
+              onDragStart={(e) => {
+                handleDragStart(item.alphabet, e, item.id);
+                e.dataTransfer.setData("item.alphabet", item.alphabet);
+              }}
+            >
+              <p className="stones-letter">{item.alphabet}</p>
+            </div>
+          );
+        }
       })}
     </>
   );

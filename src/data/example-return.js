@@ -9,7 +9,7 @@ const gameData = {
 		},
 		"GeneralImages": {
 			"GreatImage": "http://server.com/images/english/feedback/great.png",
-			"FantasticImage": "http://server.com/images/english/feedback/fantastic.png"
+			"FantasticImage": "http://server.com/images/english/feedback/fantastic.png",
 		}
 	},
 	
