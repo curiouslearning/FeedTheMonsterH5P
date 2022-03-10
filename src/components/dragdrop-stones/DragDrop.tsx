@@ -13,7 +13,8 @@ const DragDrop = ({
   changePuzzel,
   levelCount,
   isMenuOpen,
-  setScore
+  setScore,
+  editorData
 }: {
   timeOver: boolean;
   answerDrop: Function;
@@ -23,7 +24,9 @@ const DragDrop = ({
   levelCount: number;
   isMenuOpen: boolean;
   setScore?:Function,
+  editorData: boolean
 }) => {
+    console.log(props)
   let options = [props.targetstones[0], ...props.foilstones];
 
   const [dataList, setDataList] = useState(options);
@@ -42,7 +45,7 @@ const DragDrop = ({
       };
 
       incomingData.id = i;
-      incomingData.alphabet = options[i].StoneText;
+      incomingData.alphabet = (editorData)?options[i]:options[i].StoneText;
       optionDataSet.push(incomingData);
     }
     setDataList(optionDataSet);
@@ -84,7 +87,7 @@ const DragDrop = ({
   const checkResult = (dropData: any) => {
     // console.log("hihihih")
     console.log(props.targetstones[0].StoneText, "resultin progress", dropData);
-    let targetStone = props.targetstones[0].StoneText;
+    let targetStone =(editorData)? props.targetstones[0]:props.targetstones[0].StoneText;
     optionDataSet.filter((item) => item.id != dragId.current);
     optionDataSet = [];
     setDropped(true);

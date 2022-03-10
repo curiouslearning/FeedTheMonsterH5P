@@ -133,7 +133,7 @@ const DragDropComp = (props: any) => {
     isMenuPopup,
     isLevelEnded,
   ]);
-
+  console.log(props)
   return isLevelEnded ? (
     score > 50 ? (
       <SpriteAnimationContainer type="happy" />
@@ -167,7 +167,7 @@ const DragDropComp = (props: any) => {
       <PromptText
         letter={
           props.puzzles[levelCount]
-            ? props.puzzles[levelCount].prompt.PromptText
+            ?(props.editorData)? props.puzzles[levelCount].PromptText:props.puzzles[levelCount].prompt.PromptText
             : ""
         }
       />
@@ -187,6 +187,7 @@ const DragDropComp = (props: any) => {
               setScore={(count: number) => {
                 setScore(score + count);
               }}
+              editorData={props.editorData}
             />
           </div>
         </DndProvider>
@@ -198,10 +199,12 @@ const DragDropComp = (props: any) => {
 const SlideComponent = (props: any) => {
   const { data } = props;
   var audFile: string;
+  console.log(props)
   const lengthOfCurrentLevel = props.data.Puzzles.length;
   const [playing, setPlaying] = useState(false);
   const [start, setStart] = useState(false);
-
+  const promptTextVisibilty = props.editorData ? data.PromptType == "Visible" ? true : false : data.LevelMeta.PromptType == "Visible" ? true : false;
+  console.log(data)
   const stopPlaying = () => {
     if (playing) {
       setPlaying(false);
@@ -311,10 +314,12 @@ const SlideComponent = (props: any) => {
             playing={playing}
             start={start}
             levelType={
-              data.LevelMeta.LevelType == "LetterInWord" ? true : false
+              // data.LevelMeta.LevelType == "LetterInWord" ? true : false
+              (props.editorData)?data.LevelType:data.LevelMeta.LevelType == "LetterInWord" ? true : false
             }
             promptVisibility={
-              data.LevelMeta.PromptType == "Visible" ? true : false
+              // data.LevelMeta.PromptType == "Visible" ? true : false
+              promptTextVisibilty
             }
             puzzles={data.Puzzles}
             stopPlaying={stopPlaying}
@@ -322,6 +327,7 @@ const SlideComponent = (props: any) => {
             nextLevel={props.nextLevel}
             monsterRef={monsterRef}
             lengthOfCurrentLevel={lengthOfCurrentLevel}
+            editorData={props.editorData}
           />
           <div
             ref={monsterRef}
