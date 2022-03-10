@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState} from "react";
 import styled from "styled-components";
 import "./app.css";
 import { DndProvider } from "react-dnd";
@@ -14,11 +14,18 @@ import bg from "../../assets/images/bg.jpg";
 import { url } from "inspector";
 import AnimationType from "./animations/AnimationType";
 import { SpriteAnimationContainer } from "./animations/SpriteAnimationContainer";
+import SuccessText from './success-text/SuccessText';
+import fantastic from '../../assets/audio/fantastic.WAV';
+import great from '../../assets/audio/great.wav';
 
 let audio: HTMLAudioElement = null;
 let initialTime = 10;
 let id: NodeJS.Timeout;
 let timeoutId: NodeJS.Timeout;
+const feedbackArray: any[] = ['Fantastic!', 'Great!']
+// create HTMLAudioElement
+const audioFantastic = new Audio(fantastic);
+const audioGreat = new Audio(great);
 
 const Wrapper = styled.div`
   height: 600px;
@@ -36,6 +43,7 @@ const DragDropComp = (props: any) => {
   const [isMenuPopup, setPauseMenu] = useState(false);
   const [isLevelEnded, setIsLevelEnded] = useState(false);
   const [score, setScore] = useState(0);
+  const [text, setText] = useState("");
 
   const onClickRestart = () => {
     setTimeout(() => {
@@ -171,6 +179,7 @@ const DragDropComp = (props: any) => {
             : ""
         }
       />
+      <SuccessText word ={text}/>
       {prompted ? (
         <></>
       ) : (
@@ -186,6 +195,20 @@ const DragDropComp = (props: any) => {
               isMenuOpen={isMenuPopup}
               setScore={(count: number) => {
                 setScore(score + count);
+                if(count == 100) {
+                  const feedbackPhrase = feedbackArray[Math.floor(Math.random() * feedbackArray.length)];
+                  setText(feedbackPhrase);
+                  if(feedbackPhrase == 'Fantastic!')
+                  {
+                    audioFantastic.play();
+                  }
+                  else {
+                    audioGreat.play();
+                  }
+                  setTimeout(function () {
+                    setText('')
+                }, 3500);
+                }
               }}
               editorData={props.editorData}
             />
@@ -198,7 +221,7 @@ const DragDropComp = (props: any) => {
 
 const SlideComponent = (props: any) => {
   const { data } = props;
-  var audFile: string;
+  let audFile: string;
   console.log(props)
   const lengthOfCurrentLevel = props.data.Puzzles.length;
   const [playing, setPlaying] = useState(false);
@@ -226,7 +249,7 @@ const SlideComponent = (props: any) => {
 
   const playAudio = () => {
     audio = new Audio("https://www.kozco.com/tech/piano2.wav");
-    var playPromise = audio.play();
+    const playPromise = audio.play();
     if (playPromise !== undefined) {
       playPromise
         .then(() => {

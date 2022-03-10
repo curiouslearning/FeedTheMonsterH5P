@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import "./dragdrop-balls.css";
 import classNames from "classnames";
 import AnimationType from "../animations/AnimationType";
+import { dark } from "@material-ui/core/styles/createPalette";
 
 let optionDataSet: { id: number; alphabet: string }[] = [];
 
@@ -101,6 +102,7 @@ const DragDrop = ({
       setAnimationType("eat");
     } else {
       setAnimationType("spit");
+      setScore(0)
     }
     dragItem.current = null;
   };
