@@ -13,6 +13,7 @@ import PopupMenu from "./popup-menu/PopupMenu";
 import bg from "../../assets/images/bg.jpg";
 import { url } from "inspector";
 import AnimationType from "./animations/AnimationType";
+import AudioComponent from "./common/AudioComponent";
 import { SpriteAnimationContainer } from "./animations/SpriteAnimationContainer";
 import SuccessText from './success-text/SuccessText';
 import fantastic from '../../assets/audio/fantastic.WAV';
@@ -34,6 +35,8 @@ const Wrapper = styled.div`
 `;
 
 const DragDropComp = (props: any) => {
+
+  console.log(props);
   const [timeOver, setTimeOver] = useState(false);
   const [correctDrop, setCorrectDrop] = useState(false);
   const [levelCount, setLevelCount] = useState(0);
@@ -98,7 +101,6 @@ const DragDropComp = (props: any) => {
   useEffect(() => {
     if (isLevelEnded) return;
     if (props.playing) {
-      console.log("times");
       props.monsterRef.current.style.display = "none";
       if (prompted) {
         setPromted(false);
@@ -178,6 +180,7 @@ const DragDropComp = (props: any) => {
             ?(props.editorData)? props.puzzles[levelCount].PromptText:props.puzzles[levelCount].prompt.PromptText
             : ""
         }
+        isAudioPlaying={props.playing} textVisbility={props.promptVisibility} levelType={props.levelType}
       />
       <SuccessText word ={text}/>
       {prompted ? (
@@ -193,6 +196,7 @@ const DragDropComp = (props: any) => {
               changePuzzel={levelUp}
               levelCount={levelCount}
               isMenuOpen={isMenuPopup}
+              levelType={props.levelType}
               setScore={(count: number) => {
                 setScore(score + count);
                 if(count == 100) {
@@ -224,7 +228,7 @@ const SlideComponent = (props: any) => {
   let audFile: string;
   console.log(props)
   const lengthOfCurrentLevel = props.data.Puzzles.length;
-  const [playing, setPlaying] = useState(false);
+  const { playing, setPlaying, playAudio } = AudioComponent();
   const [start, setStart] = useState(false);
   const promptTextVisibilty = props.editorData ? data.PromptType == "Visible" ? true : false : data.LevelMeta.PromptType == "Visible" ? true : false;
   console.log(data)
@@ -237,8 +241,10 @@ const SlideComponent = (props: any) => {
   useEffect(() => {
     setStart(false);
     return () => {
-      if (playing || audio != null) {
-        audio.pause();
+      if (playing) {
+        if (audio != null) {
+          audio.pause();
+        }
       }
       audio = null;
       initialTime = 10;
@@ -320,6 +326,11 @@ const SlideComponent = (props: any) => {
             >
               {"Level - " + data.LevelNumber}
             </h1>
+            <h3 style={{
+                textAlign: "center",
+                fontSize: "2.857em",
+                color: "white",
+              }}>{data.LevelMeta.LevelType}</h3>
             <button
               onClick={() => onStartClick()}
               style={{ marginInline: "auto" }}
@@ -338,7 +349,7 @@ const SlideComponent = (props: any) => {
             start={start}
             levelType={
               // data.LevelMeta.LevelType == "LetterInWord" ? true : false
-              (props.editorData)?data.LevelType:data.LevelMeta.LevelType == "LetterInWord" ? true : false
+              (props.editorData)?data.LevelType:data.LevelMeta.LevelType
             }
             promptVisibility={
               // data.LevelMeta.PromptType == "Visible" ? true : false

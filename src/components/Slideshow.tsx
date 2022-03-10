@@ -9,7 +9,10 @@ import SlideComponent from './Slide';
 let img = [
     "https://i.pinimg.com/originals/02/f3/49/02f34932a4f0ea1e70ad703e769bf41e.jpg",
     "https://www.triedandtrueblog.com/wp-content/uploads/2015/10/Feed-The-Monster-Halloween-Game-7.jpg",
-    "https://mykidcraft.com/images/monster-game-colour-lego-preschool281566712.jpg"
+    "https://mykidcraft.com/images/monster-game-colour-lego-preschool281566712.jpg",
+    "https://i.pinimg.com/originals/02/f3/49/02f34932a4f0ea1e70ad703e769bf41e.jpg",
+    "https://i.pinimg.com/originals/02/f3/49/02f34932a4f0ea1e70ad703e769bf41e.jpg",
+    "https://i.pinimg.com/originals/02/f3/49/02f34932a4f0ea1e70ad703e769bf41e.jpg"
 ]
 
 const NavWrapper = styled.div`
