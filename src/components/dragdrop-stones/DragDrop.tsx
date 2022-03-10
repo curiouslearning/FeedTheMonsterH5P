@@ -14,7 +14,9 @@ const DragDrop = ({
   changePuzzel,
   levelCount,
   isMenuOpen,
-  levelType
+  levelType,
+  setScore,
+  editorData
 }: {
   timeOver: boolean;
   answerDrop: Function;
@@ -24,9 +26,12 @@ const DragDrop = ({
   levelCount: number;
   isMenuOpen: boolean;
   levelType: string;
+  setScore?:Function,
+  editorData: boolean
 }) => {
   console.log(props.targetstones)
   let options = [...props.targetstones, ...props.foilstones];
+
   const [dataList, setDataList] = useState(options);
   const [dragging, setDragging] = useState(false);
   const [dropped, setDropped] = useState(false);
@@ -43,7 +48,7 @@ const DragDrop = ({
       };
 
       incomingData.id = i;
-      incomingData.alphabet = options[i].StoneText;
+      incomingData.alphabet = (editorData)?options[i]:options[i].StoneText;
       optionDataSet.push(incomingData);
     }
     setDataList(optionDataSet);
@@ -116,6 +121,7 @@ const DragDrop = ({
 
     if (targetStone == dropData) {
       setAnimationType('eat');
+      setScore(100)
       setTimeout(() => {
           setAnimationType('idle');
       }, 2000)

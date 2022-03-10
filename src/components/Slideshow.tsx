@@ -54,11 +54,14 @@ const Slideshow = (props: any) => {
             setStrt(nextToggle)
         }
     }
-
+    console.log(data)
+    console.log(props)
+    console.log(activeSlide)
+    console.log(data[activeSlide])
     return (
         <div>
             <MovingBackGroundComponent bgImage={cloud} />
-            <SlideComponent data={data[activeSlide]} images={img[activeSlide]} contentId={props.contentId} started={strt} time={initialTime} nextLevel={handleNav} />
+            <SlideComponent data={data[activeSlide]} images={img[activeSlide]} contentId={props.contentId} started={strt} time={initialTime} nextLevel={handleNav} editorData={props.editorData}/>
             <NavWrapper>
                 <NavButton onClick={() => handleNav(-1)} disabled={data.length < 2}>
                     Back
