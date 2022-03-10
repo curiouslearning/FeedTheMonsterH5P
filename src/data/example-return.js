@@ -12,12 +12,12 @@ const gameData = {
 			"FantasticImage": "http://server.com/images/english/feedback/fantastic.png",
 		}
 	},
-	
+
 		"Levels": [
 			{
 				"LevelMeta": {
 					"LevelType": "LetterOnly",
-					"PropmtType": "Visible",
+					"PromptType": "Visible",
 					"SubSkillName": "1",
 					"PromptFadeout": 0
 				},
@@ -122,7 +122,7 @@ const gameData = {
 			{
 				"LevelMeta": {
 					"LevelType": "LetterOnly",
-					"PropmtType": "Visible",
+					"PromptType": "Visible",
 					"SubSkillName": "1",
 					"PromptFadeout": 0
 				},
@@ -242,7 +242,7 @@ const gameData = {
 			{
 				"LevelMeta": {
 					"LevelType": "LetterOnly",
-					"PropmtType": "Visible",
+					"PromptType": "Visible",
 					"SubSkillName": "4",
 					"PromptFadeout": 0
 				},
@@ -362,7 +362,7 @@ const gameData = {
 			{
 				"LevelMeta": {
 					"LevelType": "LetterOnly",
-					"PropmtType": "Visible",
+					"PromptType": "Visible",
 					"SubSkillName": "15",
 					"PromptFadeout": 0
 				},
@@ -524,7 +524,7 @@ const gameData = {
 			{
 				"LevelMeta": {
 					"LevelType": "LetterOnly",
-					"PropmtType": "Visible",
+					"PromptType": "Visible",
 					"SubSkillName": "15",
 					"PromptFadeout": 0
 				},
@@ -686,7 +686,7 @@ const gameData = {
 			{
 				"LevelMeta": {
 					"LevelType": "LetterOnly",
-					"PropmtType": "Visible",
+					"PromptType": "Visible",
 					"SubSkillName": "15",
 					"PromptFadeout": 0
 				},
@@ -848,7 +848,7 @@ const gameData = {
 			{
 				"LevelMeta": {
 					"LevelType": "LetterOnly",
-					"PropmtType": "Hidden",
+					"PromptType": "Hidden",
 					"SubSkillName": "15",
 					"PromptFadeout": "4"
 				},
@@ -1010,7 +1010,7 @@ const gameData = {
 			{
 				"LevelMeta": {
 					"LevelType": "LetterOnly",
-					"PropmtType": "Visible",
+					"PromptType": "Visible",
 					"SubSkillName": "16",
 					"PromptFadeout": 0
 				},
@@ -1172,7 +1172,7 @@ const gameData = {
 			{
 				"LevelMeta": {
 					"LevelType": "LetterOnly",
-					"PropmtType": "Visible",
+					"PromptType": "Visible",
 					"SubSkillName": "16",
 					"PromptFadeout": 0
 				},
@@ -1334,7 +1334,7 @@ const gameData = {
 			{
 				"LevelMeta": {
 					"LevelType": "LetterOnly",
-					"PropmtType": "Visible",
+					"PromptType": "Visible",
 					"SubSkillName": "16",
 					"PromptFadeout": 0
 				},
@@ -1496,7 +1496,7 @@ const gameData = {
 			{
 				"LevelMeta": {
 					"LevelType": "LetterOnly",
-					"PropmtType": "Visible",
+					"PromptType": "Visible",
 					"SubSkillName": "16",
 					"PromptFadeout": 0
 				},
@@ -1658,7 +1658,7 @@ const gameData = {
 			{
 				"LevelMeta": {
 					"LevelType": "LetterOnly",
-					"PropmtType": "Hidden",
+					"PromptType": "Hidden",
 					"SubSkillName": "16",
 					"PromptFadeout": "4"
 				},
@@ -1820,7 +1820,7 @@ const gameData = {
 			{
 				"LevelMeta": {
 					"LevelType": "LetterInWord",
-					"PropmtType": "Visible",
+					"PromptType": "Visible",
 					"SubSkillName": "17",
 					"PromptFadeout": 0
 				},
@@ -1982,7 +1982,7 @@ const gameData = {
 			{
 				"LevelMeta": {
 					"LevelType": "LetterOnly",
-					"PropmtType": "Visible",
+					"PromptType": "Visible",
 					"SubSkillName": "4",
 					"PromptFadeout": 0
 				},
@@ -2102,7 +2102,7 @@ const gameData = {
 			{
 				"LevelMeta": {
 					"LevelType": "LetterInWord",
-					"PropmtType": "Visible",
+					"PromptType": "Visible",
 					"SubSkillName": "17",
 					"PromptFadeout": 0
 				},
@@ -2264,7 +2264,7 @@ const gameData = {
 			{
 				"LevelMeta": {
 					"LevelType": "LetterInWord",
-					"PropmtType": "Visible",
+					"PromptType": "Visible",
 					"SubSkillName": "17",
 					"PromptFadeout": 0
 				},
@@ -2426,7 +2426,7 @@ const gameData = {
 			{
 				"LevelMeta": {
 					"LevelType": "LetterInWord",
-					"PropmtType": "Visible",
+					"PromptType": "Visible",
 					"SubSkillName": "18",
 					"PromptFadeout": 0
 				},
@@ -2588,7 +2588,7 @@ const gameData = {
 			{
 				"LevelMeta": {
 					"LevelType": "LetterInWord",
-					"PropmtType": "Visible",
+					"PromptType": "Visible",
 					"SubSkillName": "18",
 					"PromptFadeout": 0
 				},
@@ -2750,7 +2750,7 @@ const gameData = {
 			{
 				"LevelMeta": {
 					"LevelType": "Word",
-					"PropmtType": "Visible",
+					"PromptType": "Visible",
 					"SubSkillName": "18",
 					"PromptFadeout": 0
 				},
@@ -2900,7 +2900,7 @@ const gameData = {
 			{
 				"LevelMeta": {
 					"LevelType": "Word",
-					"PropmtType": "Visible",
+					"PromptType": "Visible",
 					"SubSkillName": "18",
 					"PromptFadeout": 0
 				},
@@ -3050,7 +3050,7 @@ const gameData = {
 			{
 				"LevelMeta": {
 					"LevelType": "LetterOnly",
-					"PropmtType": "Visible",
+					"PromptType": "Visible",
 					"SubSkillName": "18",
 					"PromptFadeout": "4"
 				},
@@ -3212,7 +3212,7 @@ const gameData = {
 			{
 				"LevelMeta": {
 					"LevelType": "LetterOnly",
-					"PropmtType": "Visible",
+					"PromptType": "Visible",
 					"SubSkillName": "16",
 					"PromptFadeout": 0
 				},
@@ -3374,7 +3374,7 @@ const gameData = {
 			{
 				"LevelMeta": {
 					"LevelType": "LetterOnly",
-					"PropmtType": "Visible",
+					"PromptType": "Visible",
 					"SubSkillName": "16",
 					"PromptFadeout": "4"
 				},
@@ -3536,7 +3536,7 @@ const gameData = {
 			{
 				"LevelMeta": {
 					"LevelType": "LetterOnly",
-					"PropmtType": "Visible",
+					"PromptType": "Visible",
 					"SubSkillName": "17",
 					"PromptFadeout": 0
 				},
@@ -3698,7 +3698,7 @@ const gameData = {
 			{
 				"LevelMeta": {
 					"LevelType": "LetterOnly",
-					"PropmtType": "Visible",
+					"PromptType": "Visible",
 					"SubSkillName": "4",
 					"PromptFadeout": 0
 				},
@@ -3818,7 +3818,7 @@ const gameData = {
 			{
 				"LevelMeta": {
 					"LevelType": "LetterOnly",
-					"PropmtType": "Hidden",
+					"PromptType": "Hidden",
 					"SubSkillName": "17",
 					"PromptFadeout": 0
 				},
@@ -3980,7 +3980,7 @@ const gameData = {
 			{
 				"LevelMeta": {
 					"LevelType": "LetterOnly",
-					"PropmtType": "Visible",
+					"PromptType": "Visible",
 					"SubSkillName": "17",
 					"PromptFadeout": 0
 				},
@@ -4142,7 +4142,7 @@ const gameData = {
 			{
 				"LevelMeta": {
 					"LevelType": "LetterOnly",
-					"PropmtType": "Visible",
+					"PromptType": "Visible",
 					"SubSkillName": "18",
 					"PromptFadeout": 0
 				},
@@ -4304,7 +4304,7 @@ const gameData = {
 			{
 				"LevelMeta": {
 					"LevelType": "LetterOnly",
-					"PropmtType": "Visible",
+					"PromptType": "Visible",
 					"SubSkillName": "18",
 					"PromptFadeout": 0
 				},
@@ -4466,7 +4466,7 @@ const gameData = {
 			{
 				"LevelMeta": {
 					"LevelType": "LetterOnly",
-					"PropmtType": "Visible",
+					"PromptType": "Visible",
 					"SubSkillName": "18",
 					"PromptFadeout": 0
 				},
@@ -4628,7 +4628,7 @@ const gameData = {
 			{
 				"LevelMeta": {
 					"LevelType": "LetterOnly",
-					"PropmtType": "Hidden",
+					"PromptType": "Hidden",
 					"SubSkillName": "18",
 					"PromptFadeout": 0
 				},
@@ -4790,7 +4790,7 @@ const gameData = {
 			{
 				"LevelMeta": {
 					"LevelType": "LetterInWord",
-					"PropmtType": "Visible",
+					"PromptType": "Visible",
 					"SubSkillName": "18",
 					"PromptFadeout": "4"
 				},
@@ -4952,7 +4952,7 @@ const gameData = {
 			{
 				"LevelMeta": {
 					"LevelType": "LetterInWord",
-					"PropmtType": "Visible",
+					"PromptType": "Visible",
 					"SubSkillName": "16",
 					"PromptFadeout": 0
 				},
@@ -5114,7 +5114,7 @@ const gameData = {
 			{
 				"LevelMeta": {
 					"LevelType": "LetterInWord",
-					"PropmtType": "Visible",
+					"PromptType": "Visible",
 					"SubSkillName": "16",
 					"PromptFadeout": "4"
 				},
@@ -5276,7 +5276,7 @@ const gameData = {
 			{
 				"LevelMeta": {
 					"LevelType": "LetterInWord",
-					"PropmtType": "Visible",
+					"PromptType": "Visible",
 					"SubSkillName": "17",
 					"PromptFadeout": 0
 				},
@@ -5438,7 +5438,7 @@ const gameData = {
 			{
 				"LevelMeta": {
 					"LevelType": "LetterOnly",
-					"PropmtType": "Hidden",
+					"PromptType": "Hidden",
 					"SubSkillName": "4",
 					"PromptFadeout": "4"
 				},
@@ -5558,7 +5558,7 @@ const gameData = {
 			{
 				"LevelMeta": {
 					"LevelType": "LetterInWord",
-					"PropmtType": "Visible",
+					"PromptType": "Visible",
 					"SubSkillName": "17",
 					"PromptFadeout": 0
 				},
@@ -5720,7 +5720,7 @@ const gameData = {
 			{
 				"LevelMeta": {
 					"LevelType": "Word",
-					"PropmtType": "Visible",
+					"PromptType": "Visible",
 					"SubSkillName": "17",
 					"PromptFadeout": 0
 				},
@@ -5870,7 +5870,7 @@ const gameData = {
 			{
 				"LevelMeta": {
 					"LevelType": "Word",
-					"PropmtType": "Visible",
+					"PromptType": "Visible",
 					"SubSkillName": "18",
 					"PromptFadeout": 0
 				},
@@ -6020,7 +6020,7 @@ const gameData = {
 			{
 				"LevelMeta": {
 					"LevelType": "LetterOnly",
-					"PropmtType": "Visible",
+					"PromptType": "Visible",
 					"SubSkillName": "18",
 					"PromptFadeout": 0
 				},
@@ -6182,7 +6182,7 @@ const gameData = {
 			{
 				"LevelMeta": {
 					"LevelType": "LetterOnly",
-					"PropmtType": "Visible",
+					"PromptType": "Visible",
 					"SubSkillName": "18",
 					"PromptFadeout": 0
 				},
@@ -6344,7 +6344,7 @@ const gameData = {
 			{
 				"LevelMeta": {
 					"LevelType": "LetterOnly",
-					"PropmtType": "Visible",
+					"PromptType": "Visible",
 					"SubSkillName": "18",
 					"PromptFadeout": 0
 				},
@@ -6506,7 +6506,7 @@ const gameData = {
 			{
 				"LevelMeta": {
 					"LevelType": "LetterOnly",
-					"PropmtType": "Visible",
+					"PromptType": "Visible",
 					"SubSkillName": "18",
 					"PromptFadeout": "4"
 				},
@@ -6668,7 +6668,7 @@ const gameData = {
 			{
 				"LevelMeta": {
 					"LevelType": "LetterOnly",
-					"PropmtType": "Hidden",
+					"PromptType": "Hidden",
 					"SubSkillName": "16",
 					"PromptFadeout": 0
 				},
@@ -6830,7 +6830,7 @@ const gameData = {
 			{
 				"LevelMeta": {
 					"LevelType": "LetterOnly",
-					"PropmtType": "Visible",
+					"PromptType": "Visible",
 					"SubSkillName": "16",
 					"PromptFadeout": "4"
 				},
@@ -6992,7 +6992,7 @@ const gameData = {
 			{
 				"LevelMeta": {
 					"LevelType": "LetterOnly",
-					"PropmtType": "Visible",
+					"PromptType": "Visible",
 					"SubSkillName": "17",
 					"PromptFadeout": 0
 				},
@@ -7154,7 +7154,7 @@ const gameData = {
 			{
 				"LevelMeta": {
 					"LevelType": "LetterInWord",
-					"PropmtType": "Visible",
+					"PromptType": "Visible",
 					"SubSkillName": "5",
 					"PromptFadeout": 0
 				},
@@ -7259,7 +7259,7 @@ const gameData = {
 			{
 				"LevelMeta": {
 					"LevelType": "LetterOnly",
-					"PropmtType": "Visible",
+					"PromptType": "Visible",
 					"SubSkillName": "17",
 					"PromptFadeout": 0
 				},
@@ -7421,7 +7421,7 @@ const gameData = {
 			{
 				"LevelMeta": {
 					"LevelType": "LetterOnly",
-					"PropmtType": "Visible",
+					"PromptType": "Visible",
 					"SubSkillName": "17",
 					"PromptFadeout": 0
 				},
@@ -7583,7 +7583,7 @@ const gameData = {
 			{
 				"LevelMeta": {
 					"LevelType": "LetterOnly",
-					"PropmtType": "Hidden",
+					"PromptType": "Hidden",
 					"SubSkillName": "18",
 					"PromptFadeout": 0
 				},
@@ -7745,7 +7745,7 @@ const gameData = {
 			{
 				"LevelMeta": {
 					"LevelType": "LetterInWord",
-					"PropmtType": "Visible",
+					"PromptType": "Visible",
 					"SubSkillName": "18",
 					"PromptFadeout": 0
 				},
@@ -7907,7 +7907,7 @@ const gameData = {
 			{
 				"LevelMeta": {
 					"LevelType": "LetterInWord",
-					"PropmtType": "Visible",
+					"PromptType": "Visible",
 					"SubSkillName": "18",
 					"PromptFadeout": 0
 				},
@@ -8069,7 +8069,7 @@ const gameData = {
 			{
 				"LevelMeta": {
 					"LevelType": "LetterInWord",
-					"PropmtType": "Visible",
+					"PromptType": "Visible",
 					"SubSkillName": "18",
 					"PromptFadeout": 0
 				},
@@ -8231,7 +8231,7 @@ const gameData = {
 			{
 				"LevelMeta": {
 					"LevelType": "LetterInWord",
-					"PropmtType": "Visible",
+					"PromptType": "Visible",
 					"SubSkillName": "18",
 					"PromptFadeout": "4"
 				},
@@ -8393,7 +8393,7 @@ const gameData = {
 			{
 				"LevelMeta": {
 					"LevelType": "LetterInWord",
-					"PropmtType": "Visible",
+					"PromptType": "Visible",
 					"SubSkillName": "16",
 					"PromptFadeout": 0
 				},
@@ -8555,7 +8555,7 @@ const gameData = {
 			{
 				"LevelMeta": {
 					"LevelType": "Word",
-					"PropmtType": "Visible",
+					"PromptType": "Visible",
 					"SubSkillName": "16",
 					"PromptFadeout": "4"
 				},
@@ -8705,7 +8705,7 @@ const gameData = {
 			{
 				"LevelMeta": {
 					"LevelType": "Word",
-					"PropmtType": "Visible",
+					"PromptType": "Visible",
 					"SubSkillName": "17",
 					"PromptFadeout": 0
 				},
@@ -8855,7 +8855,7 @@ const gameData = {
 			{
 				"LevelMeta": {
 					"LevelType": "LetterInWord",
-					"PropmtType": "Visible",
+					"PromptType": "Visible",
 					"SubSkillName": "5",
 					"PromptFadeout": 0
 				},
@@ -8975,7 +8975,7 @@ const gameData = {
 			{
 				"LevelMeta": {
 					"LevelType": "LetterInWord",
-					"PropmtType": "Visible",
+					"PromptType": "Visible",
 					"SubSkillName": "5",
 					"PromptFadeout": "4"
 				},
@@ -9104,7 +9104,7 @@ const gameData = {
 			{
 				"LevelMeta": {
 					"LevelType": "Word",
-					"PropmtType": "Visible",
+					"PromptType": "Visible",
 					"SubSkillName": "6",
 					"PromptFadeout": 0
 				},
@@ -9290,7 +9290,7 @@ const gameData = {
 			{
 				"LevelMeta": {
 					"LevelType": "Word",
-					"PropmtType": "Visible",
+					"PromptType": "Visible",
 					"SubSkillName": "6",
 					"PromptFadeout": 0
 				},
@@ -9476,7 +9476,7 @@ const gameData = {
 			{
 				"LevelMeta": {
 					"LevelType": "LetterOnly",
-					"PropmtType": "Visible",
+					"PromptType": "Visible",
 					"SubSkillName": "6",
 					"PromptFadeout": 0
 				},
@@ -9611,7 +9611,7 @@ const gameData = {
 			{
 				"LevelMeta": {
 					"LevelType": "LetterOnly",
-					"PropmtType": "Visible",
+					"PromptType": "Visible",
 					"SubSkillName": "1",
 					"PromptFadeout": 0
 				},
@@ -9716,7 +9716,7 @@ const gameData = {
 			{
 				"LevelMeta": {
 					"LevelType": "LetterOnly",
-					"PropmtType": "Visible",
+					"PromptType": "Visible",
 					"SubSkillName": "6",
 					"PromptFadeout": 0
 				},
@@ -9851,7 +9851,7 @@ const gameData = {
 			{
 				"LevelMeta": {
 					"LevelType": "LetterOnly",
-					"PropmtType": "Visible",
+					"PromptType": "Visible",
 					"SubSkillName": "6",
 					"PromptFadeout": "4"
 				},
@@ -9971,7 +9971,7 @@ const gameData = {
 			{
 				"LevelMeta": {
 					"LevelType": "LetterOnly",
-					"PropmtType": "Visible",
+					"PromptType": "Visible",
 					"SubSkillName": "7",
 					"PromptFadeout": 0
 				},
@@ -10091,7 +10091,7 @@ const gameData = {
 			{
 				"LevelMeta": {
 					"LevelType": "LetterOnly",
-					"PropmtType": "Visible",
+					"PromptType": "Visible",
 					"SubSkillName": "7",
 					"PromptFadeout": 0
 				},
@@ -10211,7 +10211,7 @@ const gameData = {
 			{
 				"LevelMeta": {
 					"LevelType": "LetterInWord",
-					"PropmtType": "Visible",
+					"PromptType": "Visible",
 					"SubSkillName": "7",
 					"PromptFadeout": 0
 				},
@@ -10331,7 +10331,7 @@ const gameData = {
 			{
 				"LevelMeta": {
 					"LevelType": "LetterInWord",
-					"PropmtType": "Visible",
+					"PromptType": "Visible",
 					"SubSkillName": "7",
 					"PromptFadeout": 0
 				},
@@ -10451,7 +10451,7 @@ const gameData = {
 			{
 				"LevelMeta": {
 					"LevelType": "LetterInWord",
-					"PropmtType": "Visible",
+					"PromptType": "Visible",
 					"SubSkillName": "7",
 					"PromptFadeout": "4"
 				},
@@ -10571,7 +10571,7 @@ const gameData = {
 			{
 				"LevelMeta": {
 					"LevelType": "Word",
-					"PropmtType": "Visible",
+					"PromptType": "Visible",
 					"SubSkillName": "8",
 					"PromptFadeout": 0
 				},
@@ -10766,7 +10766,7 @@ const gameData = {
 			{
 				"LevelMeta": {
 					"LevelType": "Word",
-					"PropmtType": "Visible",
+					"PromptType": "Visible",
 					"SubSkillName": "8",
 					"PromptFadeout": 0
 				},
@@ -10961,7 +10961,7 @@ const gameData = {
 			{
 				"LevelMeta": {
 					"LevelType": "LetterOnly",
-					"PropmtType": "Visible",
+					"PromptType": "Visible",
 					"SubSkillName": "8",
 					"PromptFadeout": 0
 				},
@@ -11114,7 +11114,7 @@ const gameData = {
 			{
 				"LevelMeta": {
 					"LevelType": "LetterOnly",
-					"PropmtType": "Hidden",
+					"PromptType": "Hidden",
 					"SubSkillName": "2",
 					"PromptFadeout": 0
 				},
@@ -11219,7 +11219,7 @@ const gameData = {
 			{
 				"LevelMeta": {
 					"LevelType": "LetterOnly",
-					"PropmtType": "Visible",
+					"PromptType": "Visible",
 					"SubSkillName": "8",
 					"PromptFadeout": 0
 				},
@@ -11372,7 +11372,7 @@ const gameData = {
 			{
 				"LevelMeta": {
 					"LevelType": "LetterOnly",
-					"PropmtType": "Visible",
+					"PromptType": "Visible",
 					"SubSkillName": "8",
 					"PromptFadeout": "4"
 				},
@@ -11525,7 +11525,7 @@ const gameData = {
 			{
 				"LevelMeta": {
 					"LevelType": "LetterOnly",
-					"PropmtType": "Visible",
+					"PromptType": "Visible",
 					"SubSkillName": "9",
 					"PromptFadeout": 0
 				},
@@ -11678,7 +11678,7 @@ const gameData = {
 			{
 				"LevelMeta": {
 					"LevelType": "LetterOnly",
-					"PropmtType": "Visible",
+					"PromptType": "Visible",
 					"SubSkillName": "9",
 					"PromptFadeout": 0
 				},
@@ -11831,7 +11831,7 @@ const gameData = {
 			{
 				"LevelMeta": {
 					"LevelType": "LetterInWord",
-					"PropmtType": "Visible",
+					"PromptType": "Visible",
 					"SubSkillName": "9",
 					"PromptFadeout": 0
 				},
@@ -11984,7 +11984,7 @@ const gameData = {
 			{
 				"LevelMeta": {
 					"LevelType": "LetterInWord",
-					"PropmtType": "Visible",
+					"PromptType": "Visible",
 					"SubSkillName": "9",
 					"PromptFadeout": 0
 				},
@@ -12146,7 +12146,7 @@ const gameData = {
 			{
 				"LevelMeta": {
 					"LevelType": "LetterInWord",
-					"PropmtType": "Visible",
+					"PromptType": "Visible",
 					"SubSkillName": "6",
 					"PromptFadeout": 0
 				},
@@ -12308,7 +12308,7 @@ const gameData = {
 			{
 				"LevelMeta": {
 					"LevelType": "Word",
-					"PropmtType": "Visible",
+					"PromptType": "Visible",
 					"SubSkillName": "9",
 					"PromptFadeout": "-4"
 				},
@@ -12503,7 +12503,7 @@ const gameData = {
 			{
 				"LevelMeta": {
 					"LevelType": "Word",
-					"PropmtType": "Visible",
+					"PromptType": "Visible",
 					"SubSkillName": "10",
 					"PromptFadeout": 0
 				},
@@ -12698,7 +12698,7 @@ const gameData = {
 			{
 				"LevelMeta": {
 					"LevelType": "LetterOnly",
-					"PropmtType": "Visible",
+					"PromptType": "Visible",
 					"SubSkillName": "10",
 					"PromptFadeout": 0
 				},
@@ -12860,7 +12860,7 @@ const gameData = {
 			{
 				"LevelMeta": {
 					"LevelType": "LetterInWord",
-					"PropmtType": "Visible",
+					"PromptType": "Visible",
 					"SubSkillName": "2",
 					"PromptFadeout": 0
 				},
@@ -12980,7 +12980,7 @@ const gameData = {
 			{
 				"LevelMeta": {
 					"LevelType": "LetterOnly",
-					"PropmtType": "Visible",
+					"PromptType": "Visible",
 					"SubSkillName": "10",
 					"PromptFadeout": 0
 				},
@@ -13142,7 +13142,7 @@ const gameData = {
 			{
 				"LevelMeta": {
 					"LevelType": "LetterOnly",
-					"PropmtType": "Visible",
+					"PromptType": "Visible",
 					"SubSkillName": "10",
 					"PromptFadeout": "5"
 				},
@@ -13304,7 +13304,7 @@ const gameData = {
 			{
 				"LevelMeta": {
 					"LevelType": "LetterOnly",
-					"PropmtType": "Visible",
+					"PromptType": "Visible",
 					"SubSkillName": "11",
 					"PromptFadeout": 0
 				},
@@ -13466,7 +13466,7 @@ const gameData = {
 			{
 				"LevelMeta": {
 					"LevelType": "LetterOnly",
-					"PropmtType": "Hidden",
+					"PromptType": "Hidden",
 					"SubSkillName": "11",
 					"PromptFadeout": 0
 				},
@@ -13628,7 +13628,7 @@ const gameData = {
 			{
 				"LevelMeta": {
 					"LevelType": "LetterInWord",
-					"PropmtType": "Visible",
+					"PromptType": "Visible",
 					"SubSkillName": "11",
 					"PromptFadeout": 0
 				},
@@ -13790,7 +13790,7 @@ const gameData = {
 			{
 				"LevelMeta": {
 					"LevelType": "LetterInWord",
-					"PropmtType": "Visible",
+					"PromptType": "Visible",
 					"SubSkillName": "11",
 					"PromptFadeout": 0
 				},
@@ -13952,7 +13952,7 @@ const gameData = {
 			{
 				"LevelMeta": {
 					"LevelType": "LetterInWord",
-					"PropmtType": "Visible",
+					"PromptType": "Visible",
 					"SubSkillName": "11",
 					"PromptFadeout": "4"
 				},
@@ -14114,7 +14114,7 @@ const gameData = {
 			{
 				"LevelMeta": {
 					"LevelType": "Word",
-					"PropmtType": "Visible",
+					"PromptType": "Visible",
 					"SubSkillName": "12",
 					"PromptFadeout": 0
 				},
@@ -14309,7 +14309,7 @@ const gameData = {
 			{
 				"LevelMeta": {
 					"LevelType": "Word",
-					"PropmtType": "Visible",
+					"PromptType": "Visible",
 					"SubSkillName": "12",
 					"PromptFadeout": 0
 				},
@@ -14504,7 +14504,7 @@ const gameData = {
 			{
 				"LevelMeta": {
 					"LevelType": "LetterOnly",
-					"PropmtType": "Visible",
+					"PromptType": "Visible",
 					"SubSkillName": "13",
 					"PromptFadeout": 0
 				},
@@ -14666,7 +14666,7 @@ const gameData = {
 			{
 				"LevelMeta": {
 					"LevelType": "LetterInWord",
-					"PropmtType": "Visible",
+					"PromptType": "Visible",
 					"SubSkillName": "2",
 					"PromptFadeout": 0
 				},
@@ -14786,7 +14786,7 @@ const gameData = {
 			{
 				"LevelMeta": {
 					"LevelType": "LetterOnly",
-					"PropmtType": "Visible",
+					"PromptType": "Visible",
 					"SubSkillName": "13",
 					"PromptFadeout": 0
 				},
@@ -14948,7 +14948,7 @@ const gameData = {
 			{
 				"LevelMeta": {
 					"LevelType": "LetterOnly",
-					"PropmtType": "Visible",
+					"PromptType": "Visible",
 					"SubSkillName": "13",
 					"PromptFadeout": 0
 				},
@@ -15110,7 +15110,7 @@ const gameData = {
 			{
 				"LevelMeta": {
 					"LevelType": "LetterOnly",
-					"PropmtType": "Visible",
+					"PromptType": "Visible",
 					"SubSkillName": "13",
 					"PromptFadeout": 0
 				},
@@ -15272,7 +15272,7 @@ const gameData = {
 			{
 				"LevelMeta": {
 					"LevelType": "LetterOnly",
-					"PropmtType": "Visible",
+					"PromptType": "Visible",
 					"SubSkillName": "13",
 					"PromptFadeout": 0
 				},
@@ -15434,7 +15434,7 @@ const gameData = {
 			{
 				"LevelMeta": {
 					"LevelType": "LetterOnly",
-					"PropmtType": "Hidden",
+					"PromptType": "Hidden",
 					"SubSkillName": "14",
 					"PromptFadeout": 0
 				},
@@ -15596,7 +15596,7 @@ const gameData = {
 			{
 				"LevelMeta": {
 					"LevelType": "LetterInWord",
-					"PropmtType": "Visible",
+					"PromptType": "Visible",
 					"SubSkillName": "14",
 					"PromptFadeout": 0
 				},
@@ -15758,7 +15758,7 @@ const gameData = {
 			{
 				"LevelMeta": {
 					"LevelType": "LetterInWord",
-					"PropmtType": "Visible",
+					"PromptType": "Visible",
 					"SubSkillName": "14",
 					"PromptFadeout": 0
 				},
@@ -15920,7 +15920,7 @@ const gameData = {
 			{
 				"LevelMeta": {
 					"LevelType": "LetterInWord",
-					"PropmtType": "Visible",
+					"PromptType": "Visible",
 					"SubSkillName": "14",
 					"PromptFadeout": 0
 				},
@@ -16082,7 +16082,7 @@ const gameData = {
 			{
 				"LevelMeta": {
 					"LevelType": "LetterInWord",
-					"PropmtType": "Visible",
+					"PromptType": "Visible",
 					"SubSkillName": "14",
 					"PromptFadeout": "4"
 				},
@@ -16244,7 +16244,7 @@ const gameData = {
 			{
 				"LevelMeta": {
 					"LevelType": "LetterInWord",
-					"PropmtType": "Visible",
+					"PromptType": "Visible",
 					"SubSkillName": "15",
 					"PromptFadeout": 0
 				},
@@ -16406,7 +16406,7 @@ const gameData = {
 			{
 				"LevelMeta": {
 					"LevelType": "LetterInWord",
-					"PropmtType": "Visible",
+					"PromptType": "Visible",
 					"SubSkillName": "3",
 					"PromptFadeout": 0
 				},
@@ -16526,7 +16526,7 @@ const gameData = {
 			{
 				"LevelMeta": {
 					"LevelType": "Word",
-					"PropmtType": "Visible",
+					"PromptType": "Visible",
 					"SubSkillName": "15",
 					"PromptFadeout": 0
 				},
@@ -16721,7 +16721,7 @@ const gameData = {
 			{
 				"LevelMeta": {
 					"LevelType": "Word",
-					"PropmtType": "Visible",
+					"PromptType": "Visible",
 					"SubSkillName": "15",
 					"PromptFadeout": 0
 				},
@@ -16916,7 +16916,7 @@ const gameData = {
 			{
 				"LevelMeta": {
 					"LevelType": "Word",
-					"PropmtType": "Visible",
+					"PromptType": "Visible",
 					"SubSkillName": "15",
 					"PromptFadeout": 0
 				},
@@ -17111,7 +17111,7 @@ const gameData = {
 			{
 				"LevelMeta": {
 					"LevelType": "Word",
-					"PropmtType": "Visible",
+					"PromptType": "Visible",
 					"SubSkillName": "15",
 					"PromptFadeout": "4"
 				},
@@ -17306,7 +17306,7 @@ const gameData = {
 			{
 				"LevelMeta": {
 					"LevelType": "Word",
-					"PropmtType": "Visible",
+					"PromptType": "Visible",
 					"SubSkillName": "16",
 					"PromptFadeout": 0
 				},
@@ -17501,7 +17501,7 @@ const gameData = {
 			{
 				"LevelMeta": {
 					"LevelType": "LetterOnly",
-					"PropmtType": "Visible",
+					"PromptType": "Visible",
 					"SubSkillName": "16",
 					"PromptFadeout": 0
 				},
@@ -17663,7 +17663,7 @@ const gameData = {
 			{
 				"LevelMeta": {
 					"LevelType": "LetterOnly",
-					"PropmtType": "Visible",
+					"PromptType": "Visible",
 					"SubSkillName": "16",
 					"PromptFadeout": 0
 				},
@@ -17825,7 +17825,7 @@ const gameData = {
 			{
 				"LevelMeta": {
 					"LevelType": "LetterOnly",
-					"PropmtType": "Visible",
+					"PromptType": "Visible",
 					"SubSkillName": "16",
 					"PromptFadeout": 0
 				},
@@ -17987,7 +17987,7 @@ const gameData = {
 			{
 				"LevelMeta": {
 					"LevelType": "LetterOnly",
-					"PropmtType": "Visible",
+					"PromptType": "Visible",
 					"SubSkillName": "16",
 					"PromptFadeout": "4"
 				},
@@ -18149,7 +18149,7 @@ const gameData = {
 			{
 				"LevelMeta": {
 					"LevelType": "LetterOnly",
-					"PropmtType": "Hidden",
+					"PromptType": "Hidden",
 					"SubSkillName": "17",
 					"PromptFadeout": 0
 				},
@@ -18311,7 +18311,7 @@ const gameData = {
 			{
 				"LevelMeta": {
 					"LevelType": "Word",
-					"PropmtType": "Visible",
+					"PromptType": "Visible",
 					"SubSkillName": "3",
 					"PromptFadeout": 0
 				},
@@ -18506,7 +18506,7 @@ const gameData = {
 			{
 				"LevelMeta": {
 					"LevelType": "LetterOnly",
-					"PropmtType": "Visible",
+					"PromptType": "Visible",
 					"SubSkillName": "17",
 					"PromptFadeout": 0
 				},
@@ -18668,7 +18668,7 @@ const gameData = {
 			{
 				"LevelMeta": {
 					"LevelType": "LetterOnly",
-					"PropmtType": "Visible",
+					"PromptType": "Visible",
 					"SubSkillName": "17",
 					"PromptFadeout": 0
 				},
@@ -18830,7 +18830,7 @@ const gameData = {
 			{
 				"LevelMeta": {
 					"LevelType": "LetterOnly",
-					"PropmtType": "Visible",
+					"PromptType": "Visible",
 					"SubSkillName": "18",
 					"PromptFadeout": 0
 				},
@@ -18992,7 +18992,7 @@ const gameData = {
 			{
 				"LevelMeta": {
 					"LevelType": "LetterOnly",
-					"PropmtType": "Visible",
+					"PromptType": "Visible",
 					"SubSkillName": "18",
 					"PromptFadeout": 0
 				},
@@ -19154,7 +19154,7 @@ const gameData = {
 			{
 				"LevelMeta": {
 					"LevelType": "LetterOnly",
-					"PropmtType": "Hidden",
+					"PromptType": "Hidden",
 					"SubSkillName": "18",
 					"PromptFadeout": 0
 				},
@@ -19316,7 +19316,7 @@ const gameData = {
 			{
 				"LevelMeta": {
 					"LevelType": "LetterInWord",
-					"PropmtType": "Visible",
+					"PromptType": "Visible",
 					"SubSkillName": "18",
 					"PromptFadeout": 0
 				},
@@ -19478,7 +19478,7 @@ const gameData = {
 			{
 				"LevelMeta": {
 					"LevelType": "LetterInWord",
-					"PropmtType": "Visible",
+					"PromptType": "Visible",
 					"SubSkillName": "18",
 					"PromptFadeout": "4"
 				},
@@ -19640,7 +19640,7 @@ const gameData = {
 			{
 				"LevelMeta": {
 					"LevelType": "LetterInWord",
-					"PropmtType": "Visible",
+					"PromptType": "Visible",
 					"SubSkillName": "14",
 					"PromptFadeout": 0
 				},
@@ -19802,7 +19802,7 @@ const gameData = {
 			{
 				"LevelMeta": {
 					"LevelType": "LetterInWord",
-					"PropmtType": "Visible",
+					"PromptType": "Visible",
 					"SubSkillName": "14",
 					"PromptFadeout": "4"
 				},
@@ -19964,7 +19964,7 @@ const gameData = {
 			{
 				"LevelMeta": {
 					"LevelType": "LetterInWord",
-					"PropmtType": "Visible",
+					"PromptType": "Visible",
 					"SubSkillName": "15",
 					"PromptFadeout": 0
 				},
@@ -20126,7 +20126,7 @@ const gameData = {
 			{
 				"LevelMeta": {
 					"LevelType": "Word",
-					"PropmtType": "Visible",
+					"PromptType": "Visible",
 					"SubSkillName": "3",
 					"PromptFadeout": 0
 				},
@@ -20321,7 +20321,7 @@ const gameData = {
 			{
 				"LevelMeta": {
 					"LevelType": "Word",
-					"PropmtType": "Visible",
+					"PromptType": "Visible",
 					"SubSkillName": "15",
 					"PromptFadeout": 0
 				},
@@ -20471,7 +20471,7 @@ const gameData = {
 			{
 				"LevelMeta": {
 					"LevelType": "Word",
-					"PropmtType": "Visible",
+					"PromptType": "Visible",
 					"SubSkillName": "15",
 					"PromptFadeout": 0
 				},
@@ -20621,7 +20621,7 @@ const gameData = {
 			{
 				"LevelMeta": {
 					"LevelType": "LetterOnly",
-					"PropmtType": "Visible",
+					"PromptType": "Visible",
 					"SubSkillName": "15",
 					"PromptFadeout": 0
 				},
@@ -20783,7 +20783,7 @@ const gameData = {
 			{
 				"LevelMeta": {
 					"LevelType": "LetterOnly",
-					"PropmtType": "Visible",
+					"PromptType": "Visible",
 					"SubSkillName": "15",
 					"PromptFadeout": "4"
 				},
@@ -20945,7 +20945,7 @@ const gameData = {
 			{
 				"LevelMeta": {
 					"LevelType": "LetterOnly",
-					"PropmtType": "Visible",
+					"PromptType": "Visible",
 					"SubSkillName": "16",
 					"PromptFadeout": 0
 				},
@@ -21107,7 +21107,7 @@ const gameData = {
 			{
 				"LevelMeta": {
 					"LevelType": "LetterOnly",
-					"PropmtType": "Visible",
+					"PromptType": "Visible",
 					"SubSkillName": "16",
 					"PromptFadeout": 0
 				},
@@ -21269,7 +21269,7 @@ const gameData = {
 			{
 				"LevelMeta": {
 					"LevelType": "LetterOnly",
-					"PropmtType": "Hidden",
+					"PromptType": "Hidden",
 					"SubSkillName": "16",
 					"PromptFadeout": 0
 				},
@@ -21431,7 +21431,7 @@ const gameData = {
 			{
 				"LevelMeta": {
 					"LevelType": "LetterOnly",
-					"PropmtType": "Visible",
+					"PromptType": "Visible",
 					"SubSkillName": "16",
 					"PromptFadeout": 0
 				},
@@ -21593,7 +21593,7 @@ const gameData = {
 			{
 				"LevelMeta": {
 					"LevelType": "LetterOnly",
-					"PropmtType": "Visible",
+					"PromptType": "Visible",
 					"SubSkillName": "16",
 					"PromptFadeout": "4"
 				},
@@ -21755,7 +21755,7 @@ const gameData = {
 			{
 				"LevelMeta": {
 					"LevelType": "LetterOnly",
-					"PropmtType": "Visible",
+					"PromptType": "Visible",
 					"SubSkillName": "17",
 					"PromptFadeout": 0
 				},
@@ -21917,7 +21917,7 @@ const gameData = {
 			{
 				"LevelMeta": {
 					"LevelType": "LetterOnly",
-					"PropmtType": "Visible",
+					"PromptType": "Visible",
 					"SubSkillName": "3",
 					"PromptFadeout": "4"
 				},
@@ -22037,7 +22037,7 @@ const gameData = {
 			{
 				"LevelMeta": {
 					"LevelType": "LetterOnly",
-					"PropmtType": "Visible",
+					"PromptType": "Visible",
 					"SubSkillName": "17",
 					"PromptFadeout": 0
 				},
@@ -22199,7 +22199,7 @@ const gameData = {
 			{
 				"LevelMeta": {
 					"LevelType": "LetterOnly",
-					"PropmtType": "Hidden",
+					"PromptType": "Hidden",
 					"SubSkillName": "17",
 					"PromptFadeout": 0
 				},
@@ -22361,7 +22361,7 @@ const gameData = {
 			{
 				"LevelMeta": {
 					"LevelType": "LetterInWord",
-					"PropmtType": "Visible",
+					"PromptType": "Visible",
 					"SubSkillName": "18",
 					"PromptFadeout": 0
 				},
@@ -22523,7 +22523,7 @@ const gameData = {
 			{
 				"LevelMeta": {
 					"LevelType": "LetterInWord",
-					"PropmtType": "Visible",
+					"PromptType": "Visible",
 					"SubSkillName": "18",
 					"PromptFadeout": 0
 				},
@@ -22685,7 +22685,7 @@ const gameData = {
 			{
 				"LevelMeta": {
 					"LevelType": "LetterInWord",
-					"PropmtType": "Visible",
+					"PromptType": "Visible",
 					"SubSkillName": "18",
 					"PromptFadeout": 0
 				},
@@ -22847,7 +22847,7 @@ const gameData = {
 			{
 				"LevelMeta": {
 					"LevelType": "LetterInWord",
-					"PropmtType": "Visible",
+					"PromptType": "Visible",
 					"SubSkillName": "18",
 					"PromptFadeout": 0
 				},
@@ -23009,7 +23009,7 @@ const gameData = {
 			{
 				"LevelMeta": {
 					"LevelType": "LetterInWord",
-					"PropmtType": "Visible",
+					"PromptType": "Visible",
 					"SubSkillName": "18",
 					"PromptFadeout": "4"
 				},
@@ -23171,7 +23171,7 @@ const gameData = {
 			{
 				"LevelMeta": {
 					"LevelType": "Word",
-					"PropmtType": "Visible",
+					"PromptType": "Visible",
 					"SubSkillName": "14",
 					"PromptFadeout": 0
 				},
@@ -23321,7 +23321,7 @@ const gameData = {
 			{
 				"LevelMeta": {
 					"LevelType": "Word",
-					"PropmtType": "Visible",
+					"PromptType": "Visible",
 					"SubSkillName": "14",
 					"PromptFadeout": "4"
 				},
@@ -23471,7 +23471,7 @@ const gameData = {
 			{
 				"LevelMeta": {
 					"LevelType": "LetterOnly",
-					"PropmtType": "Visible",
+					"PromptType": "Visible",
 					"SubSkillName": "15",
 					"PromptFadeout": 0
 				},
@@ -23632,6 +23632,8 @@ const gameData = {
 			}
 		]
 	}
+	
+
 	
 
 

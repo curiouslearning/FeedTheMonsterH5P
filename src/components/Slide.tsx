@@ -29,8 +29,7 @@ const Wrapper = styled.div`
 `;
 
 const DragDropComp = (props: any) => {
-
-  console.log(props);
+  console.log("!11111", props.promptVisibility);
   const [timeOver, setTimeOver] = useState(false);
   const [correctDrop, setCorrectDrop] = useState(false);
   const [levelCount, setLevelCount] = useState(0);
@@ -136,7 +135,7 @@ const DragDropComp = (props: any) => {
     isMenuPopup,
     isLevelEnded,
   ]);
-  console.log(props)
+  console.log(props);
   return isLevelEnded ? (
     score > 50 ? (
       <SpriteAnimationContainer type="happy" />
@@ -170,10 +169,14 @@ const DragDropComp = (props: any) => {
       <PromptText
         letter={
           props.puzzles[levelCount]
-            ?(props.editorData)? props.puzzles[levelCount].PromptText:props.puzzles[levelCount].prompt.PromptText
+            ? props.editorData
+              ? props.puzzles[levelCount].PromptText
+              : props.puzzles[levelCount].prompt.PromptText
             : ""
         }
-        isAudioPlaying={props.playing} textVisbility={props.promptVisibility} levelType={props.levelType}
+        isAudioPlaying={props.playing}
+        textVisbility={props.promptVisibility}
+        levelType={props.levelType}
       />
       {prompted ? (
         <></>
@@ -202,22 +205,33 @@ const DragDropComp = (props: any) => {
 };
 
 const SlideComponent = (props: any) => {
-  const { data } = props;
+  const { data, level } = props;
   var audFile: string;
-  const levels: Array<any> = data;
-  // const [playing, setPlaying] = useState(false);
-  const [levData, setlevData] = useState(data);
-  console.log(props)
+  const levels: Array<any> = level;
+  const [levData, setlevData] = useState(null);
+  console.log(props);
   const lengthOfCurrentLevel = props.data.Puzzles.length;
   const { playing, setPlaying, playAudio } = AudioComponent();
   const [start, setStart] = useState(false);
-  const promptTextVisibilty = props.editorData ? data.PromptType == "Visible" ? true : false : data.LevelMeta.PromptType == "Visible" ? true : false;
-  console.log(data)
-  const stopPlaying = () => {
-    if (playing) {
-      setPlaying(false);
-    }
-  };
+  let promptTextVisibilty = true;
+  let stopPlaying;
+  if (levData != null) {
+
+    promptTextVisibilty = props.editorData
+      ? levData.PromptType == "Visible"
+        ? true
+        : false
+      : levData.LevelMeta.PromptType == "Visible"
+      ? true
+      : false;
+
+    console.log(data);
+    stopPlaying = () => {
+      if (playing) {
+        setPlaying(false);
+      }
+    };
+  }
 
   useEffect(() => {
     setStart(false);
@@ -234,7 +248,6 @@ const SlideComponent = (props: any) => {
     };
   }, [props.started]);
 
-  
   const onStartClick = () => {
     setTimeout(() => {
       setStart(true);
@@ -296,7 +309,7 @@ const SlideComponent = (props: any) => {
                     }}
                     onClick={() => {
                       setlevData(data1);
-                      console.log('@',data1)
+
                       onStartClick();
                     }}
                   >
@@ -311,39 +324,6 @@ const SlideComponent = (props: any) => {
               );
             })}
           </div>
-
-          {/* <div
-            style={{
-              width: "100%",
-              height: "100%",
-              background: "rgba(0,0,0,0.3)",
-              display: "flex",
-              flexDirection: "column",
-              justifyContent: "center",
-              transform: "translateX(0px)",
-            }}
-          >
-            <h1
-              style={{
-                textAlign: "center",
-                fontSize: "2.857em",
-                color: "white",
-              }}
-            >
-              {"Level - " + data.LevelNumber}
-            </h1>
-            <h3 style={{
-                textAlign: "center",
-                fontSize: "2.857em",
-                color: "white",
-              }}>{data.LevelMeta.LevelType}</h3>
-            <button
-              onClick={() => onStartClick()}
-              style={{ marginInline: "auto" }}
-            >
-              Start
-            </button>
-          </div> */}
         </div>
       )}
       {!start ? (
@@ -355,7 +335,7 @@ const SlideComponent = (props: any) => {
             start={start}
             levelType={
               // data.LevelMeta.LevelType == "LetterInWord" ? true : false
-              (props.editorData)?data.LevelType:data.LevelMeta.LevelType
+              props.editorData ? levData.LevelType : levData.LevelMeta.LevelType
             }
             promptVisibility={
               // data.LevelMeta.PromptType == "Visible" ? true : false
