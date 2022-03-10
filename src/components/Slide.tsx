@@ -310,7 +310,7 @@ const SlideComponent = (props: any) => {
             start={start}
             levelType={
               // data.LevelMeta.LevelType == "LetterInWord" ? true : false
-              (props.editorData)?data.LevelType:data.LevelMeta.LevelType == "LetterInWord" ? true : false
+              (props.editorData)?data.LevelType:data.LevelMeta.LevelType
             }
             promptVisibility={
               // data.LevelMeta.PromptType == "Visible" ? true : false
