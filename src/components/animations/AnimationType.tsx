@@ -28,7 +28,9 @@ const AnimationType = (props: any) => {
       );
     }
     case "sad": {
-      return <SpriteAnimationComponent spImage={sad} nFrames={11} />;
+      return (
+        <SpriteAnimationComponent spImage={sad} nFrames={11} height={1080} />
+      );
     }
     default: {
       return <SpriteAnimationComponent spImage={egg} nFrames={18} />;

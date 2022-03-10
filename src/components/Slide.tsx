@@ -138,7 +138,7 @@ const DragDropComp = (props: any) => {
     score > 50 ? (
       <SpriteAnimationContainer type="happy" />
     ) : (
-      <SpriteAnimationContainer type="sad" />
+      <SpriteAnimationContainer type="sad" top={20} />
     )
   ) : (
     <div>
