@@ -253,23 +253,6 @@ const SlideComponent = (props: any) => {
     };
   }, [props.started]);
 
-  const playAudio = () => {
-    audio = new Audio("https://www.kozco.com/tech/piano2.wav");
-    const playPromise = audio.play();
-    if (playPromise !== undefined) {
-      playPromise
-        .then(() => {
-          // setPlaying(true);
-        })
-        .catch((err: any) => {
-          console.log(err);
-        });
-    }
-    audio.addEventListener("ended", () => {
-      setPlaying(true);
-    });
-  };
-
   const onStartClick = () => {
     setTimeout(() => {
       setStart(true);
