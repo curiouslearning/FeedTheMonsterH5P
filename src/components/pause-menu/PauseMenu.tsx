@@ -1,11 +1,10 @@
 import React, { useState } from 'react';
 import './pause-menu.css';
-import Pause from '../../../assets/images/pause.png';
+import pauseBg from '../../../assets/images/pause_v01.png';
 
 const PauseMenu = (props: any) => {
     
-    return <div className='menu' onClick={() => props.onClickPauseMenu()}> 
-        <img src={Pause} width="27px" height="27px"></img>
+    return <div className='menu' onClick={() => props.onClickPauseMenu()} style={{backgroundImage: `url(${pauseBg})`, backgroundSize: "contain", backgroundRepeat: "no-repeat"}}> 
     </div>;
 }
 
