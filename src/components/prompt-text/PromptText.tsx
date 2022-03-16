@@ -17,7 +17,7 @@ const PromptText = (props: any) => {
         nonHighlightText = letter.slice(1, letter.length);
     }
     
-    return <div onClick={playAudio} className='ans-pop-up' style={{margin: "auto", backgroundImage: `url(${textBg})`, width: "200px", display: "flex", flex: 1, flexDirection: "column",  height: "200px", backgroundSize: "cover", justifyContent: "center"}}>
+    return <div onClick={playAudio} className='ans-pop-up' style={{margin: "auto",marginTop:"-20px", backgroundImage: `url(${textBg})`, width: "200px", display: "flex", flex: 1, flexDirection: "column",  height: "200px", backgroundSize: "cover", justifyContent: "center"}}>
         {textVisbility ? <p className='ans-pop-up-text' style={{fontSize: "1.857em", textAlign: "center"}}>{levelType == "LetterInWord" ? <><span style={{color: "red"}}>{highlightText}</span><span>{nonHighlightText}</span></> : props.letter}</p> : <p style={{fontSize: "1.857em", textAlign: "center"}}>▶️</p>}
     </div>;
 }
