@@ -10,7 +10,7 @@ import ScoreBoard from "./score-board/ScoreBoard";
 import PauseMenu from "./pause-menu/PauseMenu";
 import PromptText from "./prompt-text/PromptText";
 import PopupMenu from "./popup-menu/PopupMenu";
-import bg from "../../assets/images/bg.jpg";
+import bg from "../../assets/images/background.png";
 import { url } from "inspector";
 import AnimationType from "./animations/AnimationType";
 import AudioComponent from "./common/AudioComponent";
