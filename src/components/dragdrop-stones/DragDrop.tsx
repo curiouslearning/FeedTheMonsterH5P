@@ -2,6 +2,9 @@ import React, { useEffect, useRef, useState } from "react";
 import "./dragdrop-balls.css";
 import classNames from "classnames";
 import AnimationType from "../animations/AnimationType";
+import { dark } from "@material-ui/core/styles/createPalette";
+import stones from "../../../assets/images/stone_pink_v02.png"
+import { contains } from "jquery";
 
 let optionDataSet: { id: number; alphabet: string }[] = [];
 let i = 0;
@@ -50,8 +53,10 @@ const DragDrop = ({
       incomingData.id = i;
       incomingData.alphabet = (editorData)?options[i]:options[i].StoneText;
       optionDataSet.push(incomingData);
+      console.log(optionDataSet)
     }
     setDataList(optionDataSet);
+    console.log(dataList)
   };
 
   useEffect(() => {
@@ -134,6 +139,7 @@ const DragDrop = ({
       setTimeout(() => {
           setAnimationType('idle');
       }, 2000)
+      setScore(0)
     }
     dragItem.current = null;
   };
@@ -167,6 +173,7 @@ const DragDrop = ({
               className={classNames(
                 dragging ? getStyles(item.alphabet, index) : "ball" + index
               )}
+              style={{ backgroundImage:`url(${stones})`,backgroundSize:'contain', backgroundRepeat: 'no-repeat'}}
               draggable={!timeOver && !isMenuOpen}
               key={item.id}
               onDragEnd={(e) => {

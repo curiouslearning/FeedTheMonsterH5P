@@ -2,7 +2,6 @@
     position: relative;
     width: 30px;
     height: 30px;
-    background-color: red;
     border-radius: 50%;
 }
 
@@ -19,9 +18,7 @@
     position: relative;
     width: 50px;
     height: 50px;
-    background-color: red;
-    border-radius: 50%;
-    top: 125%;
+    top: 0%;
     left: 15%
 }
 
@@ -29,9 +26,7 @@
     position: relative;
     width: 50px;
     height: 50px;
-    background-color: red;
-    border-radius: 50%;
-    top: 106%;
+    top: 0%;
     left: 80%
 }
 
@@ -39,9 +34,7 @@
     position: relative;
     width: 50px;
     height: 50px;
-    background-color: red;
-    border-radius: 50%;
-    top: -21%;
+    top: 40%;
     left: 50%;
 }
 
@@ -49,8 +42,6 @@
     position: relative;
     width: 50px;
     height: 50px;
-    background-color: red;
-    border-radius: 50%;
     top: 0%;
     left: 5%
 }
@@ -59,9 +50,7 @@
     position: relative;
     width: 50px;
     height: 50px;
-    background-color: red;
-    border-radius: 50%;
-    top: -22%;
+    top: -140%;
     left: 90%
 }
 
@@ -69,29 +58,23 @@
     position: relative;
     width: 50px;
     height: 50px;
-    background-color: red;
-    border-radius: 50%;
-    top: 60%;
-    left: 48%
+    top: -60%;
+    left: 75%
 }
 
 .ball6{
     position: relative;
     width: 50px;
     height: 50px;
-    background-color: red;
-    border-radius: 50%;
-    top: 23%;
-    left: 5%
+    top: -60%;
+    left: 30%
 }
 
 .ball7{
     position: relative;
     width: 50px;
     height: 50px;
-    background-color: red;
-    border-radius: 50%;
-    top: 1%;
+    top: -90%;
     left: 90%;
 }
 
@@ -99,18 +82,17 @@
     position: relative;
     width: 30px;
     height: 30px;
-    background-color: red;
-    border-radius: 50%;
 }
 
 .no-ball0 {
     position: relative;
     width: 50px;
     height: 50px;
+    opacity: 0;
     background-color:white;
     color: white;
     border-radius: 50%;
-    top: 125%;
+    top: 0%;
     left: 15%
 }
 
@@ -118,10 +100,11 @@
     position: relative;
     width: 50px;
     height: 50px;
+    opacity: 0;
     background-color:white;
     color: white;
     border-radius: 50%;
-    top: 106%;
+    top: 0%;
     left: 80%
 }
 
@@ -132,7 +115,7 @@
     background-color:white;
     color: white;
     border-radius: 50%;
-    top: -21%;
+    top: 40%;
     left: 50%;
 }
 
@@ -154,7 +137,7 @@
     background-color:white;
     color: white;
     border-radius: 50%;
-    top: -22%;
+    top: -140%;
     left: 90%
 }
 
@@ -165,8 +148,8 @@
     background-color:white;
     color: white;
     border-radius: 50%;
-    top: 60%;
-    left: 48%
+    top: -60%;
+    left: 75%
 }
 
 .no-ball6 {
@@ -176,8 +159,8 @@
     background-color:white;
     color: white;
     border-radius: 50%;
-    top: 23%;
-    left: 5%
+    top: -60%;
+    left: 30%
 }
 
 .no-ball7 {
@@ -187,6 +170,6 @@
     background-color:white;
     color: white;
     border-radius: 50%;
-    top: 1%;
+    top: -90%;
     left: 90%;
 }

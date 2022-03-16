@@ -1,9 +1,7 @@
 .menu {
     display: flex;
-    height: 40px;
-    width: 40px;
-    border: 2px solid red;
-    border-radius: 50%;
+    height: 80px;
+    width: 80px;
     justify-content: center;
     align-items: center;
 }

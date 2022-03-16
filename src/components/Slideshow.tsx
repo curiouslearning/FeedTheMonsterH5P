@@ -2,7 +2,7 @@ import { removeData } from 'jquery';
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import { MovingBackGroundComponent } from "./MovingBackground";
-import cloud from "../../assets/images/cloud.png";
+import cloud from "../../assets/images/cloud_v01.png";
 
 import SlideComponent from './Slide';
 
