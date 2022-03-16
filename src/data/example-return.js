@@ -27,7 +27,7 @@ const gameData = {
 					"SegmentNumber": 0,
 					"prompt": {"PromptText": "e", "PromptAudio": "http://server.com/audio/english/letters/e.wav"},
 					"targetstones": [ {"StoneText": "e"} ],
-					"foilstones": [ {"StoneText": "m"}, {"StoneText": "b"}, {"StoneText": "o"}, {"StoneText": "m"}, {"StoneText": "m"}, {"StoneText": "m"} ]
+					"foilstones": [ {"StoneText": "m"}, {"StoneText": "b"}, {"StoneText": "o"}, {"StoneText": "m"}, {"StoneText": "m"}, {"StoneText": "m"} ,{"StoneText": "z"}]
 				},
 				{
 					"SegmentNumber": 1,
