@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import { useState } from 'react'
 let audio: HTMLAudioElement = null;
 let isPlaying = false;
 const AudioComponent = () => {

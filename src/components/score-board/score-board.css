@@ -1,9 +1,8 @@
 .score-board {
     display: flex;
-    height: 40px;
-    width: 70px;
-    border: 2px solid red;
-    background: black;
+    flex-direction: column;
+    height: 80px;
+    width: 130px;
     align-items: center;
     justify-content: center;
 }
