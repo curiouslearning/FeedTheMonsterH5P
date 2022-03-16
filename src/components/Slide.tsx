@@ -337,7 +337,7 @@ const SlideComponent = (props: any) => {
                     }}
                   >
                     <div>
-                      <h2>Click</h2>
+                      <h2>{index+1}</h2>
                     </div>
                   </button>
                   <h2 style={{ color: "white",textAlign:'center' }}>
