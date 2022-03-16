@@ -1,7 +1,7 @@
 import { url } from 'inspector';
 import React from 'react';
 import AudioComponent from '../common/AudioComponent';
-import textBg from '../../../assets/images/PromptTextBg.png';
+import textBg from '../../../assets/images/promptTextBg.png';
 import { css, keyframes } from 'styled-components';
 
 const PromptText = (props: any) => {
