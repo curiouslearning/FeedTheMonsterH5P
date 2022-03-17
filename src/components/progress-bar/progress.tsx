@@ -1,7 +1,7 @@
 import React from 'react';
 import './progress.css';
 import emptyTimer from '../../../assets/images/timer_empty.png';
-import fullTimer from '../../../assets/images/timer_full.png';
+import timer from '../../../assets/images/timer.png';
 
 const Progress = ({done} : {done : string}) => {
 
@@ -9,8 +9,8 @@ const Progress = ({done} : {done : string}) => {
 
   return (
     <div className='time-container'>
-        <div className="progress" style={{backgroundImage: `url(${emptyTimer})`,transform: "scale(3.4,2.3)",backgroundRepeat: "no-repeat", backgroundSize: "contain"}}>
-          {/* <div className="progress-done" style={{...style, ...{background: `url(${fullTimer})`, backgroundRepeat: "no-repeat", backgroundSize: "contain", marginLeft: 39}}}></div> */}
+        {/* <div className='timer' style={{backgroundImage: `url(${timer})`, backgroundRepeat: "no-repeat", backgroundSize: "contain"}}></div> */}
+        <div className="progress" style={{backgroundImage: `url(${emptyTimer})`, transform: "scale(3.4,2.3)", backgroundRepeat: "no-repeat", backgroundSize: "contain"}}>
           <div className="progress-done" style={style}></div>
         </div>
     </div>

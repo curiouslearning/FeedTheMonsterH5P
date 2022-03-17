@@ -151,13 +151,13 @@ const DragDropComp = (props: any) => {
       <SpriteAnimationContainer type="sad" top={20} />
     )
   ) : (
-    <div>
+    <div style={{display: "flex", flexDirection: "column"}}>
       <div
         style={{
           display: "flex",
           justifyContent: "space-between",
           marginInline: "50px",
-          marginTop: "20px",
+          marginTop: "10px",
         }}
       >
         <PuzzelBar puzzelCount={4} activeIndicators={activeIndicators} />
