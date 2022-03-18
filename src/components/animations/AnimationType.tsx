@@ -1,6 +1,6 @@
 import React from "react";
 import Spritesheet from "react-responsive-spritesheet";
-import eatingspSheet from "../../../assets/images/eating1.png";
+import eatingspSheet from "../../../assets/images/eating12.png";
 import spit from "../../../assets/images/spit.png";
 import egg from "../../../assets/images/eggAnimation.png";
 import happy from "../../../assets/images/happy.png";

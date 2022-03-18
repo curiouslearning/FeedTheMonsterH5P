@@ -60,9 +60,9 @@ const DragDropComp = (props: any) => {
   const onClickPauseMenu = () => {
     if (!isMenuPopup) {
       setPauseMenu(true);
-      if (props.playing) {
-        audio.pause();
-      }
+      // if (props.playing) {
+      //   audio.pause();
+      // }
     }
 
     if (isMenuPopup) {
