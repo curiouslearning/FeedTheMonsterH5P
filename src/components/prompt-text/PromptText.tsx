@@ -1,12 +1,15 @@
 import { url } from 'inspector';
-import React from 'react';
+import React, { useState } from 'react';
 import AudioComponent from '../common/AudioComponent';
 import textBg from '../../../assets/images/promptTextBg.png';
 import { css, keyframes } from 'styled-components';
 
+export let opacity = 1;
+
 const PromptText = (props: any) => {
 
     const { playing, setPlaying, playAudio } = AudioComponent();
+    
     const textVisbility = props.textVisbility;
     const levelType = props.levelType;
     const letter = props.letter;
@@ -17,9 +20,26 @@ const PromptText = (props: any) => {
         nonHighlightText = letter.slice(1, letter.length);
     }
     
-    return <div onClick={playAudio} className='ans-pop-up' style={{margin: "auto",marginTop:"-20px", backgroundImage: `url(${textBg})`, width: "200px", display: "flex", flex: 1, flexDirection: "column",  height: "200px", backgroundSize: "cover", justifyContent: "center"}}>
+    return <div onClick={playAudio} className='ans-pop-up' style={{...{margin: "auto", marginTop:"-20px", display: "flex", backgroundImage: `url(${textBg})`, width: "163px", height: "152px", backgroundSize: "contain", justifyContent: "center", alignItems: "center"}, ...{opacity: opacity}}}>
         {textVisbility ? <p className='ans-pop-up-text' style={{fontSize: "1.857em", textAlign: "center"}}>{levelType == "LetterInWord" ? <><span style={{color: "red"}}>{highlightText}</span><span>{nonHighlightText}</span></> : props.letter}</p> : <p style={{fontSize: "1.857em", textAlign: "center"}}>▶️</p>}
     </div>;
 }
 
 export default PromptText;
+
+export const PromptTextHook = () => {
+
+
+    const disappearPromptText = () => {
+        opacity = 0;
+        
+        setTimeout(() => {
+            opacity = 1;
+            
+        }, 3000)
+    }
+
+  return { disappearPromptText };
+}
+
+

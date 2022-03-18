@@ -5,6 +5,7 @@ import AnimationType from "../animations/AnimationType";
 import { dark } from "@material-ui/core/styles/createPalette";
 import stones from "../../../assets/images/stone_pink_v02.png"
 import { contains } from "jquery";
+import { PromptTextHook } from "../prompt-text/PromptText";
 
 let optionDataSet: { id: number; alphabet: string }[] = [];
 let i = 0;
@@ -39,6 +40,8 @@ const DragDrop = ({
   const [dragging, setDragging] = useState(false);
   const [dropped, setDropped] = useState(false);
   const [animationType, setAnimationType] = useState("idle");
+
+  const { disappearPromptText } = PromptTextHook();
 
   const dragItem = useRef();
   const dragId = useRef();
@@ -93,7 +96,7 @@ const DragDrop = ({
   const checkResult = (dropData: any) => {
     // console.log(props.targetstones[0].StoneText, "resultin progress", dropData);
     let targetStone = "";
-    
+    disappearPromptText();
     for (; i < props.targetstones.length; i++) {
       targetStone = props.targetstones[i].StoneText;
       break;
