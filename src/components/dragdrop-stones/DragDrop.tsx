@@ -96,7 +96,7 @@ const DragDrop = ({
   const checkResult = (dropData: any) => {
     // console.log(props.targetstones[0].StoneText, "resultin progress", dropData);
     let targetStone = "";
-    disappearPromptText();
+    
     for (; i < props.targetstones.length; i++) {
       targetStone = props.targetstones[i].StoneText;
       break;
@@ -128,6 +128,7 @@ const DragDrop = ({
     setDragging(false);
 
     if (targetStone == dropData) {
+      disappearPromptText();
       setAnimationType('eat');
       setScore(100)
       setTimeout(() => {

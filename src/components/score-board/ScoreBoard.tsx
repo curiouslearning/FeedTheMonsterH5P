@@ -4,7 +4,7 @@ import scoreBoardBg from '../../../assets/images/score_v01.png';
 const ScoreBoard = (props: any) => {
 
   return <div className='score-board' style={{backgroundImage: `url(${scoreBoardBg})`, backgroundSize: "contain", backgroundRepeat: "no-repeat"}}>
-      <h3>{props.score}</h3>
+      <h3 style={{textAlign: "center", fontSize: '2.1em'}}>{props.score}</h3>
   </div>;
 }
 
