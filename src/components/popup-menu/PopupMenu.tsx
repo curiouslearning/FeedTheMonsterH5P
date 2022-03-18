@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import CancelOutlinedIcon from '@material-ui/icons/Cancel';
 import RestartAltOutlinedIcon from '@material-ui/icons/Refresh';
@@ -49,15 +49,35 @@ const ClosePopup = styled.div`
 `;
 
 const PopupMenu = (props: any) => {
+  const [scaleCloseBtn, setScaleCloseBtn] = useState(1);
+  const [scaleNextBtn, setScaleNextBtn] = useState(1);
+  const [scaleRestartBtn, setScaleRestartBtn] = useState(1);
   return <Popup>
-      <ClosePopup onClick={(e) => {props.onClickPauseMenu()}}>
+      <ClosePopup onClick={(e) => {
+        props.onClickPauseMenu()
+        setScaleCloseBtn(0.9);
+        setTimeout(() => {
+          setScaleCloseBtn(1);
+        }, 200)
+      }}>
       </ClosePopup>
-      <div  style={{display: "flex", flexDirection: "row", height: "100%", alignItems: "center", width: "100%"}}>
-        <div onClick={(e)=> {props.nextLevel()}} style={{backgroundImage: `url(${mapBg})`,backgroundSize: "contain", backgroundRepeat: "no-repeat", height: 90, width: 80, marginLeft: 10}}>
+      <div  style={{display: "flex", flexDirection: "row", height: "100%", alignItems: "center", width: "100%", transform: `scale(${scaleCloseBtn})`}}>
+        <div onClick={(e)=> {
+          props.nextLevel()
+          setScaleNextBtn(0.9)
+          setTimeout(() => {
+            setScaleNextBtn(1);
+          }, 200)
+        }} style={{backgroundImage: `url(${mapBg})`,backgroundSize: "contain", backgroundRepeat: "no-repeat", height: 90, width: 80, marginLeft: 10, transform: `scale(${scaleNextBtn})`}}>
 
         </div>
-        <div onClick={(e)=> {props.onClickRestart()}} style={{backgroundImage: `url(${retryBg})`,backgroundSize: "contain", backgroundRepeat: "no-repeat",height: 90, width: 80, marginLeft: 35}}>
-
+        <div onClick={(e)=> {
+          props.onClickRestart()
+          setScaleRestartBtn(0.9)
+          setTimeout(() => {
+            setScaleRestartBtn(1);
+          }, 200)
+        }} style={{backgroundImage: `url(${retryBg})`,backgroundSize: "contain", backgroundRepeat: "no-repeat",height: 90, width: 80, marginLeft: 35, transform: `scale(${scaleRestartBtn})`}}>
         </div>
       </div>
   </Popup>
