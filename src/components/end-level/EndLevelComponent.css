@@ -1,0 +1,16 @@
+.end-level-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 100%;
+}
+.rating {
+  position: absolute;
+  top: 40%;
+  display: flex;
+  justify-content: space-evenly;
+  width: 50%;
+}
+img {
+  height: 3rem;
+}

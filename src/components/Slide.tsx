@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState} from "react";
+import React, { useEffect, useRef, useState } from "react";
 import styled from "styled-components";
 import "./app.css";
 import { DndProvider } from "react-dnd";
@@ -15,15 +15,16 @@ import { url } from "inspector";
 import AnimationType from "./animations/AnimationType";
 import AudioComponent from "./common/AudioComponent";
 import { SpriteAnimationContainer } from "./animations/SpriteAnimationContainer";
-import SuccessText from './success-text/SuccessText';
-import fantastic from '../../assets/audio/fantastic.WAV';
-import great from '../../assets/audio/great.wav';
+import SuccessText from "./success-text/SuccessText";
+import fantastic from "../../assets/audio/fantastic.WAV";
+import great from "../../assets/audio/great.wav";
+import EndLevelComponent from "./end-level/EndLevelComponent";
 
 let audio: HTMLAudioElement = null;
 let initialTime = 10;
 let id: NodeJS.Timeout;
 let timeoutId: NodeJS.Timeout;
-const feedbackArray: any[] = ['Fantastic!', 'Great!']
+const feedbackArray: any[] = ["Fantastic!", "Great!"];
 // create HTMLAudioElement
 const audioFantastic = new Audio(fantastic);
 const audioGreat = new Audio(great);
@@ -35,7 +36,6 @@ const Wrapper = styled.div`
 `;
 
 const DragDropComp = (props: any) => {
-
   console.log(props);
   const [timeOver, setTimeOver] = useState(false);
   const [correctDrop, setCorrectDrop] = useState(false);
@@ -99,7 +99,6 @@ const DragDropComp = (props: any) => {
   };
 
   useEffect(() => {
-    if (isLevelEnded) return;
     if (props.playing) {
       props.monsterRef.current.style.display = "none";
       if (prompted) {
@@ -143,15 +142,17 @@ const DragDropComp = (props: any) => {
     isMenuPopup,
     isLevelEnded,
   ]);
-  console.log(props)
+  console.log(props);
   return isLevelEnded ? (
-    score > 50 ? (
-      <SpriteAnimationContainer type="happy" />
-    ) : (
-      <SpriteAnimationContainer type="sad" top={20} />
-    )
+    <EndLevelComponent
+      score={score}
+      lengthOfCurrentLevel={props.lengthOfCurrentLevel}
+      onClickPauseMenu={onClickPauseMenu}
+      onClickRestart={onClickRestart}
+      nextLevel={props.nextLevel}
+    />
   ) : (
-    <div style={{display: "flex", flexDirection: "column"}}>
+    <div style={{ display: "flex", flexDirection: "column" }}>
       <div
         style={{
           display: "flex",
@@ -177,12 +178,16 @@ const DragDropComp = (props: any) => {
       <PromptText
         letter={
           props.puzzles[levelCount]
-            ?(props.editorData)? props.puzzles[levelCount].PromptText:props.puzzles[levelCount].prompt.PromptText
+            ? props.editorData
+              ? props.puzzles[levelCount].PromptText
+              : props.puzzles[levelCount].prompt.PromptText
             : ""
         }
-        isAudioPlaying={props.playing} textVisbility={props.promptVisibility} levelType={props.levelType}
+        isAudioPlaying={props.playing}
+        textVisbility={props.promptVisibility}
+        levelType={props.levelType}
       />
-      <SuccessText word ={text}/>
+      <SuccessText word={text} />
       {prompted ? (
         <></>
       ) : (
@@ -199,19 +204,20 @@ const DragDropComp = (props: any) => {
               levelType={props.levelType}
               setScore={(count: number) => {
                 setScore(score + count);
-                if(count == 100) {
-                  const feedbackPhrase = feedbackArray[Math.floor(Math.random() * feedbackArray.length)];
+                if (count == 100) {
+                  const feedbackPhrase =
+                    feedbackArray[
+                      Math.floor(Math.random() * feedbackArray.length)
+                    ];
                   setText(feedbackPhrase);
-                  if(feedbackPhrase == 'Fantastic!')
-                  {
+                  if (feedbackPhrase == "Fantastic!") {
                     audioFantastic.play();
-                  }
-                  else {
+                  } else {
                     audioGreat.play();
                   }
                   setTimeout(function () {
-                    setText('')
-                }, 3500);
+                    setText("");
+                  }, 3500);
                 }
               }}
               editorData={props.editorData}
@@ -226,12 +232,18 @@ const DragDropComp = (props: any) => {
 const SlideComponent = (props: any) => {
   const { data } = props;
   let audFile: string;
-  console.log(props)
+  console.log(props);
   const lengthOfCurrentLevel = props.data.Puzzles.length;
   const { playing, setPlaying, playAudio } = AudioComponent();
   const [start, setStart] = useState(false);
-  const promptTextVisibilty = props.editorData ? data.PromptType == "Visible" ? true : false : data.LevelMeta.PromptType == "Visible" ? true : false;
-  console.log(data)
+  const promptTextVisibilty = props.editorData
+    ? data.PromptType == "Visible"
+      ? true
+      : false
+    : data.LevelMeta.PromptType == "Visible"
+    ? true
+    : false;
+  console.log(data);
   const stopPlaying = () => {
     if (playing) {
       setPlaying(false);
@@ -309,11 +321,15 @@ const SlideComponent = (props: any) => {
             >
               {"Level - " + data.LevelNumber}
             </h1>
-            <h3 style={{
+            <h3
+              style={{
                 textAlign: "center",
                 fontSize: "2.857em",
                 color: "white",
-              }}>{data.LevelMeta.LevelType}</h3>
+              }}
+            >
+              {data.LevelMeta.LevelType}
+            </h3>
             <button
               onClick={() => onStartClick()}
               style={{ marginInline: "auto" }}
@@ -332,7 +348,7 @@ const SlideComponent = (props: any) => {
             start={start}
             levelType={
               // data.LevelMeta.LevelType == "LetterInWord" ? true : false
-              (props.editorData)?data.LevelType:data.LevelMeta.LevelType
+              props.editorData ? data.LevelType : data.LevelMeta.LevelType
             }
             promptVisibility={
               // data.LevelMeta.PromptType == "Visible" ? true : false
