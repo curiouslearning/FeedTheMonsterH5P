@@ -7,6 +7,8 @@ import "./EndLevelComponent.css";
 
 const EndLevelComponent = (props: any) => {
   const { score, lengthOfCurrentLevel } = props;
+  console.log(score);
+  console.log(Math.ceil(lengthOfCurrentLevel / 2) * 100);
   return (
     <>
       {score === lengthOfCurrentLevel * 100 ? (
@@ -66,8 +68,6 @@ export const HomeAndRestartComponent = (props: any) => {
   const [scaleCloseBtn, setScaleCloseBtn] = useState(1);
   const [scaleNextBtn, setScaleNextBtn] = useState(1);
   const [scaleRestartBtn, setScaleRestartBtn] = useState(1);
-  console.log("restarrt......");
-  console.log(props);
   return (
     <div
       style={{

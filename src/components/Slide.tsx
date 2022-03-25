@@ -48,6 +48,19 @@ const DragDropComp = (props: any) => {
   const [score, setScore] = useState(0);
   const [text, setText] = useState("");
 
+  const resetState = () => {
+    setTimeOver(false);
+    setCorrectDrop(false);
+    setLevelCount(0);
+    setProgressCount(initialTime);
+    setPromted(props.promptVisibility);
+    setActiveIndicator(0);
+    setPauseMenu(false);
+    setIsLevelEnded(false);
+    setScore(0);
+    setText("");
+  };
+
   const onClickRestart = () => {
     setTimeout(() => {
       setLevelCount(0);
@@ -148,7 +161,9 @@ const DragDropComp = (props: any) => {
       score={score}
       lengthOfCurrentLevel={props.lengthOfCurrentLevel}
       onClickPauseMenu={onClickPauseMenu}
-      onClickRestart={onClickRestart}
+      onClickRestart={() => {
+        resetState();
+      }}
       nextLevel={props.nextLevel}
     />
   ) : (
