@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState} from "react";
+import React, { useEffect, useRef, useState } from "react";
 import styled from "styled-components";
 import "./app.css";
 import { DndProvider } from "react-dnd";
@@ -16,18 +16,20 @@ import AnimationType from "./animations/AnimationType";
 import { Grid } from "@material-ui/core";
 import AudioComponent from "./common/AudioComponent";
 import { SpriteAnimationContainer } from "./animations/SpriteAnimationContainer";
-import SuccessText from './success-text/SuccessText';
-import fantastic from '../../assets/audio/fantastic.WAV';
-import great from '../../assets/audio/great.wav';
+import SuccessText from "./success-text/SuccessText";
+import fantastic from "../../assets/audio/fantastic.WAV";
+import great from "../../assets/audio/great.wav";
+import EndLevelComponent from "./end-level/EndLevelComponent";
 
 let audio: HTMLAudioElement = null;
 let initialTime = 10;
 let id: NodeJS.Timeout;
 let timeoutId: NodeJS.Timeout;
-const feedbackArray: any[] = ['Fantastic!', 'Great!']
+const feedbackArray: any[] = ["Fantastic!", "Great!"];
 // create HTMLAudioElement
 const audioFantastic = new Audio(fantastic);
 const audioGreat = new Audio(great);
+let _levelNumber: number;
 
 const Wrapper = styled.div`
   height: 600px;
@@ -36,7 +38,7 @@ const Wrapper = styled.div`
 `;
 
 const DragDropComp = (props: any) => {
-  console.log("!11111", props.promptVisibility);
+  console.log(props);
   const [timeOver, setTimeOver] = useState(false);
   const [correctDrop, setCorrectDrop] = useState(false);
   const [levelCount, setLevelCount] = useState(0);
@@ -47,6 +49,19 @@ const DragDropComp = (props: any) => {
   const [isLevelEnded, setIsLevelEnded] = useState(false);
   const [score, setScore] = useState(0);
   const [text, setText] = useState("");
+
+  const resetState = () => {
+    setTimeOver(false);
+    setCorrectDrop(false);
+    setLevelCount(0);
+    setProgressCount(initialTime);
+    setPromted(props.promptVisibility);
+    setActiveIndicator(0);
+    setPauseMenu(false);
+    setIsLevelEnded(false);
+    setScore(0);
+    setText("");
+  };
 
   const onClickRestart = () => {
     setTimeout(() => {
@@ -99,7 +114,6 @@ const DragDropComp = (props: any) => {
   };
 
   useEffect(() => {
-    if (isLevelEnded) return;
     if (props.playing) {
       props.monsterRef.current.style.display = "none";
       if (prompted) {
@@ -145,13 +159,17 @@ const DragDropComp = (props: any) => {
   ]);
   console.log(props);
   return isLevelEnded ? (
-    score > 50 ? (
-      <SpriteAnimationContainer type="happy" />
-    ) : (
-      <SpriteAnimationContainer type="sad" top={20} />
-    )
+    <EndLevelComponent
+      score={score}
+      lengthOfCurrentLevel={props.lengthOfCurrentLevel}
+      onClickPauseMenu={onClickPauseMenu}
+      onClickRestart={() => {
+        resetState();
+      }}
+      nextLevel={props.nextLevel}
+    />
   ) : (
-    <div style={{display: "flex", flexDirection: "column"}}>
+    <div style={{ display: "flex", flexDirection: "column" }}>
       <div
         style={{
           display: "flex",
@@ -186,7 +204,7 @@ const DragDropComp = (props: any) => {
         textVisbility={props.promptVisibility}
         levelType={props.levelType}
       />
-      <SuccessText word ={text}/>
+      <SuccessText word={text} />
       {prompted ? (
         <></>
       ) : (
@@ -203,19 +221,56 @@ const DragDropComp = (props: any) => {
               levelType={props.levelType}
               setScore={(count: number) => {
                 setScore(score + count);
-                if(count == 100) {
-                  const feedbackPhrase = feedbackArray[Math.floor(Math.random() * feedbackArray.length)];
+                if (count == 100) {
+                  const feedbackPhrase =
+                    feedbackArray[
+                      Math.floor(Math.random() * feedbackArray.length)
+                    ];
                   setText(feedbackPhrase);
+                  
+
+                  const playerProfile = [
+                    { 
+                      _levelNumber : _levelNumber,
+                      data: {
+                        '_levelName' : props.levelType.toString(),
+                        '_levelScore' : score + count,
+                        '_levelStars' : (score+count)/100,
+                      }
+                    }
+                  ]
+
+                  const data = JSON.parse(localStorage.getItem('LevelData'));
+                  if(data != null)
+                  {if(data.length >= 0) {
+                    data.forEach(function (value: any) {
+                      if(value._levelNumber == _levelNumber) {
+                        if(value._levelName != props.levelType.toString()) {
+                          value._levelName = props.levelType.toString();
+                        }
+                        else if(value._levelScore != score + count) {
+                          value._levelName = score + count;
+                        }
+                        else if(value._levelStars != (score+count)/100) {
+                          value._levelName = (score+count)/100;
+                        }
+                      }
+                      else {
+                        playerProfile.push(value);
+                      }
+                    })
+                  }}
+                  localStorage.setItem('LevelData', JSON.stringify(playerProfile));
+                  
                   if(feedbackPhrase == 'Fantastic!')
                   {
                     audioFantastic.play();
-                  }
-                  else {
+                  } else {
                     audioGreat.play();
                   }
                   setTimeout(function () {
-                    setText('')
-                }, 3500);
+                    setText("");
+                  }, 3500);
                 }
               }}
               editorData={props.editorData}
