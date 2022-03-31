@@ -382,7 +382,7 @@ const SlideComponent = (props: any) => {
                     style={{
                       width: 100,
                       height: 100,
-                      backgroundColor: "wheat",
+                      backgroundColor: "#6CC0E7",
                       borderRadius: 100,
                     }}
                     onClick={() => {
