@@ -2,6 +2,7 @@ import { url } from 'inspector';
 import React, { useState } from 'react';
 import AudioComponent from '../common/AudioComponent';
 import textBg from '../../../assets/images/promptTextBg.png';
+import { css, keyframes } from 'styled-components';
 
 export let opacity = 1;
 

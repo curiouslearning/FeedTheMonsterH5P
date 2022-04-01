@@ -13,6 +13,7 @@ import PopupMenu from "./popup-menu/PopupMenu";
 import bg from "../../assets/images/background.png";
 import { url } from "inspector";
 import AnimationType from "./animations/AnimationType";
+import { Grid } from "@material-ui/core";
 import AudioComponent from "./common/AudioComponent";
 import { SpriteAnimationContainer } from "./animations/SpriteAnimationContainer";
 import SuccessText from "./success-text/SuccessText";
@@ -284,26 +285,33 @@ const DragDropComp = (props: any) => {
 };
 
 const SlideComponent = (props: any) => {
-  const { data } = props;
-  _levelNumber = data["LevelNumber"];
-  let audFile: string;
+  const { data, level } = props;
+  var audFile: string;
+  const levels: Array<any> = level;
+  const [levData, setlevData] = useState(null);
   console.log(props);
   const lengthOfCurrentLevel = props.data.Puzzles.length;
   const { playing, setPlaying, playAudio } = AudioComponent();
   const [start, setStart] = useState(false);
-  const promptTextVisibilty = props.editorData
-    ? data.PromptType == "Visible"
+  let promptTextVisibilty = true;
+  let stopPlaying;
+  if (levData != null) {
+
+    promptTextVisibilty = props.editorData
+      ? levData.PromptType == "Visible"
+        ? true
+        : false
+      : levData.LevelMeta.PromptType == "Visible"
       ? true
-      : false
-    : data.LevelMeta.PromptType == "Visible"
-    ? true
-    : false;
-  console.log(data);
-  const stopPlaying = () => {
-    if (playing) {
-      setPlaying(false);
-    }
-  };
+      : false;
+
+    console.log(data);
+    stopPlaying = () => {
+      if (playing) {
+        setPlaying(false);
+      }
+    };
+  }
 
   useEffect(() => {
     setStart(false);
@@ -362,35 +370,39 @@ const SlideComponent = (props: any) => {
               height: "100%",
               background: "rgba(0,0,0,0.3)",
               display: "flex",
-              flexDirection: "column",
+              flexDirection: "row",
               justifyContent: "center",
               transform: "translateX(0px)",
+              flexWrap: "wrap",
+              overflowY: "scroll",
             }}
           >
-            <h1
-              style={{
-                textAlign: "center",
-                fontSize: "2.857em",
-                color: "white",
-              }}
-            >
-              {"Level - " + data.LevelNumber}
-            </h1>
-            <h3
-              style={{
-                textAlign: "center",
-                fontSize: "2.857em",
-                color: "white",
-              }}
-            >
-              {data.LevelMeta.LevelType}
-            </h3>
-            <button
-              onClick={() => onStartClick()}
-              style={{ marginInline: "auto" }}
-            >
-              Start
-            </button>
+            {levels.map((data1, index) => {
+              return (
+                <div key={index} style={{ margin: 10 }}>
+                  <button
+                    style={{
+                      width: 100,
+                      height: 100,
+                      backgroundColor: "#6CC0E7",
+                      borderRadius: 100,
+                    }}
+                    onClick={() => {
+                      setlevData(data1);
+
+                      onStartClick();
+                    }}
+                  >
+                    <div>
+                      <h2>{index+1}</h2>
+                    </div>
+                  </button>
+                  <h2 style={{ color: "white",textAlign:'center' }}>
+                    {data1.LevelMeta.LevelType}
+                  </h2>
+                </div>
+              );
+            })}
           </div>
         </div>
       )}
@@ -403,13 +415,13 @@ const SlideComponent = (props: any) => {
             start={start}
             levelType={
               // data.LevelMeta.LevelType == "LetterInWord" ? true : false
-              props.editorData ? data.LevelType : data.LevelMeta.LevelType
+              props.editorData ? levData.LevelType : levData.LevelMeta.LevelType
             }
             promptVisibility={
               // data.LevelMeta.PromptType == "Visible" ? true : false
               promptTextVisibilty
             }
-            puzzles={data.Puzzles}
+            puzzles={levData.Puzzles}
             stopPlaying={stopPlaying}
             playAudio={playAudio}
             nextLevel={props.nextLevel}
