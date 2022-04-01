@@ -7,7 +7,7 @@ export const SpriteAnimationContainer = (props: any) => {
         width: "300px",
         height: "100px",
         top: props.top ? `${props.top}%` : "50%",
-        left: "30%",
+        left: props.left ? `${props.left}%` : "30%",
         position: "absolute",
       }}
     >

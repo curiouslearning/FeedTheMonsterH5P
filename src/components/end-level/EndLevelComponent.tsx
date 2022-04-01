@@ -3,6 +3,8 @@ import { SpriteAnimationContainer } from "../animations/SpriteAnimationContainer
 import mapBg from "../../../assets/images/map_btn.png";
 import retryBg from "../../../assets/images/retry_btn.png";
 import star from "../../../assets/images/star.png";
+import loseBg from "../../../assets/images/Lose_bg.png";
+import winBg from "../../../assets/images/WIN_screen_bg.png";
 import "./EndLevelComponent.css";
 
 const EndLevelComponent = (props: any) => {
@@ -12,7 +14,34 @@ const EndLevelComponent = (props: any) => {
   return (
     <>
       {score === lengthOfCurrentLevel * 100 ? (
-        <div className="end-level-container">
+        <div
+          className="end-level-container"
+          style={{
+            backgroundImage: `url(${winBg})`,
+            backgroundSize: "contains",
+            backgroundRepeat: "no-repeat",
+          }}
+        >
+          <div
+            className="bg-left"
+            style={{
+              backgroundColor: "black",
+              height: "100%",
+              width: "25%",
+              position: "absolute",
+              left: "-25%",
+            }}
+          ></div>
+          <div
+            className="bg-right"
+            style={{
+              backgroundColor: "black",
+              height: "100%",
+              width: "26%",
+              position: "absolute",
+              right: "25%",
+            }}
+          ></div>
           <div className="rating">
             <div className="star">
               <img src={star} alt="star" />
@@ -24,13 +53,40 @@ const EndLevelComponent = (props: any) => {
               <img src={star} alt="star" />
             </div>
           </div>
-          <SpriteAnimationContainer type="happy" />
+          <SpriteAnimationContainer type="happy" top={27} left={2} />
           <HomeAndRestartComponent props={props} />
         </div>
       ) : score >= Math.ceil(lengthOfCurrentLevel / 2) * 100 ? (
         /*2 start */
 
-        <div className="end-level-container">
+        <div
+          className="end-level-container"
+          style={{
+            backgroundImage: `url(${winBg})`,
+            backgroundSize: "contains",
+            backgroundRepeat: "no-repeat",
+          }}
+        >
+          <div
+            className="bg-left"
+            style={{
+              backgroundColor: "black",
+              height: "100%",
+              width: "25%",
+              position: "absolute",
+              left: "-25%",
+            }}
+          ></div>
+          <div
+            className="bg-right"
+            style={{
+              backgroundColor: "black",
+              height: "100%",
+              width: "26%",
+              position: "absolute",
+              right: "25%",
+            }}
+          ></div>
           <div className="rating">
             <div className="star">
               <img src={star} alt="star" />
@@ -39,22 +95,76 @@ const EndLevelComponent = (props: any) => {
               <img src={star} alt="star" />
             </div>
           </div>
-          <SpriteAnimationContainer type="happy" />
+          <SpriteAnimationContainer type="happy" top={27} left={2} />
           <HomeAndRestartComponent props={props} />
         </div>
       ) : score <= 100 ? (
-        <div className="end-level-container">
-          <SpriteAnimationContainer type="sad" top={20} />
+        <div
+          className="end-level-container"
+          style={{
+            backgroundImage: `url(${winBg})`,
+            backgroundSize: "contains",
+            backgroundRepeat: "no-repeat",
+          }}
+        >
+          <div
+            className="bg-left"
+            style={{
+              backgroundColor: "black",
+              height: "100%",
+              width: "25%",
+              position: "absolute",
+              left: "-25%",
+            }}
+          ></div>
+          <div
+            className="bg-right"
+            style={{
+              backgroundColor: "black",
+              height: "100%",
+              width: "26%",
+              position: "absolute",
+              right: "25%",
+            }}
+          ></div>
+          <SpriteAnimationContainer type="sad" top={2} left={2} />
           <HomeAndRestartComponent props={props} />
         </div>
       ) : (
-        <div className="end-level-container">
+        <div
+          className="end-level-container"
+          style={{
+            backgroundImage: `url(${winBg})`,
+            backgroundSize: "contains",
+            backgroundRepeat: "no-repeat",
+          }}
+        >
+          <div
+            className="bg-left"
+            style={{
+              backgroundColor: "black",
+              height: "100%",
+              width: "25%",
+              position: "absolute",
+              left: "-25%",
+            }}
+          ></div>
+          <div
+            className="bg-right"
+            style={{
+              backgroundColor: "black",
+              height: "100%",
+              width: "26%",
+              position: "absolute",
+              right: "25%",
+            }}
+          ></div>
           <div className="rating">
             <div className="star">
               <img src={star} alt="star" />
             </div>
           </div>
-          <SpriteAnimationContainer type="sad" top={20} />
+          <SpriteAnimationContainer type="sad" top={2} left={2} />
           <HomeAndRestartComponent props={props} />
         </div>
       )}
@@ -74,9 +184,12 @@ export const HomeAndRestartComponent = (props: any) => {
         display: "flex",
         flexDirection: "row",
         height: "100%",
-        alignItems: "flex-end",
-        // width: "100%",
+        alignItems: "center",
         transform: `scale(${scaleCloseBtn})`,
+        position: "relative",
+        width: "100%",
+        left: "10%",
+        top: "20%",
       }}
     >
       <div

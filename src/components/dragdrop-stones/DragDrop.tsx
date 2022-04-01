@@ -3,9 +3,10 @@ import "./dragdrop-balls.css";
 import classNames from "classnames";
 import AnimationType from "../animations/AnimationType";
 import { dark } from "@material-ui/core/styles/createPalette";
-import stones from "../../../assets/images/stone_pink_v02.png"
+import stones from "../../../assets/images/stone_pink_v02.png";
 import { contains } from "jquery";
 import { PromptTextHook } from "../prompt-text/PromptText";
+import EndLevelComponent from "../end-level/EndLevelComponent";
 
 let optionDataSet: { id: number; alphabet: string }[] = [];
 let i = 0;
@@ -20,7 +21,7 @@ const DragDrop = ({
   isMenuOpen,
   levelType,
   setScore,
-  editorData
+  editorData,
 }: {
   timeOver: boolean;
   answerDrop: Function;
@@ -30,10 +31,10 @@ const DragDrop = ({
   levelCount: number;
   isMenuOpen: boolean;
   levelType: string;
-  setScore?:Function,
-  editorData: boolean
+  setScore?: Function;
+  editorData: boolean;
 }) => {
-  console.log(props.targetstones)
+  console.log(props.targetstones);
   let options = [...props.targetstones, ...props.foilstones];
 
   const [dataList, setDataList] = useState(options);
@@ -54,12 +55,12 @@ const DragDrop = ({
       };
 
       incomingData.id = i;
-      incomingData.alphabet = (editorData)?options[i]:options[i].StoneText;
+      incomingData.alphabet = editorData ? options[i] : options[i].StoneText;
       optionDataSet.push(incomingData);
-      console.log(optionDataSet)
+      console.log(optionDataSet);
     }
     setDataList(optionDataSet);
-    console.log(dataList)
+    console.log(dataList);
   };
 
   useEffect(() => {
@@ -96,7 +97,7 @@ const DragDrop = ({
   const checkResult = (dropData: any) => {
     // console.log(props.targetstones[0].StoneText, "resultin progress", dropData);
     let targetStone = "";
-    
+
     for (; i < props.targetstones.length; i++) {
       targetStone = props.targetstones[i].StoneText;
       break;
@@ -107,7 +108,7 @@ const DragDrop = ({
         if (dragId.current == item.id) {
           item.alphabet = "";
         }
-      })
+      });
 
       i++;
       if (i == props.targetstones.length) {
@@ -117,10 +118,10 @@ const DragDrop = ({
         changePuzzel();
       }
     } else {
-        optionDataSet = [];
-        i = 0;
-        answerDrop();
-        changePuzzel();
+      optionDataSet = [];
+      i = 0;
+      answerDrop();
+      changePuzzel();
     }
 
     setDropped(true);
@@ -129,21 +130,21 @@ const DragDrop = ({
 
     if (targetStone == dropData) {
       disappearPromptText();
-      setAnimationType('eat');
-      setScore(100)
+      setAnimationType("eat");
+      setScore(100);
       setTimeout(() => {
-          setAnimationType('idle');
-      }, 2000)
+        setAnimationType("idle");
+      }, 2000);
     } else {
-      setAnimationType('spit');
+      setAnimationType("spit");
       i = 0;
-      optionDataSet = []
-      answerDrop()
+      optionDataSet = [];
+      answerDrop();
       changePuzzel();
       setTimeout(() => {
-          setAnimationType('idle');
-      }, 2000)
-      setScore(0)
+        setAnimationType("idle");
+      }, 2000);
+      setScore(0);
     }
     dragItem.current = null;
   };
@@ -170,14 +171,17 @@ const DragDrop = ({
         <AnimationType type={animationType} />
       </div>
       {optionDataSet.map((item, index) => {
-
         if (item.alphabet != "") {
           return (
             <div
               className={classNames(
                 dragging ? getStyles(item.alphabet, index) : "ball" + index
               )}
-              style={{ backgroundImage:`url(${stones})`,backgroundSize:'contain', backgroundRepeat: 'no-repeat'}}
+              style={{
+                backgroundImage: `url(${stones})`,
+                backgroundSize: "contain",
+                backgroundRepeat: "no-repeat",
+              }}
               draggable={!timeOver && !isMenuOpen}
               key={item.id}
               onDragEnd={(e) => {

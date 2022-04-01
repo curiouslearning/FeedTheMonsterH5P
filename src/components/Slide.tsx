@@ -226,43 +226,45 @@ const DragDropComp = (props: any) => {
                       Math.floor(Math.random() * feedbackArray.length)
                     ];
                   setText(feedbackPhrase);
-                  
 
                   const playerProfile = [
-                    { 
-                      _levelNumber : _levelNumber,
+                    {
+                      _levelNumber: _levelNumber,
                       data: {
-                        '_levelName' : props.levelType.toString(),
-                        '_levelScore' : score + count,
-                        '_levelStars' : (score+count)/100,
-                      }
-                    }
-                  ]
+                        _levelName: props.levelType.toString(),
+                        _levelScore: score + count,
+                        _levelStars: (score + count) / 100,
+                      },
+                    },
+                  ];
 
-                  const data = JSON.parse(localStorage.getItem('LevelData'));
-                  if(data != null)
-                  {if(data.length >= 0) {
-                    data.forEach(function (value: any) {
-                      if(value._levelNumber == _levelNumber) {
-                        if(value._levelName != props.levelType.toString()) {
-                          value._levelName = props.levelType.toString();
+                  const data = JSON.parse(localStorage.getItem("LevelData"));
+                  if (data != null) {
+                    if (data.length >= 0) {
+                      data.forEach(function (value: any) {
+                        if (value._levelNumber == _levelNumber) {
+                          if (value._levelName != props.levelType.toString()) {
+                            value._levelName = props.levelType.toString();
+                          } else if (value._levelScore != score + count) {
+                            value._levelName = score + count;
+                          } else if (
+                            value._levelStars !=
+                            (score + count) / 100
+                          ) {
+                            value._levelName = (score + count) / 100;
+                          }
+                        } else {
+                          playerProfile.push(value);
                         }
-                        else if(value._levelScore != score + count) {
-                          value._levelName = score + count;
-                        }
-                        else if(value._levelStars != (score+count)/100) {
-                          value._levelName = (score+count)/100;
-                        }
-                      }
-                      else {
-                        playerProfile.push(value);
-                      }
-                    })
-                  }}
-                  localStorage.setItem('LevelData', JSON.stringify(playerProfile));
-                  
-                  if(feedbackPhrase == 'Fantastic!')
-                  {
+                      });
+                    }
+                  }
+                  localStorage.setItem(
+                    "LevelData",
+                    JSON.stringify(playerProfile)
+                  );
+
+                  if (feedbackPhrase == "Fantastic!") {
                     audioFantastic.play();
                   } else {
                     audioGreat.play();
@@ -283,7 +285,7 @@ const DragDropComp = (props: any) => {
 
 const SlideComponent = (props: any) => {
   const { data } = props;
-  _levelNumber = data['LevelNumber'];
+  _levelNumber = data["LevelNumber"];
   let audFile: string;
   console.log(props);
   const lengthOfCurrentLevel = props.data.Puzzles.length;
@@ -415,6 +417,7 @@ const SlideComponent = (props: any) => {
             lengthOfCurrentLevel={lengthOfCurrentLevel}
             editorData={props.editorData}
           />
+
           <div
             ref={monsterRef}
             style={{
