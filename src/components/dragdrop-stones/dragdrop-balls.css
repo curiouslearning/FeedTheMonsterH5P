@@ -18,31 +18,31 @@
     position: relative;
     width: 50px;
     height: 50px;
-    top: 0%;
-    left: 15%
+    top: 80%;
+    left: 22%
 }
 
 .ball1 {
     position: relative;
     width: 50px;
     height: 50px;
-    top: 0%;
-    left: 80%
+    top: 55%;
+    left: 75%
 }
 
 .ball2{
     position: relative;
     width: 50px;
     height: 50px;
-    top: 40%;
-    left: 50%;
+    top: -55%;
+    left: 49%;
 }
 
 .ball3{
     position: relative;
     width: 50px;
     height: 50px;
-    top: 0%;
+    top: -40%;
     left: 5%
 }
 
@@ -50,7 +50,7 @@
     position: relative;
     width: 50px;
     height: 50px;
-    top: -140%;
+    top: -62%;
     left: 90%
 }
 
@@ -58,24 +58,24 @@
     position: relative;
     width: 50px;
     height: 50px;
-    top: -60%;
-    left: 75%
+    top: 8%;
+    left: 49%
 }
 
 .ball6{
     position: relative;
     width: 50px;
     height: 50px;
-    top: -60%;
-    left: 30%
+    top: -30%;
+    left: 90%
 }
 
 .ball7{
     position: relative;
     width: 50px;
     height: 50px;
-    top: -90%;
-    left: 90%;
+    top: -55%;
+    left: 5%;
 }
 
 .ball8{
@@ -92,8 +92,8 @@
     background-color:white;
     color: white;
     border-radius: 50%;
-    top: 0%;
-    left: 15%
+    top: 80%;
+    left: 22%
 }
 
 .no-ball1 {
@@ -104,8 +104,8 @@
     background-color:white;
     color: white;
     border-radius: 50%;
-    top: 0%;
-    left: 80%
+    top: 55%;
+    left: 75%
 }
 
 .no-ball2 {
@@ -114,9 +114,10 @@
     height: 50px;
     background-color:white;
     color: white;
+    opacity: 0;
     border-radius: 50%;
-    top: 40%;
-    left: 50%;
+    top: -55%;
+    left: 49%;
 }
 
 .no-ball3 {
@@ -125,8 +126,9 @@
     height: 50px;
     background-color:white;
     color: white;
+    opacity: 0;
     border-radius: 50%;
-    top: 0%;
+    top: -40%;
     left: 5%
 }
 
@@ -137,7 +139,8 @@
     background-color:white;
     color: white;
     border-radius: 50%;
-    top: -140%;
+    opacity: 0;
+    top: -62%;
     left: 90%
 }
 
@@ -148,8 +151,9 @@
     background-color:white;
     color: white;
     border-radius: 50%;
-    top: -60%;
-    left: 75%
+    opacity: 0;
+    top: 8%;
+    left: 49%
 }
 
 .no-ball6 {
@@ -159,8 +163,9 @@
     background-color:white;
     color: white;
     border-radius: 50%;
-    top: -60%;
-    left: 30%
+    opacity: 0;
+    top: -30%;
+    left: 90%
 }
 
 .no-ball7 {
@@ -170,6 +175,7 @@
     background-color:white;
     color: white;
     border-radius: 50%;
-    top: -90%;
-    left: 90%;
+    opacity: 0;
+    top: -55%;
+    left: 5%;
 }
