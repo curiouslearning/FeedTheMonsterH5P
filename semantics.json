@@ -21,6 +21,13 @@
           "label": "Slide image"
         },
         {
+          "name": "timeselector",
+          "type": "number",
+          "label": "time selector",
+          "widget":"duration"
+          
+        },
+        {
           "name": "audio",
           "type": "audio",
           "label": "Slide audio",

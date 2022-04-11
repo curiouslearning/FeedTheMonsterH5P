@@ -30,7 +30,7 @@ var config = {
         {
           loader: 'file-loader',
           options: {
-            name: 'assets/images/[contenthash].[ext]',
+            name: 'assets/images/[name].[ext]',
           },
         },
       ],

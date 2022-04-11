@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import { MovingBackGroundComponent } from "./MovingBackground";
 import cloud from "../../assets/images/cloud_v01.png";
+import { getLibraryPath } from '../app';
 
 import SlideComponent from './Slide';
 
@@ -60,7 +61,7 @@ const Slideshow = (props: any) => {
     console.log(data[activeSlide])
     return (
         <div>
-            <MovingBackGroundComponent bgImage={cloud} />
+            <MovingBackGroundComponent bgImage={getLibraryPath()+'cloud_v01.png'} />
             <SlideComponent data={data[activeSlide]} level= {data} images={img[activeSlide]} contentId={props.contentId} started={strt} time={initialTime} nextLevel={handleNav} editorData={props.editorData}/>
             <NavWrapper>
                 <NavButton onClick={() => handleNav(-1)} disabled={data.length < 2}>

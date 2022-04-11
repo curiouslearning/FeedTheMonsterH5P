@@ -7,6 +7,7 @@ import stones from "../../../assets/images/stone_pink_v02.png";
 import { contains } from "jquery";
 import { PromptTextHook } from "../prompt-text/PromptText";
 import EndLevelComponent from "../end-level/EndLevelComponent";
+import {getLibraryPath} from "../../app"
 
 let optionDataSet: { id: number; alphabet: string }[] = [];
 let i = 0;
@@ -178,7 +179,7 @@ const DragDrop = ({
                 dragging ? getStyles(item.alphabet, index) : "ball" + index
               )}
               style={{
-                backgroundImage: `url(${stones})`,
+                backgroundImage: `url(../../../assets/images/stone_pink_v02.png)`,
                 backgroundSize: "contain",
                 backgroundRepeat: "no-repeat",
               }}

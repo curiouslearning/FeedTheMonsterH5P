@@ -6,6 +6,7 @@ import star from "../../../assets/images/star.png";
 import loseBg from "../../../assets/images/Lose_bg.png";
 import winBg from "../../../assets/images/WIN_screen_bg.png";
 import "./EndLevelComponent.css";
+import {getLibraryPath} from "../../app"
 
 const EndLevelComponent = (props: any) => {
   const { score, lengthOfCurrentLevel } = props;
@@ -17,7 +18,7 @@ const EndLevelComponent = (props: any) => {
         <div
           className="end-level-container"
           style={{
-            backgroundImage: `url(${winBg})`,
+            backgroundImage: `url(../../../assets/images/WIN_screen_bg.png)`,
             backgroundSize: "contains",
             backgroundRepeat: "no-repeat",
           }}
@@ -44,13 +45,13 @@ const EndLevelComponent = (props: any) => {
           ></div>
           <div className="rating">
             <div className="star">
-              <img src={star} alt="star" />
+              <img src={getLibraryPath()+'star.png'} alt="star" />
             </div>
             <div className="star">
-              <img src={star} alt="star" />
+              <img src={getLibraryPath()+'star.png'} alt="star" />
             </div>
             <div className="star">
-              <img src={star} alt="star" />
+              <img src={getLibraryPath()+'star.png'} alt="star" />
             </div>
           </div>
           <SpriteAnimationContainer type="happy" top={27} left={2} />
@@ -62,7 +63,7 @@ const EndLevelComponent = (props: any) => {
         <div
           className="end-level-container"
           style={{
-            backgroundImage: `url(${winBg})`,
+            backgroundImage: `url(../../../assets/images/WIN_screen_bg.png)`,
             backgroundSize: "contains",
             backgroundRepeat: "no-repeat",
           }}
@@ -89,10 +90,10 @@ const EndLevelComponent = (props: any) => {
           ></div>
           <div className="rating">
             <div className="star">
-              <img src={star} alt="star" />
+              <img src={getLibraryPath()+'star.png'} alt="star" />
             </div>
             <div className="star">
-              <img src={star} alt="star" />
+              <img src={getLibraryPath()+'star.png'} alt="star" />
             </div>
           </div>
           <SpriteAnimationContainer type="happy" top={27} left={2} />
@@ -102,7 +103,7 @@ const EndLevelComponent = (props: any) => {
         <div
           className="end-level-container"
           style={{
-            backgroundImage: `url(${winBg})`,
+            backgroundImage: `url(../../../assets/images/WIN_screen_bg.png)`,
             backgroundSize: "contains",
             backgroundRepeat: "no-repeat",
           }}
@@ -134,7 +135,7 @@ const EndLevelComponent = (props: any) => {
         <div
           className="end-level-container"
           style={{
-            backgroundImage: `url(${winBg})`,
+            backgroundImage: `url(../../../assets/images/WIN_screen_bg.png)`,
             backgroundSize: "contains",
             backgroundRepeat: "no-repeat",
           }}
@@ -161,7 +162,7 @@ const EndLevelComponent = (props: any) => {
           ></div>
           <div className="rating">
             <div className="star">
-              <img src={star} alt="star" />
+              <img src={getLibraryPath()+'star.png'} alt="star" />
             </div>
           </div>
           <SpriteAnimationContainer type="sad" top={2} left={2} />

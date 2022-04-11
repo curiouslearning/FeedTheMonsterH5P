@@ -27,10 +27,11 @@ export default class ReactDemoApp extends (H5P.EventDispatcher as {
 
   attach = function ($wrapper: JQuery) {
     console.log("called attach");
-    console.log(this.editorData);
     $wrapper.get(0).appendChild(this.$element);
+    console.log(H5P)
     render(
       <SelectProfile
+        basePath={H5P.getLibraryPath("H5P.ReactSlideshowDemo-0.1")+"/assets/images/"}
         config={this.config}
         contentId={this.contentId}
         editorData={this.editorData}
@@ -42,3 +43,10 @@ export default class ReactDemoApp extends (H5P.EventDispatcher as {
     //render(<Slideshow data={this.config} contentId={this.contentId} editorData={this.editorData}/>, this.$element);
   };
 }
+
+const getLibraryPath=function()
+{
+  return H5P.getLibraryPath("H5P.ReactSlideshowDemo-0.1")+"/assets/images/"
+}
+export {getLibraryPath}
+
