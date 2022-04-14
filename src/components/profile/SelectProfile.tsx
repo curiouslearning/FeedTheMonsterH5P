@@ -85,7 +85,7 @@ const SelectProfile = (props: any) => {
         }}
       ></img>
       <img
-        src={title}
+        src={getImagePath()+'title.png'}
         style={{
           position: "relative",
           width: "80%",
@@ -173,7 +173,7 @@ const SelectProfile = (props: any) => {
         </Popup>
       ) : (
         <img
-          src={playButton}
+          src={getImagePath()+'Play_button.png'}
           onClick={() => {
             selectPLayer.play()
             setPopUpStatus(true);

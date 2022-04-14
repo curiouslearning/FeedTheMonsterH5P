@@ -20,6 +20,7 @@ import SuccessText from "./success-text/SuccessText";
 import fantastic from "../../assets/audio/fantastic.WAV";
 import great from "../../assets/audio/great.wav";
 import EndLevelComponent from "./end-level/EndLevelComponent";
+import { getImagePath } from "../app";
 
 let audio: HTMLAudioElement = null;
 let initialTime = 10;
@@ -339,7 +340,7 @@ const SlideComponent = (props: any) => {
   return (
     <Wrapper>
       <img
-        src={bg}
+        src={getImagePath()+'background.png'}
         style={{
           position: "absolute",
           width: "100%",

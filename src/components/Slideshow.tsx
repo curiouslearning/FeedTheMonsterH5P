@@ -5,6 +5,7 @@ import { MovingBackGroundComponent } from "./MovingBackground";
 import cloud from "../../assets/images/cloud_v01.png";
 
 import SlideComponent from './Slide';
+import { getImagePath } from '../app';
 
 let img = [
     "https://i.pinimg.com/originals/02/f3/49/02f34932a4f0ea1e70ad703e769bf41e.jpg",
@@ -60,7 +61,7 @@ const Slideshow = (props: any) => {
     console.log(data[activeSlide])
     return (
         <div>
-            <MovingBackGroundComponent bgImage={cloud} />
+            <MovingBackGroundComponent bgImage={getImagePath()+'cloud_v01.png'} />
             <SlideComponent data={data[activeSlide]} level= {data} images={img[activeSlide]} contentId={props.contentId} started={strt} time={initialTime} nextLevel={handleNav} editorData={props.editorData}/>
             <NavWrapper>
                 <NavButton onClick={() => handleNav(-1)} disabled={data.length < 2}>

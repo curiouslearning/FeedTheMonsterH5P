@@ -7,6 +7,7 @@ import happy from "../../../assets/images/happy.png";
 import sad from "../../../assets/images/sad.png";
 import idle from "../../../assets/images/idle.png";
 import { SpriteAnimationComponent } from "./SpriteAnimation";
+import { getImagePath } from "../../app";
 
 var spritesheetobj: Spritesheet;
 const AnimationType = (props: any) => {
@@ -14,26 +15,26 @@ const AnimationType = (props: any) => {
   console.log(props.type);
   switch (props.type) {
     case "eat": {
-      return <SpriteAnimationComponent spImage={eatingspSheet} nFrames={18} />;
+      return <SpriteAnimationComponent spImage={getImagePath()+'eating12.png'} nFrames={18} />;
     }
     case "spit": {
-      return <SpriteAnimationComponent spImage={spit} nFrames={18} />;
+      return <SpriteAnimationComponent spImage={getImagePath()+'spit.png'} nFrames={18} />;
     }
     case "idle": {
-      return <SpriteAnimationComponent spImage={idle} nFrames={18} />;
+      return <SpriteAnimationComponent spImage={getImagePath()+'idle.png'} nFrames={18} />;
     }
     case "happy": {
       return (
-        <SpriteAnimationComponent spImage={happy} nFrames={11} height={662} />
+        <SpriteAnimationComponent spImage={getImagePath()+'happy.png'} nFrames={11} height={662} />
       );
     }
     case "sad": {
       return (
-        <SpriteAnimationComponent spImage={sad} nFrames={11} height={1080} />
+        <SpriteAnimationComponent spImage={getImagePath()+'sad.png'} nFrames={11} height={1080} />
       );
     }
     default: {
-      return <SpriteAnimationComponent spImage={egg} nFrames={18} />;
+      return <SpriteAnimationComponent spImage={getImagePath()+'egg.png'} nFrames={18} />;
     }
   }
 };
