@@ -8,7 +8,7 @@
   position: relative;
   left: 25%;
 }
-.rating {
+.rating { 
   position: absolute;
   top: 25%;
   display: flex;
@@ -16,6 +16,20 @@
   width: 50%;
   left:0;
 }
+
+.row {
+  top: 0;
+  display: flex;
+  left: 6em;
+}
+
+.pin-star {
+  float: right;
+  width: 15%;
+  padding: 0.5em;
+  height: 7px;
+ }
+
 img {
-  height: 3rem;
+  height: 2rem;
 }

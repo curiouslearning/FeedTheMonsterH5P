@@ -165,6 +165,7 @@ const SelectProfile = (props: any) => {
                   data={props.config}
                   contentId={props.contentId}
                   editorData={props.editorData}
+                  feedbackTexts={props.feedbackPhrases}
                 />,
                 props.element
               );
