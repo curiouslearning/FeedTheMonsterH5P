@@ -13,22 +13,31 @@ import PopupMenu from "./popup-menu/PopupMenu";
 import bg from "../../assets/images/background.png";
 import { url } from "inspector";
 import AnimationType from "./animations/AnimationType";
-import { Grid } from "@material-ui/core";
+import { Container, Grid } from "@material-ui/core";
 import AudioComponent from "./common/AudioComponent";
 import { SpriteAnimationContainer } from "./animations/SpriteAnimationContainer";
-import SuccessText from "./success-text/SuccessText";
+import SuccessText from './success-text/SuccessText';
 import fantastic from "../../assets/audio/fantastic.WAV";
 import great from "../../assets/audio/great.wav";
+import goodJob from "../../assets/audio/good job.WAV"
 import EndLevelComponent from "./end-level/EndLevelComponent";
+import star1 from "../../assets/images/pinStar1.png";
+import star2 from "../../assets/images/pinStar2.png";
+import star3 from "../../assets/images/pinStar3.png";
+import mapIcon from "../../assets/images/mapIcon.png";
+import map from "../../assets/images/map.jpg";
+import mapLock from "../../assets/images/mapLock.png";
+import { render } from "react-dom";
 
 let audio: HTMLAudioElement = null;
 let initialTime = 10;
 let id: NodeJS.Timeout;
 let timeoutId: NodeJS.Timeout;
-const feedbackArray: any[] = ["Fantastic!", "Great!"];
+
 // create HTMLAudioElement
 const audioFantastic = new Audio(fantastic);
 const audioGreat = new Audio(great);
+const audiogoodJob = new Audio(goodJob);
 let _levelNumber: number;
 
 const Wrapper = styled.div`
@@ -49,6 +58,7 @@ const DragDropComp = (props: any) => {
   const [isLevelEnded, setIsLevelEnded] = useState(false);
   const [score, setScore] = useState(0);
   const [text, setText] = useState("");
+  const feedbackArray: any[] = props.feedbackTexts;
 
   const resetState = () => {
     setTimeOver(false);
@@ -156,7 +166,7 @@ const DragDropComp = (props: any) => {
     correctDrop,
     isMenuPopup,
     isLevelEnded,
-  ]);
+  ]); 
   console.log(props);
   return isLevelEnded ? (
     <EndLevelComponent
@@ -230,31 +240,51 @@ const DragDropComp = (props: any) => {
 
                   const playerProfile = [
                     {
-                      _levelNumber: _levelNumber,
+                      _levelNumber: props.levelNumber+1,
                       data: {
                         _levelName: props.levelType.toString(),
                         _levelScore: score + count,
-                        _levelStars: (score + count) / 100,
+                        _levelStars: score + count === props.lengthOfCurrentLevel * 100 ? 3 :
+                        score + count >= Math.ceil(props.lengthOfCurrentLevel / 2) * 100 ? 2:
+                        score + count <= 100 ? 0 : 1,
+                        _levelUnlocked: true,
                       },
                     },
+                    score + count > 100 ?
+                    {
+                      _levelNumber: props.levelNumber+1+1,
+                      data: {
+                        _levelUnlocked: true,
+                      },
+                    }:{
+                      _levelNumber: props.levelNumber+1+1,
+                      data: {
+                        _levelUnlocked: false,
+                      },
+                    }
                   ];
 
                   const data = JSON.parse(localStorage.getItem("LevelData"));
                   if (data != null) {
                     if (data.length >= 0) {
                       data.forEach(function (value: any) {
-                        if (value._levelNumber == _levelNumber) {
-                          if (value._levelName != props.levelType.toString()) {
-                            value._levelName = props.levelType.toString();
-                          } else if (value._levelScore != score + count) {
-                            value._levelName = score + count;
-                          } else if (
-                            value._levelStars !=
-                            (score + count) / 100
-                          ) {
-                            value._levelName = (score + count) / 100;
+                        if (value._levelNumber == props.levelNumber+1) {
+                          
+                            value._levelScore = score + count;
+                            value._levelStars = score + count === props.lengthOfCurrentLevel * 100 ? 3 :
+                            score + count >= Math.ceil(props.lengthOfCurrentLevel / 2) * 100 ? 2:
+                            score + count <= 100 ? 0 : 1;
+                            value._levelUnlocked = score + count > 100 ? true: false;
+                          
+                        }
+                        else if (value._levelNumber == props.levelNumber+2) {
+                          if (value._levelUnlocked == true) {
+                            value._levelScore = value.has('_levelScore')?value._levelScore:0;
+                            value._levelStars = value.has('_levelStars')?value._levelStars:0;
+                            value._levelUnlocked = value.has('_levelUnlocked')?value._levelUnlocked:false;
                           }
-                        } else {
+                        }
+                        else {
                           playerProfile.push(value);
                         }
                       });
@@ -267,8 +297,11 @@ const DragDropComp = (props: any) => {
 
                   if (feedbackPhrase == "Fantastic!") {
                     audioFantastic.play();
-                  } else {
+                  } else if(feedbackPhrase == "Great!"){
                     audioGreat.play();
+                  }
+                  else {
+                    audiogoodJob.play();
                   }
                   setTimeout(function () {
                     setText("");
@@ -284,10 +317,14 @@ const DragDropComp = (props: any) => {
   );
 };
 
+
 const SlideComponent = (props: any) => {
   const { data, level } = props;
   var audFile: string;
   const levels: Array<any> = level;
+  let compared: Array<any> = [];
+  const levelData: Array<any> = JSON.parse(localStorage.getItem('LevelData'));
+  const len = levelData != null ?levelData.length : 0;
   const [levData, setlevData] = useState(null);
   console.log(props);
   const lengthOfCurrentLevel = props.data.Puzzles.length;
@@ -305,7 +342,7 @@ const SlideComponent = (props: any) => {
       ? true
       : false;
 
-    console.log(data);
+    
     stopPlaying = () => {
       if (playing) {
         setPlaying(false);
@@ -336,6 +373,7 @@ const SlideComponent = (props: any) => {
   };
 
   const monsterRef = useRef();
+  compared = [];
   return (
     <Wrapper>
       <img
@@ -358,7 +396,7 @@ const SlideComponent = (props: any) => {
         <div
           style={{
             height: "100%",
-            backgroundImage: `url(${props.images})`,
+            backgroundImage: `url(${map})`,
             backgroundPosition: "center",
             backgroundRepeat: "no-repeat",
             backgroundSize: "cover",
@@ -377,34 +415,202 @@ const SlideComponent = (props: any) => {
               overflowY: "scroll",
             }}
           >
-            {levels.map((data1, index) => {
-              return (
-                <div key={index} style={{ margin: 10 }}>
-                  <button
-                    style={{
-                      width: 100,
-                      height: 100,
-                      backgroundColor: "#6CC0E7",
-                      borderRadius: 100,
-                    }}
-                    onClick={() => {
-                      setlevData(data1);
+            {
+              
+            levels.map((data1, index) => 
+            {
+              
+              return(
+                <div key={index} >
 
-                      onStartClick();
-                    }}
-                  >
+                 {
+                   levelData != null?
+                  (
+
+                    levelData.map((value, i) => 
+                    {
+                            return(
+                              compared.includes(data1.LevelMeta.LevelNumber+1)?
+                              console.log("compared"):
+                              data1.LevelMeta.LevelNumber+1 === value._levelNumber ?
+                              compared.push(data1.LevelMeta.LevelNumber+1) &&
+                              <div>
+                                  
+                                  {value.data._levelStars === 3?  
+                                  <div className="row">
+                                    <div className="pin-star">
+                                    <img src={star1} alt="star" />
+                                  </div>
+                                  <div className="pin-star">
+                                    <img src={star2} alt="star" />
+                                  </div>
+                                  <div className="pin-star">
+                                    <img src={star3} alt="star" />
+                                  </div>
+                                  </div>:value.data._levelStars === 2?  
+                                  <div className="row">
+                                    <div className="pin-star">
+                                    <img src={star1} alt="star" />
+                                  </div>
+                                  <div className="pin-star">
+                                    <img src={star2} alt="star" />
+                                  </div>
+                                  </div>:value.data._levelStars === 1?  
+                                  <div className="row">
+                                    <div className="pin-star">
+                                    <img src={star1} alt="star" />
+                                  </div>
+                                  </div>:<div></div>}
+                                  
+                                
+                                <button
+                                  style={{
+                                    border:'none',
+                                    borderRadius: 70,
+                                    outlineStyle: 'none',
+                                    background: `url(${mapIcon})`,
+                                    backgroundPosition: 25,
+                                    backgroundSize: 'contain',
+                                    backgroundRepeat: 'no-repeat',
+                                    width: '10vw',
+                                    height: '20vh',
+                                    padding: 10,
+                                    objectFit: 'contain',
+                                  }}
+                                
+                                  onClick={
+                                    (data1.LevelMeta.LevelNumber + 1 === value._levelNumber
+                                    && 
+                                    value.data._levelUnlocked) || data1.LevelMeta.LevelNumber+1 == 1?
+                                    () => {
+                                    setlevData(data1);
+                                    onStartClick();
+                                  }
+                                  : ()=>{
+                                    console.log('Nothing');
+                                  }
+                                }
+                                >
+                                {(data1.LevelMeta.LevelNumber + 1 === value._levelNumber
+                                  && 
+                                  value.data._levelUnlocked) || data1.LevelMeta.LevelNumber+1 == 1?
+                                <h3>{
+                                  data1.LevelMeta.LevelNumber+1
+                                  }</h3>:
+                                <img src = {mapLock}></img>
+                                }
+                                <br></br><br></br>
+                                <h2 style={{ color: "white",textAlign:'center' }}>
+                                  {data1.LevelMeta.LevelType}
+                                </h2>
+                                </button>
+
+                                </div>
+                              :
+                                (value._levelNumber <= len && data1.LevelMeta.LevelNumber+1 <= len) ?
+                                console.log('done')
+                                :
+                                compared.push(data1.LevelMeta.LevelNumber+1) &&
+                                  <button
+                                    style={{
+                                      border:'none',
+                                      borderRadius: 70,
+                                      outlineStyle: 'none',
+                                      background: `url(${mapIcon})`,
+                                      backgroundPosition: 25,
+                                      backgroundSize: 'contain',
+                                      backgroundRepeat: 'no-repeat',
+                                      width: '10vw',
+                                      height: '20vh',
+                                      padding: 10,
+                                      objectFit: 'contain',
+                                    }}
+                                  >
+                                  <img src = {mapLock}
+                                  ></img>
+                                  <br></br><br></br>
+                                  <h2 style={{ color: "white",textAlign:'center' }}>
+                                    {data1.LevelMeta.LevelType}
+                                  </h2>
+                                  </button>
+                            )
+                      
+                    }
+                    )
+                
+              )
+              :
+                  (
+                    data1.LevelMeta.LevelNumber+1 == 1 ?
+                    (
+                      <div>
+                        <br></br>
+                        <button
+                        style={{
+                          border:'none',
+                          borderRadius: 70,
+                          outlineStyle: 'none',
+                          background: `url(${mapIcon})`,
+                          backgroundPosition: 25,
+                          backgroundSize: 'contain',
+                          backgroundRepeat: 'no-repeat',
+                          width: '10vw',
+                          height: '20vh',
+                          padding: 10,
+                          objectFit: 'contain',
+                        }}
+                        onClick={() => {
+                          setlevData(data1);
+                          onStartClick();
+                        }}
+                      >
+                       <h3>{data1.LevelMeta.LevelNumber+1}</h3>
+                       <br></br><br></br>
+                       <h2 style={{ color: "white",textAlign:'center' }}>
+                        {data1.LevelMeta.LevelType}
+                      </h2>
+                      </button>
+                      </div>
+                    ):
+                    
+
                     <div>
-                      <h2>{index+1}</h2>
-                    </div>
-                  </button>
-                  <h2 style={{ color: "white",textAlign:'center' }}>
-                    {data1.LevelMeta.LevelType}
-                  </h2>
-                </div>
-              );
+                    <br></br>
+                    <button
+                        style={{
+                          border:'none',
+                          borderRadius: 70,
+                          outlineStyle: 'none',
+                          background: `url(${mapIcon})`,
+                          backgroundPosition: 25,
+                          backgroundSize: 'contain',
+                          backgroundRepeat: 'no-repeat',
+                          width: '10vw',
+                          height: '20vh',
+                          padding: 10,
+                          objectFit: 'contain',
+                        }}
+                      >
+                       <img src = {mapLock}
+                       ></img>
+                       <br></br><br></br>
+                       <h2 style={{ color: "white",textAlign:'center' }}>
+                        {data1.LevelMeta.LevelType}
+                      </h2>
+                      </button>
+                      </div>
+                  )
+            }
+            </div>
+              )
             })}
+          
+          
+
+           </div>
           </div>
-        </div>
+
+          
       )}
       {!start ? (
         <div></div>
@@ -428,6 +634,8 @@ const SlideComponent = (props: any) => {
             monsterRef={monsterRef}
             lengthOfCurrentLevel={lengthOfCurrentLevel}
             editorData={props.editorData}
+            feedbackTexts={props.feedbackTexts}
+            levelNumber={levData.LevelMeta.LevelNumber}
           />
 
           <div
