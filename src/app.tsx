@@ -42,3 +42,14 @@ export default class ReactDemoApp extends (H5P.EventDispatcher as {
     //render(<Slideshow data={this.config} contentId={this.contentId} editorData={this.editorData}/>, this.$element);
   };
 }
+const getImagePath=function()
+{
+  return H5P.getLibraryPath("H5P.ReactSlideshowDemo-0.1")+"/assets/images/"
+}
+
+const getAudioPath=function()
+{
+  return H5P.getLibraryPath("H5P.ReactSlideshowDemo-0.1")+"/assets/audios/"
+}
+
+export {getImagePath,getAudioPath}

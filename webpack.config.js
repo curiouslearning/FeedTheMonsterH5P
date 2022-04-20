@@ -11,7 +11,7 @@ var config = {
     dist: './src/index.ts'
   },
   output: {
-    path: path.resolve(__dirname, './'),
+    path: path.resolve(__dirname, '../H5P.ReactSlideshowDemo-0.1'),
     filename: 'react-slideshow.js',
   },
   module: {
@@ -30,7 +30,7 @@ var config = {
         {
           loader: 'file-loader',
           options: {
-            name: 'assets/images/[contenthash].[ext]',
+            name: './assets/images/[name].[ext]',
           },
         },
       ],
@@ -41,7 +41,7 @@ var config = {
         {
           loader: 'file-loader',
           options: {
-            name: 'assets/audio/[contenthash].[ext]',
+            name: './assets/audios/[name].[ext]',
           },
         },
       ],
@@ -53,7 +53,7 @@ var config = {
     }]
   },
   resolve: {
-    extensions: [ '.tsx', '.ts', '.js', '.json', '.css' ],
+    extensions: [ '.tsx', '.ts', '.js', '.json', '.css','.sh','.babelrc','.eslintignore','.gitignore','.d' ],
   },
   plugins: [
     new CopyPlugin({

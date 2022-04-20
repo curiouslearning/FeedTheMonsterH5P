@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import "./pause-menu.css";
 import pauseBg from "../../../assets/images/pause_v01.png";
+import { getImagePath } from "../../app";
 // import { ScaleButton } from '../common/ScaleButton';
 
 const PauseMenu = (props: any) => {
@@ -16,7 +17,7 @@ const PauseMenu = (props: any) => {
         }, 200);
       }}
       style={{
-        backgroundImage: `url(${pauseBg})`,
+        backgroundImage: `url(${getImagePath()+'pause_v01.png'})`,
         backgroundSize: "contain",
         backgroundRepeat: "no-repeat",
         transform: `scale(${scale})`,

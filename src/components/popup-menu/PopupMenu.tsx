@@ -7,6 +7,7 @@ import popupBg from '../../../assets/images/popup_bg_v01.png';
 import closeBtnBg from '../../../assets/images/close_btn.png';
 import mapBg from '../../../assets/images/map_btn.png';
 import retryBg from '../../../assets/images/retry_btn.png';
+import { getImagePath } from '../../app';
 
 const Popup = styled.div`
     width: 50%;
@@ -14,7 +15,7 @@ const Popup = styled.div`
     top: 20%;
     height: 60%;
     position: absolute;
-    background-image: url(${popupBg});
+    background-image: url(${props => props.title});
     background-size: contain;
     background-repeat: no-repeat;
     z-index: 9;
@@ -41,7 +42,7 @@ const ClosePopup = styled.div`
     display: flex;
     height: 60px;
     width: 60px;
-    background-image: url(${closeBtnBg});
+    background-image: url(${props => props.title});
     background-size: contain;
     background-repeat: no-repeat;
     justify-content: center;
@@ -52,8 +53,9 @@ const PopupMenu = (props: any) => {
   const [scaleCloseBtn, setScaleCloseBtn] = useState(1);
   const [scaleNextBtn, setScaleNextBtn] = useState(1);
   const [scaleRestartBtn, setScaleRestartBtn] = useState(1);
-  return <Popup>
-      <ClosePopup onClick={(e) => {
+  return <Popup title={getImagePath()+'popup_bg_v01.png'}>
+      <ClosePopup title={getImagePath()+'close_btn.png'}
+      onClick={(e) => {
         props.onClickPauseMenu()
         setScaleCloseBtn(0.9);
         setTimeout(() => {
@@ -68,7 +70,7 @@ const PopupMenu = (props: any) => {
           setTimeout(() => {
             setScaleNextBtn(1);
           }, 200)
-        }} style={{backgroundImage: `url(${mapBg})`,backgroundSize: "contain", backgroundRepeat: "no-repeat", height: 90, width: 80, marginLeft: 10, transform: `scale(${scaleNextBtn})`}}>
+        }} style={{backgroundImage: `url(${getImagePath()+'map_btn.png'})`,backgroundSize: "contain", backgroundRepeat: "no-repeat", height: 90, width: 80, marginLeft: 10, transform: `scale(${scaleNextBtn})`}}>
 
         </div>
         <div onClick={(e)=> {
@@ -77,7 +79,7 @@ const PopupMenu = (props: any) => {
           setTimeout(() => {
             setScaleRestartBtn(1);
           }, 200)
-        }} style={{backgroundImage: `url(${retryBg})`,backgroundSize: "contain", backgroundRepeat: "no-repeat",height: 90, width: 80, marginLeft: 35, transform: `scale(${scaleRestartBtn})`}}>
+        }} style={{backgroundImage: `url(${getImagePath()+'retryBg.png'})`,backgroundSize: "contain", backgroundRepeat: "no-repeat",height: 90, width: 80, marginLeft: 35, transform: `scale(${scaleRestartBtn})`}}>
         </div>
       </div>
   </Popup>

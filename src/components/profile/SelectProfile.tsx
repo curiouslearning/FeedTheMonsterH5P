@@ -4,13 +4,14 @@ import styled from "styled-components";
 import bg from "../../../assets/images/background.png";
 import popupBg from "../../../assets/images/popup_bg_v01.png";
 import avatarIcon from "../../../assets/images/Avatar_04.png";
-import introMusic from "../../../assets/audio/intro.wav";
+ import introMusic from "../../../assets/audio/intro.wav";
 import selectPlayer from "../../../assets/audio/select_player.WAV";
 import Slideshow from "../Slideshow";
 import closeBtnBg from "../../../assets/images/close_btn.png";
 import title from "../../../assets/images/title.png";
 import playButton from "../../../assets/images/Play_button.png";
 import AnimationType from "../animations/AnimationType";
+import { getAudioPath, getImagePath } from "../../app";
 const Wrapper = styled.div`
   height: 600px;
   width: 100%;
@@ -22,7 +23,7 @@ const Popup = styled.div`
   
   height: 60%;+0.
   position: relative;
-  background-image: url(${popupBg});
+  background-image: url(${props => props.title});
   background-size: contain;
   background-repeat: no-repeat;
   z-index: 9;
@@ -37,7 +38,7 @@ const Avatar = styled.div`
 
   height: 250px;
   width: 250px;
-  background-image: url(${avatarIcon});
+  background-image: url(${props => props.title});
   background-size: contain;
   background-repeat: no-repeat;
   justify-content: center;
@@ -52,20 +53,21 @@ const ClosePopup = styled.div`
 
   height: 60px;
   width: 60px;
-  background-image: url(${closeBtnBg});
+  background-image: url(${props => props.title});
   background-size: contain;
   background-repeat: no-repeat;
   justify-content: center;
   align-item: center;
 `;
 
-const introSound = new Audio(introMusic);
-const selectPLayer = new Audio(selectPlayer);
+
 
 const SelectProfile = (props: any) => {
   const [popUpStatus, setPopUpStatus] = useState(false);
   const monsterRef = useRef();
-
+  const introSound = new Audio(getAudioPath()+'intro.wav');
+  const selectPLayer = new Audio(getAudioPath()+'select_player.WAV');
+  const introMusic= getAudioPath()+'intro.wav'
   
   // document.body.addEventListener("mousemove", function () {
   //   introSound.play()
@@ -74,7 +76,7 @@ const SelectProfile = (props: any) => {
     <Wrapper>
       <audio id="soundtrack" src={introMusic}></audio>
       <img
-        src={bg}
+        src={getImagePath()+'background.png'}
         style={{
           position: "absolute",
           width: "100%",
@@ -83,7 +85,7 @@ const SelectProfile = (props: any) => {
         }}
       ></img>
       <img
-        src={title}
+        src={getImagePath()+'title.png'}
         style={{
           position: "relative",
           width: "80%",
@@ -116,8 +118,9 @@ const SelectProfile = (props: any) => {
       </div>
 
       {popUpStatus ? (
-        <Popup>
+        <Popup title={getImagePath()+'popup_bg_v01.png'}>
           <ClosePopup
+           title={getImagePath()+'close_btn.png'}
             onClick={(e) => {
              
               setPopUpStatus(false);
@@ -139,7 +142,21 @@ const SelectProfile = (props: any) => {
           >
             Select your Player
           </h1>
-          <Avatar
+          <div
+            style={{
+              position: 'relative',
+              height:250,
+              width:250,
+              backgroundImage:`url(${getImagePath()+'Avatar_04.png'})`,
+              backgroundSize:'contain',
+              backgroundRepeat:'no-repeat',
+              justifyContent:'center',
+              alignItems:'center',
+              margin:'auto',
+              display:'block'
+        
+
+            }}
             onClick={() => {
               selectPLayer.pause()
               props.wrapper.get(0).appendChild(props.element);
@@ -152,11 +169,11 @@ const SelectProfile = (props: any) => {
                 props.element
               );
             }}
-          ></Avatar>
+          ></div>
         </Popup>
       ) : (
         <img
-          src={playButton}
+          src={getImagePath()+'Play_button.png'}
           onClick={() => {
             selectPLayer.play()
             setPopUpStatus(true);

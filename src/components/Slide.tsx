@@ -28,6 +28,7 @@ import mapIcon from "../../assets/images/mapIcon.png";
 import map from "../../assets/images/map.jpg";
 import mapLock from "../../assets/images/mapLock.png";
 import { render } from "react-dom";
+import { getImagePath } from "../app";
 
 let audio: HTMLAudioElement = null;
 let initialTime = 10;
@@ -377,7 +378,7 @@ const SlideComponent = (props: any) => {
   return (
     <Wrapper>
       <img
-        src={bg}
+        src={getImagePath()+'background.png'}
         style={{
           position: "absolute",
           width: "100%",
