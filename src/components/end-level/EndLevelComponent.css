@@ -20,14 +20,30 @@
 .row {
   top:0%;
   display: flex;
+  margin-left: 1.1rem;
+}
+
+.topSpace {
+  top:0%;
+  display: flex;
   margin-left: 1rem;
+  width: 13%;
+  padding: 0.1rem;
+  height: 5px;
 }
 
 .pin-star {
   width: 15%;
   padding: 0.25rem;
   height: 7px;
-  margin-top: -12%;
+  margin-top: -16%;
+ }
+
+ .pin-star2 {
+  width: 15%;
+  padding: 0.25rem;
+  height: 7px;
+  margin-top: -21%;
  }
 
 img {

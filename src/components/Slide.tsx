@@ -437,40 +437,8 @@ const SlideComponent = (props: any) => {
                               data1.LevelMeta.LevelNumber+1 === value._levelNumber ?
                               compared.push(data1.LevelMeta.LevelNumber+1) &&
                               <div>
-                                <div className="row">
-                                  <div className="pin-star">
-                                  </div>
+                                <div className="topSpace">
                                 </div>
-                                  
-                                  {/* {value.data._levelStars === 3?  
-                                  <div className="row">
-                                    <div className="pin-star">
-                                    <img src={star1} alt="star" />
-                                  </div>
-                                  <div className="pin-star">
-                                    <img src={star2} alt="star" />
-                                  </div>
-                                  <div className="pin-star">
-                                    <img src={star3} alt="star" />
-                                  </div>
-                                  </div>:value.data._levelStars === 2?  
-                                  <div className="row">
-                                    <div className="pin-star">
-                                    <img src={star1} alt="star" />
-                                  </div>
-                                  <div className="pin-star">
-                                    <img src={star2} alt="star" />
-                                  </div>
-                                  </div>:value.data._levelStars === 1?  
-                                  <div className="row">
-                                    <div className="pin-star">
-                                    <img src={star1} alt="star" />
-                                  </div>
-                                  </div>:<div><div className="row">
-                                  <div className="pin-star">
-                                  </div>
-                                </div></div>} */}
-                                  
                                 
                                 <button
                                   style={{
@@ -506,7 +474,7 @@ const SlideComponent = (props: any) => {
                                     <div className="pin-star">
                                     <img src={star1} alt="star" />
                                   </div>
-                                  <div className="pin-star">
+                                  <div className="pin-star2">
                                     <img src={star2} alt="star" />
                                   </div>
                                   <div className="pin-star">
@@ -517,7 +485,7 @@ const SlideComponent = (props: any) => {
                                     <div className="pin-star">
                                     <img src={star1} alt="star" />
                                   </div>
-                                  <div className="pin-star">
+                                  <div className="pin-star2">
                                     <img src={star2} alt="star" />
                                   </div>
                                   </div>:value.data._levelStars === 1?  
@@ -553,9 +521,7 @@ const SlideComponent = (props: any) => {
                                 console.log('done')
                                 :
                                 compared.push(data1.LevelMeta.LevelNumber+1) &&
-                                <div><div className="row">
-                                  <div className="pin-star">
-                                  </div>
+                                <div><div className="topSpace">
                                 </div>
                                 <button
                                     style={{
