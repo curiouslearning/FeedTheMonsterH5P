@@ -7,7 +7,7 @@ import stones from "../../../assets/images/stone_pink_v02.png";
 import { contains } from "jquery";
 import { PromptTextHook } from "../prompt-text/PromptText";
 import EndLevelComponent from "../end-level/EndLevelComponent";
-import { getImagePath } from "../../app";
+import { getAudioPath, getImagePath } from "../../app";
 
 let optionDataSet: { id: number; alphabet: string }[] = [];
 let i = 0;
@@ -42,7 +42,9 @@ const DragDrop = ({
   const [dragging, setDragging] = useState(false);
   const [dropped, setDropped] = useState(false);
   const [animationType, setAnimationType] = useState("idle");
-
+  const onDrag = new Audio(getAudioPath()+'onDrag.mp3');
+  const monsterSplit = new Audio(getAudioPath()+'Monster Spits wrong stones-01.mp3');
+  
   const { disappearPromptText } = PromptTextHook();
 
   const dragItem = useRef();
@@ -131,6 +133,7 @@ const DragDrop = ({
 
     if (targetStone == dropData) {
       disappearPromptText();
+   
       setAnimationType("eat");
       setScore(100);
       setTimeout(() => {
@@ -138,6 +141,7 @@ const DragDrop = ({
       }, 2000);
     } else {
       setAnimationType("spit");
+      monsterSplit.play()
       i = 0;
       optionDataSet = [];
       answerDrop();
@@ -189,6 +193,7 @@ const DragDrop = ({
                 handleDragEnd();
               }}
               onDragStart={(e) => {
+                onDrag.play()
                 handleDragStart(item.alphabet, e, item.id);
                 e.dataTransfer.setData("item.alphabet", item.alphabet);
               }}
