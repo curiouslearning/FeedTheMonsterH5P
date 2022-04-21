@@ -536,7 +536,10 @@ const SlideComponent = (props: any) => {
                                 <h3><br></br>{
                                   data1.LevelMeta.LevelNumber+1
                                   }</h3>:
-                                <img src = {mapLock}></img>
+                                <div>
+                                  <br></br>
+                                  <img src = {mapLock}></img>
+                                  </div>
                                 }
                                 <br></br>
                                 <h2 style={{ color: "white",textAlign:'center' }}>
