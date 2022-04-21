@@ -18,18 +18,18 @@
 }
 
 .row {
-  top: 0;
+  top:0%;
   display: flex;
-  left: 6em;
+  margin-left: 1rem;
 }
 
 .pin-star {
-  float: right;
   width: 15%;
-  padding: 0.5em;
+  padding: 0.25rem;
   height: 7px;
+  margin-top: -12%;
  }
 
 img {
-  height: 2rem;
+  height: 1.5rem;
 }

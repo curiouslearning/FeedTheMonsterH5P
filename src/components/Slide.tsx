@@ -169,6 +169,7 @@ const DragDropComp = (props: any) => {
     isLevelEnded,
   ]); 
   console.log(props);
+  
   return isLevelEnded ? (
     <EndLevelComponent
       score={score}
@@ -436,8 +437,12 @@ const SlideComponent = (props: any) => {
                               data1.LevelMeta.LevelNumber+1 === value._levelNumber ?
                               compared.push(data1.LevelMeta.LevelNumber+1) &&
                               <div>
+                                <div className="row">
+                                  <div className="pin-star">
+                                  </div>
+                                </div>
                                   
-                                  {value.data._levelStars === 3?  
+                                  {/* {value.data._levelStars === 3?  
                                   <div className="row">
                                     <div className="pin-star">
                                     <img src={star1} alt="star" />
@@ -461,7 +466,10 @@ const SlideComponent = (props: any) => {
                                     <div className="pin-star">
                                     <img src={star1} alt="star" />
                                   </div>
-                                  </div>:<div></div>}
+                                  </div>:<div><div className="row">
+                                  <div className="pin-star">
+                                  </div>
+                                </div></div>} */}
                                   
                                 
                                 <button
@@ -477,8 +485,9 @@ const SlideComponent = (props: any) => {
                                     height: '20vh',
                                     padding: 10,
                                     objectFit: 'contain',
+                                    flexDirection:'column',
                                   }}
-                                
+                                 
                                   onClick={
                                     (data1.LevelMeta.LevelNumber + 1 === value._levelNumber
                                     && 
@@ -492,15 +501,44 @@ const SlideComponent = (props: any) => {
                                   }
                                 }
                                 >
+                                {value.data._levelStars === 3?  
+                                  <div className="row">
+                                    <div className="pin-star">
+                                    <img src={star1} alt="star" />
+                                  </div>
+                                  <div className="pin-star">
+                                    <img src={star2} alt="star" />
+                                  </div>
+                                  <div className="pin-star">
+                                    <img src={star3} alt="star" />
+                                  </div>
+                                  </div>:value.data._levelStars === 2?  
+                                  <div className="row">
+                                    <div className="pin-star">
+                                    <img src={star1} alt="star" />
+                                  </div>
+                                  <div className="pin-star">
+                                    <img src={star2} alt="star" />
+                                  </div>
+                                  </div>:value.data._levelStars === 1?  
+                                  <div className="row">
+                                    <div className="pin-star">
+                                    <img src={star1} alt="star" />
+                                  </div>
+                                  </div>:<div><div className="row">
+                                  <div className="pin-star">
+                                  </div>
+                                </div></div>}
+
                                 {(data1.LevelMeta.LevelNumber + 1 === value._levelNumber
                                   && 
                                   value.data._levelUnlocked) || data1.LevelMeta.LevelNumber+1 == 1?
-                                <h3>{
+                                <h3><br></br>{
                                   data1.LevelMeta.LevelNumber+1
                                   }</h3>:
                                 <img src = {mapLock}></img>
                                 }
-                                <br></br><br></br>
+                                <br></br>
                                 <h2 style={{ color: "white",textAlign:'center' }}>
                                   {data1.LevelMeta.LevelType}
                                 </h2>
@@ -512,7 +550,11 @@ const SlideComponent = (props: any) => {
                                 console.log('done')
                                 :
                                 compared.push(data1.LevelMeta.LevelNumber+1) &&
-                                  <button
+                                <div><div className="row">
+                                  <div className="pin-star">
+                                  </div>
+                                </div>
+                                <button
                                     style={{
                                       border:'none',
                                       borderRadius: 70,
@@ -533,7 +575,7 @@ const SlideComponent = (props: any) => {
                                   <h2 style={{ color: "white",textAlign:'center' }}>
                                     {data1.LevelMeta.LevelType}
                                   </h2>
-                                  </button>
+                                  </button></div>
                             )
                       
                     }
