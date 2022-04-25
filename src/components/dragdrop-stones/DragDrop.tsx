@@ -37,18 +37,41 @@ const DragDrop = ({
 }) => {
   console.log(props.targetstones);
   let options = [...props.targetstones, ...props.foilstones];
-
+  
   const [dataList, setDataList] = useState(options);
   const [dragging, setDragging] = useState(false);
   const [dropped, setDropped] = useState(false);
   const [animationType, setAnimationType] = useState("idle");
   const onDrag = new Audio(getAudioPath()+'onDrag.mp3');
   const monsterSplit = new Audio(getAudioPath()+'Monster Spits wrong stones-01.mp3');
-  
+
+  const checkOptions=(options: any[])=>{
+      if(options.length>8){
+        var duplicateCount=Math.abs(8-options.length);
+        var finalOptions = options.filter(function(elem, index, self) {
+         
+          if(index !== self.findIndex((t)=>(t.StoneText===elem.StoneText)) && duplicateCount!=0)
+          {
+            duplicateCount--
+            return false;            
+          }
+          else{
+            return true;
+          }        
+            
+        })
+        return finalOptions;
+      }
+      else{
+        return options
+      }
+  }
+  options=checkOptions(options)
   const { disappearPromptText } = PromptTextHook();
 
   const dragItem = useRef();
   const dragId = useRef();
+  
 
   const optionCollectData = (options: string | any[]) => {
     for (let i = 0; i < options.length; i++) {
