@@ -44,6 +44,8 @@ const DragDrop = ({
   const [animationType, setAnimationType] = useState("idle");
   const onDrag = new Audio(getAudioPath()+'onDrag.mp3');
   const monsterSplit = new Audio(getAudioPath()+'Monster Spits wrong stones-01.mp3');
+  const monsterHappy = new Audio(getAudioPath()+'Cheering-02.mp3');
+  const monsterDisapointment = new Audio(getAudioPath()+'Disapointed-05.mp3');
 
   const checkOptions=(options: any[])=>{
       if(options.length>8){
@@ -156,7 +158,7 @@ const DragDrop = ({
 
     if (targetStone == dropData) {
       disappearPromptText();
-   
+      monsterHappy.play()
       setAnimationType("eat");
       setScore(100);
       setTimeout(() => {
@@ -164,7 +166,11 @@ const DragDrop = ({
       }, 2000);
     } else {
       setAnimationType("spit");
-      monsterSplit.play()
+      monsterDisapointment.play()
+      setTimeout(() => {
+        monsterSplit.play()
+      }, 1000);
+  
       i = 0;
       optionDataSet = [];
       answerDrop();

@@ -7,7 +7,7 @@ import popupBg from '../../../assets/images/popup_bg_v01.png';
 import closeBtnBg from '../../../assets/images/close_btn.png';
 import mapBg from '../../../assets/images/map_btn.png';
 import retryBg from '../../../assets/images/retry_btn.png';
-import { getImagePath } from '../../app';
+import { buttonCLick, getImagePath } from '../../app';
 
 const Popup = styled.div`
     width: 50%;
@@ -56,6 +56,7 @@ const PopupMenu = (props: any) => {
   return <Popup title={getImagePath()+'popup_bg_v01.png'}>
       <ClosePopup title={getImagePath()+'close_btn.png'}
       onClick={(e) => {
+        buttonCLick().play()
         props.onClickPauseMenu()
         setScaleCloseBtn(0.9);
         setTimeout(() => {
@@ -65,6 +66,7 @@ const PopupMenu = (props: any) => {
       </ClosePopup>
       <div  style={{display: "flex", flexDirection: "row", height: "100%", alignItems: "center", width: "100%", transform: `scale(${scaleCloseBtn})`}}>
         <div onClick={(e)=> {
+           buttonCLick().play()
           props.nextLevel()
           setScaleNextBtn(0.9)
           setTimeout(() => {
@@ -74,6 +76,7 @@ const PopupMenu = (props: any) => {
 
         </div>
         <div onClick={(e)=> {
+           buttonCLick().play()
           props.onClickRestart()
           setScaleRestartBtn(0.9)
           setTimeout(() => {

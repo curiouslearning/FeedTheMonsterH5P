@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import "./pause-menu.css";
 import pauseBg from "../../../assets/images/pause_v01.png";
-import { getImagePath } from "../../app";
+import { buttonCLick, getImagePath } from "../../app";
 // import { ScaleButton } from '../common/ScaleButton';
 
 const PauseMenu = (props: any) => {
@@ -10,6 +10,7 @@ const PauseMenu = (props: any) => {
     <div
       className="menu"
       onClick={() => {
+        buttonCLick().play()
         props.onClickPauseMenu();
         setScale(0.9);
         setTimeout(() => {

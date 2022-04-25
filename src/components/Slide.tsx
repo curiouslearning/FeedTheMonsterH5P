@@ -16,10 +16,10 @@ import AnimationType from "./animations/AnimationType";
 import { Container, Grid } from "@material-ui/core";
 import AudioComponent from "./common/AudioComponent";
 import { SpriteAnimationContainer } from "./animations/SpriteAnimationContainer";
-import SuccessText from './success-text/SuccessText';
+import SuccessText from "./success-text/SuccessText";
 import fantastic from "../../assets/audio/fantastic.WAV";
 import great from "../../assets/audio/great.wav";
-import goodJob from "../../assets/audio/good job.WAV"
+import goodJob from "../../assets/audio/good job.WAV";
 import EndLevelComponent from "./end-level/EndLevelComponent";
 import star1 from "../../assets/images/pinStar1.png";
 import star2 from "../../assets/images/pinStar2.png";
@@ -28,7 +28,7 @@ import mapIcon from "../../assets/images/mapIcon.png";
 import map from "../../assets/images/map.jpg";
 import mapLock from "../../assets/images/mapLock.png";
 import { render } from "react-dom";
-import { getImagePath } from "../app";
+import { buttonCLick, getAudioPath, getImagePath } from "../app";
 
 let audio: HTMLAudioElement = null;
 let initialTime = 10;
@@ -60,8 +60,10 @@ const DragDropComp = (props: any) => {
   const [score, setScore] = useState(0);
   const [text, setText] = useState("");
   const feedbackArray: any[] = props.feedbackTexts;
+  const timeOut = new Audio(getAudioPath()+'timeout.mp3');
 
   const resetState = () => {
+    buttonCLick().play();
     setTimeOver(false);
     setCorrectDrop(false);
     setLevelCount(0);
@@ -75,6 +77,7 @@ const DragDropComp = (props: any) => {
   };
 
   const onClickRestart = () => {
+    buttonCLick().play();
     setTimeout(() => {
       setLevelCount(0);
       setPauseMenu(false);
@@ -84,6 +87,7 @@ const DragDropComp = (props: any) => {
   };
 
   const onClickPauseMenu = () => {
+    buttonCLick().play();
     if (!isMenuPopup) {
       setPauseMenu(true);
       // if (props.playing) {
@@ -121,6 +125,7 @@ const DragDropComp = (props: any) => {
   const timer = () => {
     if (props.playing && !isMenuPopup) {
       setProgressCount((preValue) => preValue - 0.5);
+      {currentProgressCount == 1.5? timeOut.play():null}
     }
   };
 
@@ -167,9 +172,9 @@ const DragDropComp = (props: any) => {
     correctDrop,
     isMenuPopup,
     isLevelEnded,
-  ]); 
+  ]);
   console.log(props);
-  
+
   return isLevelEnded ? (
     <EndLevelComponent
       score={score}
@@ -203,6 +208,7 @@ const DragDropComp = (props: any) => {
       ) : (
         <></>
       )}
+
       <Progress done={(currentProgressCount * 10).toString()} />
       <PromptText
         letter={
@@ -242,51 +248,70 @@ const DragDropComp = (props: any) => {
 
                   const playerProfile = [
                     {
-                      _levelNumber: props.levelNumber+1,
+                      _levelNumber: props.levelNumber + 1,
                       data: {
                         _levelName: props.levelType.toString(),
                         _levelScore: score + count,
-                        _levelStars: score + count === props.lengthOfCurrentLevel * 100 ? 3 :
-                        score + count >= Math.ceil(props.lengthOfCurrentLevel / 2) * 100 ? 2:
-                        score + count <= 100 ? 0 : 1,
+                        _levelStars:
+                          score + count === props.lengthOfCurrentLevel * 100
+                            ? 3
+                            : score + count >=
+                              Math.ceil(props.lengthOfCurrentLevel / 2) * 100
+                            ? 2
+                            : score + count <= 100
+                            ? 0
+                            : 1,
                         _levelUnlocked: true,
                       },
                     },
-                    score + count > 100 ?
-                    {
-                      _levelNumber: props.levelNumber+1+1,
-                      data: {
-                        _levelUnlocked: true,
-                      },
-                    }:{
-                      _levelNumber: props.levelNumber+1+1,
-                      data: {
-                        _levelUnlocked: false,
-                      },
-                    }
+                    score + count > 100
+                      ? {
+                          _levelNumber: props.levelNumber + 1 + 1,
+                          data: {
+                            _levelUnlocked: true,
+                          },
+                        }
+                      : {
+                          _levelNumber: props.levelNumber + 1 + 1,
+                          data: {
+                            _levelUnlocked: false,
+                          },
+                        },
                   ];
 
                   const data = JSON.parse(localStorage.getItem("LevelData"));
                   if (data != null) {
                     if (data.length >= 0) {
                       data.forEach(function (value: any) {
-                        if (value._levelNumber == props.levelNumber+1) {
-                          
-                            value._levelScore = score + count;
-                            value._levelStars = score + count === props.lengthOfCurrentLevel * 100 ? 3 :
-                            score + count >= Math.ceil(props.lengthOfCurrentLevel / 2) * 100 ? 2:
-                            score + count <= 100 ? 0 : 1;
-                            value._levelUnlocked = score + count > 100 ? true: false;
-                          
-                        }
-                        else if (value._levelNumber == props.levelNumber+2) {
+                        if (value._levelNumber == props.levelNumber + 1) {
+                          value._levelScore = score + count;
+                          value._levelStars =
+                            score + count === props.lengthOfCurrentLevel * 100
+                              ? 3
+                              : score + count >=
+                                Math.ceil(props.lengthOfCurrentLevel / 2) * 100
+                              ? 2
+                              : score + count <= 100
+                              ? 0
+                              : 1;
+                          value._levelUnlocked =
+                            score + count > 100 ? true : false;
+                        } else if (
+                          value._levelNumber ==
+                          props.levelNumber + 2
+                        ) {
                           if (value._levelUnlocked == true) {
-                            value._levelScore = value.has('_levelScore')?value._levelScore:0;
-                            value._levelStars = value.has('_levelStars')?value._levelStars:0;
-                            value._levelUnlocked = value.has('_levelUnlocked')?value._levelUnlocked:false;
+                            value._levelScore = value.has("_levelScore")
+                              ? value._levelScore
+                              : 0;
+                            value._levelStars = value.has("_levelStars")
+                              ? value._levelStars
+                              : 0;
+                            value._levelUnlocked = value.has("_levelUnlocked")
+                              ? value._levelUnlocked
+                              : false;
                           }
-                        }
-                        else {
+                        } else {
                           playerProfile.push(value);
                         }
                       });
@@ -299,10 +324,9 @@ const DragDropComp = (props: any) => {
 
                   if (feedbackPhrase == "Fantastic!") {
                     audioFantastic.play();
-                  } else if(feedbackPhrase == "Great!"){
+                  } else if (feedbackPhrase == "Great!") {
                     audioGreat.play();
-                  }
-                  else {
+                  } else {
                     audiogoodJob.play();
                   }
                   setTimeout(function () {
@@ -319,14 +343,13 @@ const DragDropComp = (props: any) => {
   );
 };
 
-
 const SlideComponent = (props: any) => {
   const { data, level } = props;
   var audFile: string;
   const levels: Array<any> = level;
   let compared: Array<any> = [];
-  const levelData: Array<any> = JSON.parse(localStorage.getItem('LevelData'));
-  const len = levelData != null ?levelData.length : 0;
+  const levelData: Array<any> = JSON.parse(localStorage.getItem("LevelData"));
+  const len = levelData != null ? levelData.length : 0;
   const [levData, setlevData] = useState(null);
   console.log(props);
   const lengthOfCurrentLevel = props.data.Puzzles.length;
@@ -335,7 +358,6 @@ const SlideComponent = (props: any) => {
   let promptTextVisibilty = true;
   let stopPlaying;
   if (levData != null) {
-
     promptTextVisibilty = props.editorData
       ? levData.PromptType == "Visible"
         ? true
@@ -344,7 +366,6 @@ const SlideComponent = (props: any) => {
       ? true
       : false;
 
-    
     stopPlaying = () => {
       if (playing) {
         setPlaying(false);
@@ -379,7 +400,7 @@ const SlideComponent = (props: any) => {
   return (
     <Wrapper>
       <img
-        src={getImagePath()+'background.png'}
+        src={getImagePath() + "background.png"}
         style={{
           position: "absolute",
           width: "100%",
@@ -417,212 +438,232 @@ const SlideComponent = (props: any) => {
               overflowY: "scroll",
             }}
           >
-            {
-              
-            levels.map((data1, index) => 
-            {
-              
-              return(
-                <div key={index} >
+            {levels.map((data1, index) => {
+              return (
+                <div key={index}>
+                  {levelData != null ? (
+                    levelData.map((value, i) => {
+                      return compared.includes(data1.LevelMeta.LevelNumber + 1)
+                        ? console.log("compared1")
+                        : data1.LevelMeta.LevelNumber + 1 === value._levelNumber
+                        ? compared.push(data1.LevelMeta.LevelNumber + 1) && (
+                            <div key={i}>
+                              <div className="topSpace"></div>
 
-                 {
-                   levelData != null?
-                  (
-
-                    levelData.map((value, i) => 
-                    {
-                            return(
-                              compared.includes(data1.LevelMeta.LevelNumber+1)?
-                              console.log("compared"):
-                              data1.LevelMeta.LevelNumber+1 === value._levelNumber ?
-                              compared.push(data1.LevelMeta.LevelNumber+1) &&
-                              <div>
-                                <div className="topSpace">
-                                </div>
-                                
-                                <button
-                                  style={{
-                                    border:'none',
-                                    borderRadius: 70,
-                                    outlineStyle: 'none',
-                                    background: `url(${mapIcon})`,
-                                    backgroundPosition: 25,
-                                    backgroundSize: 'contain',
-                                    backgroundRepeat: 'no-repeat',
-                                    width: '10vw',
-                                    height: '20vh',
-                                    padding: 10,
-                                    objectFit: 'contain',
-                                    flexDirection:'column',
-                                  }}
-                                 
-                                  onClick={
-                                    (data1.LevelMeta.LevelNumber + 1 === value._levelNumber
-                                    && 
-                                    value.data._levelUnlocked) || data1.LevelMeta.LevelNumber+1 == 1?
-                                    () => {
-                                    setlevData(data1);
-                                    onStartClick();
-                                  }
-                                  : ()=>{
-                                    console.log('Nothing');
-                                  }
+                              <button
+                                style={{
+                                  border: "none",
+                                  borderRadius: 70,
+                                  outlineStyle: "none",
+                                  background: `url(${
+                                    getImagePath() + "mapIcon.png"
+                                  })`,
+                                  backgroundPosition: 25,
+                                  backgroundSize: "contain",
+                                  backgroundRepeat: "no-repeat",
+                                  width: "10vw",
+                                  height: "20vh",
+                                  padding: 10,
+                                  objectFit: "contain",
+                                  flexDirection: "column",
+                                }}
+                                onClick={
+                                  (data1.LevelMeta.LevelNumber + 1 ===
+                                    value._levelNumber &&
+                                    value.data._levelUnlocked) ||
+                                  data1.LevelMeta.LevelNumber + 1 == 1
+                                    ? () => {
+                                        buttonCLick().play();
+                                        setlevData(data1);
+                                        onStartClick();
+                                      }
+                                    : () => {
+                                        console.log("Nothing");
+                                      }
                                 }
-                                >
-                                {value.data._levelStars === 3?  
+                              >
+                                {value.data._levelStars === 3 ? (
                                   <div className="row">
                                     <div className="pin-star">
-                                    <img src={star1} alt="star" />
+                                      <img
+                                        src={getImagePath() + "pinStar1.png"}
+                                        alt="star"
+                                      />
+                                    </div>
+                                    <div className="pin-star2">
+                                      <img
+                                        src={getImagePath() + "pinStar2.png"}
+                                        alt="star"
+                                      />
+                                    </div>
+                                    <div className="pin-star">
+                                      <img
+                                        src={getImagePath() + "pinStar3.png"}
+                                        alt="star"
+                                      />
+                                    </div>
                                   </div>
-                                  <div className="pin-star2">
-                                    <img src={star2} alt="star" />
-                                  </div>
-                                  <div className="pin-star">
-                                    <img src={star3} alt="star" />
-                                  </div>
-                                  </div>:value.data._levelStars === 2?  
+                                ) : value.data._levelStars === 2 ? (
                                   <div className="row">
                                     <div className="pin-star">
-                                    <img src={star1} alt="star" />
+                                      <img
+                                        src={getImagePath() + "pinStar1.png"}
+                                        alt="star"
+                                      />
+                                    </div>
+                                    <div className="pin-star2">
+                                      <img
+                                        src={getImagePath() + "pinStar2.png"}
+                                        alt="star"
+                                      />
+                                    </div>
                                   </div>
-                                  <div className="pin-star2">
-                                    <img src={star2} alt="star" />
-                                  </div>
-                                  </div>:value.data._levelStars === 1?  
+                                ) : value.data._levelStars === 1 ? (
                                   <div className="row">
                                     <div className="pin-star">
-                                    <img src={star1} alt="star" />
+                                      <img
+                                        src={getImagePath() + "pinStar1.png"}
+                                        alt="star"
+                                      />
+                                    </div>
                                   </div>
-                                  </div>:<div><div className="row">
-                                  <div className="pin-star">
+                                ) : (
+                                  <div>
+                                    <div className="row">
+                                      <div className="pin-star"></div>
+                                    </div>
                                   </div>
-                                </div></div>}
+                                )}
 
-                                {(data1.LevelMeta.LevelNumber + 1 === value._levelNumber
-                                  && 
-                                  value.data._levelUnlocked) || data1.LevelMeta.LevelNumber+1 == 1?
-                                <h3><br></br>{
-                                  data1.LevelMeta.LevelNumber+1
-                                  }</h3>:
-                                <div>
-                                  <br></br>
-                                  <img src = {mapLock}></img>
+                                {(data1.LevelMeta.LevelNumber + 1 ===
+                                  value._levelNumber &&
+                                  value.data._levelUnlocked) ||
+                                data1.LevelMeta.LevelNumber + 1 == 1 ? (
+                                  <h3>
+                                    <br></br>
+                                    {data1.LevelMeta.LevelNumber + 1}
+                                  </h3>
+                                ) : (
+                                  <div>
+                                    <br></br>
+                                    <img
+                                      src={getImagePath() + "mapLock.png"}
+                                    ></img>
                                   </div>
-                                }
+                                )}
                                 <br></br>
-                                <h2 style={{ color: "white",textAlign:'center' }}>
+                                <h2
+                                  style={{
+                                    color: "white",
+                                    textAlign: "center",
+                                  }}
+                                >
                                   {data1.LevelMeta.LevelType}
                                 </h2>
-                                </button>
-
-                                </div>
-                              :
-                                (value._levelNumber <= len && data1.LevelMeta.LevelNumber+1 <= len) ?
-                                console.log('done')
-                                :
-                                compared.push(data1.LevelMeta.LevelNumber+1) &&
-                                <div><div className="topSpace">
-                                </div>
-                                <button
-                                    style={{
-                                      border:'none',
-                                      borderRadius: 70,
-                                      outlineStyle: 'none',
-                                      background: `url(${mapIcon})`,
-                                      backgroundPosition: 25,
-                                      backgroundSize: 'contain',
-                                      backgroundRepeat: 'no-repeat',
-                                      width: '10vw',
-                                      height: '20vh',
-                                      padding: 10,
-                                      objectFit: 'contain',
-                                    }}
-                                  >
-                                  <img src = {mapLock}
-                                  ></img>
-                                  <br></br><br></br>
-                                  <h2 style={{ color: "white",textAlign:'center' }}>
-                                    {data1.LevelMeta.LevelType}
-                                  </h2>
-                                  </button></div>
-                            )
-                      
-                    }
-                    )
-                
-              )
-              :
-                  (
-                    data1.LevelMeta.LevelNumber+1 == 1 ?
-                    (
-                      <div>
-                        <br></br>
-                        <button
+                              </button>
+                            </div>
+                          )
+                        : value._levelNumber <= len &&
+                          data1.LevelMeta.LevelNumber + 1 <= len
+                        ? console.log("done")
+                        : compared.push(data1.LevelMeta.LevelNumber + 1) && (
+                            <div>
+                              <div className="topSpace"></div>
+                              <button
+                                style={{
+                                  border: "none",
+                                  borderRadius: 70,
+                                  outlineStyle: "none",
+                                  background: `url(${
+                                    getImagePath() + "mapIcon.png"
+                                  })`,
+                                  backgroundPosition: 25,
+                                  backgroundSize: "contain",
+                                  backgroundRepeat: "no-repeat",
+                                  width: "10vw",
+                                  height: "20vh",
+                                  padding: 10,
+                                  objectFit: "contain",
+                                }}
+                              >
+                                <img src={getImagePath() + "mapLock.png"}></img>
+                                <br></br>
+                                <br></br>
+                                <h2
+                                  style={{
+                                    color: "white",
+                                    textAlign: "center",
+                                  }}
+                                >
+                                  {data1.LevelMeta.LevelType}
+                                </h2>
+                              </button>
+                            </div>
+                          );
+                    })
+                  ) : data1.LevelMeta.LevelNumber + 1 == 1 ? (
+                    <div>
+                      <br></br>
+                      <button
                         style={{
-                          border:'none',
+                          border: "none",
                           borderRadius: 70,
-                          outlineStyle: 'none',
-                          background: `url(${mapIcon})`,
+                          outlineStyle: "none",
+                          background: `url(${getImagePath() + "mapIcon.png"})`,
                           backgroundPosition: 25,
-                          backgroundSize: 'contain',
-                          backgroundRepeat: 'no-repeat',
-                          width: '10vw',
-                          height: '20vh',
+                          backgroundSize: "contain",
+                          backgroundRepeat: "no-repeat",
+                          width: "10vw",
+                          height: "20vh",
                           padding: 10,
-                          objectFit: 'contain',
+                          objectFit: "contain",
                         }}
                         onClick={() => {
+                          buttonCLick().play();
                           setlevData(data1);
                           onStartClick();
                         }}
                       >
-                       <h3>{data1.LevelMeta.LevelNumber+1}</h3>
-                       <br></br><br></br>
-                       <h2 style={{ color: "white",textAlign:'center' }}>
-                        {data1.LevelMeta.LevelType}
-                      </h2>
+                        <h3>{data1.LevelMeta.LevelNumber + 1}</h3>
+                        <br></br>
+                        <br></br>
+                        <h2 style={{ color: "white", textAlign: "center" }}>
+                          {data1.LevelMeta.LevelType}
+                        </h2>
                       </button>
-                      </div>
-                    ):
-                    
-
+                    </div>
+                  ) : (
                     <div>
-                    <br></br>
-                    <button
+                      <br></br>
+                      <button
                         style={{
-                          border:'none',
+                          border: "none",
                           borderRadius: 70,
-                          outlineStyle: 'none',
+                          outlineStyle: "none",
                           background: `url(${mapIcon})`,
                           backgroundPosition: 25,
-                          backgroundSize: 'contain',
-                          backgroundRepeat: 'no-repeat',
-                          width: '10vw',
-                          height: '20vh',
+                          backgroundSize: "contain",
+                          backgroundRepeat: "no-repeat",
+                          width: "10vw",
+                          height: "20vh",
                           padding: 10,
-                          objectFit: 'contain',
+                          objectFit: "contain",
                         }}
                       >
-                       <img src = {mapLock}
-                       ></img>
-                       <br></br><br></br>
-                       <h2 style={{ color: "white",textAlign:'center' }}>
-                        {data1.LevelMeta.LevelType}
-                      </h2>
+                        <img src={getImagePath() + "mapLock.png"}></img>
+                        <br></br>
+                        <br></br>
+                        <h2 style={{ color: "white", textAlign: "center" }}>
+                          {data1.LevelMeta.LevelType}
+                        </h2>
                       </button>
-                      </div>
-                  )
-            }
-            </div>
-              )
+                    </div>
+                  )}
+                </div>
+              );
             })}
-          
-          
-
-           </div>
           </div>
-
-          
+        </div>
       )}
       {!start ? (
         <div></div>

@@ -6,7 +6,7 @@ import star from "../../../assets/images/star.png";
 import loseBg from "../../../assets/images/Lose_bg.png";
 import winBg from "../../../assets/images/WIN_screen_bg.png";
 import "./EndLevelComponent.css";
-import { getImagePath } from "../../app";
+import { buttonCLick, getImagePath } from "../../app";
 
 const EndLevelComponent = (props: any) => {
   const { score, lengthOfCurrentLevel } = props;
@@ -195,6 +195,7 @@ export const HomeAndRestartComponent = (props: any) => {
     >
       <div
         onClick={(e) => {
+          buttonCLick().play()
           props.props.nextLevel();
           setScaleNextBtn(0.9);
           setTimeout(() => {
@@ -213,6 +214,7 @@ export const HomeAndRestartComponent = (props: any) => {
       ></div>
       <div
         onClick={(e) => {
+          buttonCLick().play()
           props.props.onClickRestart();
           setScaleRestartBtn(0.9);
           setTimeout(() => {

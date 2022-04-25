@@ -9,6 +9,7 @@ import gameData from "./data/example-return";
 declare var H5P: any;
 declare var H5PIntegration: any;
 
+
 export default class ReactDemoApp extends (H5P.EventDispatcher as {
   new (): any;
 }) {
@@ -48,10 +49,15 @@ const getImagePath=function()
 {
   return H5P.getLibraryPath("H5P.ReactSlideshowDemo-0.1")+"/assets/images/"
 }
+const buttonCLick=function(){
+ return new Audio(getAudioPath()+'ButtonClick.wav');
+
+}
 
 const getAudioPath=function()
 {
   return H5P.getLibraryPath("H5P.ReactSlideshowDemo-0.1")+"/assets/audios/"
 }
 
-export {getImagePath,getAudioPath}
+
+export {getImagePath,getAudioPath,buttonCLick}
