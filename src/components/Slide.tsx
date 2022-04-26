@@ -294,7 +294,7 @@ const DragDropComp = (props: any) => {
                               : score + count <= 100
                               ? 0
                               : 1;
-                          value._levelUnlocked =
+                            value._levelUnlocked =
                             score + count > 100 ? true : false;
                         } else if (
                           value._levelNumber ==
@@ -304,10 +304,10 @@ const DragDropComp = (props: any) => {
                             value._levelScore = value.has("_levelScore")
                               ? value._levelScore
                               : 0;
-                            value._levelStars = value.has("_levelStars")
+                              value._levelStars = value.has("_levelStars")
                               ? value._levelStars
                               : 0;
-                            value._levelUnlocked = value.has("_levelUnlocked")
+                              value._levelUnlocked = value.has("_levelUnlocked")
                               ? value._levelUnlocked
                               : false;
                           }
@@ -444,7 +444,7 @@ const SlideComponent = (props: any) => {
                   {levelData != null ? (
                     levelData.map((value, i) => {
                       return compared.includes(data1.LevelMeta.LevelNumber + 1)
-                        ? console.log("compared1")
+                        ? console.log("compared")
                         : data1.LevelMeta.LevelNumber + 1 === value._levelNumber
                         ? compared.push(data1.LevelMeta.LevelNumber + 1) && (
                             <div key={i}>
@@ -471,7 +471,7 @@ const SlideComponent = (props: any) => {
                                   (data1.LevelMeta.LevelNumber + 1 ===
                                     value._levelNumber &&
                                     value.data._levelUnlocked) ||
-                                  data1.LevelMeta.LevelNumber + 1 == 1
+                                  data1.LevelMeta.LevelNumber + 1 == 1 || props.devMode
                                     ? () => {
                                         buttonCLick().play();
                                         setlevData(data1);
@@ -538,7 +538,7 @@ const SlideComponent = (props: any) => {
                                 {(data1.LevelMeta.LevelNumber + 1 ===
                                   value._levelNumber &&
                                   value.data._levelUnlocked) ||
-                                data1.LevelMeta.LevelNumber + 1 == 1 ? (
+                                data1.LevelMeta.LevelNumber + 1 == 1 || props.devMode? (
                                   <h3>
                                     <br></br>
                                     {data1.LevelMeta.LevelNumber + 1}
@@ -585,8 +585,32 @@ const SlideComponent = (props: any) => {
                                   padding: 10,
                                   objectFit: "contain",
                                 }}
+                                onClick={
+                                  props.devMode
+                                    ? () => {
+                                        buttonCLick().play();
+                                        setlevData(data1);
+                                        onStartClick();
+                                      }
+                                    : () => {
+                                        console.log("Nothing");
+                                      }
+                                }
                               >
-                                <img src={getImagePath() + "mapLock.png"}></img>
+                                {props.devMode? (
+                                  <h3>
+                                    <br></br>
+                                    {data1.LevelMeta.LevelNumber + 1}
+                                  </h3>
+                                ) : (
+                                  <div>
+                                    <br></br>
+                                    <img
+                                      src={getImagePath() + "mapLock.png"}
+                                    ></img>
+                                  </div>
+                                )}
+                               
                                 <br></br>
                                 <br></br>
                                 <h2
@@ -649,8 +673,31 @@ const SlideComponent = (props: any) => {
                           padding: 10,
                           objectFit: "contain",
                         }}
+                        onClick={
+                          props.devMode
+                            ? () => {
+                                buttonCLick().play();
+                                setlevData(data1);
+                                onStartClick();
+                              }
+                            : () => {
+                                console.log("Nothing");
+                              }
+                        }
                       >
-                        <img src={getImagePath() + "mapLock.png"}></img>
+                        {props.devMode? (
+                                  <h3>
+                                    <br></br>
+                                    {data1.LevelMeta.LevelNumber + 1}
+                                  </h3>
+                                ) : (
+                                  <div>
+                                    <br></br>
+                                    <img
+                                      src={getImagePath() + "mapLock.png"}
+                                    ></img>
+                                  </div>
+                                )}
                         <br></br>
                         <br></br>
                         <h2 style={{ color: "white", textAlign: "center" }}>
