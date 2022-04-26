@@ -9,15 +9,14 @@ export let opacity = 1;
 
 const PromptText = (props: any) => {
   const { playing, setPlaying, playAudio } = AudioComponent();
-
   const textVisbility = props.textVisbility;
   const levelType = props.levelType;
   const letter = props.letter;
   let highlightText = "";
   let nonHighlightText = "";
   if (levelType == "LetterInWord") {
-    highlightText = letter.slice(0, 1);
-    nonHighlightText = letter.slice(1, letter.length);
+    highlightText = letter.slice(0, props.targetedLetters[0].StoneText.length);
+    nonHighlightText = letter.slice(props.targetedLetters[0].StoneText.length, letter.length);
   }
 
   return (

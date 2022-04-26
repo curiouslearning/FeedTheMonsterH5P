@@ -221,6 +221,7 @@ const DragDropComp = (props: any) => {
         isAudioPlaying={props.playing}
         textVisbility={props.promptVisibility}
         levelType={props.levelType}
+        targetedLetters={props.puzzles[levelCount].targetstones}
       />
       <SuccessText word={text} />
       {prompted ? (
