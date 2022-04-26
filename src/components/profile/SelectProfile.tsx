@@ -140,6 +140,38 @@ const SelectProfile = (props: any) => {
           >
             Select your Player
           </h1>
+          <div>
+          <button
+              style={{
+              position: "relative",
+              top: "20",
+              justifyContent: "center",
+              textAlign: "center",
+              alignItems: "center",
+              margin: "auto",
+              display: "block",
+              border:'solid',
+              width: 150,
+              height: 25,
+            }}
+            onClick={() => {
+              selectPLayer.pause()
+              props.wrapper.get(0).appendChild(props.element);
+              render(
+                <Slideshow
+                  data={props.config}
+                  contentId={props.contentId}
+                  editorData={props.editorData}
+                  feedbackTexts={props.feedbackPhrases}
+                  devMode={true}
+                />,
+                props.element
+              );
+            }}
+            > Developer Mode
+          </button>
+          
+          </div>
           <div
             style={{
               position: "relative",
@@ -163,6 +195,7 @@ const SelectProfile = (props: any) => {
                   contentId={props.contentId}
                   editorData={props.editorData}
                   feedbackTexts={props.feedbackPhrases}
+                  devMode={props.devMode}
                 />,
                 props.element
               );
@@ -181,7 +214,7 @@ const SelectProfile = (props: any) => {
             width: 250,
             height: 250,
             position: "relative",
-            top: "150px",
+            top: "130px",
             justifyContent: "center",
             textAlign: "center",
             alignItems: "center",
