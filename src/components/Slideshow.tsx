@@ -62,7 +62,8 @@ const Slideshow = (props: any) => {
     return (
         <div>
             <MovingBackGroundComponent bgImage={getImagePath()+'cloud_v01.png'} />
-            <SlideComponent data={data[activeSlide]} level= {data} images={img[activeSlide]} contentId={props.contentId} started={strt} time={initialTime} nextLevel={handleNav} editorData={props.editorData} feedbackTexts={props.feedbackTexts}/>
+            <SlideComponent data={data[activeSlide]} level= {data} images={img[activeSlide]} contentId={props.contentId} started={strt} time={initialTime} nextLevel={handleNav} editorData={props.editorData} feedbackTexts={props.feedbackTexts} 
+            devMode= {props.devMode}/>
             <NavWrapper>
                 <NavButton onClick={() => handleNav(-1)} disabled={data.length < 2}>
                     Back
