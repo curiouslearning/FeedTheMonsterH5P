@@ -11,6 +11,8 @@ import { getAudioPath, getImagePath } from "../../app";
 
 let optionDataSet: { id: number; alphabet: string }[] = [];
 let i = 0;
+let alphabhet="";
+let count=0;
 
 const DragDrop = ({
   timeOver,
@@ -125,26 +127,30 @@ const DragDrop = ({
   const checkResult = (dropData: any) => {
     // console.log(props.targetstones[0].StoneText, "resultin progress", dropData);
     let targetStone = "";
-
+   
     for (; i < props.targetstones.length; i++) {
       targetStone = props.targetstones[i].StoneText;
       break;
     }
 
     if (levelType == "Word") {
-      optionDataSet.filter((item) => {
+      optionDataSet.filter((item) => {       
         if (dragId.current == item.id) {
+          alphabhet = alphabhet + item.alphabet;
+          count = count +targetStone.length;
+         
+
           item.alphabet = "";
         }
-      });
-
+  });
+     
       i++;
-      if (i == props.targetstones.length) {
+      if (i == props.targetstones.length) {      
         i = 0;
         optionDataSet = [];
-        answerDrop();
-        changePuzzel();
-      }
+        answerDrop(); 
+        changePuzzel();      
+    } 
     } else {
       optionDataSet = [];
       i = 0;
@@ -155,16 +161,27 @@ const DragDrop = ({
     setDropped(true);
     setDropped(false);
     setDragging(false);
-
+    
     if (targetStone == dropData) {
       disappearPromptText();
       monsterHappy.play()
       setAnimationType("eat");
-      setScore(100);
+      if(levelType !="Word"){
+        setScore(100);
+      }
+      else{
+        if(count == alphabhet.length && count >2){
+          setScore(200);
+          count =0;
+          alphabhet="";
+        }
+      }
       setTimeout(() => {
         setAnimationType("idle");
       }, 2000);
     } else {
+      count =0; 
+      alphabhet=""
       setAnimationType("spit");
       monsterDisapointment.play()
       setTimeout(() => {
