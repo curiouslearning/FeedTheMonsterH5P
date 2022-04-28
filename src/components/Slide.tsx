@@ -60,7 +60,10 @@ const DragDropComp = (props: any) => {
   const [score, setScore] = useState(0);
   const [text, setText] = useState("");
   const feedbackArray: any[] = props.feedbackTexts;
-  const timeOut = new Audio(getAudioPath()+'timeout.mp3');
+  const timeOut = new Audio(getAudioPath() + "timeout.mp3");
+  const levelLost = new Audio(getAudioPath() + "LevelLoseFanfare.mp3");
+  const levelWin = new Audio(getAudioPath() + "LevelWinFanfare.mp3");
+  const scoreCount = new Audio(getAudioPath() + "ScoreCountingDown.ogg");
 
   const resetState = () => {
     buttonCLick().play();
@@ -107,7 +110,10 @@ const DragDropComp = (props: any) => {
   const levelUp = () => {
     // TODo here
     if (props.lengthOfCurrentLevel - 1 == levelCount) {
-      setIsLevelEnded(true);
+      setTimeout(() => {
+        setIsLevelEnded(true);
+        score > 100 ? levelWin.play() : levelLost.play();
+      }, 2000);
     } else {
       setTimeout(() => {
         setLevelCount((preCount) => preCount + 1);
@@ -125,7 +131,9 @@ const DragDropComp = (props: any) => {
   const timer = () => {
     if (props.playing && !isMenuPopup) {
       setProgressCount((preValue) => preValue - 0.5);
-      {currentProgressCount == 1.5? timeOut.play():null}
+      {
+        currentProgressCount == 1.5 ? timeOut.play() : null;
+      }
     }
   };
 
@@ -239,6 +247,7 @@ const DragDropComp = (props: any) => {
               isMenuOpen={isMenuPopup}
               levelType={props.levelType}
               setScore={(count: number) => {
+                scoreCount.play();
                 setScore(score + count);
                 if (count == 100) {
                   const feedbackPhrase =
@@ -295,7 +304,7 @@ const DragDropComp = (props: any) => {
                               : score + count <= 100
                               ? 0
                               : 1;
-                            value._levelUnlocked =
+                          value._levelUnlocked =
                             score + count > 100 ? true : false;
                         } else if (
                           value._levelNumber ==
@@ -305,10 +314,10 @@ const DragDropComp = (props: any) => {
                             value._levelScore = value.has("_levelScore")
                               ? value._levelScore
                               : 0;
-                              value._levelStars = value.has("_levelStars")
+                            value._levelStars = value.has("_levelStars")
                               ? value._levelStars
                               : 0;
-                              value._levelUnlocked = value.has("_levelUnlocked")
+                            value._levelUnlocked = value.has("_levelUnlocked")
                               ? value._levelUnlocked
                               : false;
                           }
@@ -472,7 +481,8 @@ const SlideComponent = (props: any) => {
                                   (data1.LevelMeta.LevelNumber + 1 ===
                                     value._levelNumber &&
                                     value.data._levelUnlocked) ||
-                                  data1.LevelMeta.LevelNumber + 1 == 1 || props.devMode
+                                  data1.LevelMeta.LevelNumber + 1 == 1 ||
+                                  props.devMode
                                     ? () => {
                                         buttonCLick().play();
                                         setlevData(data1);
@@ -539,7 +549,8 @@ const SlideComponent = (props: any) => {
                                 {(data1.LevelMeta.LevelNumber + 1 ===
                                   value._levelNumber &&
                                   value.data._levelUnlocked) ||
-                                data1.LevelMeta.LevelNumber + 1 == 1 || props.devMode? (
+                                data1.LevelMeta.LevelNumber + 1 == 1 ||
+                                props.devMode ? (
                                   <h3>
                                     <br></br>
                                     {data1.LevelMeta.LevelNumber + 1}
@@ -598,7 +609,7 @@ const SlideComponent = (props: any) => {
                                       }
                                 }
                               >
-                                {props.devMode? (
+                                {props.devMode ? (
                                   <h3>
                                     <br></br>
                                     {data1.LevelMeta.LevelNumber + 1}
@@ -611,7 +622,7 @@ const SlideComponent = (props: any) => {
                                     ></img>
                                   </div>
                                 )}
-                               
+
                                 <br></br>
                                 <br></br>
                                 <h2
@@ -686,19 +697,17 @@ const SlideComponent = (props: any) => {
                               }
                         }
                       >
-                        {props.devMode? (
-                                  <h3>
-                                    <br></br>
-                                    {data1.LevelMeta.LevelNumber + 1}
-                                  </h3>
-                                ) : (
-                                  <div>
-                                    <br></br>
-                                    <img
-                                      src={getImagePath() + "mapLock.png"}
-                                    ></img>
-                                  </div>
-                                )}
+                        {props.devMode ? (
+                          <h3>
+                            <br></br>
+                            {data1.LevelMeta.LevelNumber + 1}
+                          </h3>
+                        ) : (
+                          <div>
+                            <br></br>
+                            <img src={getImagePath() + "mapLock.png"}></img>
+                          </div>
+                        )}
                         <br></br>
                         <br></br>
                         <h2 style={{ color: "white", textAlign: "center" }}>
