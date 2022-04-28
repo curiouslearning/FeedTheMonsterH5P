@@ -19,19 +19,12 @@ const Wrapper = styled.div`
   color: "black";
 `;
 const Popup = styled.div`
-  width: 50%;
-  
-  height: 60%;+0.
-  position: relative;
+  margin: auto;
+  height: 300px;
+  width: 300px;
   background-image: url(${(props) => props.title});
   background-size: contain;
-  background-repeat: no-repeat;
   z-index: 9;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin: auto;
-  display: block;
 `;
 const Avatar = styled.div`
   position: relative;
@@ -141,42 +134,43 @@ const SelectProfile = (props: any) => {
             Select your Player
           </h1>
           <div>
-          <button
+            <button
               style={{
-              position: "relative",
-              top: "20",
-              justifyContent: "center",
-              textAlign: "center",
-              alignItems: "center",
-              margin: "auto",
-              display: "block",
-              border:'solid',
-              width: 150,
-              height: 25,
-            }}
-            onClick={() => {
-              selectPLayer.pause()
-              props.wrapper.get(0).appendChild(props.element);
-              render(
-                <Slideshow
-                  data={props.config}
-                  contentId={props.contentId}
-                  editorData={props.editorData}
-                  feedbackTexts={props.feedbackPhrases}
-                  devMode={true}
-                />,
-                props.element
-              );
-            }}
-            > Developer Mode
-          </button>
-          
+                position: "relative",
+                top: "20",
+                justifyContent: "center",
+                textAlign: "center",
+                alignItems: "center",
+                margin: "auto",
+                display: "block",
+                border: "solid",
+                width: 150,
+                height: 25,
+              }}
+              onClick={() => {
+                selectPLayer.pause();
+                props.wrapper.get(0).appendChild(props.element);
+                render(
+                  <Slideshow
+                    data={props.config}
+                    contentId={props.contentId}
+                    editorData={props.editorData}
+                    feedbackTexts={props.feedbackPhrases}
+                    devMode={true}
+                  />,
+                  props.element
+                );
+              }}
+            >
+              {" "}
+              Developer Mode
+            </button>
           </div>
           <div
             style={{
               position: "relative",
-              height: 250,
-              width: 250,
+              height: 150,
+              width: 150,
               backgroundImage: `url(${getImagePath() + "Avatar_04.png"})`,
               backgroundSize: "contain",
               backgroundRepeat: "no-repeat",
