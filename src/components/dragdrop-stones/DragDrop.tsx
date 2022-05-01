@@ -8,6 +8,9 @@ import { contains } from "jquery";
 import { PromptTextHook } from "../prompt-text/PromptText";
 import EndLevelComponent from "../end-level/EndLevelComponent";
 import { getAudioPath, getImagePath } from "../../app";
+// import Draggable from "react-draggable";
+import Draggable from "react-draggable";
+import { DragDropContainer,DropTarget} from "react-drag-drop-container";
 
 let optionDataSet: { id: number; alphabet: string }[] = [];
 let i = 0;
@@ -201,6 +204,30 @@ const DragDrop = ({
   };
   return (
     <>
+    {/* <Draggable */}
+    {/* // disabled={true} */}
+
+    {/* onStop={(e)=>{
+      console.log(e)
+      console.log("The element was dropped here")
+    }}
+    onMouseDown={(e)=>{
+      console.log(e)
+      console.log("The element was dropped here")
+    }}
+    
+    > */}
+    <DropTarget
+      
+      onHit={(e:any)=>{console.log(e)
+      console.log('dropped')
+      console.log(e.containerElem.innerText)
+      checkResult(e.containerElem.innerText);
+      e.containerElem.style.visibility = "hidden";
+      }}
+      targetKey='box'
+      dropData={{ name: props.name }}
+    >
       <div
         style={{
           width: "300px",
@@ -209,21 +236,42 @@ const DragDrop = ({
           left: "30%",
           position: "absolute",
         }}
-        onDragOver={(e) => {
-          // console.log("onDragOver::");
-          e.stopPropagation();
-          e.preventDefault();
-        }}
-        onDrop={(e) => {
-          checkResult(e.dataTransfer.getData("item.alphabet"));
-          // console.log("::onDrop");
-        }}
+        // onDragOver={(e) => {
+        //   console.log("onDragOver::");
+        //   e.stopPropagation();
+        //   e.preventDefault();
+        // }}
+        // onTouchEnd={(e)=>{console.log(e+'ggggggggggg')}}
+        // onDrop={(e) => {
+        //   console.log('drop')
+        //   console.log(e)
+        //   checkResult(e.dataTransfer.getData("item.alphabet"));
+        //   // console.log("::onDrop");
+        // }}
       >
         <AnimationType type={animationType} />
       </div>
+    </DropTarget>
+      {/* </Draggable> */}
       {optionDataSet.map((item, index) => {
         if (item.alphabet != "") {
           return (
+            // <Draggable
+            //  disabled={true}
+            //  onStop={(e)=>{
+            //    console.log('Sample')
+            //    console.log(e)
+            //  }}
+            // >
+            // <Draggable>
+            <DragDropContainer
+                targetKey='box'
+                dragData='ball1'
+                // customDragElement={customDragElement}
+                onDragStart={() => console.log("start")}
+                onDrag={() => console.log("dragging")}
+                onDragEnd={() => console.log("end")}
+                onDrop={(e:any) => console.log(e)}>
             <div
               className={classNames(
                 dragging ? getStyles(item.alphabet, index) : "ball" + index
@@ -233,19 +281,23 @@ const DragDrop = ({
                 backgroundSize: "contain",
                 backgroundRepeat: "no-repeat",
               }}
-              draggable={!timeOver && !isMenuOpen}
+              // draggable={!timeOver && !isMenuOpen}
               key={item.id}
-              onDragEnd={(e) => {
-                handleDragEnd();
-              }}
-              onDragStart={(e) => {
-                onDrag.play()
-                handleDragStart(item.alphabet, e, item.id);
-                e.dataTransfer.setData("item.alphabet", item.alphabet);
-              }}
+              // onDragEnd={(e) => {
+              //   handleDragEnd();
+              // }}
+              // onTouchStart={(e=>{console.log(e+';;;;;;;;;;;')})}
+              // onDragStart={(e) => {
+              //   console.log('started dragging')
+              //   onDrag.play()
+              //   handleDragStart(item.alphabet, e, item.id);
+              //   e.dataTransfer.setData("item.alphabet", item.alphabet);
+              // }}
             >
               <p className="stones-letter">{item.alphabet}</p>
             </div>
+            </DragDropContainer>
+            //  </Draggable>
           );
         }
       })}

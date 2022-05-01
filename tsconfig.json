@@ -10,4 +10,8 @@
     "allowSyntheticDefaultImports": true,
     "moduleResolution": "Node"
   },
+  "typeRoots": [
+    "../node_modules/@types",
+    "../@types"
+  ]
 }
