@@ -264,9 +264,12 @@ const DragDrop = ({
             //  }}
             // >
             // <Draggable>
+          <div className={classNames(
+            dragging ? getStyles(item.alphabet, index) : "ball" + index
+          )}>
             <DragDropContainer
                 targetKey='box'
-                dragData='ball1'
+                dragData={'ball'+index}
                 // customDragElement={customDragElement}
                 onDragStart={() => console.log("start")}
                 onDrag={() => console.log("dragging")}
@@ -297,7 +300,8 @@ const DragDrop = ({
               <p className="stones-letter">{item.alphabet}</p>
             </div>
             </DragDropContainer>
-            //  </Draggable>
+            </div>
+      
           );
         }
       })}
