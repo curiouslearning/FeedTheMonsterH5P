@@ -8,6 +8,8 @@ import closeBtnBg from '../../../assets/images/close_btn.png';
 import mapBg from '../../../assets/images/map_btn.png';
 import retryBg from '../../../assets/images/retry_btn.png';
 import { buttonCLick, getImagePath } from '../../app';
+import { useAppDispatch } from '../../app/hooks/commonHook';
+import { onClickPauseButton, onClickRestart } from '../../app/redux/features/GameLevel1';
 
 const Popup = styled.div`
     width: 50%;
@@ -53,11 +55,14 @@ const PopupMenu = (props: any) => {
   const [scaleCloseBtn, setScaleCloseBtn] = useState(1);
   const [scaleNextBtn, setScaleNextBtn] = useState(1);
   const [scaleRestartBtn, setScaleRestartBtn] = useState(1);
+
+  const dispatch = useAppDispatch();
+
   return <Popup title={getImagePath()+'popup_bg_v01.png'}>
       <ClosePopup title={getImagePath()+'close_btn.png'}
       onClick={(e) => {
         buttonCLick().play()
-        props.onClickPauseMenu()
+        dispatch(onClickPauseButton());
         setScaleCloseBtn(0.9);
         setTimeout(() => {
           setScaleCloseBtn(1);
@@ -76,8 +81,8 @@ const PopupMenu = (props: any) => {
 
         </div>
         <div onClick={(e)=> {
-           buttonCLick().play()
-          props.onClickRestart()
+          buttonCLick().play()
+          setTimeout(() => dispatch(onClickRestart()));
           setScaleRestartBtn(0.9)
           setTimeout(() => {
             setScaleRestartBtn(1);

@@ -1,9 +1,8 @@
-import { config } from "process";
 import React from "react";
-import ReactDOM, { render } from "react-dom";
+import { render } from "react-dom";
+import { Provider } from "react-redux";
+import { store } from "./app/store";
 import SelectProfile from "./components/profile/SelectProfile";
-
-import Slideshow from "./components/Slideshow";
 import gameData from "./data/example-return";
 
 declare var H5P: any;
@@ -13,13 +12,8 @@ declare var H5PIntegration: any;
 export default class ReactDemoApp extends (H5P.EventDispatcher as {
   new (): any;
 }) {
-  constructor(config: any,feedbackPhrases: any = [],devMode: boolean, contentId: string, contentData: any = {}) {
+  constructor(config: any,  contentId: string) {
     super();
-    // console.log(config)
-    console.log(config);
-    console.log(gameData.Levels);
-    console.log(config.createContent);
-    // this.config = gameData.Levels;
     this.editorData = config.createContent;
     this.config = this.editorData == true ? config.levels : gameData.Levels;
     this.feedbackPhrases = gameData.FeedbackTexts;
@@ -29,11 +23,10 @@ export default class ReactDemoApp extends (H5P.EventDispatcher as {
   }
 
   attach = function ($wrapper: JQuery) {
-    console.log("called attach");
-    console.log(this.editorData);
     $wrapper.get(0).appendChild(this.$element);
     render(
-      <SelectProfile
+      <Provider store={store}>
+        <SelectProfile
         config={this.config}
         contentId={this.contentId}
         editorData={this.editorData}
@@ -41,25 +34,22 @@ export default class ReactDemoApp extends (H5P.EventDispatcher as {
         element={this.$element}
         feedbackPhrases={this.feedbackPhrases}
         devMode={this.devMode}
-      />,
+      />
+      </Provider>,
       this.$element
     );
-    //render(<Slideshow data={this.config} contentId={this.contentId} editorData={this.editorData}/>, this.$element);
   };
 }
-const getImagePath=function()
-{
+const getImagePath = function() {
   return H5P.getLibraryPath("H5P.ReactSlideshowDemo-0.1")+"/assets/images/"
 }
-const buttonCLick=function(){
- return new Audio(getAudioPath()+'ButtonClick.wav');
 
+const buttonCLick = function() {
+ return new Audio(getAudioPath()+'ButtonClick.wav');
 }
 
-const getAudioPath=function()
-{
+const getAudioPath = function() {
   return H5P.getLibraryPath("H5P.ReactSlideshowDemo-0.1")+"/assets/audios/"
 }
-
 
 export {getImagePath,getAudioPath,buttonCLick}

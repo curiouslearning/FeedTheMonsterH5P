@@ -1,29 +1,30 @@
 import { useState } from 'react'
+import { getAudioPath } from '../../app';
 let audio: HTMLAudioElement = null;
 let isPlaying = false;
-const AudioComponent = () => {
+const AudioComponent = (props: any) => {
 
     const [playing, setPlaying] = useState(false);
+    audio = new Audio(getAudioPath() + props.FileName);
 
     const playAudio = () => {
-        if (!isPlaying) {
-          audio = new Audio("https://www.kozco.com/tech/piano2.wav");
-            var playPromise = audio.play();
-            isPlaying = true;
-            if (playPromise !== undefined) {
-              playPromise
-                .then(() => {
-                })
-                .catch((err: any) => {
-                  console.log(err);
-                });
-            }
-            audio.addEventListener("ended", () => {
-              setPlaying(true);
-              isPlaying = false;
-            });
-          };
-        }
+      if (!isPlaying) {
+          var playPromise = audio.play();
+          isPlaying = true;
+          if (playPromise !== undefined) {
+            playPromise
+              .then(() => {
+              })
+              .catch((err: any) => {
+                console.log(err);
+              });
+          }
+          audio.addEventListener("ended", () => {
+            setPlaying(true);
+            isPlaying = false;
+          });
+        };
+      }
     return { playing, setPlaying, playAudio };
 }
 

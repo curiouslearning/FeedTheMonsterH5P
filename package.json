@@ -46,9 +46,13 @@
     "webpack-cli": "^4.7.0"
   },
   "dependencies": {
+    "@reduxjs/toolkit": "^1.8.1",
     "classnames": "^2.3.1",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
+    "react-drag-drop-container": "^6.1.1",
+    "react-draggable": "^4.4.5",
+    "react-redux": "^8.0.1",
     "react-responsive-spritesheet": "^2.3.9"
   }
 }
