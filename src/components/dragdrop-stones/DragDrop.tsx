@@ -14,8 +14,10 @@ import { DragDropContainer,DropTarget} from "react-drag-drop-container";
 
 let optionDataSet: { id: number; alphabet: string }[] = [];
 let i = 0;
-let alphabhet="";
+let inputAlphabhet="";
 let count=0;
+
+
 
 const DragDrop = ({
   timeOver,
@@ -139,10 +141,6 @@ const DragDrop = ({
     if (levelType == "Word") {
       optionDataSet.filter((item) => {       
         if (dragId.current == item.id) {
-          alphabhet = alphabhet + item.alphabet;
-          count = count +targetStone.length;
-         
-
           item.alphabet = "";
         }
   });
@@ -169,22 +167,30 @@ const DragDrop = ({
       disappearPromptText();
       monsterHappy.play()
       setAnimationType("eat");
+      inputAlphabhet =inputAlphabhet +dropData;
+      count = count +targetStone.length;
+      
       if(levelType !="Word"){
         setScore(100);
       }
       else{
-        if(count == alphabhet.length && count >2){
-          setScore(200);
+         
+        if(count === inputAlphabhet.length && count >2){
+          setScore(100); 
           count =0;
-          alphabhet="";
+          inputAlphabhet="";
+          
         }
+        
+        
       }
       setTimeout(() => {
         setAnimationType("idle");
       }, 2000);
     } else {
-      count =0; 
-      alphabhet=""
+      
+      count =0;  
+      inputAlphabhet=""
       setAnimationType("spit");
       monsterDisapointment.play()
       setTimeout(() => {
@@ -194,7 +200,9 @@ const DragDrop = ({
       i = 0;
       optionDataSet = [];
       answerDrop();
-      changePuzzel();
+      if(levelType!="Word"){
+       changePuzzel();
+      }
       setTimeout(() => {
         setAnimationType("idle");
       }, 2000);
