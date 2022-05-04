@@ -256,7 +256,7 @@ const DragDropComp = (props: any) => {
                     ];
                   setText(feedbackPhrase);
 
-                  const playerProfile = [
+                  let playerProfile = [
                     {
                       _levelNumber: props.levelNumber + 1,
                       data: {
@@ -271,7 +271,7 @@ const DragDropComp = (props: any) => {
                             : score + count <= 100
                             ? 0
                             : 1,
-                        _levelUnlocked: true,
+                        _levelUnlocked: false,
                       },
                     },
                     score + count > 100
@@ -292,39 +292,72 @@ const DragDropComp = (props: any) => {
                   const data = JSON.parse(localStorage.getItem("LevelData"));
                   if (data != null) {
                     if (data.length >= 0) {
+                      let count1 = 0;
                       data.forEach(function (value: any) {
+                       // console.log('DATA!!!!!!!!!!!',value.data._levelScore);
+                       count1++;
                         if (value._levelNumber == props.levelNumber + 1) {
-                          value._levelScore = score + count;
-                          value._levelStars =
-                            score + count === props.lengthOfCurrentLevel * 100
+                          value.data._levelScore = value.data._levelScore > score + count?
+                          value.data._levelScore: score + count;
+                          value.data._levelStars = value.data._levelScore > score + count?
+                          (value.data._levelScore === props.lengthOfCurrentLevel * 100 ? 3 :
+                           value.data._levelScore >= Math.ceil(props.lengthOfCurrentLevel / 2) * 100 ? 2 
+                           : value.data._levelScore <= 100 ? 0 : 1):
+                            (score + count === props.lengthOfCurrentLevel * 100
                               ? 3
                               : score + count >=
                                 Math.ceil(props.lengthOfCurrentLevel / 2) * 100
                               ? 2
                               : score + count <= 100
                               ? 0
-                              : 1;
-                          value._levelUnlocked =
-                            score + count > 100 ? true : false;
+                              : 1);
+                              value.data._levelUnlocked = value.data._levelScore > score + count?
+                              (value.data._levelScore > 100 ? true : false):
+                            (score + count > 100 ? true : false);
                         } else if (
                           value._levelNumber ==
                           props.levelNumber + 2
                         ) {
-                          if (value._levelUnlocked == true) {
-                            value._levelScore = value.has("_levelScore")
-                              ? value._levelScore
-                              : 0;
-                            value._levelStars = value.has("_levelStars")
-                              ? value._levelStars
-                              : 0;
-                            value._levelUnlocked = value.has("_levelUnlocked")
-                              ? value._levelUnlocked
-                              : false;
+                          if (value.data._levelUnlocked == false) {
+                              value.data._levelUnlocked = score + count > 100 ? true : false;
                           }
-                        } else {
-                          playerProfile.push(value);
+                          else if (value.data._levelUnlocked == true) {
+                            value.data._levelScore = value.data._levelScore
+                              ? value.data._levelScore
+                              : 0;
+                              value.data._levelStars = value.data._levelStars
+                              ? value.data._levelStars
+                              : 0;
+                              value.data._levelUnlocked = value.data._levelUnlocked
+                              ? value.data._levelUnlocked
+                              : false;
+                              value.data._levelScore > 100 ?
+                              data.push({
+                                _levelNumber: props.levelNumber + 3,
+                                data: {
+                                  _levelUnlocked: true,
+                                },
+                              })
+                               
+                            : data.push({
+                                _levelNumber: props.levelNumber + 3,
+                                data: {
+                                  _levelUnlocked: false,
+                                },
+                              })
+                          }
+
+                        } 
+                        else {
+                          console.log('NOT FOUND');
                         }
+                        console.log('COUNT == ',count1);
                       });
+                      playerProfile = [];
+                      data.forEach(function (value: any) {
+                        playerProfile.push(value);
+                      });
+                      
                     }
                   }
                   localStorage.setItem(
