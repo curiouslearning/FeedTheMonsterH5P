@@ -36,9 +36,7 @@ let id: NodeJS.Timeout;
 let timeoutId: NodeJS.Timeout;
 
 // create HTMLAudioElement
-const audioFantastic = new Audio(fantastic);
-const audioGreat = new Audio(great);
-const audiogoodJob = new Audio(goodJob);
+
 let _levelNumber: number;
 
 const Wrapper = styled.div`
@@ -64,6 +62,9 @@ const DragDropComp = (props: any) => {
   const levelLost = new Audio(getAudioPath() + "LevelLoseFanfare.mp3");
   const levelWin = new Audio(getAudioPath() + "LevelWinFanfare.mp3");
   const scoreCount = new Audio(getAudioPath() + "ScoreCountingDown.ogg");
+  const audioFantastic = new Audio(getAudioPath() + "fantastic.WAV");
+  const audioGreat = new Audio(getAudioPath() + "great.wav");
+  const audiogoodJob = new Audio(getAudioPath() + "good job.WAV");
 
   const resetState = () => {
     buttonCLick().play();
