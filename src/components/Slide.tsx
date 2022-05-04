@@ -293,10 +293,7 @@ const DragDropComp = (props: any) => {
                   const data = JSON.parse(localStorage.getItem("LevelData"));
                   if (data != null) {
                     if (data.length >= 0) {
-                      let count1 = 0;
                       data.forEach(function (value: any) {
-                       // console.log('DATA!!!!!!!!!!!',value.data._levelScore);
-                       count1++;
                         if (value._levelNumber == props.levelNumber + 1) {
                           value.data._levelScore = value.data._levelScore > score + count?
                           value.data._levelScore: score + count;
@@ -312,9 +309,27 @@ const DragDropComp = (props: any) => {
                               : score + count <= 100
                               ? 0
                               : 1);
-                              value.data._levelUnlocked = value.data._levelScore > score + count?
+                              value.data._levelUnlocked = value.data._levelUnlocked
+                              ? value.data._levelUnlocked:
+                              value.data._levelScore > score + count?
                               (value.data._levelScore > 100 ? true : false):
                             (score + count > 100 ? true : false);
+
+                            value.data._levelScore > 100 ?
+                            data.push({
+                              _levelNumber: props.levelNumber + 2,
+                              data: {
+                                _levelUnlocked: true,
+                              },
+                            })
+                             
+                          : data.push({
+                              _levelNumber: props.levelNumber + 2,
+                              data: {
+                                _levelUnlocked: false,
+                              },
+                            })
+
                         } else if (
                           value._levelNumber ==
                           props.levelNumber + 2
@@ -332,30 +347,18 @@ const DragDropComp = (props: any) => {
                               value.data._levelUnlocked = value.data._levelUnlocked
                               ? value.data._levelUnlocked
                               : false;
-                              value.data._levelScore > 100 ?
-                              data.push({
-                                _levelNumber: props.levelNumber + 3,
-                                data: {
-                                  _levelUnlocked: true,
-                                },
-                              })
-                               
-                            : data.push({
-                                _levelNumber: props.levelNumber + 3,
-                                data: {
-                                  _levelUnlocked: false,
-                                },
-                              })
                           }
 
                         } 
                         else {
                           console.log('NOT FOUND');
                         }
-                        console.log('COUNT == ',count1);
-                      });
+                      }); 
+
                       playerProfile = [];
-                      data.forEach(function (value: any) {
+                      const obj = [...new Map(data.map((item:any) => [JSON.stringify(item), item])).values()];
+
+                      obj.forEach(function (value: any) {
                         playerProfile.push(value);
                       });
                       

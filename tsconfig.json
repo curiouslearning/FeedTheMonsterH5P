@@ -8,7 +8,8 @@
     "jsx": "react",
     "allowJs": true,
     "allowSyntheticDefaultImports": true,
-    "moduleResolution": "Node"
+    "moduleResolution": "Node",
+    "downlevelIteration": true
   },
   "typeRoots": [
     "../node_modules/@types",
