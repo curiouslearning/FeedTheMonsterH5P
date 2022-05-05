@@ -315,20 +315,20 @@ const DragDropComp = (props: any) => {
                               (value.data._levelScore > 100 ? true : false):
                             (score + count > 100 ? true : false);
 
-                            value.data._levelScore > 100 ?
+                            (value.data._levelScore == 200) ?
                             data.push({
                               _levelNumber: props.levelNumber + 2,
                               data: {
                                 _levelUnlocked: true,
                               },
-                            })
-                             
-                          : data.push({
+                            }):
+                            value.data._levelScore <= 100 ? 
+                           data.push({
                               _levelNumber: props.levelNumber + 2,
                               data: {
                                 _levelUnlocked: false,
                               },
-                            })
+                            }):console.log('nothing')
 
                         } else if (
                           value._levelNumber ==
