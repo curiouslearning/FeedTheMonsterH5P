@@ -82,7 +82,10 @@ const PopupMenu = (props: any) => {
           setTimeout(() => {
             setScaleRestartBtn(1);
           }, 200)
-        }} style={{backgroundImage: `url(${getImagePath()+'retryBg.png'})`,backgroundSize: "contain", backgroundRepeat: "no-repeat",height: 90, width: 80, marginLeft: 35, transform: `scale(${scaleRestartBtn})`}}>
+        }} 
+        // style={{backgroundImage: `url(${getImagePath()+'retryBg.png'})`,backgroundSize: "contain", backgroundRepeat: "no-repeat",height: 90, width: 80, marginLeft: 35, transform: `scale(${scaleRestartBtn})`}}
+        style={{backgroundImage: `url(${getImagePath()+'retry_btn.png'})`,backgroundSize: "contain", backgroundRepeat: "no-repeat",height: 90, width: 80, marginLeft: 35, transform: `scale(${scaleRestartBtn})`}}
+        >
         </div>
       </div>
   </Popup>

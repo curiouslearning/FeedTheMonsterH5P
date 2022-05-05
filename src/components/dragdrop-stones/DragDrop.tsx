@@ -43,6 +43,7 @@ const DragDrop = ({
   editorData: boolean;
 }) => {
   console.log(props.targetstones);
+  console.log(props.foilstones)
   let options = [...props.targetstones, ...props.foilstones];
   
   const [dataList, setDataList] = useState(options);
@@ -150,13 +151,13 @@ const DragDrop = ({
         i = 0;
         optionDataSet = [];
         answerDrop(); 
-        changePuzzel();      
+        // changePuzzel();      
     } 
     } else {
       optionDataSet = [];
       i = 0;
       answerDrop();
-      changePuzzel();
+      // changePuzzel();
     }
 
     setDropped(true);
@@ -172,6 +173,7 @@ const DragDrop = ({
       
       if(levelType !="Word"){
         setScore(100);
+        changePuzzel();
       }
       else{
          
@@ -179,7 +181,7 @@ const DragDrop = ({
           setScore(100); 
           count =0;
           inputAlphabhet="";
-          
+          changePuzzel();
         }
         
         
@@ -200,9 +202,10 @@ const DragDrop = ({
       i = 0;
       optionDataSet = [];
       answerDrop();
-      if(levelType!="Word"){
-       changePuzzel();
-      }
+      changePuzzel();
+      // if(levelType=="Word"){
+      //   changePuzzel();
+      // }
       setTimeout(() => {
         setAnimationType("idle");
       }, 2000);

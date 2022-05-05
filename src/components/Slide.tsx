@@ -86,6 +86,7 @@ const DragDropComp = (props: any) => {
       setPauseMenu(false);
       setProgressCount(initialTime);
       setActiveIndicator(0);
+      setScore(0);
     }, 1000);
   };
 
