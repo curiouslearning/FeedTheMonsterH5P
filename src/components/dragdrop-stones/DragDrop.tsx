@@ -107,7 +107,7 @@ const DragDrop = ({
   // };
 
   const checkResult = (dropData: any) => {
-    
+    dispatch(stoneDraggingCurrently(true))
     let targetStone = "";
    
     for (; i < props.targetstones.length; i++) {
@@ -138,8 +138,6 @@ const DragDrop = ({
       changePuzzel();
     }
 
-    dispatch(stoneDraggingCurrently(false))
-
     if (targetStone == dropData) {
       disappearPromptText();
       monsterHappy.play()
@@ -159,6 +157,7 @@ const DragDrop = ({
       }
       setTimeout(() => {
         dispatch(changeMonsterAnimation('idle'));
+        dispatch(stoneDraggingCurrently(true))
       }, 2000);
     } else {
       
@@ -176,6 +175,7 @@ const DragDrop = ({
       changePuzzel();
       setTimeout(() => {
         dispatch(changeMonsterAnimation("idle"));
+        dispatch(stoneDraggingCurrently(true))
       }, 2000);
       setScore(0);
     }
@@ -209,7 +209,7 @@ const DragDrop = ({
         if (item.alphabet != "") {
           return (
             <div className={classNames("ball" + index)}>
-              <DragDropContainer targetKey='box' dragData={'ball'+index}>
+              <DragDropContainer targetKey='box' dragData={'ball'+index} noDragging={isStoneDragging}>
                 <div
                   className={classNames("ball" + index)}
                   style={{

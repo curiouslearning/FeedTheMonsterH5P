@@ -75,6 +75,7 @@ const DragDropComp = (props: any) => {
   const levelLost = new Audio(getAudioPath() + "LevelLoseFanfare.mp3");
   const levelWin = new Audio(getAudioPath() + "LevelWinFanfare.mp3");
   const scoreCount = new Audio(getAudioPath() + "ScoreCountingDown.ogg");
+  const answerAudio = getAudioPath() + "b.WAV";
 
   // const resetState = () => {
   //   buttonCLick().play();
@@ -157,12 +158,7 @@ const DragDropComp = (props: any) => {
 
   useEffect(()=> {
 
-    if (props.playing) {
-      props.monsterRef.current.style.display = "none";
-    } else {
-      props.monsterRef.current.style.display = "block";
-    }
-
+    props.monsterRef.current.style.display = "none";
     if (!stopTimer) {
       id = setInterval(startTimer, 500);
     }
@@ -182,6 +178,7 @@ const DragDropComp = (props: any) => {
     />
   ) : (
     <div style={{ display: "flex", flexDirection: "column" }}>
+      <audio src={answerAudio} autoPlay></audio>
       <div
         style={{
           display: "flex",
@@ -375,13 +372,19 @@ const SlideComponent = (props: any) => {
     setTimeout(() => {
       setStart(true);
     }, 0);
-    playAudio();
+    // playAudio();
   };
 
   const nextLevel = () => {
-    let temp = level[levData.LevelMeta.LevelNumber + 1];
-    setlevData(temp);
-    onStartClick();
+    if (levData.LevelMeta.LevelNumber == level.length) {
+      let temp = level[0];
+      setlevData(temp);
+      onStartClick();
+    } else {
+      let temp = level[levData.LevelMeta.LevelNumber + 1];
+      setlevData(temp);
+      onStartClick();
+    }
   }
 
   const monsterRef = useRef();
@@ -715,9 +718,7 @@ const SlideComponent = (props: any) => {
             promptVisibility={
               promptTextVisibilty
             }
-            stopPlaying={stopPlaying}
-            playAudio={playAudio}
-            nextLevel={nextLevel}
+            nextLevel={props.nextLevel}
             monsterRef={monsterRef}
             editorData={props.editorData}
             feedbackTexts={props.feedbackTexts}
