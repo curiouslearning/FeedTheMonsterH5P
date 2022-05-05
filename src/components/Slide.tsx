@@ -295,6 +295,7 @@ const DragDropComp = (props: any) => {
                     if (data.length >= 0) {
                       data.forEach(function (value: any) {
                         if (value._levelNumber == props.levelNumber + 1) {
+                          value.data._levelName = props.levelType.toString();
                           value.data._levelScore = value.data._levelScore > score + count?
                           value.data._levelScore: score + count;
                           value.data._levelStars = value.data._levelScore > score + count?
