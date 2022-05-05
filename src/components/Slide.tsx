@@ -20,7 +20,7 @@ import { buttonCLick, getAudioPath, getImagePath } from "../app";
 import { useAppDispatch, useAppSelector } from "../app/hooks/commonHook";
 import { RootState } from "../app/store";
 import PauseButton from "./pause-button/PauseButton";
-import { startTheTimer, stopTheTimer } from "../app/redux/features/GameLevel1";
+import { onClickRestart, startTheTimer, stopTheTimer } from "../app/redux/features/GameLevel1";
 
 let audio: HTMLAudioElement = null;
 let initialTime = 10;
@@ -336,6 +336,9 @@ const SlideComponent = (props: any) => {
   // const lengthOfCurrentLevel = props.data.Puzzles.length;
   const { playing, setPlaying, playAudio } = AudioComponent('assd');
   const [start, setStart] = useState(false);
+
+  const dispatch = useAppDispatch();
+
   let promptTextVisibilty = true;
   let stopPlaying;
   if (levData != null) {
@@ -386,6 +389,11 @@ const SlideComponent = (props: any) => {
       setlevData(temp);
       onStartClick();
     }
+  }
+
+  const allLevelScreen = () => {
+    setStart(false);
+    dispatch(onClickRestart())
   }
 
   const monsterRef = useRef();
@@ -719,7 +727,7 @@ const SlideComponent = (props: any) => {
             promptVisibility={
               promptTextVisibilty
             }
-            allLevelScreen={props.allLevelScreen}
+            allLevelScreen={allLevelScreen}
             nextLevel={nextLevel}
             monsterRef={monsterRef}
             editorData={props.editorData}
@@ -727,7 +735,6 @@ const SlideComponent = (props: any) => {
             levelNumber={levData.LevelMeta.LevelNumber}
             currentLevelPuzzles={levData.Puzzles}
           />
-
           <div
             ref={monsterRef}
             style={{

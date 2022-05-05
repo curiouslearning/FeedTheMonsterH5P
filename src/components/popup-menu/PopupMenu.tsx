@@ -63,7 +63,7 @@ const PopupMenu = (props: any) => {
           </ClosePopup>
         <div onClick={(e)=> {
            buttonCLick().play()
-          props.nextLevel()
+          props.allLevelScreen()
           setScaleNextBtn(0.9)
           setTimeout(() => {
             setScaleNextBtn(1);
@@ -85,35 +85,3 @@ const PopupMenu = (props: any) => {
 }
 
 export default PopupMenu;
-
-{/* <ClosePopup title={getImagePath()+'close_btn.png'}
-      onClick={(e) => {
-        buttonCLick().play()
-        dispatch(onClickPauseButton());
-        setScaleCloseBtn(0.9);
-        setTimeout(() => {
-          setScaleCloseBtn(1);
-        }, 200)
-      }}>
-      </ClosePopup>
-      <div  style={{display: "flex", flexDirection: "row", height: "100%", alignItems: "center", width: "100%", transform: `scale(${scaleCloseBtn})`}}>
-        <div onClick={(e)=> {
-           buttonCLick().play()
-          props.nextLevel()
-          setScaleNextBtn(0.9)
-          setTimeout(() => {
-            setScaleNextBtn(1);
-          }, 200)
-        }} style={{backgroundImage: `url(${getImagePath()+'map_btn.png'})`,backgroundSize: "contain", backgroundRepeat: "no-repeat", height: 90, width: 80, marginLeft: 10, transform: `scale(${scaleNextBtn})`}}>
-
-        </div>
-        <div onClick={(e)=> {
-           buttonCLick().play()
-           setTimeout(() => dispatch(onClickRestart()));
-          setScaleRestartBtn(0.9)
-          setTimeout(() => {
-            setScaleRestartBtn(1);
-          }, 200)
-        }} style={{backgroundImage: `url(${getImagePath()+'retry_btn.png'})`,backgroundSize: "contain", backgroundRepeat: "no-repeat",height: 90, width: 80, marginLeft: 35, transform: `scale(${scaleRestartBtn})`}}>
-        </div>
-      </div> */}

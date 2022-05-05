@@ -4,25 +4,19 @@ import SlideComponent from './Slide';
 import { getImagePath } from '../app';
 import { Provider } from 'react-redux';
 import { store } from '../app/store';
+import styled from 'styled-components';
 
 const initialTime = 10;
 
 const Slideshow = (props: any) => {
-    
+
     const { data } = props;
-
-    const [strt, setStrt] = useState(true);
-
-    const allLevelScreen = () => {
-
-        setStrt(false);
-    }
 
     return (
         <Provider store={store}>
             <div>
                 <MovingBackGroundComponent bgImage={getImagePath()+'cloud_v01.png'} />
-                <SlideComponent data={data[0]} level= {data} contentId={props.contentId} time={initialTime} editorData={props.editorData} allLevelScreen={allLevelScreen} feedbackTexts={props.feedbackTexts} 
+                <SlideComponent data={data[0]} level= {data} contentId={props.contentId} time={initialTime} editorData={props.editorData} feedbackTexts={props.feedbackTexts} 
                 devMode= {props.devMode}/>
             </div>
         </Provider>
