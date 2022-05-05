@@ -174,6 +174,7 @@ const DragDropComp = (props: any) => {
     <EndLevelComponent
       score={score}
       totalPuzzleInCurrentLevel={totalPuzzleInCurrentLevel}
+      allLevelScreen={props.allLevelScreen}
       nextLevel={props.nextLevel}
     />
   ) : (
@@ -193,7 +194,7 @@ const DragDropComp = (props: any) => {
       </div>
       {pauseButtonClicked ? (
         <PopupMenu
-          nextLevel={props.nextLevel}
+          allLevelScreen={props.allLevelScreen}
         />
       ) : (
         <></>
@@ -718,7 +719,8 @@ const SlideComponent = (props: any) => {
             promptVisibility={
               promptTextVisibilty
             }
-            nextLevel={props.nextLevel}
+            allLevelScreen={props.allLevelScreen}
+            nextLevel={nextLevel}
             monsterRef={monsterRef}
             editorData={props.editorData}
             feedbackTexts={props.feedbackTexts}
