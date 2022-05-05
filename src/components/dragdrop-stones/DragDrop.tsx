@@ -4,16 +4,16 @@ import classNames from "classnames";
 import AnimationType from "../animations/AnimationType";
 import { PromptTextHook } from "../prompt-text/PromptText";
 import { getAudioPath, getImagePath } from "../../app";
-import Draggable from "react-draggable";
-import { DragDropContainer, DropTarget} from "react-drag-drop-container";
-import { useAppDispatch, useAppSelector } from "../../app/hooks/commonHook";
+import { DragDropContainer,DropTarget} from "react-drag-drop-container";
+import { useAppSelector } from "../../app/hooks/commonHook";
 import { RootState } from "../../app/store";
+import { useDispatch } from "react-redux";
 import { stoneDraggingCurrently } from "../../app/redux/features/DragAndDropStones";
 import { changeMonsterAnimation } from "../../app/redux/features/CurrentMonsterAnimation";
 
 let optionDataSet: { id: number; alphabet: string }[] = [];
 let i = 0;
-let alphabhet="";
+let inputAlphabhet="";
 let count=0;
 
 const DragDrop = ({
@@ -33,15 +33,13 @@ const DragDrop = ({
   setScore?: Function;
   editorData: boolean;
 }) => {
-  console.log(props.targetstones);
-  let options = [...props.targetstones, ...props.foilstones];
   
-  const isStoneDragging = useAppSelector((state : RootState) => state.dragDropStones.value)
-  const currentMonsterAnimation = useAppSelector((state : RootState) => state.currentMonsterAnimation.value);
-  const dispatch = useAppDispatch();
+  let options = [...props.targetstones, ...props.foilstones];
 
-  const [dataList, setDataList] = useState(options);
-
+  //redux
+  const isStoneDragging = useAppSelector((state: RootState) => state.dragDropStones.value);
+  const currentMonsterAnimation = useAppSelector((state: RootState) => state.currentMonsterAnimation.value);
+  const dispatch = useDispatch();
 
   const onDrag = new Audio(getAudioPath()+'onDrag.mp3');
   const monsterSplit = new Audio(getAudioPath()+'Monster Spits wrong stones-01.mp3');
@@ -88,7 +86,6 @@ const DragDrop = ({
       optionDataSet.push(incomingData);
       console.log(optionDataSet);
     }
-    setDataList(optionDataSet);
   };
 
   useEffect(() => {
@@ -99,20 +96,18 @@ const DragDrop = ({
     };
   }, [levelCount]);
 
-  
-  const getStyles = (params: any, index: any) => {
-    const currentItem = dragItem.current;
-    if (currentItem == params) {
-      let str = "no-ball";
-      return str.concat(index.toString());
-    }
-    let str = "ball";
-    return str.concat(index.toString());
-  };
+  // const getStyles = (params: any, index: any) => {
+  //   const currentItem = dragItem.current;
+  //   if (currentItem == params) {
+  //     let str = "no-ball";
+  //     return str.concat(index.toString());
+  //   }
+  //   let str = "ball";
+  //   return str.concat(index.toString());
+  // };
 
   const checkResult = (dropData: any) => {
-    console.log('----------------------->>>>>>>>>>>>>>>>>')
-    // console.log(props.targetstones[0].StoneText, "resultin progress", dropData);
+    
     let targetStone = "";
    
     for (; i < props.targetstones.length; i++) {
@@ -123,11 +118,11 @@ const DragDrop = ({
     if (levelType == "Word") {
       optionDataSet.filter((item) => {       
         if (dragId.current == item.id) {
-          alphabhet = alphabhet + item.alphabet;
+          inputAlphabhet = inputAlphabhet + item.alphabet;
           count = count +targetStone.length;
           item.alphabet = "";
         }
-  });
+      });
      
       i++;
       if (i == props.targetstones.length) {      
@@ -143,28 +138,32 @@ const DragDrop = ({
       changePuzzel();
     }
 
-    dispatch(stoneDraggingCurrently(false));
-    
+    dispatch(stoneDraggingCurrently(false))
+
     if (targetStone == dropData) {
       disappearPromptText();
       monsterHappy.play()
-      dispatch(changeMonsterAnimation("eat"));
+      dispatch(changeMonsterAnimation('eat'));
+      inputAlphabhet =inputAlphabhet +dropData;
+      count = count +targetStone.length;
+      
       if(levelType !="Word"){
         setScore(100);
       }
       else{
-        if(count == alphabhet.length && count >2){
+        if(count == inputAlphabhet.length && count >2){
           setScore(200);
           count =0;
-          alphabhet="";
+          inputAlphabhet="";
         }
       }
       setTimeout(() => {
-        dispatch(changeMonsterAnimation("idle"));
+        dispatch(changeMonsterAnimation('idle'));
       }, 2000);
     } else {
-      count =0; 
-      alphabhet=""
+      
+      count =0;  
+      inputAlphabhet=""
       dispatch(changeMonsterAnimation("spit"));
       monsterDisapointment.play()
       setTimeout(() => {
@@ -188,88 +187,40 @@ const DragDrop = ({
   
   return (
     <>
-    <DropTarget
-      onHit={(e:any)=>{console.log(e)
-      console.log('dropped')
-      console.log(e.containerElem.innerText)
-      checkResult(e.containerElem.innerText);
-      e.containerElem.style.visibility = "hidden";
-      }}
-      targetKey='box'
-      dropData={{ name: props.name }}
-    >
-      <div
-        style={{
-          width: "300px",
-          height: "100px",
-          top: "50%",
-          left: "30%",
-          position: "absolute",
+      <DropTarget
+        onHit={(e:any)=>{
+          checkResult(e.containerElem.innerText);
+          e.containerElem.style.visibility = "hidden";
         }}
-        // onDragOver={(e) => {
-        //   console.log("onDragOver::");
-        //   e.stopPropagation();
-        //   e.preventDefault();
-        // }}
-        // onTouchEnd={(e)=>{console.log(e+'ggggggggggg')}}
-        // onDrop={(e) => {
-        //   console.log('drop')
-        //   console.log(e)
-        //   checkResult(e.dataTransfer.getData("item.alphabet"));
-        //   // console.log("::onDrop");
-        // }}
-      >
-        <AnimationType type={'idle'} />
-      </div>
-    </DropTarget>
-      {/* </Draggable> */}
+        targetKey='box'
+        dropData={{ name: props.name }}>
+        <div
+          style={{
+            width: "300px",
+            height: "100px",
+            top: "50%",
+            left: "30%",
+            position: "absolute",
+          }}>
+          <AnimationType type={currentMonsterAnimation} />
+        </div>
+      </DropTarget>
       {optionDataSet.map((item, index) => {
         if (item.alphabet != "") {
           return (
-            // <Draggable
-            //  disabled={true}
-            //  onStop={(e)=>{
-            //    console.log('Sample')
-            //    console.log(e)
-            //  }}
-            // >
-            // <Draggable>
-          <div className={classNames(
-            isStoneDragging ? getStyles(item.alphabet, index) : "ball" + index
-          )}>
-            <DragDropContainer
-                targetKey='box'
-                dragData={'ball'+index}
-                // customDragElement={customDragElement}
-                onDragStart={() => console.log("start")}
-                onDrag={() => console.log("dragging")}
-                onDragEnd={() => console.log("end")}
-                onDrop={(e:any) => console.log(e)}>
-            <div
-              className={classNames(
-                isStoneDragging ? getStyles(item.alphabet, index) : "ball" + index
-              )}
-              style={{
-                backgroundImage: `url(${getImagePath()+'stone_pink_v02.png'})`,
-                backgroundSize: "contain",
-                backgroundRepeat: "no-repeat",
-              }}
-              // draggable={!timeOver && !isMenuOpen}
-              key={item.id}
-              // onDragEnd={(e) => {
-              //   handleDragEnd();
-              // }}
-              // onTouchStart={(e=>{console.log(e+';;;;;;;;;;;')})}
-              // onDragStart={(e) => {
-              //   console.log('started dragging')
-              //   onDrag.play()
-              //   handleDragStart(item.alphabet, e, item.id);
-              //   e.dataTransfer.setData("item.alphabet", item.alphabet);
-              // }}
-            >
-              <p className="stones-letter">{item.alphabet}</p>
-            </div>
-            </DragDropContainer>
+            <div className={classNames("ball" + index)}>
+              <DragDropContainer targetKey='box' dragData={'ball'+index}>
+                <div
+                  className={classNames("ball" + index)}
+                  style={{
+                    backgroundImage: `url(${getImagePath()+'stone_pink_v02.png'})`,
+                    backgroundSize: "contain",
+                    backgroundRepeat: "no-repeat",
+                  }}
+                  key={item.id}>
+                  <p className="stones-letter">{item.alphabet}</p>
+                </div>
+              </DragDropContainer>
             </div>
           );
         }

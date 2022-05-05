@@ -1,20 +1,17 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { SpriteAnimationContainer } from "../animations/SpriteAnimationContainer";
-import mapBg from "../../../assets/images/map_btn.png";
-import retryBg from "../../../assets/images/retry_btn.png";
-import star from "../../../assets/images/star.png";
-import loseBg from "../../../assets/images/Lose_bg.png";
-import winBg from "../../../assets/images/WIN_screen_bg.png";
 import "./EndLevelComponent.css";
 import { buttonCLick, getImagePath } from "../../app";
+import { useAppDispatch } from "../../app/hooks/commonHook";
+import { onClickRestart } from "../../app/redux/features/GameLevel1";
 
 const EndLevelComponent = (props: any) => {
-  const { score, lengthOfCurrentLevel } = props;
-  console.log(score);
-  console.log(Math.ceil(lengthOfCurrentLevel / 2) * 100);
+  
+  const { score, totalPuzzleInCurrentLevel } = props;
+ 
   return (
     <>
-      {score === lengthOfCurrentLevel * 100 ? (
+      {score === totalPuzzleInCurrentLevel * 100 ? (
         <div
           className="end-level-container"
           style={{
@@ -57,7 +54,7 @@ const EndLevelComponent = (props: any) => {
           <SpriteAnimationContainer type="happy" top={27} left={2} />
           <HomeAndRestartComponent props={props} />
         </div>
-      ) : score >= Math.ceil(lengthOfCurrentLevel / 2) * 100 ? (
+      ) : score >= Math.ceil(totalPuzzleInCurrentLevel / 2) * 100 ? (
         /*2 start */
 
         <div
@@ -176,9 +173,13 @@ const EndLevelComponent = (props: any) => {
 export default EndLevelComponent;
 
 export const HomeAndRestartComponent = (props: any) => {
+
   const [scaleCloseBtn, setScaleCloseBtn] = useState(1);
   const [scaleNextBtn, setScaleNextBtn] = useState(1);
   const [scaleRestartBtn, setScaleRestartBtn] = useState(1);
+
+  const dispatch = useAppDispatch();
+
   return (
     <div
       style={{
@@ -215,7 +216,7 @@ export const HomeAndRestartComponent = (props: any) => {
       <div
         onClick={(e) => {
           buttonCLick().play()
-          props.props.onClickRestart();
+          dispatch(onClickRestart());
           setScaleRestartBtn(0.9);
           setTimeout(() => {
             setScaleRestartBtn(1);

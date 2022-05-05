@@ -25,16 +25,17 @@ export default class ReactDemoApp extends (H5P.EventDispatcher as {
   attach = function ($wrapper: JQuery) {
     $wrapper.get(0).appendChild(this.$element);
     render(
+
       <Provider store={store}>
         <SelectProfile
-        config={this.config}
-        contentId={this.contentId}
-        editorData={this.editorData}
-        wrapper={$wrapper}
-        element={this.$element}
-        feedbackPhrases={this.feedbackPhrases}
-        devMode={this.devMode}
-      />
+          config={this.config}
+          contentId={this.contentId}
+          editorData={this.editorData}
+          wrapper={$wrapper}
+          element={this.$element}
+          feedbackPhrases={this.feedbackPhrases}
+          devMode={this.devMode}
+        />
       </Provider>,
       this.$element
     );

@@ -1,12 +1,5 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import CancelOutlinedIcon from '@material-ui/icons/Cancel';
-import RestartAltOutlinedIcon from '@material-ui/icons/Refresh';
-import RedoOutlinedIcon from '@material-ui/icons/RedoOutlined';
-import popupBg from '../../../assets/images/popup_bg_v01.png';
-import closeBtnBg from '../../../assets/images/close_btn.png';
-import mapBg from '../../../assets/images/map_btn.png';
-import retryBg from '../../../assets/images/retry_btn.png';
 import { buttonCLick, getImagePath } from '../../app';
 import { useAppDispatch } from '../../app/hooks/commonHook';
 import { onClickPauseButton, onClickRestart } from '../../app/redux/features/GameLevel1';
@@ -52,12 +45,13 @@ const ClosePopup = styled.div`
 `;
 
 const PopupMenu = (props: any) => {
+
   const [scaleCloseBtn, setScaleCloseBtn] = useState(1);
   const [scaleNextBtn, setScaleNextBtn] = useState(1);
   const [scaleRestartBtn, setScaleRestartBtn] = useState(1);
 
   const dispatch = useAppDispatch();
-
+  
   return <Popup title={getImagePath()+'popup_bg_v01.png'}>
       <ClosePopup title={getImagePath()+'close_btn.png'}
       onClick={(e) => {
@@ -81,8 +75,8 @@ const PopupMenu = (props: any) => {
 
         </div>
         <div onClick={(e)=> {
-          buttonCLick().play()
-          setTimeout(() => dispatch(onClickRestart()));
+           buttonCLick().play()
+           setTimeout(() => dispatch(onClickRestart()));
           setScaleRestartBtn(0.9)
           setTimeout(() => {
             setScaleRestartBtn(1);

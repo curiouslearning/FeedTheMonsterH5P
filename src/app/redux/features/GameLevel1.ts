@@ -2,7 +2,6 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 
 interface LevelProps {
     pauseButtonClicked: boolean,
-    timerStartAndStop: boolean,
     timeEnded: boolean,
     timerProgress: number,
     stoneDropped: boolean,
@@ -22,7 +21,6 @@ const initialState : GameLevel1 = {
 
     level: {
         pauseButtonClicked: false,
-        timerStartAndStop: false,
         timeEnded: false,
         timerProgress: 10.5,
         stoneDropped: false,
@@ -46,7 +44,6 @@ export const gameLevel1Slice = createSlice({
     onClickPauseButton: (state, action: PayloadAction<boolean>) => {
         state.level = {
             pauseButtonClicked: state.level.pauseButtonClicked ? false : true,
-            timerStartAndStop: true,
             timeEnded: state.level.timerProgress <= 0.9 ? true : false,
             timerProgress: state.level.timerProgress,
             stoneDropped: state.level.stoneDropped,
@@ -58,16 +55,15 @@ export const gameLevel1Slice = createSlice({
         }
     },
 
-    stoneDroppedAtMonster : (state, action: PayloadAction<boolean>) => {
+    stoneDroppedAtMonster : (state, action: PayloadAction<number>) => {
         state.level = {
             pauseButtonClicked: state.level.pauseButtonClicked,
-            timerStartAndStop: true,
             timeEnded: state.level.timeEnded,
             stoneDropped: true,
             timerProgress: 10,
             isLevelEnded: state.level.isLevelEnded,
             currentPuzzelNumber: state.level.currentPuzzelNumber + 1,
-            currentScore: state.level.currentScore,
+            currentScore: state.level.currentScore + action.payload,
             stopTimer: state.level.stopTimer,
             feedBackText: state.level.feedBackText
         }
@@ -76,7 +72,6 @@ export const gameLevel1Slice = createSlice({
     startTheTimer : (state, action: PayloadAction<LevelProps>) => {
         state.level = {
             pauseButtonClicked: state.level.pauseButtonClicked,
-            timerStartAndStop: state.level.timerStartAndStop,
             timeEnded: state.level.timeEnded,
             timerProgress: state.level.timerProgress - 0.5,
             stoneDropped: state.level.stoneDropped,
@@ -91,7 +86,6 @@ export const gameLevel1Slice = createSlice({
     onClickRestart : (state, action: PayloadAction<LevelProps>) => {
         state.level = {
             pauseButtonClicked: false,
-            timerStartAndStop: false,
             timeEnded: false,
             timerProgress: 10.5,
             stoneDropped: false,
@@ -106,7 +100,6 @@ export const gameLevel1Slice = createSlice({
     stopTheTimer : (state, action: PayloadAction<LevelProps>) => {
         state.level = {
             pauseButtonClicked: state.level.pauseButtonClicked,
-            timerStartAndStop: state.level.timerStartAndStop,
             timeEnded: state.level.timeEnded,
             timerProgress: state.level.timerProgress,
             stoneDropped: state.level.stoneDropped,

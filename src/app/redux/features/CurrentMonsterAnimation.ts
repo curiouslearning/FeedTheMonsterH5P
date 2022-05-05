@@ -20,9 +20,6 @@ export const currentMonsterAnimationSlice = createSlice({
   reducers: {
     changeMonsterAnimation: (state, action: PayloadAction<string>) => {
       state.value = action.payload
-      setTimeout(() => {
-        state.value = 'idle'
-      }, 2000);
     },
   },
 })
