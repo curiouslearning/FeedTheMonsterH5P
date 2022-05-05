@@ -36,9 +36,7 @@ let id: NodeJS.Timeout;
 let timeoutId: NodeJS.Timeout;
 
 // create HTMLAudioElement
-const audioFantastic = new Audio(fantastic);
-const audioGreat = new Audio(great);
-const audiogoodJob = new Audio(goodJob);
+
 let _levelNumber: number;
 
 const Wrapper = styled.div`
@@ -64,6 +62,9 @@ const DragDropComp = (props: any) => {
   const levelLost = new Audio(getAudioPath() + "LevelLoseFanfare.mp3");
   const levelWin = new Audio(getAudioPath() + "LevelWinFanfare.mp3");
   const scoreCount = new Audio(getAudioPath() + "ScoreCountingDown.ogg");
+  const audioFantastic = new Audio(getAudioPath() + "fantastic.WAV");
+  const audioGreat = new Audio(getAudioPath() + "great.wav");
+  const audiogoodJob = new Audio(getAudioPath() + "good job.WAV");
 
   const resetState = () => {
     buttonCLick().play();
@@ -257,7 +258,7 @@ const DragDropComp = (props: any) => {
                     ];
                   setText(feedbackPhrase);
 
-                  const playerProfile = [
+                  let playerProfile = [
                     {
                       _levelNumber: props.levelNumber + 1,
                       data: {
@@ -272,7 +273,7 @@ const DragDropComp = (props: any) => {
                             : score + count <= 100
                             ? 0
                             : 1,
-                        _levelUnlocked: true,
+                        _levelUnlocked: false,
                       },
                     },
                     score + count > 100
@@ -295,37 +296,74 @@ const DragDropComp = (props: any) => {
                     if (data.length >= 0) {
                       data.forEach(function (value: any) {
                         if (value._levelNumber == props.levelNumber + 1) {
-                          value._levelScore = score + count;
-                          value._levelStars =
-                            score + count === props.lengthOfCurrentLevel * 100
+                          value.data._levelName = props.levelType.toString();
+                          value.data._levelScore = value.data._levelScore > score + count?
+                          value.data._levelScore: score + count;
+                          value.data._levelStars = value.data._levelScore > score + count?
+                          (value.data._levelScore === props.lengthOfCurrentLevel * 100 ? 3 :
+                           value.data._levelScore >= Math.ceil(props.lengthOfCurrentLevel / 2) * 100 ? 2 
+                           : value.data._levelScore <= 100 ? 0 : 1):
+                            (score + count === props.lengthOfCurrentLevel * 100
                               ? 3
                               : score + count >=
                                 Math.ceil(props.lengthOfCurrentLevel / 2) * 100
                               ? 2
                               : score + count <= 100
                               ? 0
-                              : 1;
-                          value._levelUnlocked =
-                            score + count > 100 ? true : false;
+                              : 1);
+                              value.data._levelUnlocked = value.data._levelUnlocked
+                              ? value.data._levelUnlocked:
+                              value.data._levelScore > score + count?
+                              (value.data._levelScore > 100 ? true : false):
+                            (score + count > 100 ? true : false);
+
+                            (value.data._levelScore == 200) ?
+                            data.push({
+                              _levelNumber: props.levelNumber + 2,
+                              data: {
+                                _levelUnlocked: true,
+                              },
+                            }):
+                            value.data._levelScore <= 100 ? 
+                           data.push({
+                              _levelNumber: props.levelNumber + 2,
+                              data: {
+                                _levelUnlocked: false,
+                              },
+                            }):console.log('nothing')
+
                         } else if (
                           value._levelNumber ==
                           props.levelNumber + 2
                         ) {
-                          if (value._levelUnlocked == true) {
-                            value._levelScore = value.has("_levelScore")
-                              ? value._levelScore
+                          if (value.data._levelUnlocked == false) {
+                              value.data._levelUnlocked = score + count > 100 ? true : false;
+                          }
+                          else if (value.data._levelUnlocked == true) {
+                            value.data._levelScore = value.data._levelScore
+                              ? value.data._levelScore
                               : 0;
-                            value._levelStars = value.has("_levelStars")
-                              ? value._levelStars
+                              value.data._levelStars = value.data._levelStars
+                              ? value.data._levelStars
                               : 0;
-                            value._levelUnlocked = value.has("_levelUnlocked")
-                              ? value._levelUnlocked
+                              value.data._levelUnlocked = value.data._levelUnlocked
+                              ? value.data._levelUnlocked
                               : false;
                           }
-                        } else {
-                          playerProfile.push(value);
+
+                        } 
+                        else {
+                          console.log('NOT FOUND');
                         }
+                      }); 
+
+                      playerProfile = [];
+                      const obj = [...new Map(data.map((item:any) => [JSON.stringify(item), item])).values()];
+
+                      obj.forEach(function (value: any) {
+                        playerProfile.push(value);
                       });
+                      
                     }
                   }
                   localStorage.setItem(
