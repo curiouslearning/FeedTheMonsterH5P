@@ -279,7 +279,9 @@ const DragDrop = ({
                 targetKey='box'
                 dragData={'ball'+index}
                 // customDragElement={customDragElement}
-                onDragStart={() => console.log("start")}
+                onDragStart={(e:any) => {
+                  onDrag.play()
+                }}
                 onDrag={() => console.log("dragging")}
                 onDragEnd={() => console.log("end")}
                 onDrop={(e:any) => console.log(e)}>
