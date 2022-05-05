@@ -11,3 +11,18 @@ declare module "*.jpg" {
     const jpg: any;
     export default jpg;
 }
+
+declare module '*.mp3' {
+    const src: string;
+    export default src;
+}
+
+declare module '*.WAV' {
+    const src: string;
+    export default src;
+}
+
+declare module '*.wav' {
+    const src: string;
+    export default src;
+}

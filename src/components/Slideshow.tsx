@@ -2,14 +2,18 @@ import { removeData } from 'jquery';
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import { MovingBackGroundComponent } from "./MovingBackground";
-import cloud from "../../assets/images/cloud.png";
+import cloud from "../../assets/images/cloud_v01.png";
 
 import SlideComponent from './Slide';
+import { getImagePath } from '../app';
 
 let img = [
     "https://i.pinimg.com/originals/02/f3/49/02f34932a4f0ea1e70ad703e769bf41e.jpg",
     "https://www.triedandtrueblog.com/wp-content/uploads/2015/10/Feed-The-Monster-Halloween-Game-7.jpg",
-    "https://mykidcraft.com/images/monster-game-colour-lego-preschool281566712.jpg"
+    "https://mykidcraft.com/images/monster-game-colour-lego-preschool281566712.jpg",
+    "https://i.pinimg.com/originals/02/f3/49/02f34932a4f0ea1e70ad703e769bf41e.jpg",
+    "https://i.pinimg.com/originals/02/f3/49/02f34932a4f0ea1e70ad703e769bf41e.jpg",
+    "https://i.pinimg.com/originals/02/f3/49/02f34932a4f0ea1e70ad703e769bf41e.jpg"
 ]
 
 const NavWrapper = styled.div`
@@ -51,11 +55,15 @@ const Slideshow = (props: any) => {
             setStrt(nextToggle)
         }
     }
-
+    console.log(data)
+    console.log(props)
+    console.log(activeSlide)
+    console.log(data[activeSlide])
     return (
         <div>
-            <MovingBackGroundComponent bgImage={cloud} />
-            <SlideComponent data={data[activeSlide]} images={img[activeSlide]} contentId={props.contentId} started={strt} time={initialTime} nextLevel={handleNav} />
+            <MovingBackGroundComponent bgImage={getImagePath()+'cloud_v01.png'} />
+            <SlideComponent data={data[activeSlide]} level= {data} images={img[activeSlide]} contentId={props.contentId} started={strt} time={initialTime} nextLevel={handleNav} editorData={props.editorData} feedbackTexts={props.feedbackTexts} 
+            devMode= {props.devMode}/>
             <NavWrapper>
                 <NavButton onClick={() => handleNav(-1)} disabled={data.length < 2}>
                     Back

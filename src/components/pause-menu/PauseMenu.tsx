@@ -1,12 +1,30 @@
-import React, { useState } from 'react';
-import './pause-menu.css';
-import Pause from '../../../assets/images/pause.png';
+import React, { useState } from "react";
+import "./pause-menu.css";
+import pauseBg from "../../../assets/images/pause_v01.png";
+import { buttonCLick, getImagePath } from "../../app";
+// import { ScaleButton } from '../common/ScaleButton';
 
 const PauseMenu = (props: any) => {
-    
-    return <div className='menu' onClick={() => props.onClickPauseMenu()}> 
-        <img src={Pause} width="27px" height="27px"></img>
-    </div>;
-}
+  const [scale, setScale] = useState(1);
+  return (
+    <div
+      className="menu"
+      onClick={() => {
+        buttonCLick().play()
+        props.onClickPauseMenu();
+        setScale(0.9);
+        setTimeout(() => {
+          setScale(1);
+        }, 200);
+      }}
+      style={{
+        backgroundImage: `url(${getImagePath()+'pause_v01.png'})`,
+        backgroundSize: "contain",
+        backgroundRepeat: "no-repeat",
+        transform: `scale(${scale})`,
+      }}
+    ></div>
+  );
+};
 
 export default PauseMenu;
