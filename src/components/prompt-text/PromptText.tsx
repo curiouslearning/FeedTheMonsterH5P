@@ -16,7 +16,10 @@ const PromptText = (props: any) => {
   let nonHighlightText = "";
   if (levelType == "LetterInWord") {
     highlightText = letter.slice(0, props.targetedLetters[0].StoneText.length);
-    nonHighlightText = letter.slice(props.targetedLetters[0].StoneText.length, letter.length);
+    nonHighlightText = letter.slice(
+      props.targetedLetters[0].StoneText.length,
+      letter.length
+    );
   }
 
   return (
@@ -25,15 +28,15 @@ const PromptText = (props: any) => {
       className="ans-pop-up"
       style={{
         ...{
-          margin: "auto",
-          marginTop: "-20px",
+  
           display: "flex",
           backgroundImage: `url(${getImagePath() + "promptTextBg.png"})`,
-          width: "163px",
-          height: "152px",
-          backgroundSize: "contain",
+          width: '10em',
+          height: "10em",
+          backgroundSize: "100% 100%",
           justifyContent: "center",
           alignItems: "center",
+          alignSelf:'center'
         },
         ...{ opacity: opacity },
       }}

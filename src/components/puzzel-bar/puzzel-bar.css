@@ -1,7 +1,7 @@
 .puzzel-indicator-container {
     display: flex;
-    height: 77px;
-    width: 154px;
+    height: 5em;
+    width: 12em;
     justify-content: center;
     align-items: center;
 }

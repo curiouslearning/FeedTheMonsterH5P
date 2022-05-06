@@ -13,45 +13,33 @@ const EndLevelComponent = (props: any) => {
   console.log(score);
   console.log(Math.ceil(lengthOfCurrentLevel / 2) * 100);
   return (
-    <>
+    <div
+      className="bg-left"
+      style={{
+        backgroundColor: "black",
+        height: "100%",
+        width: "100%",
+        position: "absolute",
+      }}
+    >
       {score === lengthOfCurrentLevel * 100 ? (
         <div
           className="end-level-container"
           style={{
-            backgroundImage: `url(${getImagePath()+'WIN_screen_bg.png'})`,
+            backgroundImage: `url(${getImagePath() + "WIN_screen_bg.png"})`,
             backgroundSize: "contains",
             backgroundRepeat: "no-repeat",
           }}
         >
-          <div
-            className="bg-left"
-            style={{
-              backgroundColor: "black",
-              height: "100%",
-              width: "25%",
-              position: "absolute",
-              left: "-25%",
-            }}
-          ></div>
-          <div
-            className="bg-right"
-            style={{
-              backgroundColor: "black",
-              height: "100%",
-              width: "26%",
-              position: "absolute",
-              right: "25%",
-            }}
-          ></div>
           <div className="rating">
             <div className="star">
-              <img src={getImagePath()+'star.png'} alt="star" />
+              <img src={getImagePath() + "star.png"} alt="star" />
             </div>
             <div className="star">
-              <img src={getImagePath()+'star.png'} alt="star" />
+              <img src={getImagePath() + "star.png"} alt="star" />
             </div>
             <div className="star">
-              <img src={getImagePath()+'star.png'} alt="star" />
+              <img src={getImagePath() + "star.png"} alt="star" />
             </div>
           </div>
           <SpriteAnimationContainer type="happy" top={27} left={2} />
@@ -63,37 +51,17 @@ const EndLevelComponent = (props: any) => {
         <div
           className="end-level-container"
           style={{
-            backgroundImage: `url(${getImagePath()+'WIN_screen_bg.png'})`,
+            backgroundImage: `url(${getImagePath() + "WIN_screen_bg.png"})`,
             backgroundSize: "contains",
             backgroundRepeat: "no-repeat",
           }}
         >
-          <div
-            className="bg-left"
-            style={{
-              backgroundColor: "black",
-              height: "100%",
-              width: "25%",
-              position: "absolute",
-              left: "-25%",
-            }}
-          ></div>
-          <div
-            className="bg-right"
-            style={{
-              backgroundColor: "black",
-              height: "100%",
-              width: "26%",
-              position: "absolute",
-              right: "25%",
-            }}
-          ></div>
           <div className="rating">
             <div className="star">
-              <img src={getImagePath()+'star.png'} alt="star" />
+              <img src={getImagePath() + "star.png"} alt="star" />
             </div>
             <div className="star">
-              <img src={getImagePath()+'star.png'} alt="star" />
+              <img src={getImagePath() + "star.png"} alt="star" />
             </div>
           </div>
           <SpriteAnimationContainer type="happy" top={27} left={2} />
@@ -103,31 +71,11 @@ const EndLevelComponent = (props: any) => {
         <div
           className="end-level-container"
           style={{
-            backgroundImage: `url(${getImagePath()+'WIN_screen_bg.png'})`,
+            backgroundImage: `url(${getImagePath() + "WIN_screen_bg.png"})`,
             backgroundSize: "contains",
             backgroundRepeat: "no-repeat",
           }}
         >
-          <div
-            className="bg-left"
-            style={{
-              backgroundColor: "black",
-              height: "100%",
-              width: "25%",
-              position: "absolute",
-              left: "-25%",
-            }}
-          ></div>
-          <div
-            className="bg-right"
-            style={{
-              backgroundColor: "black",
-              height: "100%",
-              width: "26%",
-              position: "absolute",
-              right: "25%",
-            }}
-          ></div>
           <SpriteAnimationContainer type="sad" top={2} left={2} />
           <HomeAndRestartComponent props={props} />
         </div>
@@ -135,41 +83,21 @@ const EndLevelComponent = (props: any) => {
         <div
           className="end-level-container"
           style={{
-            backgroundImage: `url(${getImagePath()+'WIN_screen_bg.png'})`,
+            backgroundImage: `url(${getImagePath() + "WIN_screen_bg.png"})`,
             backgroundSize: "contains",
             backgroundRepeat: "no-repeat",
           }}
         >
-          <div
-            className="bg-left"
-            style={{
-              backgroundColor: "black",
-              height: "100%",
-              width: "25%",
-              position: "absolute",
-              left: "-25%",
-            }}
-          ></div>
-          <div
-            className="bg-right"
-            style={{
-              backgroundColor: "black",
-              height: "100%",
-              width: "26%",
-              position: "absolute",
-              right: "25%",
-            }}
-          ></div>
           <div className="rating">
             <div className="star">
-              <img src={getImagePath()+'star.png'} alt="star" />
+              <img src={getImagePath() + "star.png"} alt="star" />
             </div>
           </div>
           <SpriteAnimationContainer type="sad" top={2} left={2} />
           <HomeAndRestartComponent props={props} />
         </div>
       )}
-    </>
+    </div>
   );
 };
 
@@ -189,21 +117,22 @@ export const HomeAndRestartComponent = (props: any) => {
         transform: `scale(${scaleCloseBtn})`,
         position: "relative",
         width: "100%",
-        left: "10%",
+        justifyContent: "space-around",
         top: "20%",
       }}
     >
       <div
         onClick={(e) => {
-          buttonCLick().play()
-          props.props.nextLevel();
+          buttonCLick().play();
+          console.log('*****',props)
+          props.props.onClickNext();
           setScaleNextBtn(0.9);
           setTimeout(() => {
             setScaleNextBtn(1);
           }, 200);
         }}
         style={{
-          backgroundImage: `url(${getImagePath()+'map_btn.png'})`,
+          backgroundImage: `url(${getImagePath() + "map_btn.png"})`,
           backgroundSize: "contain",
           backgroundRepeat: "no-repeat",
           height: 90,
@@ -214,7 +143,26 @@ export const HomeAndRestartComponent = (props: any) => {
       ></div>
       <div
         onClick={(e) => {
-          buttonCLick().play()
+          buttonCLick().play();
+          props.props.nextLevel();
+          setScaleNextBtn(0.9);
+          setTimeout(() => {
+            setScaleNextBtn(1);
+          }, 200);
+        }}
+        style={{
+          backgroundImage: `url(${getImagePath() + "map_btn.png"})`,
+          backgroundSize: "contain",
+          backgroundRepeat: "no-repeat",
+          height: 90,
+          width: 80,
+          marginLeft: 10,
+          transform: `scale(${scaleNextBtn})`,
+        }}
+      ></div>
+      <div
+        onClick={(e) => {
+          buttonCLick().play();
           props.props.onClickRestart();
           setScaleRestartBtn(0.9);
           setTimeout(() => {
@@ -222,7 +170,7 @@ export const HomeAndRestartComponent = (props: any) => {
           }, 200);
         }}
         style={{
-          backgroundImage: `url(${getImagePath()+'retry_btn.png'})`,
+          backgroundImage: `url(${getImagePath() + "retry_btn.png"})`,
           backgroundSize: "contain",
           backgroundRepeat: "no-repeat",
           height: 90,

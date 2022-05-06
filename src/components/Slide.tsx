@@ -196,12 +196,11 @@ const DragDropComp = (props: any) => {
       nextLevel={props.nextLevel}
     />
   ) : (
-    <div style={{ display: "flex", flexDirection: "column" }}>
+    <div style={{ display: "flex", flexDirection: "column" ,height:'100%'}}>
       <div
         style={{
           display: "flex",
-          justifyContent: "space-between",
-          marginInline: "50px",
+          justifyContent: "space-around",
           marginTop: "10px",
         }}
       >
