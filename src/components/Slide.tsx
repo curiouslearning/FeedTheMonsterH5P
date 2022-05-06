@@ -509,11 +509,11 @@ const SlideComponent = (props: any) => {
                                   backgroundPosition: 25,
                                   backgroundSize: "contain",
                                   backgroundRepeat: "no-repeat",
-                                  width: "10vw",
-                                  height: "20vh",
-                                  padding: 10,
-                                  objectFit: "contain",
-                                  flexDirection: "column",
+                                  width: "10em",
+                                  height: "20em",
+                                  // padding: 10,
+                                  // objectFit: "contain",
+                                  // flexDirection: "column",
                                 }}
                                 onClick={
                                   (data1.LevelMeta.LevelNumber + 1 ===
@@ -630,10 +630,10 @@ const SlideComponent = (props: any) => {
                                   backgroundPosition: 25,
                                   backgroundSize: "contain",
                                   backgroundRepeat: "no-repeat",
-                                  width: "10vw",
-                                  height: "20vh",
-                                  padding: 10,
-                                  objectFit: "contain",
+                                  width: "10em",
+                                  height: "20em",
+                                  // padding: 10,
+                                  // objectFit: "contain",
                                 }}
                                 onClick={
                                   props.devMode
@@ -687,10 +687,10 @@ const SlideComponent = (props: any) => {
                           backgroundPosition: 25,
                           backgroundSize: "contain",
                           backgroundRepeat: "no-repeat",
-                          width: "10vw",
-                          height: "20vh",
-                          padding: 10,
-                          objectFit: "contain",
+                          width: "10em",
+                          height: "20em",
+                          // padding: 10,
+                          // objectFit: "contain",
                         }}
                         onClick={() => {
                           buttonCLick().play();
@@ -718,10 +718,10 @@ const SlideComponent = (props: any) => {
                           backgroundPosition: 25,
                           backgroundSize: "contain",
                           backgroundRepeat: "no-repeat",
-                          width: "10vw",
-                          height: "20vh",
-                          padding: 10,
-                          objectFit: "contain",
+                          width: "10em",
+                          height: "20em",
+                          // padding: 10,
+                          // objectFit: "contain",
                         }}
                         onClick={
                           props.devMode
