@@ -20,6 +20,7 @@ let count=0;
 
 
 const DragDrop = ({
+  currentProgressCount,
   timeOver,
   answerDrop,
   startDrag,
@@ -31,6 +32,7 @@ const DragDrop = ({
   setScore,
   editorData,
 }: {
+  currentProgressCount:number;
   timeOver: boolean;
   answerDrop: Function;
   startDrag: boolean;
@@ -233,7 +235,10 @@ const DragDrop = ({
       onHit={(e:any)=>{console.log(e)
       console.log('dropped')
       console.log(e.containerElem.innerText)
-      checkResult(e.containerElem.innerText);
+      if(currentProgressCount!=0){
+        checkResult(e.containerElem.innerText);
+      }
+      
       e.containerElem.style.visibility = "hidden";
       }}
       targetKey='box'

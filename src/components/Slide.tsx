@@ -124,7 +124,9 @@ const DragDropComp = (props: any) => {
         setActiveIndicator((pre) => pre + 1);
         setPromted(true);
         setIsLevelEnded(false);
+        if(currentProgressCount!=0){
         props.stopPlaying();
+        }
         props.playAudio();
       }, 4000);
     }
@@ -155,7 +157,7 @@ const DragDropComp = (props: any) => {
       return;
     }
 
-    if (currentProgressCount <= 0 && !timeOver) {
+    if (currentProgressCount <= 0 || timeOver) {
       timeoutId = setTimeout(() => {
         // setProgressCount(10);
         // props.stopPlaying()
@@ -239,6 +241,7 @@ const DragDropComp = (props: any) => {
         <DndProvider backend={HTML5Backend}>
           <div className="dragAndDrop" style={{ height: "200px" }}>
             <DragDrop
+              currentProgressCount={currentProgressCount}
               timeOver={timeOver}
               answerDrop={answerDrop}
               startDrag={false}
