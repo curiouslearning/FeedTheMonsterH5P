@@ -211,7 +211,7 @@ const DragDropComp = (props: any) => {
         targetedLetters={props.currentLevelPuzzles[currentPuzzelNumber].targetstones}
       />
       <SuccessText word={text} />
-      <div className="dragAndDrop" style={{ height: "200px" }}>
+      <div className="dragAndDrop" style={{ height: "100%" }}>
         <DragDrop
           answerDrop={answerDrop}
           props={props.currentLevelPuzzles[currentPuzzelNumber]}
