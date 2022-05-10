@@ -232,6 +232,7 @@ const DragDropComp = (props: any) => {
         isAudioPlaying={props.playing}
         textVisbility={props.promptVisibility}
         levelType={props.levelType}
+        generalData={props.generalData}
         targetedLetters={props.puzzles[levelCount].targetstones}
       />
       <SuccessText word={text} />
@@ -404,7 +405,7 @@ const SlideComponent = (props: any) => {
   const [levData, setlevData] = useState(null);
   console.log(props);
   const lengthOfCurrentLevel = props.data.Puzzles.length;
-  const { playing, setPlaying, playAudio } = AudioComponent();
+  const { playing, setPlaying, playAudio } = AudioComponent(props);
   const [start, setStart] = useState(false);
   let promptTextVisibilty = true;
   let stopPlaying;
@@ -786,6 +787,7 @@ const SlideComponent = (props: any) => {
             lengthOfCurrentLevel={lengthOfCurrentLevel}
             editorData={props.editorData}
             feedbackTexts={props.feedbackTexts}
+            generalData={props.generalData}
             levelNumber={levData.LevelMeta.LevelNumber}
           />
 

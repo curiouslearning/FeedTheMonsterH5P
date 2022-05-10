@@ -8,7 +8,7 @@ import { getImagePath } from "../../app";
 export let opacity = 1;
 
 const PromptText = (props: any) => {
-  const { playing, setPlaying, playAudio } = AudioComponent();
+  const { playing, setPlaying, playAudio } = AudioComponent(props);
   const textVisbility = props.textVisbility;
   const levelType = props.levelType;
   const letter = props.letter;
