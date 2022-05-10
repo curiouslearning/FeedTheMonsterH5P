@@ -5,7 +5,8 @@ const gameData = {
 		"ImageBasedRendering": false,
 		"GeneralAudio": {
 			"GreatAudio": "http://server.com/audio/english/feedback/great.wav",
-			"FantasticAudio": "http://server.com/audio/english/feedback/fantastic.wav"
+			"FantasticAudio": "http://server.com/audio/english/feedback/fantastic.wav",
+			"A": "https://curiousreader.org/wp-content/uploads/2022/05/USENGLISH_sounds_letters_a.wav"
 		},
 		"GeneralImages": {
 			"GreatImage": "http://server.com/images/english/feedback/great.png",
