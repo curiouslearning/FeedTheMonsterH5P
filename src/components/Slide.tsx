@@ -131,6 +131,12 @@ const DragDropComp = (props: any) => {
       }, 4000);
     }
   };
+  if(!props.playing){
+    setTimeout(() => {
+      console.log("----------------->>>>>>>")
+    props.startPlaying();
+    }, 4000);
+   }
 
   const timer = () => {
     if (props.playing && !isMenuPopup) {
@@ -426,6 +432,7 @@ const SlideComponent = (props: any) => {
   const [start, setStart] = useState(false);
   let promptTextVisibilty = true;
   let stopPlaying;
+  let startPlaying;
   if (levData != null) {
     promptTextVisibilty = props.editorData
       ? levData.PromptType == "Visible"
@@ -441,7 +448,11 @@ const SlideComponent = (props: any) => {
       }
     };
   }
-
+  startPlaying = () =>{
+    if(!playing){
+      setPlaying(true);
+    }
+  }
   useEffect(() => {
     setStart(false);
     return () => {
@@ -797,6 +808,7 @@ const SlideComponent = (props: any) => {
               promptTextVisibilty
             }
             puzzles={levData.Puzzles}
+            startPlaying={startPlaying}
             stopPlaying={stopPlaying}
             playAudio={playAudio}
             nextLevel={props.nextLevel}
