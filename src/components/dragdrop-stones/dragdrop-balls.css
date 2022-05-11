@@ -177,3 +177,8 @@
     top: -55%;
     left: 5%;
 }
+.droptarget {
+    display: flex;
+    justify-content: center;
+
+}
