@@ -124,8 +124,8 @@ const DragDropComp = (props: any) => {
         setActiveIndicator((pre) => pre + 1);
         setPromted(true);
         setIsLevelEnded(false);
-        if(currentProgressCount!=0){
-        props.stopPlaying();
+        if (currentProgressCount != 0) {
+          props.stopPlaying();
         }
         props.playAudio();
       }, 4000);
@@ -198,7 +198,7 @@ const DragDropComp = (props: any) => {
       nextLevel={props.nextLevel}
     />
   ) : (
-    <div style={{ display: "flex", flexDirection: "column" ,height:'100%'}}>
+    <div style={{ display: "flex", flexDirection: "column", height: "100%" }}>
       <div
         style={{
           display: "flex",
@@ -300,73 +300,90 @@ const DragDropComp = (props: any) => {
                       data.forEach(function (value: any) {
                         if (value._levelNumber == props.levelNumber + 1) {
                           value.data._levelName = props.levelType.toString();
-                          value.data._levelScore = value.data._levelScore > score + count?
-                          value.data._levelScore: score + count;
-                          value.data._levelStars = value.data._levelScore > score + count?
-                          (value.data._levelScore === props.lengthOfCurrentLevel * 100 ? 3 :
-                           value.data._levelScore >= Math.ceil(props.lengthOfCurrentLevel / 2) * 100 ? 2 
-                           : value.data._levelScore <= 100 ? 0 : 1):
-                            (score + count === props.lengthOfCurrentLevel * 100
+                          value.data._levelScore =
+                            value.data._levelScore > score + count
+                              ? value.data._levelScore
+                              : score + count;
+                          value.data._levelStars =
+                            value.data._levelScore > score + count
+                              ? value.data._levelScore ===
+                                props.lengthOfCurrentLevel * 100
+                                ? 3
+                                : value.data._levelScore >=
+                                  Math.ceil(props.lengthOfCurrentLevel / 2) *
+                                    100
+                                ? 2
+                                : value.data._levelScore <= 100
+                                ? 0
+                                : 1
+                              : score + count ===
+                                props.lengthOfCurrentLevel * 100
                               ? 3
                               : score + count >=
                                 Math.ceil(props.lengthOfCurrentLevel / 2) * 100
                               ? 2
                               : score + count <= 100
                               ? 0
-                              : 1);
-                              value.data._levelUnlocked = value.data._levelUnlocked
-                              ? value.data._levelUnlocked:
-                              value.data._levelScore > score + count?
-                              (value.data._levelScore > 100 ? true : false):
-                            (score + count > 100 ? true : false);
+                              : 1;
+                          value.data._levelUnlocked = value.data._levelUnlocked
+                            ? value.data._levelUnlocked
+                            : value.data._levelScore > score + count
+                            ? value.data._levelScore > 100
+                              ? true
+                              : false
+                            : score + count > 100
+                            ? true
+                            : false;
 
-                            (value.data._levelScore == 200) ?
-                            data.push({
-                              _levelNumber: props.levelNumber + 2,
-                              data: {
-                                _levelUnlocked: true,
-                              },
-                            }):
-                            value.data._levelScore <= 100 ? 
-                           data.push({
-                              _levelNumber: props.levelNumber + 2,
-                              data: {
-                                _levelUnlocked: false,
-                              },
-                            }):console.log('nothing')
-
+                          value.data._levelScore == 200
+                            ? data.push({
+                                _levelNumber: props.levelNumber + 2,
+                                data: {
+                                  _levelUnlocked: true,
+                                },
+                              })
+                            : value.data._levelScore <= 100
+                            ? data.push({
+                                _levelNumber: props.levelNumber + 2,
+                                data: {
+                                  _levelUnlocked: false,
+                                },
+                              })
+                            : console.log("nothing");
                         } else if (
                           value._levelNumber ==
                           props.levelNumber + 2
                         ) {
                           if (value.data._levelUnlocked == false) {
-                              value.data._levelUnlocked = score + count > 100 ? true : false;
-                          }
-                          else if (value.data._levelUnlocked == true) {
+                            value.data._levelUnlocked =
+                              score + count > 100 ? true : false;
+                          } else if (value.data._levelUnlocked == true) {
                             value.data._levelScore = value.data._levelScore
                               ? value.data._levelScore
                               : 0;
-                              value.data._levelStars = value.data._levelStars
+                            value.data._levelStars = value.data._levelStars
                               ? value.data._levelStars
                               : 0;
-                              value.data._levelUnlocked = value.data._levelUnlocked
+                            value.data._levelUnlocked = value.data
+                              ._levelUnlocked
                               ? value.data._levelUnlocked
                               : false;
                           }
-
-                        } 
-                        else {
-                          console.log('NOT FOUND');
+                        } else {
+                          console.log("NOT FOUND");
                         }
-                      }); 
+                      });
 
                       playerProfile = [];
-                      const obj = [...new Map(data.map((item:any) => [JSON.stringify(item), item])).values()];
+                      const obj = [
+                        ...new Map(
+                          data.map((item: any) => [JSON.stringify(item), item])
+                        ).values(),
+                      ];
 
                       obj.forEach(function (value: any) {
                         playerProfile.push(value);
                       });
-                      
                     }
                   }
                   localStorage.setItem(
@@ -791,17 +808,18 @@ const SlideComponent = (props: any) => {
             levelNumber={levData.LevelMeta.LevelNumber}
           />
 
-          <div
-            ref={monsterRef}
-            style={{
-              width: "300px",
-              height: "100px",
-              top: "50%",
-              left: "30%",
-              position: "absolute",
-            }}
-          >
-            <AnimationType type="idle" />
+          <div style={{ display: "flex", justifyContent: "center" }}>
+            <div
+              ref={monsterRef}
+              style={{
+                width: "300px",
+                height: "100px",
+                top: "38%",
+                position: "absolute",
+              }}
+            >
+              <AnimationType type="idle" />
+            </div>
           </div>
         </>
       )}
