@@ -16,6 +16,7 @@ let optionDataSet: { id: number; alphabet: string }[] = [];
 let i = 0;
 let inputAlphabhet="";
 let count=0;
+let j=0;
 
 
 
@@ -131,7 +132,15 @@ const DragDrop = ({
     let str = "ball";
     return str.concat(index.toString());
   };
-
+  useEffect(() => {
+    if(j==1){
+      i=0;
+      j=0;
+      count =0;
+      inputAlphabhet="";
+      console.log("-------------->>>>>>>>>>>>");
+    }
+  }, [levelCount])
   const checkResult = (dropData: any) => {
     // console.log(props.targetstones[0].StoneText, "resultin progress", dropData);
     let targetStone = "";
@@ -178,7 +187,7 @@ const DragDrop = ({
         changePuzzel();
       }
       else{
-         
+        j=1;
         if(count === inputAlphabhet.length && count >2){
           setScore(100); 
           count =0;
