@@ -31,7 +31,7 @@ const PuzzelBar = (props: any) => {
 export const PuzzelBarHook = (puzzelCount: any, activeIndicators: any) => {
   const puzzels: any = [];
   const puzzelsIndicators = () => {
-    for (let i = 0; i < puzzelCount; i++) {
+    for (let i = 0; i <= puzzelCount; i++) {
       puzzels.push(
         <div
           className={classNames("completed-puzzel", {

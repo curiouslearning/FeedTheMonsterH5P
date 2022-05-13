@@ -115,7 +115,7 @@ const DragDropComp = (props: any) => {
       setTimeout(() => {
         setIsLevelEnded(true);
         score > 100 ? levelWin.play() : levelLost.play();
-      }, 2000);
+      }, 3000);
     } else {
       setTimeout(() => {
         setLevelCount((preCount) => preCount + 1);
@@ -133,7 +133,7 @@ const DragDropComp = (props: any) => {
   };
   if(!props.playing){
     setTimeout(() => {
-      console.log("----------------->>>>>>>")
+     
     props.startPlaying();
     }, 4000);
    }
