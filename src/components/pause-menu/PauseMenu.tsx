@@ -22,6 +22,7 @@ const PauseMenu = (props: any) => {
         backgroundSize: "contain",
         backgroundRepeat: "no-repeat",
         transform: `scale(${scale})`,
+        marginLeft: '9rem',
       }}
     ></div>
   );
