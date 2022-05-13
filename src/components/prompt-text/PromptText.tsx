@@ -70,7 +70,7 @@ export const PromptTextHook = () => {
 
     setTimeout(() => {
       opacity = 1;
-    }, 3000);
+    }, 4000);
   };
 
   return { disappearPromptText };

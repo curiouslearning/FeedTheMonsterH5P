@@ -7,12 +7,12 @@ const ScoreBoard = (props: any) => {
     <div
       className="score-board"
       style={{
-        backgroundImage: `url(${getImagePath() + "score_v01.png"})`,
+        // backgroundImage: `url(${getImagePath() + "score_v01.png"})`,
         backgroundSize: "contain",
         backgroundRepeat: "no-repeat",
       }}
     >
-      <h3 style={{ textAlign: "center", fontSize: "2.1em" }}>{props.score}</h3>
+      {/* <h3 style={{ textAlign: "center", fontSize: "2.1em" }}>{props.score}</h3> */}
     </div>
   );
 };
