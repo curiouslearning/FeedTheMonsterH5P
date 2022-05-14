@@ -64,13 +64,13 @@ const PromptText = (props: any) => {
 
 export default PromptText;
 
-export const PromptTextHook = () => {
+export const PromptTextHook = (levelType: any) => {
   const disappearPromptText = () => {
     opacity = 0;
 
     setTimeout(() => {
       opacity = 1;
-    }, 4000);
+    }, levelType == 'Word'?7500:4000);
   };
 
   return { disappearPromptText };

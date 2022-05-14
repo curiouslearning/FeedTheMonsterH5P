@@ -80,7 +80,7 @@ const DragDrop = ({
       }
   }
   options=checkOptions(options)
-  const { disappearPromptText } = PromptTextHook();
+  const { disappearPromptText } = PromptTextHook(levelType);
 
   const dragItem = useRef();
   const dragId = useRef();
