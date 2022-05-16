@@ -176,19 +176,21 @@ const DragDrop = ({
     setDragging(false);
     
     if (targetStone == dropData) {
-      disappearPromptText();
+     
       monsterHappy.play()
       setAnimationType("eat");
       inputAlphabhet =inputAlphabhet +dropData;
       count = count +targetStone.length;
       
       if(levelType !="Word"){
+        disappearPromptText();
         setScore(100);
         changePuzzel();
       }
       else{
         j=1;
         if(count === inputAlphabhet.length && count >2){
+          disappearPromptText()
           setScore(100); 
           count =0;
           inputAlphabhet="";
