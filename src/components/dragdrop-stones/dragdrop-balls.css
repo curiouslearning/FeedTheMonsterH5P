@@ -13,67 +13,67 @@
 }
 
 .ball0 {
-    position: relative;
+    position: absolute;
     width: 50px;
     height: 50px;
-    top: 80%;
-    left: 22%
+    top: 60%;
+    left: 8%
 }
 
 .ball1 {
-    position: relative;
+    position: absolute;
     width: 50px;
     height: 50px;
-    top: 55%;
-    left: 75%
+    top: 60%;
+    left: 82%
 }
 
 .ball2{
-    position: relative;
+    position: absolute;
     width: 50px;
     height: 50px;
-    top: -55%;
-    left: 49%;
+    top: 31%;
+    left: 56%;
 }
 
 .ball3{
-    position: relative;
+    position: absolute;
     width: 50px;
     height: 50px;
-    top: -40%;
+    top:  20%;
     left: 5%
 }
 
 .ball4{
-    position: relative;
+    position: absolute;
     width: 50px;
     height: 50px;
-    top: -62%;
-    left: 90%
+    top: 20%;
+    left: 82%
 }
 
 .ball5{
-    position: relative;
+    position: absolute;
     width: 50px;
     height: 50px;
-    top: 8%;
+    top: 85%;
     left: 49%
 }
 
 .ball6{
-    position: relative;
+    position: absolute;
     width: 50px;
     height: 50px;
-    top: -30%;
+    top: 70%;
     left: 90%
 }
 
 .ball7{
-    position: relative;
+    position: absolute;
     width: 50px;
     height: 50px;
-    top: -55%;
-    left: 5%;
+    top: 70%;
+    left: 20%;
 }
 
 .ball8{

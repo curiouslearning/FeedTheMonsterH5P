@@ -136,7 +136,6 @@ export const HomeAndRestartComponent = (props: any) => {
           backgroundRepeat: "no-repeat",
           height: 90,
           width: 80,
-          marginLeft: 10,
           transform: `scale(${scaleNextBtn})`,
         }}
       ></div>
@@ -155,7 +154,6 @@ export const HomeAndRestartComponent = (props: any) => {
           backgroundRepeat: "no-repeat",
           height: 90,
           width: 80,
-          marginLeft: 10,
           transform: `scale(${scaleNextBtn})`,
         }}
       ></div>
@@ -174,7 +172,6 @@ export const HomeAndRestartComponent = (props: any) => {
           backgroundRepeat: "no-repeat",
           height: 90,
           width: 80,
-          marginLeft: 35,
           transform: `scale(${scaleRestartBtn})`,
         }}
       ></div>
