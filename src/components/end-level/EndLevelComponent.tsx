@@ -124,8 +124,7 @@ export const HomeAndRestartComponent = (props: any) => {
       <div
         onClick={(e) => {
           buttonCLick().play();
-          console.log('*****',props)
-          props.props.onClickNext();
+          props.props.allLevelScreen();
           setScaleNextBtn(0.9);
           setTimeout(() => {
             setScaleNextBtn(1);
@@ -151,7 +150,7 @@ export const HomeAndRestartComponent = (props: any) => {
           }, 200);
         }}
         style={{
-          backgroundImage: `url(${getImagePath() + "map_btn.png"})`,
+          backgroundImage: `url(${getImagePath() + "next_btn.png"})`,
           backgroundSize: "contain",
           backgroundRepeat: "no-repeat",
           height: 90,

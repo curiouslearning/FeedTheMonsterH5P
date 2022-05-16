@@ -197,11 +197,33 @@ const DragDropComp = (props: any) => {
     <EndLevelComponent
       score={score}
       lengthOfCurrentLevel={props.lengthOfCurrentLevel}
-      onClickPauseMenu={onClickPauseMenu}
+      allLevelScreen={() =>{
+
+        props.allLevelScreen()
+        setPauseMenu(false);
+        setTimeout(() => {
+          setLevelCount(0);
+          setProgressCount(initialTime);
+          setActiveIndicator(0);
+          setScore(0);
+        }, 1000);
+      }}
       onClickRestart={() => {
         resetState();
       }}
-      nextLevel={props.nextLevel}
+      nextLevel={() => {
+        props.nextLevel();
+        setTimeOver(false);
+        setCorrectDrop(false);
+        setLevelCount(0);
+        setProgressCount(initialTime);
+        setPromted(props.promptVisibility);
+        setActiveIndicator(0);
+        setPauseMenu(false);
+        setIsLevelEnded(false);
+        setScore(0);
+        setText("");
+      }}
     />
   ) : (
     <div style={{ display: "flex", flexDirection: "column", height: "100%" }}>
@@ -220,7 +242,17 @@ const DragDropComp = (props: any) => {
         <PopupMenu
           onClickPauseMenu={onClickPauseMenu}
           onClickRestart={onClickRestart}
-          nextLevel={props.nextLevel}
+          allLevelScreen={() =>{
+
+            props.allLevelScreen()
+            setPauseMenu(false);
+            setTimeout(() => {
+              setLevelCount(0);
+              setProgressCount(initialTime);
+              setActiveIndicator(0);
+              setScore(0);
+            }, 1000);
+          }}
         />
       ) : (
         <></>
@@ -474,6 +506,22 @@ const SlideComponent = (props: any) => {
     }, 0);
     playAudio();
   };
+
+  const nextLevel = () => {
+    if (levData.LevelMeta.LevelNumber == level.length) {
+      let temp = level[0];
+      setlevData(temp);
+      onStartClick();
+    } else {
+      let temp = level[levData.LevelMeta.LevelNumber + 1];
+      setlevData(temp);
+      onStartClick();
+    }
+  }
+
+  const allLevelScreen = () => {
+    setStart(false);
+  }
 
   const monsterRef = useRef();
   compared = [];
@@ -811,13 +859,14 @@ const SlideComponent = (props: any) => {
             startPlaying={startPlaying}
             stopPlaying={stopPlaying}
             playAudio={playAudio}
-            nextLevel={props.nextLevel}
+            nextLevel={nextLevel}
             monsterRef={monsterRef}
             lengthOfCurrentLevel={lengthOfCurrentLevel}
             editorData={props.editorData}
             feedbackTexts={props.feedbackTexts}
             generalData={props.generalData}
             levelNumber={levData.LevelMeta.LevelNumber}
+            allLevelScreen={allLevelScreen}
           />
 
           <div style={{ display: "flex", justifyContent: "center" }}>
