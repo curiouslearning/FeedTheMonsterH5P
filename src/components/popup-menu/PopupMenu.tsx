@@ -70,7 +70,7 @@ const PopupMenu = (props: any) => {
           title={getImagePath() + "close_btn.png"}
           onClick={(e) => {
             buttonCLick().play();
-            props.onClickPauseMenu();
+            props.props.allLevelScreen();
             setScaleCloseBtn(0.9);
             setTimeout(() => {
               setScaleCloseBtn(1);
@@ -96,25 +96,6 @@ const PopupMenu = (props: any) => {
             transform: `scale(${scaleNextBtn})`,
           }}
         ></div>
-        {/* <div
-          onClick={(e) => {
-            buttonCLick().play();
-            props.nextLevel();
-            setScaleNextBtn(0.9);
-            setTimeout(() => {
-              setScaleNextBtn(1);
-            }, 200);
-          }}
-          style={{
-            backgroundImage: `url(${getImagePath() + "next_btn.png"})`,
-            backgroundSize: "contain",
-            backgroundRepeat: "no-repeat",
-            height: "7em",
-            width: "7em",
-            marginLeft: 10,
-            transform: `scale(${scaleNextBtn})`,
-          }}
-        ></div> */}
         <div
           onClick={(e) => {
             buttonCLick().play();
