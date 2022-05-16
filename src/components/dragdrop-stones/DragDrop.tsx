@@ -186,6 +186,9 @@ const DragDrop = ({
         disappearPromptText();
         setScore(100);
         changePuzzel();
+        i=0;
+        count =0;
+        inputAlphabhet="";
       }
       else{
         j=1;
