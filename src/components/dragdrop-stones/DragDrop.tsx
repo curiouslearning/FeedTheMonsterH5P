@@ -306,7 +306,7 @@ const DragDrop = ({
               )}
               style={{
                 backgroundImage: `url(${getImagePath()+'stone_pink_v02.png'})`,
-                backgroundSize: "contain",
+                backgroundSize: "100% 100%",
                 backgroundRepeat: "no-repeat",
               }}
               // draggable={!timeOver && !isMenuOpen}

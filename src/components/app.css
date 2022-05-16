@@ -38,10 +38,10 @@
 
 @keyframes cloud-moving {
     from {
-      left: 0px;
+      left: 0%;
     }
     to {
-      left: 450px;
+      left: 70%
     }
   }
 

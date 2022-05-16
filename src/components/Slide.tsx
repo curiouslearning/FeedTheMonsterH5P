@@ -131,12 +131,11 @@ const DragDropComp = (props: any) => {
       }, 4000);
     }
   };
-  if(!props.playing){
+  if (!props.playing) {
     setTimeout(() => {
-     
-    props.startPlaying();
+      props.startPlaying();
     }, 4000);
-   }
+  }
 
   const timer = () => {
     if (props.playing && !isMenuPopup) {
@@ -246,7 +245,10 @@ const DragDropComp = (props: any) => {
         <></>
       ) : (
         <DndProvider backend={HTML5Backend}>
-          <div className="dragAndDrop" style={{ height: "100%" }}>
+          <div
+            className="dragAndDrop"
+            style={{ height: "50%", display: "flex", margin: "auto" }}
+          >
             <DragDrop
               currentProgressCount={currentProgressCount}
               timeOver={timeOver}
@@ -448,11 +450,11 @@ const SlideComponent = (props: any) => {
       }
     };
   }
-  startPlaying = () =>{
-    if(!playing){
+  startPlaying = () => {
+    if (!playing) {
       setPlaying(true);
     }
-  }
+  };
   useEffect(() => {
     setStart(false);
     return () => {
@@ -541,8 +543,8 @@ const SlideComponent = (props: any) => {
                                   backgroundPosition: 25,
                                   backgroundSize: "contain",
                                   backgroundRepeat: "no-repeat",
-                                  width: "10em",
-                                  height: "20em",
+                                  width: "8em",
+                                  height: "9em",
                                   // padding: 10,
                                   // objectFit: "contain",
                                   // flexDirection: "column",
@@ -662,8 +664,8 @@ const SlideComponent = (props: any) => {
                                   backgroundPosition: 25,
                                   backgroundSize: "contain",
                                   backgroundRepeat: "no-repeat",
-                                  width: "10em",
-                                  height: "20em",
+                                  width: "8em",
+                                  height: "9em",
                                   // padding: 10,
                                   // objectFit: "contain",
                                 }}
@@ -719,8 +721,8 @@ const SlideComponent = (props: any) => {
                           backgroundPosition: 25,
                           backgroundSize: "contain",
                           backgroundRepeat: "no-repeat",
-                          width: "10em",
-                          height: "20em",
+                          width: "8em",
+                          height: "9em",
                           // padding: 10,
                           // objectFit: "contain",
                         }}
@@ -750,8 +752,8 @@ const SlideComponent = (props: any) => {
                           backgroundPosition: 25,
                           backgroundSize: "contain",
                           backgroundRepeat: "no-repeat",
-                          width: "10em",
-                          height: "20em",
+                          width: "8em",
+                          height: "9em",
                           // padding: 10,
                           // objectFit: "contain",
                         }}
@@ -826,7 +828,7 @@ const SlideComponent = (props: any) => {
               style={{
                 width: "300px",
                 height: "100px",
-                top: "38%",
+                bottom: "35%",
                 position: "absolute",
               }}
             >
