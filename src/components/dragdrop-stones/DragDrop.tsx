@@ -138,7 +138,7 @@ const DragDrop = ({
       j=0;
       count =0;
       inputAlphabhet="";
-      console.log("-------------->>>>>>>>>>>>");
+      // console.log("-------------->>>>>>>>>>>>");
     }
   }, [levelCount])
   const checkResult = (dropData: any) => {
@@ -192,7 +192,10 @@ const DragDrop = ({
       }
       else{
         j=1;
-        if(count === inputAlphabhet.length && count >2){
+        console.log("------------>>>>>>>>>>");
+          console.log(i);
+        if(count === inputAlphabhet.length && count >= 3 &&i==0){
+          
           disappearPromptText()
           setScore(100); 
           count =0;
