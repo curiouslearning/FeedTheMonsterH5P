@@ -64,14 +64,14 @@ const Slideshow = (props: any) => {
             <MovingBackGroundComponent bgImage={getImagePath()+'cloud_v01.png'} />
             <SlideComponent data={data[activeSlide]} level= {data} images={img[activeSlide]} contentId={props.contentId} started={strt} time={initialTime} nextLevel={handleNav} editorData={props.editorData} feedbackTexts={props.feedbackTexts} generalData={props.generalData} 
             devMode= {props.devMode}/>
-            <NavWrapper>
+            {/* <NavWrapper>
                 <NavButton onClick={() => handleNav(-1)} disabled={data.length < 2}>
                     Back
                 </NavButton>
                 <NavButton onClick={() => handleNav(1)} disabled={data.length < 2}>
                     Next
                 </NavButton>
-            </NavWrapper>
+            </NavWrapper> */}
         </div>
     );
 }
