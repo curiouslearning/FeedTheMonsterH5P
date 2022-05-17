@@ -4,9 +4,9 @@ let isPlaying = false;
 const AudioComponent = (props:any) => {
 
     const [playing, setPlaying] = useState(false);
-    const playAudio = () => {
+    const playAudio = (url:any) => {
         if (!isPlaying) {
-          audio = new Audio(props.generalData.GeneralAudio.A);
+          audio = new Audio(url == null ? props: url);
             var playPromise = audio.play();
             isPlaying = true;
             if (playPromise !== undefined) {

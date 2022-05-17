@@ -8,7 +8,7 @@ import { getImagePath } from "../../app";
 export let opacity = 1;
 
 const PromptText = (props: any) => {
-  const { playing, setPlaying, playAudio } = AudioComponent(props);
+  const { playing, setPlaying, playAudio } = AudioComponent(props.audioUrl);
   const textVisbility = props.textVisbility;
   const levelType = props.levelType;
   const letter = props.letter;
@@ -21,22 +21,25 @@ const PromptText = (props: any) => {
       letter.length
     );
   }
-
+  const onPromptClick = () => {
+    setPlaying(true);
+    playAudio(props.url);
+    setPlaying(false);
+  };
   return (
     <div
-      onClick={playAudio}
+      onClick={onPromptClick}
       className="ans-pop-up"
       style={{
         ...{
-  
           display: "flex",
           backgroundImage: `url(${getImagePath() + "promptTextBg.png"})`,
-          width: '10em',
+          width: "10em",
           height: "10em",
           backgroundSize: "100% 100%",
           justifyContent: "center",
           alignItems: "center",
-          alignSelf:'center'
+          alignSelf: "center",
         },
         ...{ opacity: opacity },
       }}
@@ -68,9 +71,12 @@ export const PromptTextHook = (levelType: any) => {
   const disappearPromptText = () => {
     opacity = 0;
 
-    setTimeout(() => {
-      opacity = 1;
-    }, levelType == 'Word'?7500:4000);
+    setTimeout(
+      () => {
+        opacity = 1;
+      },
+      levelType == "Word" ? 7500 : 4000
+    );
   };
 
   return { disappearPromptText };

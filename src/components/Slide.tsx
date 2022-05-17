@@ -66,6 +66,8 @@ const DragDropComp = (props: any) => {
   const audioGreat = new Audio(getAudioPath() + "great.wav");
   const audiogoodJob = new Audio(getAudioPath() + "good job.WAV");
 
+
+
   const resetState = () => {
     buttonCLick().play();
     setTimeOver(false);
@@ -127,7 +129,7 @@ const DragDropComp = (props: any) => {
         if (currentProgressCount != 0) {
           props.stopPlaying();
         }
-        props.playAudio();
+        props.playAudio(props.puzzles[activeIndicators+1].prompt.PromptAudio);
       }, 4000);
     }
   };
@@ -264,6 +266,13 @@ const DragDropComp = (props: any) => {
             ? props.editorData
               ? props.puzzles[levelCount].PromptText
               : props.puzzles[levelCount].prompt.PromptText
+            : ""
+        }
+        audioUrl={
+          props.puzzles[levelCount]
+            ? props.editorData
+              ? props.puzzles[levelCount].PromptAudio
+              : props.puzzles[levelCount].prompt.PromptAudio
             : ""
         }
         isAudioPlaying={props.playing}
@@ -462,6 +471,7 @@ const SlideComponent = (props: any) => {
   const [levData, setlevData] = useState(null);
   console.log(props);
   const lengthOfCurrentLevel = props.data.Puzzles.length;
+  console.log('^^^^^^')
   const { playing, setPlaying, playAudio } = AudioComponent(props);
   const [start, setStart] = useState(false);
   let promptTextVisibilty = true;
@@ -502,22 +512,22 @@ const SlideComponent = (props: any) => {
     };
   }, [props.started]);
 
-  const onStartClick = () => {
+  const onStartClick = (url:any) => {
     setTimeout(() => {
       setStart(true);
     }, 0);
-    playAudio();
+     playAudio(url);
   };
 
   const nextLevel = () => {
     if (levData.LevelMeta.LevelNumber == level.length) {
       let temp = level[0];
       setlevData(temp);
-      onStartClick();
+      onStartClick(temp[0].Puzzles[0].prompt.PromptAudio);
     } else {
       let temp = level[levData.LevelMeta.LevelNumber + 1];
-      setlevData(temp);
-      onStartClick();
+      setlevData(temp)
+      onStartClick(temp.Puzzles[0].prompt.PromptAudio);
     }
   }
 
@@ -606,7 +616,7 @@ const SlideComponent = (props: any) => {
                                     ? () => {
                                         buttonCLick().play();
                                         setlevData(data1);
-                                        onStartClick();
+                                        onStartClick(data1.Puzzles[0].prompt.PromptAudio);
                                       }
                                     : () => {
                                         console.log("Nothing");
@@ -722,7 +732,7 @@ const SlideComponent = (props: any) => {
                                     ? () => {
                                         buttonCLick().play();
                                         setlevData(data1);
-                                        onStartClick();
+                                        onStartClick(data1.Puzzles[0].prompt.PromptAudio);
                                       }
                                     : () => {
                                         console.log("Nothing");
@@ -777,7 +787,7 @@ const SlideComponent = (props: any) => {
                         onClick={() => {
                           buttonCLick().play();
                           setlevData(data1);
-                          onStartClick();
+                          onStartClick(data1.Puzzles[0].prompt.PromptAudio);
                         }}
                       >
                         <h3>{data1.LevelMeta.LevelNumber + 1}</h3>
@@ -810,7 +820,7 @@ const SlideComponent = (props: any) => {
                             ? () => {
                                 buttonCLick().play();
                                 setlevData(data1);
-                                onStartClick();
+                                onStartClick(data1.Puzzles[0].prompt.PromptAudio);
                               }
                             : () => {
                                 console.log("Nothing");
