@@ -70,7 +70,7 @@ const PopupMenu = (props: any) => {
           title={getImagePath() + "close_btn.png"}
           onClick={(e) => {
             buttonCLick().play();
-            props.props.allLevelScreen();
+            props.onClickPauseMenu();
             setScaleCloseBtn(0.9);
             setTimeout(() => {
               setScaleCloseBtn(1);
