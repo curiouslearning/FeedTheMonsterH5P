@@ -114,6 +114,7 @@ const DragDropComp = (props: any) => {
   const levelUp = () => {
     // TODo here
     if (props.lengthOfCurrentLevel - 1 == levelCount) {
+      setActiveIndicator(props.lengthOfCurrentLevel);
       setTimeout(() => {
         setIsLevelEnded(true);
         score > 100 ? levelWin.play() : levelLost.play();
