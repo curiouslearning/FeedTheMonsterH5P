@@ -47,7 +47,7 @@ const DragDrop = ({
 }) => {
   console.log(props.targetstones);
   console.log(props.foilstones)
-  let options = [...props.targetstones, ...props.foilstones];
+  let options = [...props.foilstones];
   
   const [dataList, setDataList] = useState(options);
   const [dragging, setDragging] = useState(false);
