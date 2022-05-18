@@ -11,6 +11,7 @@ import { buttonCLick, getImagePath } from "../../app";
 const EndLevelComponent = (props: any) => {
   const { score, lengthOfCurrentLevel } = props;
   console.log(score);
+
   console.log(Math.ceil(lengthOfCurrentLevel / 2) * 100);
   return (
     <div
@@ -22,81 +23,40 @@ const EndLevelComponent = (props: any) => {
         position: "absolute",
       }}
     >
-      {score === lengthOfCurrentLevel * 100 ? (
-        <div
-          className="end-level-container"
-          style={{
-            backgroundImage: `url(${getImagePath() + "WIN_screen_bg.png"})`,
-            backgroundSize: "contains",
-            backgroundRepeat: "no-repeat",
-          }}
-        >
-          <div className="rating">
+      <div
+        className="end-level-container"
+        style={{
+          backgroundImage: `url(${getImagePath() + "WIN_screen_bg.png"})`,
+          backgroundSize: "contains",
+          width: "24em",
+          height: "100%",
+          margin: "auto",
+          display: "flex",
+          flexDirection: "column",
+        }}
+      >
+        <div className="rating">
+          {score > 100 ? (
             <div className="star">
               <img src={getImagePath() + "star.png"} alt="star" />
             </div>
+          ) : null}
+          {score > 200 ? (
             <div className="star">
               <img src={getImagePath() + "star.png"} alt="star" />
             </div>
+          ) : null}
+          {score > 300 ? (
             <div className="star">
               <img src={getImagePath() + "star.png"} alt="star" />
             </div>
-          </div>
-          <SpriteAnimationContainer type="happy" top={27} left={2} />
-          <HomeAndRestartComponent props={props} />
+          ) : null}
         </div>
-      ) : score >= Math.ceil(lengthOfCurrentLevel / 2) * 100 ? (
-        /*2 start */
-
-        <div
-          className="end-level-container"
-          style={{
-            backgroundImage: `url(${getImagePath() + "WIN_screen_bg.png"})`,
-            backgroundSize: "contains",
-            backgroundRepeat: "no-repeat",
-          }}
-        >
-          <div className="rating">
-            <div className="star">
-              <img src={getImagePath() + "star.png"} alt="star" />
-            </div>
-            <div className="star">
-              <img src={getImagePath() + "star.png"} alt="star" />
-            </div>
-          </div>
-          <SpriteAnimationContainer type="happy" top={27} left={2} />
-          <HomeAndRestartComponent props={props} />
+        <div style={{ display: "flex", flex: 1 }}>
+          <SpriteAnimationContainer type={score > 100 ? "happy" : "happy"} />
         </div>
-      ) : score <= 100 ? (
-        <div
-          className="end-level-container"
-          style={{
-            backgroundImage: `url(${getImagePath() + "WIN_screen_bg.png"})`,
-            backgroundSize: "contains",
-            backgroundRepeat: "no-repeat",
-          }}
-        >
-          <SpriteAnimationContainer type="sad" top={2} left={2} />
-          <HomeAndRestartComponent props={props} />
-        </div>
-      ) : (
-        <div
-          className="end-level-container"
-          style={{
-            backgroundImage: `url(${getImagePath() + "WIN_screen_bg.png"})`,
-            backgroundSize: "contains",
-            backgroundRepeat: "no-repeat",
-          }}
-        >
-          <div className="rating">
-            <div className="star">
-              <img src={getImagePath() + "star.png"} alt="star" />
-            </div>
-          </div>
-          <SpriteAnimationContainer type="sad" top={2} left={2} />
-          <HomeAndRestartComponent props={props} />
-        </div>
-      )}
+        <HomeAndRestartComponent props={props} />
+      </div>
     </div>
   );
 };
@@ -118,7 +78,7 @@ export const HomeAndRestartComponent = (props: any) => {
         position: "relative",
         width: "100%",
         justifyContent: "space-around",
-        top: "20%",
+        flex: 1,
       }}
     >
       <div
@@ -139,24 +99,26 @@ export const HomeAndRestartComponent = (props: any) => {
           transform: `scale(${scaleNextBtn})`,
         }}
       ></div>
-      <div
-        onClick={(e) => {
-          buttonCLick().play();
-          props.props.nextLevel();
-          setScaleNextBtn(0.9);
-          setTimeout(() => {
-            setScaleNextBtn(1);
-          }, 200);
-        }}
-        style={{
-          backgroundImage: `url(${getImagePath() + "next_btn.png"})`,
-          backgroundSize: "contain",
-          backgroundRepeat: "no-repeat",
-          height: 90,
-          width: 80,
-          transform: `scale(${scaleNextBtn})`,
-        }}
-      ></div>
+      {props.props.score > 100 ? (
+        <div
+          onClick={(e) => {
+            buttonCLick().play();
+            props.props.nextLevel();
+            setScaleNextBtn(0.9);
+            setTimeout(() => {
+              setScaleNextBtn(1);
+            }, 200);
+          }}
+          style={{
+            backgroundImage: `url(${getImagePath() + "next_btn.png"})`,
+            backgroundSize: "contain",
+            backgroundRepeat: "no-repeat",
+            height: 90,
+            width: 80,
+            transform: `scale(${scaleNextBtn})`,
+          }}
+        ></div>
+      ) : null}
       <div
         onClick={(e) => {
           buttonCLick().play();

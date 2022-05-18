@@ -19,7 +19,6 @@ const PuzzelBar = (props: any) => {
         backgroundImage: `url(${getImagePath() + "puzzle_indicator.png"})`,
         backgroundRepeat: "no-repeat",
         backgroundSize: '100% 100%',
-        marginRight: '9rem',
       }}
     >
       {puzzels.map((element: any, index: any) => {

@@ -9,23 +9,22 @@
   width: 350px;
   margin: auto;
 }
-.rating { 
-  position: relative;
-  top: 25%;
+.rating {
+  align-items: center;
+  width: 100%;
   display: flex;
   justify-content: space-around;
-  width: 100%;
-  left:0;
+  flex: 1;
 }
 
 .row {
-  top:0%;
+  top: 0%;
   display: flex;
   margin-left: 1.1rem;
 }
 
 .topSpace {
-  top:0%;
+  top: 0%;
   display: flex;
   margin-left: 1rem;
   width: 13%;
@@ -38,14 +37,14 @@
   padding: 0.25rem;
   height: 7px;
   margin-top: -16%;
- }
+}
 
- .pin-star2 {
+.pin-star2 {
   width: 15%;
   padding: 0.25rem;
   height: 7px;
   margin-top: -21%;
- }
+}
 
 img {
   height: 1.5rem;
