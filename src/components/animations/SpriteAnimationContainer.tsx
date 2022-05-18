@@ -9,7 +9,7 @@ export const SpriteAnimationContainer = (props: any) => {
         alignItems:'center'
       }}
     >
-      <AnimationType type={props.type} />
+      <AnimationType type={props.type} getPhaseCharNo={props.getPhaseCharNo}/>
     </div>
   );
 };

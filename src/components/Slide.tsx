@@ -93,7 +93,6 @@ const DragDropComp = (props: any) => {
       setScore(0);
     }, 1000);
   };
-
   const onClickPauseMenu = () => {
     buttonCLick().play();
     if (!isMenuPopup) {
@@ -200,10 +199,21 @@ const DragDropComp = (props: any) => {
   console.log(levelCount)
   console.log((levelsCompleted!=undefined)?levelsCompleted[levelsCompleted.length-1].data._levelScore:'Sample  ')
   console.log(levelsCompleted)
+  const getPhaseCharacter=(levelsCompleted:number)=>{
+    let phaseCharacterNumber=Math.floor(levelsCompleted/4);
+    console.log(phaseCharacterNumber)
+    if(phaseCharacterNumber<=12){
+      return phaseCharacterNumber
+    }
+    else{
+      return 4;
+    }
+  }
   return isLevelEnded ? (
     <EndLevelComponent
       score={score}
       lengthOfCurrentLevel={props.lengthOfCurrentLevel}
+      levelsCompleted={getPhaseCharacter((levelsCompleted==null)?0:(levelsCompleted[levelsCompleted.length-1].data._levelScore==undefined||levelCount!=0)?levelsCompleted.length-1:levelsCompleted.length)}
       allLevelScreen={() =>{
 
         props.allLevelScreen()
@@ -304,7 +314,7 @@ const DragDropComp = (props: any) => {
               props={props.puzzles[levelCount]}
               changePuzzel={levelUp}
               levelCount={levelCount}
-              levelsCompleted={(levelsCompleted==null)?0:(levelsCompleted[levelsCompleted.length-1].data._levelScore==undefined||levelCount!=0)?levelsCompleted.length-1:levelsCompleted.length}
+              levelsCompleted={getPhaseCharacter((levelsCompleted==null)?0:(levelsCompleted[levelsCompleted.length-1].data._levelScore==undefined||levelCount!=0)?levelsCompleted.length-1:levelsCompleted.length)}
               isMenuOpen={isMenuPopup}
               levelType={props.levelType}
               setScore={(count: number) => {

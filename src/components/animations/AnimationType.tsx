@@ -13,6 +13,7 @@ var spritesheetobj: Spritesheet;
 const AnimationType = (props: any) => {
   const animationType = props.type;
   const internalPhaseNo=props.getPhaseCharNo+1;
+  console.log(props.getPhaseCharNo)
   console.log(internalPhaseNo)
   console.log(props.type);
   console.log(getImagePath()+'idle1'+internalPhaseNo+'.png')
@@ -29,12 +30,12 @@ const AnimationType = (props: any) => {
     }
     case "happy": {
       return (
-        <SpriteAnimationComponent spImage={getImagePath()+'happy1'+internalPhaseNo+'.png'} nFrames={11} height={662} width={540}/>
+        <SpriteAnimationComponent spImage={getImagePath()+'happy1'+internalPhaseNo+'.png'} nFrames={11} height={662}/>
       );
     }
     case "sad": {
       return (
-        <SpriteAnimationComponent spImage={getImagePath()+'sad1'+internalPhaseNo+'.png'} nFrames={11} height={1080} />
+        <SpriteAnimationComponent spImage={getImagePath()+'sad1'+internalPhaseNo+'.png'} nFrames={11} height={662} />
       );
     }
     case "profile": {

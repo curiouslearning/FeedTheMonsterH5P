@@ -9,7 +9,7 @@ import "./EndLevelComponent.css";
 import { buttonCLick, getImagePath } from "../../app";
 
 const EndLevelComponent = (props: any) => {
-  const { score, lengthOfCurrentLevel } = props;
+  const { score, lengthOfCurrentLevel,levelsCompleted } = props;
   console.log(score);
 
   console.log(Math.ceil(lengthOfCurrentLevel / 2) * 100);
@@ -53,7 +53,7 @@ const EndLevelComponent = (props: any) => {
           ) : null}
         </div>
         <div style={{ display: "flex", flex: 1 }}>
-          <SpriteAnimationContainer type={score > 200 ? "happy" : "sad"} />
+          <SpriteAnimationContainer type={score > 200 ? "happy" : "sad"} getPhaseCharNo={levelsCompleted} />
         </div>
         <HomeAndRestartComponent props={props} />
       </div>

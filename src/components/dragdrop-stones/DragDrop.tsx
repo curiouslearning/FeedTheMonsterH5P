@@ -135,17 +135,6 @@ const DragDrop = ({
     return str.concat(index.toString());
   };
   
-  const getPhaseCharacter=(levelsCompleted:number)=>{
-    let phaseCharacterNumber=Math.floor(levelsCompleted/4);
-    console.log(phaseCharacterNumber)
-    if(phaseCharacterNumber<=12){
-      return phaseCharacterNumber
-    }
-    else{
-      return 4;
-    }
-  }
-
   useEffect(() => {
     if(j==1){
       i=0;
@@ -294,7 +283,7 @@ const DragDrop = ({
         //   // console.log("::onDrop");
         // }}
       >
-        <AnimationType type={animationType} getPhaseCharNo={getPhaseCharacter(levelsCompleted)}/>
+        <AnimationType type={animationType} getPhaseCharNo={levelsCompleted}/>
       </div>
     </DropTarget>
       {/* </Draggable> */}
