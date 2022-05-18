@@ -19,6 +19,33 @@ const Progress = ({ done }: { done: string }) => {
           backgroundSize: "100% 100%",
         }}
       >
+        <div 
+          style={{
+            backgroundImage: `url(${getImagePath() + "timer.png"})`,
+            width:'2.5em',
+            height: '3.0em',
+            position: 'relative',
+            top: '-1em',
+            left: '1.2em',
+            padding: '10px',
+            backgroundRepeat: "no-repeat",
+            backgroundSize: "100% 100%",
+          }}>
+            {/* <div 
+              className="timer-watch"
+                style={{
+                  backgroundImage: `url(${getImagePath() + "hr.png"})`,
+                  width:'2.5em',
+                  height: '3.0em',
+                  position: 'relative',
+                  top: '-1em',
+                  left: '1.2em',
+                  padding: '10px',
+                  backgroundRepeat: "no-repeat",
+                  backgroundSize: "100% 100%",
+                }}>
+            </div> */}
+        </div>
         <div className="progress-done" style={style}></div>
       </div>
     </div>
