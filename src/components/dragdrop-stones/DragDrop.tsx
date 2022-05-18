@@ -186,7 +186,7 @@ const DragDrop = ({
       count = count +targetStone.length;
       
       if(levelType !="Word"){
-        disappearPromptText();
+        // disappearPromptText();
         setScore(100);
         changePuzzel();
         i=0;
@@ -199,7 +199,7 @@ const DragDrop = ({
           console.log(i);
         if(count === inputAlphabhet.length && count >= 3 &&i==0){
           
-          disappearPromptText()
+          // disappearPromptText();
           setScore(100); 
           count =0;
           inputAlphabhet="";

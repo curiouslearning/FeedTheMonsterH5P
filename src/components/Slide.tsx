@@ -9,6 +9,7 @@ import PuzzelBar, { PuzzelBarHook } from "./puzzel-bar/PuzzelBar";
 import ScoreBoard from "./score-board/ScoreBoard";
 import PauseMenu from "./pause-menu/PauseMenu";
 import PromptText from "./prompt-text/PromptText";
+import { PromptTextHook } from "../components/prompt-text/PromptText";
 import PopupMenu from "./popup-menu/PopupMenu";
 import bg from "../../assets/images/background.png";
 import { url } from "inspector";
@@ -110,7 +111,7 @@ const DragDropComp = (props: any) => {
   const answerDrop = () => {
     setCorrectDrop(true);
   };
-
+  const { disappearPromptText } = PromptTextHook(props);
   const levelUp = () => {
     // TODo here
     if (props.lengthOfCurrentLevel - 1 == levelCount) {
@@ -120,6 +121,7 @@ const DragDropComp = (props: any) => {
         score > 100 ? levelWin.play() : levelLost.play();
       }, 3000);
     } else {
+      disappearPromptText()
       setTimeout(() => {
         setLevelCount((preCount) => preCount + 1);
         setCorrectDrop(false);
