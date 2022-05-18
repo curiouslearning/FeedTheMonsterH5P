@@ -105,7 +105,7 @@ const SelectProfile = (props: any) => {
           display: "block",
         }}
       >
-        <AnimationType type="idle" />
+        <AnimationType type="profile" />
       </div>
 
       {popUpStatus ? (

@@ -65,6 +65,7 @@ const DragDropComp = (props: any) => {
   const audioFantastic = new Audio(getAudioPath() + "fantastic.WAV");
   const audioGreat = new Audio(getAudioPath() + "great.wav");
   const audiogoodJob = new Audio(getAudioPath() + "good job.WAV");
+ 
 
 
 
@@ -193,8 +194,12 @@ const DragDropComp = (props: any) => {
     isMenuPopup,
     isLevelEnded,
   ]);
+  
   console.log(props);
-
+  var levelsCompleted=JSON.parse(localStorage.getItem("LevelData"));
+  console.log(levelCount)
+  console.log((levelsCompleted!=undefined)?levelsCompleted[levelsCompleted.length-1].data._levelScore:'Sample  ')
+  console.log(levelsCompleted)
   return isLevelEnded ? (
     <EndLevelComponent
       score={score}
@@ -299,6 +304,7 @@ const DragDropComp = (props: any) => {
               props={props.puzzles[levelCount]}
               changePuzzel={levelUp}
               levelCount={levelCount}
+              levelsCompleted={(levelsCompleted==null)?0:(levelsCompleted[levelsCompleted.length-1].data._levelScore==undefined||levelCount!=0)?levelsCompleted.length-1:levelsCompleted.length}
               isMenuOpen={isMenuPopup}
               levelType={props.levelType}
               setScore={(count: number) => {

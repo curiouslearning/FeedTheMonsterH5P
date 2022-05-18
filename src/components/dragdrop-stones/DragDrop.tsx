@@ -28,6 +28,7 @@ const DragDrop = ({
   props,
   changePuzzel,
   levelCount,
+  levelsCompleted,
   isMenuOpen,
   levelType,
   setScore,
@@ -40,6 +41,7 @@ const DragDrop = ({
   props: any;
   changePuzzel: Function;
   levelCount: number;
+  levelsCompleted:number;
   isMenuOpen: boolean;
   levelType: string;
   setScore?: Function;
@@ -132,6 +134,18 @@ const DragDrop = ({
     let str = "ball";
     return str.concat(index.toString());
   };
+  
+  const getPhaseCharacter=(levelsCompleted:number)=>{
+    let phaseCharacterNumber=Math.floor(levelsCompleted/4);
+    console.log(phaseCharacterNumber)
+    if(phaseCharacterNumber<=12){
+      return phaseCharacterNumber
+    }
+    else{
+      return 4;
+    }
+  }
+
   useEffect(() => {
     if(j==1){
       i=0;
@@ -280,7 +294,7 @@ const DragDrop = ({
         //   // console.log("::onDrop");
         // }}
       >
-        <AnimationType type={animationType} />
+        <AnimationType type={animationType} getPhaseCharNo={getPhaseCharacter(levelsCompleted)}/>
       </div>
     </DropTarget>
       {/* </Draggable> */}

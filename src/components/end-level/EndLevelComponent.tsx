@@ -46,14 +46,14 @@ const EndLevelComponent = (props: any) => {
               <img src={getImagePath() + "star.png"} alt="star" />
             </div>
           ) : null}
-          {score > 300 ? (
+          {score > 400 ? (
             <div className="star">
               <img src={getImagePath() + "star.png"} alt="star" />
             </div>
           ) : null}
         </div>
         <div style={{ display: "flex", flex: 1 }}>
-          <SpriteAnimationContainer type={score > 100 ? "happy" : "sad"} />
+          <SpriteAnimationContainer type={score > 200 ? "happy" : "sad"} />
         </div>
         <HomeAndRestartComponent props={props} />
       </div>
