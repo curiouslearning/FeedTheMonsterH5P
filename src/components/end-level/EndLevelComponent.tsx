@@ -53,7 +53,7 @@ const EndLevelComponent = (props: any) => {
           ) : null}
         </div>
         <div style={{ display: "flex", flex: 1 }}>
-          <SpriteAnimationContainer type={score > 100 ? "happy" : "happy"} />
+          <SpriteAnimationContainer type={score > 100 ? "happy" : "sad"} />
         </div>
         <HomeAndRestartComponent props={props} />
       </div>
