@@ -75,7 +75,7 @@ export const PromptTextHook = (levelType: any) => {
       () => {
         opacity = 1;
       },
-      levelType == "Word" ? 7500 : 4000
+      levelType == "Word" ? 4000 : 4000
     );
   };
 
