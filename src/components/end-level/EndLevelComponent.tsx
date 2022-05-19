@@ -28,7 +28,7 @@ const EndLevelComponent = (props: any) => {
         style={{
           backgroundImage: `url(${getImagePath() + "WIN_screen_bg.png"})`,
           backgroundSize: "contains",
-          width: "24em",
+          width: "22.5em",
           height: "100%",
           margin: "auto",
           display: "flex",
@@ -99,7 +99,7 @@ export const HomeAndRestartComponent = (props: any) => {
           transform: `scale(${scaleNextBtn})`,
         }}
       ></div>
-      {props.props.score > 100 ? (
+      {props.props.score > 200 ? (
         <div
           onClick={(e) => {
             buttonCLick().play();
