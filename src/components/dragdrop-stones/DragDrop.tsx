@@ -105,7 +105,10 @@ const DragDrop = ({
   };
 
   useEffect(() => {
-    optionCollectData(options);
+    setTimeout(function () {
+      optionCollectData(options);
+    }, 100);
+    
     return () => {
       options = [];
       optionDataSet = [];

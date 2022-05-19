@@ -111,8 +111,10 @@ const DragDropComp = (props: any) => {
   const answerDrop = () => {
     setCorrectDrop(true);
   };
-  const { disappearPromptText } = PromptTextHook(props);
-  const levelUp = () => {
+
+  const { disappearPromptText } = PromptTextHook(props.levelType);
+
+  const levelUp = (noDrag: boolean) => {
     // TODo here
     if (props.lengthOfCurrentLevel - 1 == levelCount) {
       setActiveIndicator(props.lengthOfCurrentLevel);
@@ -121,7 +123,7 @@ const DragDropComp = (props: any) => {
         score > 100 ? levelWin.play() : levelLost.play();
       }, 3000);
     } else {
-      disappearPromptText()
+      //disappearPromptText()
       setTimeout(() => {
         setLevelCount((preCount) => preCount + 1);
         setCorrectDrop(false);
@@ -133,7 +135,7 @@ const DragDropComp = (props: any) => {
           props.stopPlaying();
         }
         props.playAudio(props.puzzles[activeIndicators+1].prompt.PromptAudio);
-      }, 4000);
+      }, noDrag?0:4000);
     }
   };
   if (!props.playing) {
@@ -171,7 +173,7 @@ const DragDropComp = (props: any) => {
       timeoutId = setTimeout(() => {
         // setProgressCount(10);
         // props.stopPlaying()
-        levelUp();
+        levelUp(true);
         return;
       }, 1000);
     }
