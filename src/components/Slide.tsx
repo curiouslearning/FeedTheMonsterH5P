@@ -90,9 +90,11 @@ const DragDropComp = (props: any) => {
       setLevelCount(0);
       setPauseMenu(false);
       setProgressCount(initialTime);
+      setPromted(props.promptVisibility);
       setActiveIndicator(0);
       setScore(0);
     }, 1000);
+    props.playAudio(props.puzzles[activeIndicators].prompt.PromptAudio);
   };
   const onClickPauseMenu = () => {
     buttonCLick().play();
