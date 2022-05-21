@@ -30,8 +30,9 @@ import map from "../../assets/images/map.jpg";
 import mapLock from "../../assets/images/mapLock.png";
 import { render } from "react-dom";
 import { buttonCLick, getAudioPath, getImagePath } from "../app";
+import {Howl} from "howler";
 
-let audio: HTMLAudioElement = null;
+// let audio: HTMLAudioElement = null;
 let initialTime = 10;
 let id: NodeJS.Timeout;
 let timeoutId: NodeJS.Timeout;
@@ -47,7 +48,7 @@ const Wrapper = styled.div`
 `;
 
 const DragDropComp = (props: any) => {
-  console.log(props);
+  console.log('DRAGDROPCOMP PROPS ==> ',props);
   const [timeOver, setTimeOver] = useState(false);
   const [correctDrop, setCorrectDrop] = useState(false);
   const [levelCount, setLevelCount] = useState(0);
@@ -59,17 +60,21 @@ const DragDropComp = (props: any) => {
   const [score, setScore] = useState(0);
   const [text, setText] = useState("");
   const feedbackArray: any[] = props.feedbackTexts;
-  const timeOut = new Audio(getAudioPath() + "timeout.mp3");
-  const levelLost = new Audio(getAudioPath() + "LevelLoseFanfare.mp3");
-  const levelWin = new Audio(getAudioPath() + "LevelWinFanfare.mp3");
-  const scoreCount = new Audio(getAudioPath() + "ScoreCountingDown.ogg");
-  const audioFantastic = new Audio(getAudioPath() + "fantastic.WAV");
-  const audioGreat = new Audio(getAudioPath() + "great.wav");
-  const audiogoodJob = new Audio(getAudioPath() + "good job.WAV");
- 
+  const feedbackAudiosArray: any[] = props.feedbackAudios;
+  
+  // const timeOut = new Audio(getAudioPath() + "timeout.mp3");
+  // const levelLost = new Audio(getAudioPath() + "LevelLoseFanfare.mp3");
+  // const levelWin = new Audio(getAudioPath() + "LevelWinFanfare.mp3");
+  // const scoreCount = new Audio(getAudioPath() + "ScoreCountingDown.ogg");
 
-
-
+  const playAUDIO = (src: any) => {
+    const sound = new Howl({
+      src,
+      html5: true,
+    })
+    sound.play();
+  }
+  
   const resetState = () => {
     buttonCLick().play();
     setTimeOver(false);
@@ -122,7 +127,7 @@ const DragDropComp = (props: any) => {
       setActiveIndicator(props.lengthOfCurrentLevel);
       setTimeout(() => {
         setIsLevelEnded(true);
-        score > 100 ? levelWin.play() : levelLost.play();
+        score > 100 ? playAUDIO(getAudioPath() + "LevelWinFanfare.mp3") : playAUDIO(getAudioPath() + "LevelLoseFanfare.mp3");
       }, 3000);
     } else {
       //disappearPromptText()
@@ -150,7 +155,7 @@ const DragDropComp = (props: any) => {
     if (props.playing && !isMenuPopup) {
       setProgressCount((preValue) => preValue - 0.5);
       {
-        currentProgressCount == 1.5 ? timeOut.play() : null;
+        currentProgressCount == 1.5 ? playAUDIO(getAudioPath() + "timeout.mp3") : null;
       }
     }
   };
@@ -200,6 +205,7 @@ const DragDropComp = (props: any) => {
     isLevelEnded,
   ]);
   
+
   console.log(props);
   var levelsCompleted=JSON.parse(localStorage.getItem("LevelData"));
   console.log(levelCount)
@@ -324,7 +330,8 @@ const DragDropComp = (props: any) => {
               isMenuOpen={isMenuPopup}
               levelType={props.levelType}
               setScore={(count: number) => {
-                scoreCount.play();
+                //scoreCount.play();
+                playAUDIO(getAudioPath() + "ScoreCountingDown.ogg");
                 setScore(score + count);
                 if (count == 100) {
                   const feedbackPhrase =
@@ -332,6 +339,8 @@ const DragDropComp = (props: any) => {
                       Math.floor(Math.random() * feedbackArray.length)
                     ];
                   setText(feedbackPhrase);
+                  const audioIndex = props.feedbackTexts.indexOf(feedbackPhrase);
+                  playAUDIO(feedbackAudiosArray[audioIndex]);
 
                   let playerProfile = [
                     {
@@ -462,14 +471,6 @@ const DragDropComp = (props: any) => {
                     "LevelData",
                     JSON.stringify(playerProfile)
                   );
-
-                  if (feedbackPhrase == "Fantastic!") {
-                    audioFantastic.play();
-                  } else if (feedbackPhrase == "Great!") {
-                    audioGreat.play();
-                  } else {
-                    audiogoodJob.play();
-                  }
                   setTimeout(function () {
                     setText("");
                   }, 3500);
@@ -523,12 +524,12 @@ const SlideComponent = (props: any) => {
   useEffect(() => {
     setStart(false);
     return () => {
-      if (playing) {
-        if (audio != null) {
-          audio.pause();
-        }
-      }
-      audio = null;
+      // if (playing) {
+      //   if (audio != null) {
+      //     audio.pause();
+      //   }
+      // }
+      // audio = null;
       initialTime = 10;
       clearInterval(id);
       setPlaying(false);
@@ -899,6 +900,7 @@ const SlideComponent = (props: any) => {
             lengthOfCurrentLevel={lengthOfCurrentLevel}
             editorData={props.editorData}
             feedbackTexts={props.feedbackTexts}
+            feedbackAudios={props.feedbackAudios}
             generalData={props.generalData}
             levelNumber={levData.LevelMeta.LevelNumber}
             allLevelScreen={allLevelScreen}

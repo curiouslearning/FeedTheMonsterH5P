@@ -13,7 +13,7 @@ const gameData = {
       FantasticImage: "http://server.com/images/english/feedback/fantastic.png",
     },
   },
-  FeedbackTexts: ["Fantastic!", "Great!", "Great Job!"],
+  FeedbackTexts: ["Fantastic!","Great!","Amazing!"],
   OtherAudios: {
     SelectYourPlayer:
       "https://curiousreader.org/wp-content/uploads/USENGLISH_sounds_other_Select-your-player.wav",

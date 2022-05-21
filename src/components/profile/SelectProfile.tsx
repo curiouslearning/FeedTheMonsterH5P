@@ -156,6 +156,7 @@ const SelectProfile = (props: any) => {
                     contentId={props.contentId}
                     editorData={props.editorData}
                     feedbackTexts={props.feedbackPhrases}
+                    feedbackAudios={props.feedbackAudios}
                     generalData={props.generalData}
                     devMode={true}
                   />,
@@ -190,6 +191,7 @@ const SelectProfile = (props: any) => {
                   contentId={props.contentId}
                   editorData={props.editorData}
                   feedbackTexts={props.feedbackPhrases}
+                  feedbackAudios={props.feedbackAudios}
                   generalData={props.generalData}
                   devMode={props.devMode}
                 />,

@@ -11,6 +11,7 @@ import { getAudioPath, getImagePath } from "../../app";
 // import Draggable from "react-draggable";
 import Draggable from "react-draggable";
 import { DragDropContainer,DropTarget} from "react-drag-drop-container";
+import {Howl} from "howler";
 
 let optionDataSet: { id: number; alphabet: string }[] = [];
 let i = 0;
@@ -47,6 +48,7 @@ const DragDrop = ({
   setScore?: Function;
   editorData: boolean;
 }) => {
+  console.log('DRAGDROP PROPS ==> ',props);
   console.log(props.targetstones);
   console.log(props.foilstones)
   let options = [...props.foilstones];
@@ -55,10 +57,18 @@ const DragDrop = ({
   const [dragging, setDragging] = useState(false);
   const [dropped, setDropped] = useState(false);
   const [animationType, setAnimationType] = useState("idle");
-  const onDrag = new Audio(getAudioPath()+'onDrag.mp3');
-  const monsterSplit = new Audio(getAudioPath()+'Monster Spits wrong stones-01.mp3');
-  const monsterHappy = new Audio(getAudioPath()+'Cheering-02.mp3');
-  const monsterDisapointment = new Audio(getAudioPath()+'Disapointed-05.mp3');
+  // const onDrag = new Audio(getAudioPath()+'onDrag.mp3');
+  // const monsterSplit = new Audio(getAudioPath()+'Monster Spits wrong stones-01.mp3');
+  // const monsterHappy = new Audio(getAudioPath()+'Cheering-02.mp3');
+  // const monsterDisapointment = new Audio(getAudioPath()+'Disapointed-05.mp3');
+
+  const playAUDIO = (src: any) => {
+    const sound = new Howl({
+      src,
+      html5: true,
+    })
+    sound.play();
+  }
 
   const checkOptions=(options: any[])=>{
       if(options.length>8){
@@ -183,7 +193,8 @@ const DragDrop = ({
     
     if (targetStone == dropData) {
      
-      monsterHappy.play()
+      //monsterHappy.play()
+      playAUDIO(getAudioPath()+'Cheering-02.mp3');
       setAnimationType("eat");
       inputAlphabhet =inputAlphabhet +dropData;
       count = count +targetStone.length;
@@ -219,9 +230,11 @@ const DragDrop = ({
       count =0;  
       inputAlphabhet=""
       setAnimationType("spit");
-      monsterDisapointment.play()
+      //monsterDisapointment.play()
+      playAUDIO(getAudioPath()+'Disapointed-05.mp3');
       setTimeout(() => {
-        monsterSplit.play()
+        //monsterSplit.play()
+        playAUDIO(getAudioPath()+'Monster Spits wrong stones-01.mp3');
       }, 1000);
   
       i = 0;
@@ -309,7 +322,7 @@ const DragDrop = ({
                 dragData={'ball'+index}
                 // customDragElement={customDragElement}
                 onDragStart={(e:any) => {
-                  onDrag.play()
+                 playAUDIO(getAudioPath()+'onDrag.mp3');
                 }}
                 onDrag={() => console.log("dragging")}
                 onDragEnd={() => console.log("end")}

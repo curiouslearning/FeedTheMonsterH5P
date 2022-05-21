@@ -13,7 +13,7 @@ declare var H5PIntegration: any;
 export default class ReactDemoApp extends (H5P.EventDispatcher as {
   new (): any;
 }) {
-  constructor(config: any,feedbackPhrases: any = [],generalData: any = {},devMode: boolean, contentId: string, contentData: any = {}) {
+  constructor(config: any,feedbackPhrases: any = [],feedbackAudios: any=[],generalData: any = {},devMode: boolean, contentId: string, contentData: any = {}) {
     super();
     // console.log(config)
     console.log(config);
@@ -23,6 +23,7 @@ export default class ReactDemoApp extends (H5P.EventDispatcher as {
     this.editorData = config.createContent;
     this.config = this.editorData == true ? config.levels : gameData.Levels;
     this.feedbackPhrases = gameData.FeedbackTexts;
+    this.feedbackAudios = gameData.FeedbackAudios;
     this.generalData = gameData.GeneralData;
     this.devMode = false;
     this.contentId = contentId;
@@ -41,6 +42,7 @@ export default class ReactDemoApp extends (H5P.EventDispatcher as {
         wrapper={$wrapper}
         element={this.$element}
         feedbackPhrases={this.feedbackPhrases}
+        feedbackAudios={this.feedbackAudios}
         generalData={this.generalData}
         devMode={this.devMode}
       />,
