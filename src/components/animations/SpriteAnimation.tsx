@@ -12,7 +12,7 @@ const SpriteAnimationComponent = (props: any) => {
       style={{ width: "100%", height: "100%", display: "inline-block" }}
       image={spImage}
       widthFrame={width?width:768}
-      heightFrame={height ? height : 632}
+      heightFrame={height ? height : 662}
       steps={7}
       loop={true}
       fps={5}

@@ -22,7 +22,7 @@ const AnimationType = (props: any) => {
       return <SpriteAnimationComponent spImage={getImagePath()+'eat1'+internalPhaseNo+'.png'} nFrames={18} />;
     }
     case "spit": {
-      return <SpriteAnimationComponent spImage={getImagePath()+'spit1'+internalPhaseNo+'.png'} nFrames={18} />;
+      return <SpriteAnimationComponent spImage={getImagePath()+'spit1'+internalPhaseNo+'.png'} width={759} nFrames={19} />;
     }
     
     case "idle": {
