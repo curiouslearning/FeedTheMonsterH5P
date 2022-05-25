@@ -30,7 +30,7 @@ import map from "../../assets/images/map.jpg";
 import mapLock from "../../assets/images/mapLock.png";
 import { render } from "react-dom";
 import { buttonCLick, getAudioPath, getImagePath } from "../app";
-import {Howl} from "howler";
+import { Howl } from "howler";
 
 // let audio: HTMLAudioElement = null;
 let initialTime = 10;
@@ -48,7 +48,7 @@ const Wrapper = styled.div`
 `;
 
 const DragDropComp = (props: any) => {
-  console.log('DRAGDROPCOMP PROPS ==> ',props);
+  console.log("DRAGDROPCOMP PROPS ==> ", props);
   const [timeOver, setTimeOver] = useState(false);
   const [correctDrop, setCorrectDrop] = useState(false);
   const [levelCount, setLevelCount] = useState(0);
@@ -61,20 +61,33 @@ const DragDropComp = (props: any) => {
   const [text, setText] = useState("");
   const feedbackArray: any[] = props.feedbackTexts;
   const feedbackAudiosArray: any[] = props.feedbackAudios;
-  
+
   // const timeOut = new Audio(getAudioPath() + "timeout.mp3");
   // const levelLost = new Audio(getAudioPath() + "LevelLoseFanfare.mp3");
   // const levelWin = new Audio(getAudioPath() + "LevelWinFanfare.mp3");
   // const scoreCount = new Audio(getAudioPath() + "ScoreCountingDown.ogg");
+  document.addEventListener(
+    "visibilitychange",
+    function () {
+      if (document.hidden) {
+        if (!isMenuPopup) {
+          onClickPauseMenu();
+        }
+      } else {
+        
+      }
+    },
+    false
+  );
 
   const playAUDIO = (src: any) => {
     const sound = new Howl({
       src,
       html5: true,
-    })
+    });
     sound.play();
-  }
-  
+  };
+
   const resetState = () => {
     buttonCLick().play();
     setTimeOver(false);
@@ -102,7 +115,6 @@ const DragDropComp = (props: any) => {
     props.playAudio(props.puzzles[activeIndicators].prompt.PromptAudio);
   };
   const onClickPauseMenu = () => {
-    buttonCLick().play();
     if (!isMenuPopup) {
       setPauseMenu(true);
       // if (props.playing) {
@@ -127,22 +139,29 @@ const DragDropComp = (props: any) => {
       setActiveIndicator(props.lengthOfCurrentLevel);
       setTimeout(() => {
         setIsLevelEnded(true);
-        score > 100 ? playAUDIO(getAudioPath() + "LevelWinFanfare.mp3") : playAUDIO(getAudioPath() + "LevelLoseFanfare.mp3");
+        score > 100
+          ? playAUDIO(getAudioPath() + "LevelWinFanfare.mp3")
+          : playAUDIO(getAudioPath() + "LevelLoseFanfare.mp3");
       }, 3000);
     } else {
       //disappearPromptText()
-      setTimeout(() => {
-        setLevelCount((preCount) => preCount + 1);
-        setCorrectDrop(false);
-        setProgressCount(initialTime);
-        setActiveIndicator((pre) => pre + 1);
-        setPromted(true);
-        setIsLevelEnded(false);
-        if (currentProgressCount != 0) {
-          props.stopPlaying();
-        }
-        props.playAudio(props.puzzles[activeIndicators+1].prompt.PromptAudio);
-      }, noDrag?0:4000);
+      setTimeout(
+        () => {
+          setLevelCount((preCount) => preCount + 1);
+          setCorrectDrop(false);
+          setProgressCount(initialTime);
+          setActiveIndicator((pre) => pre + 1);
+          setPromted(true);
+          setIsLevelEnded(false);
+          if (currentProgressCount != 0) {
+            props.stopPlaying();
+          }
+          props.playAudio(
+            props.puzzles[activeIndicators + 1].prompt.PromptAudio
+          );
+        },
+        noDrag ? 0 : 4000
+      );
     }
   };
   if (!props.playing) {
@@ -155,7 +174,9 @@ const DragDropComp = (props: any) => {
     if (props.playing && !isMenuPopup) {
       setProgressCount((preValue) => preValue - 0.5);
       {
-        currentProgressCount == 1.5 ? playAUDIO(getAudioPath() + "timeout.mp3") : null;
+        currentProgressCount == 1.5
+          ? playAUDIO(getAudioPath() + "timeout.mp3")
+          : null;
       }
     }
   };
@@ -204,31 +225,39 @@ const DragDropComp = (props: any) => {
     isMenuPopup,
     isLevelEnded,
   ]);
-  
 
   console.log(props);
-  var levelsCompleted=JSON.parse(localStorage.getItem("LevelData"));
-  console.log(levelCount)
-  console.log((levelsCompleted!=undefined)?levelsCompleted[levelsCompleted.length-1].data._levelScore:'Sample  ')
-  console.log(levelsCompleted)
-  const getPhaseCharacter=(levelsCompleted:number)=>{
-    let phaseCharacterNumber=Math.floor(levelsCompleted/4);
-    console.log(phaseCharacterNumber)
-    if(phaseCharacterNumber<=12){
-      return phaseCharacterNumber
-    }
-    else{
+  var levelsCompleted = JSON.parse(localStorage.getItem("LevelData"));
+  console.log(levelCount);
+  console.log(
+    levelsCompleted != undefined
+      ? levelsCompleted[levelsCompleted.length - 1].data._levelScore
+      : "Sample  "
+  );
+  console.log(levelsCompleted);
+  const getPhaseCharacter = (levelsCompleted: number) => {
+    let phaseCharacterNumber = Math.floor(levelsCompleted / 4);
+    console.log(phaseCharacterNumber);
+    if (phaseCharacterNumber <= 12) {
+      return phaseCharacterNumber;
+    } else {
       return 4;
     }
-  }
+  };
   return isLevelEnded ? (
     <EndLevelComponent
       score={score}
       lengthOfCurrentLevel={props.lengthOfCurrentLevel}
-      levelsCompleted={getPhaseCharacter((levelsCompleted==null)?0:(levelsCompleted[levelsCompleted.length-1].data._levelScore==undefined||levelCount!=0)?levelsCompleted.length-1:levelsCompleted.length)}
-      allLevelScreen={() =>{
-
-        props.allLevelScreen()
+      levelsCompleted={getPhaseCharacter(
+        levelsCompleted == null
+          ? 0
+          : levelsCompleted[levelsCompleted.length - 1].data._levelScore ==
+              undefined || levelCount != 0
+          ? levelsCompleted.length - 1
+          : levelsCompleted.length
+      )}
+      allLevelScreen={() => {
+        props.allLevelScreen();
         setPauseMenu(false);
         setTimeout(() => {
           setLevelCount(0);
@@ -265,15 +294,22 @@ const DragDropComp = (props: any) => {
       >
         <PuzzelBar puzzelCount={4} activeIndicators={activeIndicators} />
         <ScoreBoard score={score} />
-        <PauseMenu onClickPauseMenu={onClickPauseMenu} />
+        <PauseMenu
+          onClickPauseMenu={() => {
+            buttonCLick().play();
+            onClickPauseMenu();
+          }}
+        />
       </div>
       {isMenuPopup ? (
         <PopupMenu
-          onClickPauseMenu={onClickPauseMenu}
+          onClickPauseMenu={() => {
+            buttonCLick().play();
+            onClickPauseMenu();
+          }}
           onClickRestart={onClickRestart}
-          allLevelScreen={() =>{
-
-            props.allLevelScreen()
+          allLevelScreen={() => {
+            props.allLevelScreen();
             setPauseMenu(false);
             setTimeout(() => {
               setLevelCount(0);
@@ -326,7 +362,14 @@ const DragDropComp = (props: any) => {
               props={props.puzzles[levelCount]}
               changePuzzel={levelUp}
               levelCount={levelCount}
-              levelsCompleted={getPhaseCharacter((levelsCompleted==null)?0:(levelsCompleted[levelsCompleted.length-1].data._levelScore==undefined||levelCount!=0)?levelsCompleted.length-1:levelsCompleted.length)}
+              levelsCompleted={getPhaseCharacter(
+                levelsCompleted == null
+                  ? 0
+                  : levelsCompleted[levelsCompleted.length - 1].data
+                      ._levelScore == undefined || levelCount != 0
+                  ? levelsCompleted.length - 1
+                  : levelsCompleted.length
+              )}
               isMenuOpen={isMenuPopup}
               levelType={props.levelType}
               setScore={(count: number) => {
@@ -339,7 +382,8 @@ const DragDropComp = (props: any) => {
                       Math.floor(Math.random() * feedbackArray.length)
                     ];
                   setText(feedbackPhrase);
-                  const audioIndex = props.feedbackTexts.indexOf(feedbackPhrase);
+                  const audioIndex =
+                    props.feedbackTexts.indexOf(feedbackPhrase);
                   playAUDIO(feedbackAudiosArray[audioIndex]);
 
                   let playerProfile = [
@@ -495,12 +539,13 @@ const SlideComponent = (props: any) => {
   const [levData, setlevData] = useState(null);
   console.log(props);
   const lengthOfCurrentLevel = props.data.Puzzles.length;
-  console.log('^^^^^^')
+  console.log("^^^^^^");
   const { playing, setPlaying, playAudio } = AudioComponent(props);
   const [start, setStart] = useState(false);
   let promptTextVisibilty = true;
   let stopPlaying;
   let startPlaying;
+
   if (levData != null) {
     promptTextVisibilty = props.editorData
       ? levData.PromptType == "Visible"
@@ -536,11 +581,11 @@ const SlideComponent = (props: any) => {
     };
   }, [props.started]);
 
-  const onStartClick = (url:any) => {
+  const onStartClick = (url: any) => {
     setTimeout(() => {
       setStart(true);
     }, 0);
-     playAudio(url);
+    playAudio(url);
   };
 
   const nextLevel = () => {
@@ -550,14 +595,14 @@ const SlideComponent = (props: any) => {
       onStartClick(temp[0].Puzzles[0].prompt.PromptAudio);
     } else {
       let temp = level[levData.LevelMeta.LevelNumber + 1];
-      setlevData(temp)
+      setlevData(temp);
       onStartClick(temp.Puzzles[0].prompt.PromptAudio);
     }
-  }
+  };
 
   const allLevelScreen = () => {
     setStart(false);
-  }
+  };
 
   const monsterRef = useRef();
   compared = [];
@@ -583,7 +628,7 @@ const SlideComponent = (props: any) => {
         <div
           style={{
             height: "100%",
-            backgroundImage: `url(${map})`,
+            backgroundImage: `url(${getImagePath() + "map.jpg"})`,
             backgroundPosition: "center",
             backgroundRepeat: "no-repeat",
             backgroundSize: "cover",
@@ -640,7 +685,9 @@ const SlideComponent = (props: any) => {
                                     ? () => {
                                         buttonCLick().play();
                                         setlevData(data1);
-                                        onStartClick(data1.Puzzles[0].prompt.PromptAudio);
+                                        onStartClick(
+                                          data1.Puzzles[0].prompt.PromptAudio
+                                        );
                                       }
                                     : () => {
                                         console.log("Nothing");
@@ -756,7 +803,9 @@ const SlideComponent = (props: any) => {
                                     ? () => {
                                         buttonCLick().play();
                                         setlevData(data1);
-                                        onStartClick(data1.Puzzles[0].prompt.PromptAudio);
+                                        onStartClick(
+                                          data1.Puzzles[0].prompt.PromptAudio
+                                        );
                                       }
                                     : () => {
                                         console.log("Nothing");
@@ -830,7 +879,7 @@ const SlideComponent = (props: any) => {
                           border: "none",
                           borderRadius: 70,
                           outlineStyle: "none",
-                          background: `url(${mapIcon})`,
+                          background: `url(${getImagePath() + "mapIcon.png"})`,
                           backgroundPosition: 25,
                           backgroundSize: "contain",
                           backgroundRepeat: "no-repeat",
@@ -844,7 +893,9 @@ const SlideComponent = (props: any) => {
                             ? () => {
                                 buttonCLick().play();
                                 setlevData(data1);
-                                onStartClick(data1.Puzzles[0].prompt.PromptAudio);
+                                onStartClick(
+                                  data1.Puzzles[0].prompt.PromptAudio
+                                );
                               }
                             : () => {
                                 console.log("Nothing");
