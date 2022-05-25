@@ -5,6 +5,7 @@ import SelectProfile from "./components/profile/SelectProfile";
 
 import Slideshow from "./components/Slideshow";
 import gameData from "./data/example-return";
+import {Howl} from "howler";
 
 declare var H5P: any;
 declare var H5PIntegration: any;
@@ -51,12 +52,21 @@ export default class ReactDemoApp extends (H5P.EventDispatcher as {
     //render(<Slideshow data={this.config} contentId={this.contentId} editorData={this.editorData}/>, this.$element);
   };
 }
+
+const playAUDIO = (src: any) => {
+  const sound = new Howl({
+    src,
+    html5: true,
+  })
+  sound.play();
+}
+
 const getImagePath=function()
 {
   return H5P.getLibraryPath("H5P.ReactSlideshowDemo-0.1")+"/assets/images/"
 }
 const buttonCLick=function(){
- return new Audio(getAudioPath()+'ButtonClick.wav');
+ return playAUDIO(getAudioPath()+'ButtonClick.wav');
 
 }
 

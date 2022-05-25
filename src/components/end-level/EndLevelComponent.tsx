@@ -83,7 +83,7 @@ export const HomeAndRestartComponent = (props: any) => {
     >
       <div
         onClick={(e) => {
-          buttonCLick().play();
+          buttonCLick();
           props.props.allLevelScreen();
           setScaleNextBtn(0.9);
           setTimeout(() => {
@@ -102,7 +102,7 @@ export const HomeAndRestartComponent = (props: any) => {
       {props.props.score > 200 ? (
         <div
           onClick={(e) => {
-            buttonCLick().play();
+            buttonCLick();
             props.props.nextLevel();
             setScaleNextBtn(0.9);
             setTimeout(() => {
@@ -121,7 +121,7 @@ export const HomeAndRestartComponent = (props: any) => {
       ) : null}
       <div
         onClick={(e) => {
-          buttonCLick().play();
+          buttonCLick();
           props.props.onClickRestart();
           setScaleRestartBtn(0.9);
           setTimeout(() => {

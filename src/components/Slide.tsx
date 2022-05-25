@@ -89,30 +89,33 @@ const DragDropComp = (props: any) => {
   };
 
   const resetState = () => {
-    buttonCLick().play();
+    buttonCLick();
     setTimeOver(false);
     setCorrectDrop(false);
+    setIsLevelEnded(false);
+    setText("");
     setLevelCount(0);
+    setPauseMenu(false);
     setProgressCount(initialTime);
     setPromted(props.promptVisibility);
     setActiveIndicator(0);
-    setPauseMenu(false);
-    setIsLevelEnded(false);
     setScore(0);
-    setText("");
+    props.playAudio(props.puzzles[0].prompt.PromptAudio);
   };
 
   const onClickRestart = () => {
-    buttonCLick().play();
-    setTimeout(() => {
-      setLevelCount(0);
-      setPauseMenu(false);
-      setProgressCount(initialTime);
-      setPromted(props.promptVisibility);
-      setActiveIndicator(0);
-      setScore(0);
-    }, 1000);
-    props.playAudio(props.puzzles[activeIndicators].prompt.PromptAudio);
+    buttonCLick();
+    setTimeOver(false);
+    setCorrectDrop(false);
+    setIsLevelEnded(false);
+    setText("");
+    setLevelCount(0);
+    setPauseMenu(false);
+    setProgressCount(initialTime);
+    setPromted(props.promptVisibility);
+    setActiveIndicator(0);
+    setScore(0);
+    props.playAudio(props.puzzles[0].prompt.PromptAudio);
   };
   const onClickPauseMenu = () => {
     if (!isMenuPopup) {
@@ -683,7 +686,7 @@ const SlideComponent = (props: any) => {
                                   data1.LevelMeta.LevelNumber + 1 == 1 ||
                                   props.devMode
                                     ? () => {
-                                        buttonCLick().play();
+                                        buttonCLick();
                                         setlevData(data1);
                                         onStartClick(
                                           data1.Puzzles[0].prompt.PromptAudio
@@ -801,7 +804,7 @@ const SlideComponent = (props: any) => {
                                 onClick={
                                   props.devMode
                                     ? () => {
-                                        buttonCLick().play();
+                                        buttonCLick();
                                         setlevData(data1);
                                         onStartClick(
                                           data1.Puzzles[0].prompt.PromptAudio
@@ -858,7 +861,7 @@ const SlideComponent = (props: any) => {
                           // objectFit: "contain",
                         }}
                         onClick={() => {
-                          buttonCLick().play();
+                          buttonCLick();
                           setlevData(data1);
                           onStartClick(data1.Puzzles[0].prompt.PromptAudio);
                         }}
@@ -891,7 +894,7 @@ const SlideComponent = (props: any) => {
                         onClick={
                           props.devMode
                             ? () => {
-                                buttonCLick().play();
+                                buttonCLick();
                                 setlevData(data1);
                                 onStartClick(
                                   data1.Puzzles[0].prompt.PromptAudio

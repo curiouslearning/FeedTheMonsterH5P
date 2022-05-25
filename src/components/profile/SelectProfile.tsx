@@ -113,7 +113,7 @@ const SelectProfile = (props: any) => {
           <ClosePopup
             title={getImagePath() + "close_btn.png"}
             onClick={(e) => {
-              buttonCLick().play();
+              buttonCLick();
               setPopUpStatus(false);
             }}
           ></ClosePopup>
@@ -182,7 +182,7 @@ const SelectProfile = (props: any) => {
               display: "block",
             }}
             onClick={() => {
-              buttonCLick().play();
+              buttonCLick();
               selectPLayer.pause();
               props.wrapper.get(0).appendChild(props.element);
               render(
@@ -204,7 +204,7 @@ const SelectProfile = (props: any) => {
         <img
           src={getImagePath() + "Play_button.png"}
           onClick={() => {
-            buttonCLick().play();
+            buttonCLick();
             selectPLayer.play();
             setPopUpStatus(true);
           }}

@@ -10,7 +10,7 @@ const PauseMenu = (props: any) => {
     <div
       className="menu"
       onClick={() => {
-        buttonCLick().play()
+        buttonCLick()
         props.onClickPauseMenu();
         setScale(0.9);
         setTimeout(() => {
