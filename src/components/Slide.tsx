@@ -299,7 +299,7 @@ const DragDropComp = (props: any) => {
         <ScoreBoard score={score} />
         <PauseMenu
           onClickPauseMenu={() => {
-            buttonCLick().play();
+            buttonCLick();
             onClickPauseMenu();
           }}
         />
@@ -307,7 +307,7 @@ const DragDropComp = (props: any) => {
       {isMenuPopup ? (
         <PopupMenu
           onClickPauseMenu={() => {
-            buttonCLick().play();
+            buttonCLick();
             onClickPauseMenu();
           }}
           onClickRestart={onClickRestart}
