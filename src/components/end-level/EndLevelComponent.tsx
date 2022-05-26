@@ -9,7 +9,7 @@ import "./EndLevelComponent.css";
 import { buttonCLick, getImagePath } from "../../app";
 
 const EndLevelComponent = (props: any) => {
-  const { score, lengthOfCurrentLevel,levelsCompleted } = props;
+  const { score, lengthOfCurrentLevel, levelsCompleted } = props;
   console.log(score);
 
   console.log(Math.ceil(lengthOfCurrentLevel / 2) * 100);
@@ -51,7 +51,10 @@ const EndLevelComponent = (props: any) => {
           ) : null}
         </div>
         <div style={{ display: "flex", flex: 1 }}>
-          <SpriteAnimationContainer type={score > 200 ? "happy" : "sad"} getPhaseCharNo={levelsCompleted} />
+          <SpriteAnimationContainer
+            type={score > 200 ? "happy" : "sad"}
+            getPhaseCharNo={levelsCompleted}
+          />
         </div>
         <HomeAndRestartComponent props={props} />
       </div>
@@ -97,6 +100,25 @@ export const HomeAndRestartComponent = (props: any) => {
           transform: `scale(${scaleNextBtn})`,
         }}
       ></div>
+
+      <div
+        onClick={(e) => {
+          buttonCLick();
+          props.props.onClickRestart();
+          setScaleRestartBtn(0.9);
+          setTimeout(() => {
+            setScaleRestartBtn(1);
+          }, 200);
+        }}
+        style={{
+          backgroundImage: `url(${getImagePath() + "retry_btn.png"})`,
+          backgroundSize: "contain",
+          backgroundRepeat: "no-repeat",
+          height: 90,
+          width: 80,
+          transform: `scale(${scaleRestartBtn})`,
+        }}
+      ></div>
       {props.props.score > 200 ? (
         <div
           onClick={(e) => {
@@ -117,24 +139,6 @@ export const HomeAndRestartComponent = (props: any) => {
           }}
         ></div>
       ) : null}
-      <div
-        onClick={(e) => {
-          buttonCLick();
-          props.props.onClickRestart();
-          setScaleRestartBtn(0.9);
-          setTimeout(() => {
-            setScaleRestartBtn(1);
-          }, 200);
-        }}
-        style={{
-          backgroundImage: `url(${getImagePath() + "retry_btn.png"})`,
-          backgroundSize: "contain",
-          backgroundRepeat: "no-repeat",
-          height: 90,
-          width: 80,
-          transform: `scale(${scaleRestartBtn})`,
-        }}
-      ></div>
     </div>
   );
 };
