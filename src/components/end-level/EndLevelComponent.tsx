@@ -28,8 +28,6 @@ const EndLevelComponent = (props: any) => {
         style={{
           backgroundImage: `url(${getImagePath() + "WIN_screen_bg.png"})`,
           backgroundSize: "contains",
-          width: "22.5em",
-          height: "100%",
           margin: "auto",
           display: "flex",
           flexDirection: "column",
