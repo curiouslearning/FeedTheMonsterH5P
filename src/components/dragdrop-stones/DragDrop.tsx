@@ -292,7 +292,7 @@ const DragDrop = ({
             height: "0px",
             gridColumn: 1,
             gridRow: 1,
-            zIndex:1
+            zIndex:0
           }}
         >
           <AnimationType
