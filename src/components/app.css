@@ -102,6 +102,10 @@ p {
     margin: 24px auto;
 }
 
+.h5p-actions {
+    display: none;
+}
+
 /* .ball1{
     position: relative;
     width: 30px;
