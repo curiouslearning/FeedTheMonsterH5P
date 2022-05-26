@@ -36,9 +36,11 @@ import { Howl } from "howler";
 let initialTime = 10;
 let id: NodeJS.Timeout;
 let timeoutId: NodeJS.Timeout;
-
+let afterDropPause:boolean =false;
+let dropPause:boolean= false;
 // create HTMLAudioElement
-
+let j=0;
+let k=0;
 let _levelNumber: number;
 
 const Wrapper = styled.div`
@@ -48,7 +50,7 @@ const Wrapper = styled.div`
 `;
 
 const DragDropComp = (props: any) => {
-  console.log("DRAGDROPCOMP PROPS ==> ", props);
+  console.log('DRAGDROPCOMP PROPS ==> ',props);
   const [timeOver, setTimeOver] = useState(false);
   const [correctDrop, setCorrectDrop] = useState(false);
   const [levelCount, setLevelCount] = useState(0);
@@ -120,6 +122,7 @@ const DragDropComp = (props: any) => {
   const onClickPauseMenu = () => {
     if (!isMenuPopup) {
       setPauseMenu(true);
+      dropPause=true;
       // if (props.playing) {
       //   audio.pause();
       // }
@@ -127,13 +130,23 @@ const DragDropComp = (props: any) => {
 
     if (isMenuPopup) {
       setPauseMenu(false);
+      if(afterDropPause){
+        levelUp(true);
+        afterDropPause=false;
+      }
+      dropPause=false;
     }
   };
 
   const answerDrop = () => {
     setCorrectDrop(true);
   };
+  const afterDrop = (j:number,k:number) => { 
+   if(k==1){
+    afterDropPause=true;
+   }
 
+  };
   const { disappearPromptText } = PromptTextHook(props.levelType);
 
   const levelUp = (noDrag: boolean) => {
@@ -141,31 +154,35 @@ const DragDropComp = (props: any) => {
     if (props.lengthOfCurrentLevel - 1 == levelCount) {
       setActiveIndicator(props.lengthOfCurrentLevel);
       setTimeout(() => {
+        if(!dropPause ){
+          afterDropPause=false;
+        
         setIsLevelEnded(true);
         score > 100
           ? playAUDIO(getAudioPath() + "LevelWinFanfare.mp3")
           : playAUDIO(getAudioPath() + "LevelLoseFanfare.mp3");
-      }, 3000);
+        }
+        }, 3000);
     } else {
       //disappearPromptText()
-      setTimeout(
-        () => {
-          setLevelCount((preCount) => preCount + 1);
-          setCorrectDrop(false);
-          setProgressCount(initialTime);
-          setActiveIndicator((pre) => pre + 1);
-          setPromted(true);
-          setIsLevelEnded(false);
-          if (currentProgressCount != 0) {
-            props.stopPlaying();
-          }
-          props.playAudio(
-            props.puzzles[activeIndicators + 1].prompt.PromptAudio
-          );
-        },
-        noDrag ? 0 : 4000
-      );
-    }
+      setTimeout(() => {
+        if(!dropPause ){
+          afterDropPause=false;
+          // dropPause=false;
+        setLevelCount((preCount) => preCount + 1);
+        setCorrectDrop(false);
+        setProgressCount(initialTime);
+        setActiveIndicator((pre) => pre + 1);
+        setPromted(true);
+        setIsLevelEnded(false);
+        if (currentProgressCount != 0) {
+          props.stopPlaying();
+        }
+        props.playAudio(props.puzzles[activeIndicators+1].prompt.PromptAudio);
+      }
+      }, noDrag?0:4000);
+  
+}
   };
   if (!props.playing) {
     setTimeout(() => {
@@ -375,6 +392,7 @@ const DragDropComp = (props: any) => {
               )}
               isMenuOpen={isMenuPopup}
               levelType={props.levelType}
+              afterDropPause={afterDrop}
               setScore={(count: number) => {
                 //scoreCount.play();
                 playAUDIO(getAudioPath() + "ScoreCountingDown.ogg");

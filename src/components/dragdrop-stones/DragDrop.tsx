@@ -18,6 +18,7 @@ let i = 0;
 let inputAlphabhet="";
 let count=0;
 let j=0;
+let k=0;
 
 
 
@@ -34,6 +35,7 @@ const DragDrop = ({
   levelType,
   setScore,
   editorData,
+  afterDropPause,
 }: {
   currentProgressCount:number;
   timeOver: boolean;
@@ -47,6 +49,7 @@ const DragDrop = ({
   levelType: string;
   setScore?: Function;
   editorData: boolean;
+  afterDropPause:Function;
 }) => {
   console.log('DRAGDROP PROPS ==> ',props);
   console.log(props.targetstones);
@@ -152,6 +155,7 @@ const DragDrop = ({
     if(j==1){
       i=0;
       j=0;
+      k=0;
       count =0;
       inputAlphabhet="";
       // console.log("-------------->>>>>>>>>>>>");
@@ -176,6 +180,7 @@ const DragDrop = ({
       i++;
       if (i == props.targetstones.length) {      
         i = 0;
+        k=1;
         optionDataSet = [];
         answerDrop(); 
         // changePuzzel();      
@@ -183,6 +188,7 @@ const DragDrop = ({
     } else {
       optionDataSet = [];
       i = 0;
+      k=1;
       answerDrop();
       // changePuzzel();
     }
@@ -190,7 +196,7 @@ const DragDrop = ({
     setDropped(true);
     setDropped(false);
     setDragging(false);
-    
+    afterDropPause(j,k);
     if (targetStone == dropData) {
      
       //monsterHappy.play()
