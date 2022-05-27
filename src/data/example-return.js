@@ -3462,7 +3462,7 @@ const gameData = {
               StoneText: "ale",
             },
             {
-              StoneText: "f",
+              StoneText: "r",
             },
             {
               StoneText: "str",
