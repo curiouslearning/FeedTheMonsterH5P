@@ -39,8 +39,7 @@ let timeoutId: NodeJS.Timeout;
 let afterDropPause:boolean =false;
 let dropPause:boolean= false;
 // create HTMLAudioElement
-let j=0;
-let k=0;
+let isReplayed=false;
 let _levelNumber: number;
 
 const Wrapper = styled.div`
@@ -106,6 +105,7 @@ const DragDropComp = (props: any) => {
   };
 
   const onClickRestart = () => {
+    isReplayed=true;
     buttonCLick();
     setTimeOver(false);
     setCorrectDrop(false);
@@ -141,9 +141,14 @@ const DragDropComp = (props: any) => {
   const answerDrop = () => {
     setCorrectDrop(true);
   };
-  const afterDrop = (j:number,k:number) => { 
+  const afterDrop = (k:number) => { 
    if(k==1){
     afterDropPause=true;
+    if(isReplayed){
+      dropPause=false;
+      
+      isReplayed=false;
+    }
    }
 
   };
