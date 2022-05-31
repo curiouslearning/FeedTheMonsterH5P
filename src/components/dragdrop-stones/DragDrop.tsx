@@ -52,8 +52,8 @@ const DragDrop = ({
   console.log("DRAGDROP PROPS ==> ", props);
   console.log(props.targetstones);
   console.log(props.foilstones);
-  let options = [...props.foilstones];
-
+  let options = [...props.targetstones, ...props.foilstones];
+  
   const [dataList, setDataList] = useState(options);
   const [dragging, setDragging] = useState(false);
   const [dropped, setDropped] = useState(false);
@@ -91,6 +91,12 @@ const DragDrop = ({
     }
   };
   options = checkOptions(options);
+  options = options.filter(function(elem,index,self){
+    return (index === self.findIndex((t) => (
+      t.StoneText === elem.StoneText
+    )))
+  })
+  
   const { disappearPromptText } = PromptTextHook(levelType);
 
   const dragItem = useRef();
