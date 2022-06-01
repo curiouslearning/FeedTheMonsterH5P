@@ -5,12 +5,6 @@
     margin: auto;
     justify-content: space-around;
 }
-@media only screen and (orientation:Portrait) {
-    body {
-      height: 100vw;
-      transform: rotate(90deg);
-    } 
-  }
 
 .buttonStyle{
     width: 16em;

@@ -628,6 +628,7 @@ const SlideComponent = (props: any) => {
 
   const allLevelScreen = () => {
     setStart(false);
+    dropPause=false;
   };
 
   const monsterRef = useRef();
