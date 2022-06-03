@@ -211,7 +211,7 @@ const DragDrop = ({
     setDropped(true);
     setDropped(false);
     setDragging(false);
-    afterDropPause(k);
+    afterDropPause(k,i);
     if (targetStone == dropData) {
       //monsterHappy.play()
       playAUDIO(getAudioPath() + "Cheering-02.mp3");

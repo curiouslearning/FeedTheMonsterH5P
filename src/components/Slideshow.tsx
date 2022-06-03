@@ -6,6 +6,8 @@ import cloud from "../../assets/images/cloud_v01.png";
 
 import SlideComponent from './Slide';
 import { getImagePath } from '../app';
+import ScreenOrientation from './ScreenOrietation';
+let screenOrientation = window.screen.orientation.type;
 
 let img = [
     "https://i.pinimg.com/originals/02/f3/49/02f34932a4f0ea1e70ad703e769bf41e.jpg",
@@ -59,21 +61,38 @@ const Slideshow = (props: any) => {
     console.log(props)
     console.log(activeSlide)
     console.log(data[activeSlide])
+
+const [changeOrient, setChangeOrient] = useState(false);
+window.addEventListener('orientationchange', function(event) {
+    let id;
+    if(this.window.screen.orientation.type !== screenOrientation) {
+        id = document.getElementById("turn");
+        console.log("change1")
+        id.style.display="none";
+        // changeOrient = false;
+        setChangeOrient(true); 
+        } else {
+            id = document.getElementById("notTurn");
+            setChangeOrient(false);
+            console.log("change2")
+            id.style.display="block";
+            // changeOrient = true;
+        }
+    }
+);
     return (
         <div>
+        <div id = {!changeOrient ? "turn" : "notTurn"}>
             <MovingBackGroundComponent bgImage={getImagePath()+'cloud_v01.png'} />
             <SlideComponent data={data[activeSlide]} level= {data} images={img[activeSlide]} contentId={props.contentId} started={strt} time={initialTime} nextLevel={handleNav} editorData={props.editorData} feedbackTexts={props.feedbackTexts} feedbackAudios={props.feedbackAudios} generalData={props.generalData} 
             devMode= {props.devMode}/>
-            {/* <NavWrapper>
-                <NavButton onClick={() => handleNav(-1)} disabled={data.length < 2}>
-                    Back
-                </NavButton>
-                <NavButton onClick={() => handleNav(1)} disabled={data.length < 2}>
-                    Next
-                </NavButton>
-            </NavWrapper> */}
         </div>
-    );
+        { changeOrient ? <div>
+            
+            <ScreenOrientation/>
+            </div> : <></> }
+    </div>
+);
 }
 
 export default Slideshow;

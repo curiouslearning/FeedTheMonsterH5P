@@ -41,6 +41,7 @@ let dropPause:boolean= false;
 // create HTMLAudioElement
 let isReplayed=false;
 let _levelNumber: number;
+let screenRotation=window.screen.orientation.type;
 
 const Wrapper = styled.div`
   height: 600px;
@@ -80,7 +81,15 @@ const DragDropComp = (props: any) => {
     },
     false
   );
+ window.addEventListener('orientationchange',function(){
+   if(window.screen.orientation.type !==screenRotation){
+     if(!isMenuPopup){
+       onClickPauseMenu();
+     }else{
 
+     }
+   }
+ })
   const playAUDIO = (src: any) => {
     const sound = new Howl({
       src,
@@ -90,6 +99,7 @@ const DragDropComp = (props: any) => {
   };
 
   const resetState = () => {
+    dropPause=false;
     buttonCLick();
     setTimeOver(false);
     setCorrectDrop(false);
@@ -141,8 +151,8 @@ const DragDropComp = (props: any) => {
   const answerDrop = () => {
     setCorrectDrop(true);
   };
-  const afterDrop = (k:number) => { 
-   if(k==1){
+  const afterDrop = (k:number,i:number) => { 
+   if(k==1&&i==0){
     afterDropPause=true;
     if(isReplayed){
       dropPause=false;
@@ -615,6 +625,7 @@ const SlideComponent = (props: any) => {
   };
 
   const nextLevel = () => {
+      dropPause =false;
     if (levData.LevelMeta.LevelNumber == level.length) {
       let temp = level[0];
       setlevData(temp);

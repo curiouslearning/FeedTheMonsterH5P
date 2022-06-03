@@ -12,6 +12,9 @@ import title from "../../../assets/images/title.png";
 import playButton from "../../../assets/images/Play_button.png";
 import AnimationType from "../animations/AnimationType";
 import { getAudioPath, getImagePath, buttonCLick } from "../../app";
+import ScreenOrientation from '../../components/ScreenOrietation';
+let screenOrientation=window.screen.orientation.type;
+
 const Wrapper = styled.div`
   height: 600px;
   width: 100%;
@@ -59,12 +62,30 @@ const SelectProfile = (props: any) => {
   const introSound = new Audio(getAudioPath() + "intro.wav");
   const selectPLayer = new Audio(getAudioPath() + "select_player.WAV");
   const introMusic = getAudioPath() + "intro.wav";
-
   // document.body.addEventListener("mousemove", function () {
   //   introSound.play()
   // })
+  const [changeOrient, setChangeOrient] = useState(false);
+window.addEventListener('orientationchange', function(event) {
+    let id;
+    if(this.window.screen.orientation.type !== screenOrientation) {
+        id = document.getElementById("turn");
+        console.log("change1")
+        id.style.display="none";
+        // changeOrient = false;
+        setChangeOrient(true); 
+        } else {
+            id = document.getElementById("notTurn");
+            setChangeOrient(false);
+            console.log("change2")
+            id.style.display="block";
+            // changeOrient = true;
+        }
+    }
+);
   return (
     <Wrapper>
+    <div id = {!changeOrient ? "turn" : "notTurn"}>
       <audio id="soundtrack" src={introMusic}></audio>
       <img
         src={getImagePath() + "background.png"}
@@ -221,6 +242,10 @@ const SelectProfile = (props: any) => {
           }}
         ></img>
       )}
+       </div>
+       { changeOrient ? <div>
+            <ScreenOrientation/>
+            </div> : <></> }
     </Wrapper>
   );
 };
