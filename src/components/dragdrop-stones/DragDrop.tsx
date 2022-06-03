@@ -20,6 +20,18 @@ let count = 0;
 let j = 0;
 let k = 0;
 
+
+function shuffleArray(array: any[]) {
+  for (var i = array.length - 1; i > 0; i--) {
+      var j = Math.floor(Math.random() * (i + 1));
+      var temp = array[i];
+      array[i] = array[j];
+      array[j] = temp;
+  }
+
+  return array;
+}
+
 const DragDrop = ({
   currentProgressCount,
   timeOver,
@@ -96,6 +108,8 @@ const DragDrop = ({
       t.StoneText === elem.StoneText
     )))
   })
+
+  options = shuffleArray(options);
   
   const { disappearPromptText } = PromptTextHook(levelType);
 
