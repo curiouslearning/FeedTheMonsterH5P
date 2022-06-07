@@ -305,8 +305,12 @@ const DragDrop = ({
               zIndex:2,
             }}
           ></div>
+           <AnimationType
+            type={animationType}
+            getPhaseCharNo={levelsCompleted}
+          />
         </DropTarget>
-        <div
+        {/* <div
           style={{
             width: "300px",
             height: "0px",
@@ -314,12 +318,9 @@ const DragDrop = ({
             gridRow: 1,
             zIndex:0
           }}
-        >
-          <AnimationType
-            type={animationType}
-            getPhaseCharNo={levelsCompleted}
-          />
-        </div>
+        > */}
+         
+        {/* </div> */}
       </div>
 
       {/* </Draggable> */}

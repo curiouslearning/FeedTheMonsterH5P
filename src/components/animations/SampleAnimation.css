@@ -1,0 +1,10 @@
+.monster {
+    width: 800px;
+    height: 632px;
+    animation: run 1s steps(7) infinite;
+  }
+  /* @keyframes run {
+    100% {
+      background-position: -5375px, 0;
+    }
+} */

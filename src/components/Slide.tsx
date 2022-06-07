@@ -13,6 +13,7 @@ import { PromptTextHook } from "../components/prompt-text/PromptText";
 import PopupMenu from "./popup-menu/PopupMenu";
 import bg from "../../assets/images/background.png";
 import { url } from "inspector";
+import SampleAnimation from "./animations/SampleAnimation";
 import AnimationType from "./animations/AnimationType";
 import { Container, Grid } from "@material-ui/core";
 import AudioComponent from "./common/AudioComponent";
@@ -1005,7 +1006,8 @@ const SlideComponent = (props: any) => {
                 position: "absolute",
               }}
             >
-              <AnimationType type="idle" />
+              <SampleAnimation/>
+              {/* <AnimationType type="idle" /> */}
             </div>
           </div>
         </>

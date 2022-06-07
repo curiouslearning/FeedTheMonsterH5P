@@ -8,6 +8,7 @@ import sad from "../../../assets/images/sad.png";
 import idle from "../../../assets/images/idle.png";
 import { SpriteAnimationComponent } from "./SpriteAnimation";
 import { getImagePath } from "../../app";
+import SampleAnimation from "./SampleAnimation";
 
 var spritesheetobj: Spritesheet;
 const AnimationType = (props: any) => {
@@ -19,14 +20,19 @@ const AnimationType = (props: any) => {
   console.log(getImagePath()+'idle1'+internalPhaseNo+'.png')
   switch (props.type) {
     case "eat": {
-      return <SpriteAnimationComponent spImage={getImagePath()+'eat1'+internalPhaseNo+'.png'} nFrames={18} />;
+
+      return <SampleAnimation imgs={getImagePath()+'eat1'+internalPhaseNo+'.png'}/>
+      // return <SpriteAnimationComponent spImage={getImagePath()+'eat1'+internalPhaseNo+'.png'} nFrames={18} />;
     }
     case "spit": {
-      return <SpriteAnimationComponent spImage={getImagePath()+'spit1'+internalPhaseNo+'.png'}  nFrames={18} />;
+      return <SampleAnimation/>
+      // return <SpriteAnimationComponent spImage={getImagePath()+'spit1'+internalPhaseNo+'.png'}  nFrames={18} />;
     }
     
     case "idle": {
-      return <SpriteAnimationComponent spImage={getImagePath()+'idle1'+internalPhaseNo+'.png'} nFrames={18} />;
+      return <SampleAnimation imgs={getImagePath()+'eat1'+internalPhaseNo+'.png'}/>
+      // return <SampleAnimation/>
+      // return <SpriteAnimationComponent spImage={getImagePath()+'idle1'+internalPhaseNo+'.png'} nFrames={18} />;
     }
     case "happy": {
       return (
