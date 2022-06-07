@@ -7,10 +7,7 @@ import React from 'react';
 import { getImagePath } from "../../app";
 
 const SampleAnimation=(props:any) =>{
-  console.log(props.imgs)
-  console.log(props)
-  const [monster, setMonster] = useState(getImagePath()+'eat12'+'.png');
-  console.log(monster)
+  
   return (
     // <div style={{overflow:'auto',height:'200px',width:'200px'}}>
     <div>
@@ -20,7 +17,7 @@ const SampleAnimation=(props:any) =>{
           setMonster(img1);
         }, 2000)
       }}>change Img</button> */}
-      <div className='monster' style={{background: `transparent url(${monster}) 0 0 no-repeat`}}></div>
+      <div className='monster' style={{background: `transparent url(${props.imgs}) 0 0 no-repeat`}}></div>
     </div>
     // </div>
   );

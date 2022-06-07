@@ -388,7 +388,7 @@ const DragDropComp = (props: any) => {
         <DndProvider backend={HTML5Backend}>
           <div
             className="dragAndDrop"
-            style={{ height: "50%", display: "flex", margin: "auto" }}
+            style={{ height: "50%"}}
           >
             <DragDrop
               currentProgressCount={currentProgressCount}

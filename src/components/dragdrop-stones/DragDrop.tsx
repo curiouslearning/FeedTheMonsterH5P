@@ -12,6 +12,8 @@ import { getAudioPath, getImagePath } from "../../app";
 import Draggable from "react-draggable";
 import { DragDropContainer, DropTarget } from "react-drag-drop-container";
 import { Howl } from "howler";
+import eat from '../../../assets/images/eat11.png';
+import idle from '../../../assets/images/idle11.png';
 
 let optionDataSet: { id: number; alphabet: string }[] = [];
 let i = 0;
@@ -70,6 +72,8 @@ const DragDrop = ({
   const [dragging, setDragging] = useState(false);
   const [dropped, setDropped] = useState(false);
   const [animationType, setAnimationType] = useState("idle");
+  const [animation, setAnimation] = useState(idle);
+
   // const onDrag = new Audio(getAudioPath()+'onDrag.mp3');
   // const monsterSplit = new Audio(getAudioPath()+'Monster Spits wrong stones-01.mp3');
   // const monsterHappy = new Audio(getAudioPath()+'Cheering-02.mp3');
@@ -215,7 +219,8 @@ const DragDrop = ({
     if (targetStone == dropData) {
       //monsterHappy.play()
       playAUDIO(getAudioPath() + "Cheering-02.mp3");
-      setAnimationType("eat");
+      // setAnimationType("eat");
+      setAnimation(eat)
       inputAlphabhet = inputAlphabhet + dropData;
       count = count + targetStone.length;
 
@@ -239,7 +244,8 @@ const DragDrop = ({
         }
       }
       setTimeout(() => {
-        setAnimationType("idle");
+        // setAnimationType("idle");
+        setAnimation(eat)
       }, 2000);
     } else {
       count = 0;
@@ -260,7 +266,8 @@ const DragDrop = ({
       //   changePuzzel();
       // }
       setTimeout(() => {
-        setAnimationType("idle");
+        // setAnimationType("idle");
+        setAnimation(idle)
       }, 2000);
       setScore(0);
     }
@@ -268,73 +275,25 @@ const DragDrop = ({
   };
   return (
     <>
-      {/* <Draggable */}
-      {/* // disabled={true} */}
+      <DropTarget
+        onHit={(e: any) => {
+          console.log(e);
+          console.log("dropped");
+          console.log(e.containerElem.innerText);
+          if (currentProgressCount != 0) {
+            checkResult(e.containerElem.innerText);
+          }
 
-      {/* onStop={(e)=>{
-      console.log(e)
-      console.log("The element was dropped here")
-    }}
-    onMouseDown={(e)=>{
-      console.log(e)
-      console.log("The element was dropped here")
-    }}
-    
-    > */}
-      <div style={{ display: "grid" }}>
-        <DropTarget
-          onHit={(e: any) => {
-            console.log(e);
-            console.log("dropped");
-            console.log(e.containerElem.innerText);
-            if (currentProgressCount != 0) {
-              checkResult(e.containerElem.innerText);
-            }
-
-            e.containerElem.style.visibility = "hidden";
-          }}
-          targetKey="box"
-          dropData={{ name: props.name }}
-        >
-          <div
-            style={{
-              width: "100px",
-              height: "150px",
-              gridColumn: 1,
-              gridRow: 1,
-              zIndex:2,
-            }}
-          ></div>
-           <AnimationType
-            type={animationType}
-            getPhaseCharNo={levelsCompleted}
-          />
-        </DropTarget>
-        {/* <div
-          style={{
-            width: "300px",
-            height: "0px",
-            gridColumn: 1,
-            gridRow: 1,
-            zIndex:0
-          }}
-        > */}
-         
-        {/* </div> */}
-      </div>
-
-      {/* </Draggable> */}
+          e.containerElem.style.visibility = "hidden";
+        }}
+        targetKey="box"
+        dropData={{ name: props.name }}
+      >
+        <div className='monster' style={{background: `transparent url(${animation}) 0 0 no-repeat`}}></div>
+      </DropTarget>
       {optionDataSet.map((item, index) => {
         if (item.alphabet != "") {
           return (
-            // <Draggable
-            //  disabled={true}
-            //  onStop={(e)=>{
-            //    console.log('Sample')
-            //    console.log(e)
-            //  }}
-            // >
-            // <Draggable>
             <div
               className={classNames(
                 dragging ? getStyles(item.alphabet, index) : "ball" + index
@@ -362,18 +321,7 @@ const DragDrop = ({
                     backgroundSize: "100% 100%",
                     backgroundRepeat: "no-repeat",
                   }}
-                  // draggable={!timeOver && !isMenuOpen}
                   key={item.id}
-                  // onDragEnd={(e) => {
-                  //   handleDragEnd();
-                  // }}
-                  // onTouchStart={(e=>{console.log(e+';;;;;;;;;;;')})}
-                  // onDragStart={(e) => {
-                  //   console.log('started dragging')
-                  //   onDrag.play()
-                  //   handleDragStart(item.alphabet, e, item.id);
-                  //   e.dataTransfer.setData("item.alphabet", item.alphabet);
-                  // }}
                 >
                   <p className="stones-letter">{item.alphabet}</p>
                 </div>
