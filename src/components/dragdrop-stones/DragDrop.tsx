@@ -20,13 +20,12 @@ let count = 0;
 let j = 0;
 let k = 0;
 
-
 function shuffleArray(array: any[]) {
   for (var i = array.length - 1; i > 0; i--) {
-      var j = Math.floor(Math.random() * (i + 1));
-      var temp = array[i];
-      array[i] = array[j];
-      array[j] = temp;
+    var j = Math.floor(Math.random() * (i + 1));
+    var temp = array[i];
+    array[i] = array[j];
+    array[j] = temp;
   }
 
   return array;
@@ -34,6 +33,8 @@ function shuffleArray(array: any[]) {
 
 const DragDrop = ({
   currentProgressCount,
+  IsGamePlay,
+  IsGamePlayStatus,
   timeOver,
   answerDrop,
   startDrag,
@@ -50,6 +51,8 @@ const DragDrop = ({
   currentProgressCount: number;
   timeOver: boolean;
   answerDrop: Function;
+  IsGamePlay: Function;
+  IsGamePlayStatus: boolean
   startDrag: boolean;
   props: any;
   changePuzzel: Function;
@@ -65,8 +68,9 @@ const DragDrop = ({
   console.log(props.targetstones);
   console.log(props.foilstones);
   let options = [...props.targetstones, ...props.foilstones];
-  
+
   const [dataList, setDataList] = useState(options);
+  const [gameStatus, setGameStatus] = useState(false);
   const [dragging, setDragging] = useState(false);
   const [dropped, setDropped] = useState(false);
   const [animationType, setAnimationType] = useState("idle");
@@ -103,14 +107,12 @@ const DragDrop = ({
     }
   };
   options = checkOptions(options);
-  options = options.filter(function(elem,index,self){
-    return (index === self.findIndex((t) => (
-      t.StoneText === elem.StoneText
-    )))
-  })
+  options = options.filter(function (elem, index, self) {
+    return index === self.findIndex((t) => t.StoneText === elem.StoneText);
+  });
 
   options = shuffleArray(options);
-  
+
   const { disappearPromptText } = PromptTextHook(levelType);
 
   const dragItem = useRef();
@@ -211,9 +213,10 @@ const DragDrop = ({
     setDropped(true);
     setDropped(false);
     setDragging(false);
-    afterDropPause(k,i);
+    afterDropPause(k, i);
     if (targetStone == dropData) {
       //monsterHappy.play()
+
       playAUDIO(getAudioPath() + "Cheering-02.mp3");
       setAnimationType("eat");
       inputAlphabhet = inputAlphabhet + dropData;
@@ -270,7 +273,6 @@ const DragDrop = ({
     <>
       {/* <Draggable */}
       {/* // disabled={true} */}
-
       {/* onStop={(e)=>{
       console.log(e)
       console.log("The element was dropped here")
@@ -297,12 +299,16 @@ const DragDrop = ({
           dropData={{ name: props.name }}
         >
           <div
+            onClick={() => {
+              IsGamePlay(true);
+              setGameStatus(true);
+            }}
             style={{
               width: "100px",
               height: "150px",
               gridColumn: 1,
               gridRow: 1,
-              zIndex:2,
+              zIndex: 2,
             }}
           ></div>
         </DropTarget>
@@ -312,7 +318,7 @@ const DragDrop = ({
             height: "0px",
             gridColumn: 1,
             gridRow: 1,
-            zIndex:0
+            zIndex: 0,
           }}
         >
           <AnimationType
@@ -321,9 +327,9 @@ const DragDrop = ({
           />
         </div>
       </div>
-
       {/* </Draggable> */}
-      {optionDataSet.map((item, index) => {
+     
+      { gameStatus ||IsGamePlayStatus ? optionDataSet.map((item, index) => {
         if (item.alphabet != "") {
           return (
             // <Draggable
@@ -380,9 +386,11 @@ const DragDrop = ({
             </div>
           );
         }
-      })}
+      }):null}
+      
     </>
   );
 };
 
 export default DragDrop;
+ 

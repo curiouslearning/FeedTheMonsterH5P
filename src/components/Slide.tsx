@@ -36,21 +36,21 @@ import { Howl } from "howler";
 let initialTime = 10;
 let id: NodeJS.Timeout;
 let timeoutId: NodeJS.Timeout;
-let afterDropPause:boolean =false;
-let dropPause:boolean= false;
+let afterDropPause: boolean = false;
+let dropPause: boolean = false;
 // create HTMLAudioElement
-let isReplayed=false;
+let isReplayed = false;
 let _levelNumber: number;
-let screenRotation=window.screen.orientation.type;
+let gameStatus: boolean = false;
+let screenRotation = window.screen.orientation.type;
 
 const Wrapper = styled.div`
   height: 600px;
   width: 100%;
   position: relative;
 `;
-
 const DragDropComp = (props: any) => {
-  console.log('DRAGDROPCOMP PROPS ==> ',props);
+  console.log("DRAGDROPCOMP PROPS ==> ", props);
   const [timeOver, setTimeOver] = useState(false);
   const [correctDrop, setCorrectDrop] = useState(false);
   const [levelCount, setLevelCount] = useState(0);
@@ -61,6 +61,7 @@ const DragDropComp = (props: any) => {
   const [isLevelEnded, setIsLevelEnded] = useState(false);
   const [score, setScore] = useState(0);
   const [text, setText] = useState("");
+  // const [gameStatus, setGameStatus] = useState(false);
   const feedbackArray: any[] = props.feedbackTexts;
   const feedbackAudiosArray: any[] = props.feedbackAudios;
 
@@ -76,20 +77,18 @@ const DragDropComp = (props: any) => {
           onClickPauseMenu();
         }
       } else {
-        
       }
     },
     false
   );
- window.addEventListener('orientationchange',function(){
-   if(window.screen.orientation.type !==screenRotation){
-     if(!isMenuPopup){
-       onClickPauseMenu();
-     }else{
-
-     }
-   }
- })
+  window.addEventListener("orientationchange", function () {
+    if (window.screen.orientation.type !== screenRotation) {
+      if (!isMenuPopup) {
+        onClickPauseMenu();
+      } else {
+      }
+    }
+  });
   const playAUDIO = (src: any) => {
     const sound = new Howl({
       src,
@@ -99,7 +98,7 @@ const DragDropComp = (props: any) => {
   };
 
   const resetState = () => {
-    dropPause=false;
+    dropPause = false;
     buttonCLick();
     setTimeOver(false);
     setCorrectDrop(false);
@@ -115,7 +114,8 @@ const DragDropComp = (props: any) => {
   };
 
   const onClickRestart = () => {
-    isReplayed=true;
+    gameStatus = false;
+    isReplayed = true;
     buttonCLick();
     setTimeOver(false);
     setCorrectDrop(false);
@@ -132,7 +132,7 @@ const DragDropComp = (props: any) => {
   const onClickPauseMenu = () => {
     if (!isMenuPopup) {
       setPauseMenu(true);
-      dropPause=true;
+      dropPause = true;
       // if (props.playing) {
       //   audio.pause();
       // }
@@ -140,64 +140,68 @@ const DragDropComp = (props: any) => {
 
     if (isMenuPopup) {
       setPauseMenu(false);
-      if(afterDropPause){
+      if (afterDropPause) {
         levelUp(true);
-        afterDropPause=false;
+        afterDropPause = false;
       }
-      dropPause=false;
+      dropPause = false;
     }
   };
 
   const answerDrop = () => {
     setCorrectDrop(true);
   };
-  const afterDrop = (k:number,i:number) => { 
-   if(k==1&&i==0){
-    afterDropPause=true;
-    if(isReplayed){
-      dropPause=false;
-      
-      isReplayed=false;
-    }
-   }
+  const afterDrop = (k: number, i: number) => {
+    if (k == 1 && i == 0) {
+      afterDropPause = true;
+      if (isReplayed) {
+        dropPause = false;
 
+        isReplayed = false;
+      }
+    }
   };
   const { disappearPromptText } = PromptTextHook(props.levelType);
 
   const levelUp = (noDrag: boolean) => {
     // TODo here
+    gameStatus = false;
     if (props.lengthOfCurrentLevel - 1 == levelCount) {
       setActiveIndicator(props.lengthOfCurrentLevel);
       setTimeout(() => {
-        if(!dropPause ){
-          afterDropPause=false;
-        
-        setIsLevelEnded(true);
-        score > 100
-          ? playAUDIO(getAudioPath() + "LevelWinFanfare.mp3")
-          : playAUDIO(getAudioPath() + "LevelLoseFanfare.mp3");
+        if (!dropPause) {
+          afterDropPause = false;
+
+          setIsLevelEnded(true);
+          score > 100
+            ? playAUDIO(getAudioPath() + "LevelWinFanfare.mp3")
+            : playAUDIO(getAudioPath() + "LevelLoseFanfare.mp3");
         }
-        }, 3000);
+      }, 3000);
     } else {
       //disappearPromptText()
-      setTimeout(() => {
-        if(!dropPause ){
-          afterDropPause=false;
-          // dropPause=false;
-        setLevelCount((preCount) => preCount + 1);
-        setCorrectDrop(false);
-        setProgressCount(initialTime);
-        setActiveIndicator((pre) => pre + 1);
-        setPromted(true);
-        setIsLevelEnded(false);
-        if (currentProgressCount != 0) {
-          props.stopPlaying();
-        }
-        props.playAudio(props.puzzles[activeIndicators+1].prompt.PromptAudio);
-      }
-      }, noDrag?0:4000);
-  
-}
+      setTimeout(
+        () => {
+          if (!dropPause) {
+            afterDropPause = false;
+            // dropPause=false;
+            setLevelCount((preCount) => preCount + 1);
+            setCorrectDrop(false);
+            setProgressCount(initialTime);
+            setActiveIndicator((pre) => pre + 1);
+            setPromted(true);
+            setIsLevelEnded(false);
+            if (currentProgressCount != 0) {
+              props.stopPlaying();
+            }
+            props.playAudio(
+              props.puzzles[activeIndicators + 1].prompt.PromptAudio
+            );
+          }
+        },
+        noDrag ? 0 : 4000
+      );
+    }
   };
   if (!props.playing) {
     setTimeout(() => {
@@ -206,7 +210,7 @@ const DragDropComp = (props: any) => {
   }
 
   const timer = () => {
-    if (props.playing && !isMenuPopup) {
+    if (props.playing && !isMenuPopup && gameStatus) {
       setProgressCount((preValue) => preValue - 0.5);
       {
         currentProgressCount == 1.5
@@ -360,6 +364,10 @@ const DragDropComp = (props: any) => {
 
       <Progress done={(currentProgressCount * 10).toString()} />
       <PromptText
+        IsGamePlay={(status: any) => {
+          !gameStatus ? playAUDIO(getAudioPath() + "StonesAppear.mp3") : null;
+          gameStatus = status;
+        }}
         letter={
           props.puzzles[levelCount]
             ? props.editorData
@@ -390,6 +398,13 @@ const DragDropComp = (props: any) => {
             style={{ height: "50%", display: "flex", margin: "auto" }}
           >
             <DragDrop
+              IsGamePlayStatus={gameStatus}
+              IsGamePlay={(status: any) => {
+                !gameStatus
+                  ? playAUDIO(getAudioPath() + "StonesAppear.mp3")
+                  : null;
+                gameStatus = status;
+              }}
               currentProgressCount={currentProgressCount}
               timeOver={timeOver}
               answerDrop={answerDrop}
@@ -575,7 +590,6 @@ const SlideComponent = (props: any) => {
   const [levData, setlevData] = useState(null);
   console.log(props);
   const lengthOfCurrentLevel = props.data.Puzzles.length;
-  console.log("^^^^^^");
   const { playing, setPlaying, playAudio } = AudioComponent(props);
   const [start, setStart] = useState(false);
   let promptTextVisibilty = true;
@@ -625,7 +639,7 @@ const SlideComponent = (props: any) => {
   };
 
   const nextLevel = () => {
-      dropPause =false;
+    dropPause = false;
     if (levData.LevelMeta.LevelNumber == level.length) {
       let temp = level[0];
       setlevData(temp);
@@ -639,7 +653,7 @@ const SlideComponent = (props: any) => {
 
   const allLevelScreen = () => {
     setStart(false);
-    dropPause=false;
+    dropPause = false;
   };
 
   const monsterRef = useRef();

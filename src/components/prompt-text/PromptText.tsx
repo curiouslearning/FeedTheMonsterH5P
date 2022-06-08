@@ -21,7 +21,9 @@ const PromptText = (props: any) => {
       letter.length
     );
   }
+ 
   const onPromptClick = () => {
+    props.IsGamePlay(true)
     setPlaying(true);
     playAudio(props.url);
     setPlaying(false);
