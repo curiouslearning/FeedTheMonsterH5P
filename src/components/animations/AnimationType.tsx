@@ -12,7 +12,7 @@ import { getImagePath } from "../../app";
 var spritesheetobj: Spritesheet;
 const AnimationType = (props: any) => {
   const animationType = props.type;
-  const internalPhaseNo=(props.getPhaseCharNo+1<5?props.getPhaseCharNo+1:4);
+  const internalPhaseNo=props.getPhaseCharNo+1;
   console.log(props.getPhaseCharNo)
   console.log(internalPhaseNo)
   console.log(props.type);

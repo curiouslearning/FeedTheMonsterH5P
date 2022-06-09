@@ -277,10 +277,10 @@ const DragDropComp = (props: any) => {
   const getPhaseCharacter = (levelsCompleted: number) => {
     let phaseCharacterNumber = Math.floor(levelsCompleted / 4);
     console.log(phaseCharacterNumber);
-    if (phaseCharacterNumber <= 3) {
+    if (phaseCharacterNumber < 4) {
       return phaseCharacterNumber;
     } else {
-      return 4;
+      return 3;
     }
   };
   return isLevelEnded ? (
