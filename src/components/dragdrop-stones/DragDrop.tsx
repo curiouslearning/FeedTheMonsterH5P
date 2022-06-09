@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { Suspense, useEffect, useRef, useState } from "react";
 import "./dragdrop-balls.css";
 import classNames from "classnames";
 import AnimationType from "../animations/AnimationType";
@@ -329,10 +329,12 @@ const DragDrop = ({
             zIndex: 0,
           }}
         >
-          <AnimationType
+          <Suspense fallback={<h1>Loading</h1>}>
+            <AnimationType
             type={animationType}
             getPhaseCharNo={levelsCompleted}
           />
+          </Suspense>
         </div>
       </div>
       {/* </Draggable> */}

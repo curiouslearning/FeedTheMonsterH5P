@@ -9,6 +9,7 @@ import {Howl} from "howler";
 
 declare var H5P: any;
 declare var H5PIntegration: any;
+// let list:any=[];
 
 
 export default class ReactDemoApp extends (H5P.EventDispatcher as {
@@ -34,6 +35,8 @@ export default class ReactDemoApp extends (H5P.EventDispatcher as {
   attach = function ($wrapper: JQuery) {
     console.log("called attach");
     console.log(this.editorData);
+    const imgArray=preloadImages([getImagePath()+"eat14.png",getImagePath()+"spit14.png",getImagePath()+"happy14.png"]);
+    storeImageLocally(imgArray)
     $wrapper.get(0).appendChild(this.$element);
     render(
       <SelectProfile
@@ -52,6 +55,46 @@ export default class ReactDemoApp extends (H5P.EventDispatcher as {
     //render(<Slideshow data={this.config} contentId={this.contentId} editorData={this.editorData}/>, this.$element);
   };
 }
+
+function storeImageLocally(imgArr:any){
+  for(let i=0;i<imgArr.length;i++){
+    console.log(imgArr[i])
+    let imgData = getBase64Image(imgArr[i]);
+   localStorage.setItem("imgData"+i, imgData);
+  }
+}
+function getBase64Image(img:any) {
+  var canvas = document.createElement("canvas");
+  canvas.width = img.width;
+  canvas.height = img.height;
+
+  var ctx = canvas.getContext("2d");
+  ctx.drawImage(img, 0, 0);
+
+  var dataURL = canvas.toDataURL("image/png");
+  console.log(dataURL)
+  return dataURL.replace(/^data:image\/(png|jpg);base64,/, "");
+}
+
+function preloadImages(array:any) {
+  // let list:any = preloadImages.list;
+  // if (!preloadImages.list) {
+  //     preloadImages.list = [];
+  // }
+  let list:any=[];
+  for (var i = 0; i < array.length; i++) {
+      var img = new Image();
+      img.onload = function() {
+          var index = array.indexOf(this);
+      }
+      img.src = array[i];
+      list.push(img);
+    }
+    console.log(list)
+    return list;
+}
+
+
 
 const playAUDIO = (src: any) => {
   const sound = new Howl({

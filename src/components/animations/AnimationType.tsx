@@ -19,7 +19,8 @@ const AnimationType = (props: any) => {
   console.log(getImagePath()+'idle1'+internalPhaseNo+'.png')
   switch (props.type) {
     case "eat": {
-      return <SpriteAnimationComponent spImage={getImagePath()+'eat1'+internalPhaseNo+'.png'} nFrames={18} />;
+      return 
+      <SpriteAnimationComponent spImage={getImagePath()+'eat1'+internalPhaseNo+'.png'} nFrames={18} />;
     }
     case "spit": {
       return <SpriteAnimationComponent spImage={getImagePath()+'spit1'+internalPhaseNo+'.png'}  nFrames={18} />;
