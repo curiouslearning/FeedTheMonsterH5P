@@ -19,7 +19,6 @@ let inputAlphabhet = "";
 let count = 0;
 let j = 0;
 let k = 0;
-let initialTimer: any;
 
 function shuffleArray(array: any[]) {
   for (var i = array.length - 1; i > 0; i--) {
@@ -53,7 +52,7 @@ const DragDrop = ({
   timeOver: boolean;
   answerDrop: Function;
   IsGamePlay: Function;
-  IsGamePlayStatus: boolean;
+  IsGamePlayStatus: boolean
   startDrag: boolean;
   props: any;
   changePuzzel: Function;
@@ -134,14 +133,8 @@ const DragDrop = ({
     setDataList(optionDataSet);
     console.log(dataList);
   };
-  const initialStart = () => {
-    initialTimer = window.setTimeout(() => {
-      IsGamePlay(true);
-      setGameStatus(true);
-    }, 6000);
-  };
+
   useEffect(() => {
-    initialStart();
     setTimeout(function () {
       optionCollectData(options);
     }, 100);
@@ -223,7 +216,7 @@ const DragDrop = ({
     afterDropPause(k, i);
     if (targetStone == dropData) {
       //monsterHappy.play()
-      clearTimeout(initialTimer);
+
       playAUDIO(getAudioPath() + "Cheering-02.mp3");
       setAnimationType("eat");
       inputAlphabhet = inputAlphabhet + dropData;
@@ -257,7 +250,6 @@ const DragDrop = ({
       setAnimationType("spit");
       //monsterDisapointment.play()
       playAUDIO(getAudioPath() + "Disapointed-05.mp3");
-      clearTimeout(initialTimer);
       setTimeout(() => {
         //monsterSplit.play()
         playAUDIO(getAudioPath() + "Monster Spits wrong stones-01.mp3");
@@ -336,71 +328,69 @@ const DragDrop = ({
         </div>
       </div>
       {/* </Draggable> */}
-
-      {gameStatus || IsGamePlayStatus
-        ? optionDataSet.map((item, index) => {
-            if (item.alphabet != "") {
-              return (
-                // <Draggable
-                //  disabled={true}
-                //  onStop={(e)=>{
-                //    console.log('Sample')
-                //    console.log(e)
-                //  }}
-                // >
-                // <Draggable>
+     
+      { gameStatus ||IsGamePlayStatus ? optionDataSet.map((item, index) => {
+        if (item.alphabet != "") {
+          return (
+            // <Draggable
+            //  disabled={true}
+            //  onStop={(e)=>{
+            //    console.log('Sample')
+            //    console.log(e)
+            //  }}
+            // >
+            // <Draggable>
+            <div
+              className={classNames(
+                dragging ? getStyles(item.alphabet, index) : "ball" + index
+              )}
+            >
+              <DragDropContainer
+                targetKey="box"
+                dragData={"ball" + index}
+                // customDragElement={customDragElement}
+                onDragStart={(e: any) => {
+                  playAUDIO(getAudioPath() + "onDrag.mp3");
+                }}
+                onDrag={() => console.log("dragging")}
+                onDragEnd={() => console.log("end")}
+                onDrop={(e: any) => console.log(e)}
+              >
                 <div
                   className={classNames(
                     dragging ? getStyles(item.alphabet, index) : "ball" + index
                   )}
+                  style={{
+                    backgroundImage: `url(${
+                      getImagePath() + "stone_pink_v02.png"
+                    })`,
+                    backgroundSize: "100% 100%",
+                    backgroundRepeat: "no-repeat",
+                  }}
+                  // draggable={!timeOver && !isMenuOpen}
+                  key={item.id}
+                  // onDragEnd={(e) => {
+                  //   handleDragEnd();
+                  // }}
+                  // onTouchStart={(e=>{console.log(e+';;;;;;;;;;;')})}
+                  // onDragStart={(e) => {
+                  //   console.log('started dragging')
+                  //   onDrag.play()
+                  //   handleDragStart(item.alphabet, e, item.id);
+                  //   e.dataTransfer.setData("item.alphabet", item.alphabet);
+                  // }}
                 >
-                  <DragDropContainer
-                    targetKey="box"
-                    dragData={"ball" + index}
-                    // customDragElement={customDragElement}
-                    onDragStart={(e: any) => {
-                      playAUDIO(getAudioPath() + "onDrag.mp3");
-                    }}
-                    onDrag={() => console.log("dragging")}
-                    onDragEnd={() => console.log("end")}
-                    onDrop={(e: any) => console.log(e)}
-                  >
-                    <div
-                      className={classNames(
-                        dragging
-                          ? getStyles(item.alphabet, index)
-                          : "ball" + index
-                      )}
-                      style={{
-                        backgroundImage: `url(${
-                          getImagePath() + "stone_pink_v02.png"
-                        })`,
-                        backgroundSize: "100% 100%",
-                        backgroundRepeat: "no-repeat",
-                      }}
-                      // draggable={!timeOver && !isMenuOpen}
-                      key={item.id}
-                      // onDragEnd={(e) => {
-                      //   handleDragEnd();
-                      // }}
-                      // onTouchStart={(e=>{console.log(e+';;;;;;;;;;;')})}
-                      // onDragStart={(e) => {
-                      //   console.log('started dragging')
-                      //   onDrag.play()
-                      //   handleDragStart(item.alphabet, e, item.id);
-                      //   e.dataTransfer.setData("item.alphabet", item.alphabet);
-                      // }}
-                    >
-                      <p className="stones-letter">{item.alphabet}</p>
-                    </div>
-                  </DragDropContainer>
+                  <p className="stones-letter">{item.alphabet}</p>
                 </div>
-              );
-            }
-          })
-        : null}
+              </DragDropContainer>
+            </div>
+          );
+        }
+      }):null}
+      
     </>
   );
 };
 
 export default DragDrop;
+ 
