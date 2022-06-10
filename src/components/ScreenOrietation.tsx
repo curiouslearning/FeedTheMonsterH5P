@@ -3,9 +3,12 @@ import AnimationType from './animations/AnimationType';
 import { getAudioPath, getImagePath, buttonCLick } from "../app";
 const ScreenOrientation=()=>{
 return(
-    <div>
+    <div
+    style={{
+      height:"600px",
+    }}>
        
-         <img
+          {/* <img
         src={getImagePath() + "background.png"}
         style={{
           position: "absolute",
@@ -19,8 +22,8 @@ return(
          display: "block",
          
         }}
-      ></img>
-       <h1
+      ></img>  */}
+       {/* <h1
        style={{
            position:"relative",
         fontSize: 50,
@@ -49,7 +52,20 @@ return(
         }}
       >
         <AnimationType type="profile" />
-      </div>
+      </div>  */}
+      <img
+      src={getImagePath() + "onRotation.png"}
+      style={{
+        position: "absolute",
+        width: "100%",
+        height: "400px",
+        zIndex: -2,
+      //  color:"white",
+      //  fontWeight: "bold",
+      //  fontFamily: "Oxygen",
+       margin: "auto",
+       display: "block",
+      }}></img>
     </div>
 )
 }
