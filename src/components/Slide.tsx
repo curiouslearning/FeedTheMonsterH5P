@@ -660,7 +660,8 @@ const SlideComponent = (props: any) => {
   compared = [];
   return (
     <Wrapper>
-      <img
+      <div style={{backgroundImage: `url(${getImagePath() + "bg.jpg"})`, width: "100%", height: "600px", position: "absolute", backgroundSize: "100% 100%", zIndex: -2, overflow: "hidden"}}>
+      {/* <img
         src={getImagePath() + "background.png"}
         style={{
           position: "absolute",
@@ -668,7 +669,23 @@ const SlideComponent = (props: any) => {
           height: "600px",
           zIndex: -2,
         }}
-      ></img>
+      ></img> */}
+        <div style={{backgroundImage: `url(${getImagePath() + "hill.png"})`, backgroundSize: "contain", backgroundRepeat: "no-repeat", height: "100%", position: "relative", left: 0, bottom: "-75%", transform: "scale(1.1)"}}>
+          
+        </div>
+        <div style={{backgroundImage: `url(${getImagePath() + "Totem.png"})`, backgroundSize: "contain", backgroundRepeat: "no-repeat", height: "100%", position: "relative", left: "60%", top: "-90%", transform: "scale(.7)", zIndex: -3}}>
+          
+        </div>
+
+        <div style={{backgroundImage: `url(${getImagePath() + "fence.png"})`, backgroundSize: "contain", backgroundRepeat: "no-repeat", height: "100%", position: "relative", left: "-35%", top: "-170%", transform: "scale(.4) rotate(-30deg)", zIndex: -3}}>
+          
+        </div>
+
+        <div style={{backgroundImage: `url(${getImagePath() + "FG.png"})`, backgroundSize: "contain", backgroundRepeat: "no-repeat", height: "100%", position: "relative", left: "0%", bottom: "250%", transform: "scale(1, .5)"}}>
+          
+        </div>
+
+      </div>
       {data.audio && data.audio.length > 0 ? (
         ""
       ) : (
