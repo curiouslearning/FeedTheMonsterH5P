@@ -11,8 +11,8 @@ var config = {
     dist: './src/index.ts'
   },
   output: {
-    path: path.resolve(__dirname, '../H5P.ReactSlideshowDemo-0.1'),
-    filename: 'react-slideshow.js',
+    path: path.resolve(__dirname, '../H5P.FTM-0.1'),
+    filename: 'ftm.js',
   },
   module: {
     rules: [{
@@ -64,7 +64,7 @@ var config = {
         },
         {
           from: './',
-          to: '../H5P.ReactSlideshow'
+          to: '../H5P.FTM'
         }
       ]
     })

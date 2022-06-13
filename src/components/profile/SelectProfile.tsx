@@ -1,37 +1,26 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useRef, useState } from "react";
 import { render } from "react-dom";
 import styled from "styled-components";
-import bg from "../../../assets/images/background.png";
-import popupBg from "../../../assets/images/popup_bg_v01.png";
-import avatarIcon from "../../../assets/images/Avatar_04.png";
-import introMusic from "../../../assets/audio/intro.wav";
-import selectPlayer from "../../../assets/audio/select_player.WAV";
 import Slideshow from "../Slideshow";
-import closeBtnBg from "../../../assets/images/close_btn.png";
-import title from "../../../assets/images/title.png";
-import playButton from "../../../assets/images/Play_button.png";
 import AnimationType from "../animations/AnimationType";
 import { getAudioPath, getImagePath, buttonCLick } from "../../app";
 import ScreenOrientation from '../../components/ScreenOrietation';
 let screenOrientation=window.screen.orientation.type;
 
 const Wrapper = styled.div`
-  height: 600px;
+  height: 100%;
   width: 100%;
-  position: relative;
-  color: "black";
 `;
+
 const Popup = styled.div`
-  margin: auto;
-  height: 300px;
-  width: 300px;
-  background-image: url(${(props) => props.title});
-  background-size: contain;
+  height: 50%;
+  width: 50%;
   z-index: 9;
+  display: flex;
 `;
+
 const Avatar = styled.div`
   position: relative;
-
   height: 250px;
   width: 250px;
   background-image: url(${(props) => props.title});
@@ -42,18 +31,13 @@ const Avatar = styled.div`
   margin: auto;
   display: block;
 `;
+
 const ClosePopup = styled.div`
-  position: relative;
-
-  left: 5%;
-
   height: 60px;
   width: 60px;
   background-image: url(${(props) => props.title});
   background-size: contain;
   background-repeat: no-repeat;
-  justify-content: center;
-  align-item: center;
 `;
 
 const SelectProfile = (props: any) => {
@@ -85,33 +69,196 @@ window.addEventListener('orientationchange', function(event) {
 );
   return (
     <Wrapper>
-    <div id = {!changeOrient ? "turn" : "notTurn"}>
-      <audio id="soundtrack" src={introMusic}></audio>
-      <img
-        src={getImagePath() + "background.png"}
-        style={{
-          position: "absolute",
-          width: "100%",
-          height: "600px",
-          zIndex: -2,
-        }}
-      ></img>
-      <img
-        src={getImagePath() + "title.png"}
-        style={{
-          position: "relative",
-          width: "80%",
-          height: 100,
-          top: "5%",
-          justifyContent: "center",
-          textAlign: "center",
-          alignItems: "center",
-          margin: "auto",
-          display: "block",
-          zIndex: -2,
-        }}
-      ></img>
-      <div
+      <div id = {!changeOrient ? "turn" : "notTurn"}>
+        <audio id="soundtrack" src={introMusic}></audio>
+        <div 
+          style={{
+            backgroundImage: `url(${getImagePath() + 'bg.jpg'})`, 
+            height: "100vh", 
+            backgroundSize: "100% 100%",
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            justifyContent: "flex-start"
+          }}>
+          <img
+            src={getImagePath() + "title.png"}
+            style={{
+              width: "100%",
+              height: "100px",
+              objectFit: "contain"
+            }}
+          /> 
+          <div
+            ref={monsterRef}
+            style={{
+              width: "300px",
+              height: "100px"
+            }}
+            >
+            <AnimationType type="profile" />
+          </div>
+          {popUpStatus ? (
+            <Popup>
+              <div
+                style={{
+                  backgroundImage: `url(${getImagePath() + "popup_bg_v01.png"})`,
+                  width: "100%",
+                  backgroundSize: "contain",
+                  backgroundRepeat: "no-repeat",
+                  backgroundPosition: "center",
+                  display: "flex",
+                  flexDirection: "column",
+                  alignItems: "center"
+                }}>
+                  <ClosePopup
+                    title={getImagePath() + "close_btn.png"}
+                    onClick={(e) => {
+                      buttonCLick();
+                      setPopUpStatus(false);
+                    }}
+                  />
+                  <h1
+                style={{
+                  
+                }}
+                >
+                Select your Player
+              </h1>
+              <div>
+                <button
+                  style={{
+                   
+                  }}
+                  onClick={() => {
+                    selectPLayer.pause();
+                    props.wrapper.get(0).appendChild(props.element);
+                    render(
+                      <Slideshow
+                        data={props.config}
+                        contentId={props.contentId}
+                        editorData={props.editorData}
+                        feedbackTexts={props.feedbackPhrases}
+                        feedbackAudios={props.feedbackAudios}
+                        generalData={props.generalData}
+                        devMode={true}
+                      />,
+                      props.element
+                    );
+                  }}
+                  >
+                  {" "}
+                  Developer Mode
+                </button>
+              </div>
+              <img
+                src={getImagePath() + "Avatar_04.png"}
+                style={{
+                  width: "40%",
+                  height: "40%",
+                  objectFit: "contain"
+                }}
+                onClick={() => {
+                  buttonCLick();
+                  selectPLayer.pause();
+                  props.wrapper.get(0).appendChild(props.element);
+                  render(
+                    <Slideshow
+                      data={props.config}
+                      contentId={props.contentId}
+                      editorData={props.editorData}
+                      feedbackTexts={props.feedbackPhrases}
+                      feedbackAudios={props.feedbackAudios}
+                      generalData={props.generalData}
+                      devMode={props.devMode}
+                    />,
+                    props.element
+                  );
+                }}
+              ></img>
+              </div>
+                
+              
+
+              {/* <ClosePopup
+                title={getImagePath() + "close_btn.png"}
+                onClick={(e) => {
+                  buttonCLick();
+                  setPopUpStatus(false);
+                }}
+              />
+              <h1
+                style={{
+                  
+                }}
+                >
+                Select your Player
+              </h1>
+              <div>
+                <button
+                  style={{
+                   
+                  }}
+                  onClick={() => {
+                    selectPLayer.pause();
+                    props.wrapper.get(0).appendChild(props.element);
+                    render(
+                      <Slideshow
+                        data={props.config}
+                        contentId={props.contentId}
+                        editorData={props.editorData}
+                        feedbackTexts={props.feedbackPhrases}
+                        feedbackAudios={props.feedbackAudios}
+                        generalData={props.generalData}
+                        devMode={true}
+                      />,
+                      props.element
+                    );
+                  }}
+                  >
+                  {" "}
+                  Developer Mode
+                </button>
+              </div>
+              <div
+                style={{
+                  
+                }}
+                onClick={() => {
+                  buttonCLick();
+                  selectPLayer.pause();
+                  props.wrapper.get(0).appendChild(props.element);
+                  render(
+                    <Slideshow
+                      data={props.config}
+                      contentId={props.contentId}
+                      editorData={props.editorData}
+                      feedbackTexts={props.feedbackPhrases}
+                      feedbackAudios={props.feedbackAudios}
+                      generalData={props.generalData}
+                      devMode={props.devMode}
+                    />,
+                    props.element
+                  );
+                }}
+              ></div>  */}
+            </Popup>
+          ) : (
+            <img
+              src={getImagePath() + "Play_button.png"}
+              onClick={() => {
+                buttonCLick();
+                selectPLayer.play();
+                setPopUpStatus(true);
+              }}
+              style={{
+                height: "200px",
+                marginTop: "300px"
+              }}
+            ></img>
+          )}
+        </div>
+      {/* <div
         ref={monsterRef}
         style={{
           width: "300px",
@@ -241,7 +388,7 @@ window.addEventListener('orientationchange', function(event) {
             display: "block",
           }}
         ></img>
-      )}
+      )} */}
        </div>
        { changeOrient ? <div>
             <ScreenOrientation/>

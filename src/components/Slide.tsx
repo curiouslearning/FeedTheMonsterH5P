@@ -31,6 +31,7 @@ import mapLock from "../../assets/images/mapLock.png";
 import { render } from "react-dom";
 import { buttonCLick, getAudioPath, getImagePath } from "../app";
 import { Howl } from "howler";
+import { useMediaQuery } from "react-responsive";
 
 // let audio: HTMLAudioElement = null;
 let initialTime = 10;
@@ -45,7 +46,7 @@ let gameStatus: boolean = false;
 let screenRotation = window.screen.orientation.type;
 
 const Wrapper = styled.div`
-  height: 600px;
+  height: 100vh;
   width: 100%;
   position: relative;
 `;
@@ -596,6 +597,8 @@ const SlideComponent = (props: any) => {
   let stopPlaying;
   let startPlaying;
 
+  const isBigScreen = useMediaQuery({ query: '(min-width: 500px) and (min-height: 900px)' })
+
   if (levData != null) {
     promptTextVisibilty = props.editorData
       ? levData.PromptType == "Visible"
@@ -660,7 +663,7 @@ const SlideComponent = (props: any) => {
   compared = [];
   return (
     <Wrapper>
-      <div style={{backgroundImage: `url(${getImagePath() + "bg.jpg"})`, width: "100%", height: "600px", position: "absolute", backgroundSize: "100% 100%", zIndex: -2, overflow: "hidden"}}>
+      <div style={{backgroundImage: `url(${getImagePath() + "bg.jpg"})`, width: "100%", height: "100%", position: "absolute", backgroundSize: "100% 100%", zIndex: -2, overflow: "hidden"}}>
       {/* <img
         src={getImagePath() + "background.png"}
         style={{
@@ -670,10 +673,10 @@ const SlideComponent = (props: any) => {
           zIndex: -2,
         }}
       ></img> */}
-        <div style={{backgroundImage: `url(${getImagePath() + "hill.png"})`, backgroundSize: "contain", backgroundRepeat: "no-repeat", height: "100%", position: "relative", left: 0, bottom: "-75%", transform: "scale(1.1)"}}>
+        {isBigScreen ? <div id = "hill" style={{backgroundImage: `url(${getImagePath() + "hill.png"})`, backgroundSize: "contain", backgroundRepeat: "no-repeat", height: "100%", width: "110%", position: "absolute", left: "-5%", bottom: "-70vh"}}>
+        </div> : <div id = "hill" style={{backgroundImage: `url(${getImagePath() + "hill.png"})`, backgroundSize: "contain", backgroundRepeat: "no-repeat", height: "100%", width: "110%", position: "absolute", left: "-5%", bottom: "-80vh"}}></div>}
           
-        </div>
-        <div style={{backgroundImage: `url(${getImagePath() + "Totem.png"})`, backgroundSize: "contain", backgroundRepeat: "no-repeat", height: "100%", position: "relative", left: "60%", top: "-90%", transform: "scale(.7)", zIndex: -3}}>
+        <div id = "totem" style={{backgroundImage: `url(${getImagePath() + "Totem1.png"})`, backgroundSize: "contain", backgroundRepeat: "no-repeat", height: "100%", position: "relative", left: "60%", top: "-90%", transform: "scale(.7)", zIndex: -3}}>
           
         </div>
 
@@ -700,7 +703,7 @@ const SlideComponent = (props: any) => {
             backgroundImage: `url(${getImagePath() + "map.jpg"})`,
             backgroundPosition: "center",
             backgroundRepeat: "no-repeat",
-            backgroundSize: "cover",
+            backgroundSize: "cover"
           }}
         >
           <div
