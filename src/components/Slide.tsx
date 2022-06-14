@@ -634,6 +634,7 @@ const SlideComponent = (props: any) => {
   const onStartClick = (url: any) => {
     setTimeout(() => {
       setStart(true);
+      dropPause =false;
     }, 0);
     playAudio(url);
   };
@@ -653,7 +654,6 @@ const SlideComponent = (props: any) => {
 
   const allLevelScreen = () => {
     setStart(false);
-    dropPause = false;
   };
 
   const monsterRef = useRef();

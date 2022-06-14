@@ -57,9 +57,11 @@ return(
       src={getImagePath() + "onRotation.png"}
       style={{
         position: "absolute",
-        width: "100%",
-        height: "400px",
+        width: "50%",
+        height: "200px",
         zIndex: -2,
+        top:"40%",
+        left:"25%",
       //  color:"white",
       //  fontWeight: "bold",
       //  fontFamily: "Oxygen",
