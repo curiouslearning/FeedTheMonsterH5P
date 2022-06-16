@@ -20,6 +20,7 @@ let count = 0;
 let j = 0;
 let k = 0;
 let initialTimer: any;
+let initialStartTimer:boolean = false;
 
 function shuffleArray(array: any[]) {
   for (var i = array.length - 1; i > 0; i--) {
@@ -74,6 +75,7 @@ const DragDrop = ({
   const [gameStatus, setGameStatus] = useState(false);
   const [dragging, setDragging] = useState(false);
   const [dropped, setDropped] = useState(false);
+  
   const [animationType, setAnimationType] = useState("idle");
   // const onDrag = new Audio(getAudioPath()+'onDrag.mp3');
   // const monsterSplit = new Audio(getAudioPath()+'Monster Spits wrong stones-01.mp3');
@@ -136,12 +138,13 @@ const DragDrop = ({
   };
   const initialStart = () => {
     initialTimer = window.setTimeout(() => {
+      initialStartTimer = true
       IsGamePlay(true);
       setGameStatus(true);
     }, 6000);
   };
   useEffect(() => {
-    initialStart();
+   !initialStartTimer? initialStart():null;
     setTimeout(function () {
       optionCollectData(options);
     }, 100);
@@ -224,6 +227,7 @@ const DragDrop = ({
     if (targetStone == dropData) {
       //monsterHappy.play()
       clearTimeout(initialTimer);
+      initialStartTimer = false;
       playAUDIO(getAudioPath() + "Cheering-02.mp3");
       setAnimationType("eat");
       inputAlphabhet = inputAlphabhet + dropData;
@@ -258,6 +262,7 @@ const DragDrop = ({
       //monsterDisapointment.play()
       playAUDIO(getAudioPath() + "Disapointed-05.mp3");
       clearTimeout(initialTimer);
+      initialStartTimer = false;
       setTimeout(() => {
         //monsterSplit.play()
         playAUDIO(getAudioPath() + "Monster Spits wrong stones-01.mp3");
