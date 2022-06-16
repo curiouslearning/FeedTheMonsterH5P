@@ -12,7 +12,8 @@ import title from "../../../assets/images/title.png";
 import playButton from "../../../assets/images/Play_button.png";
 import AnimationType from "../animations/AnimationType";
 import { getAudioPath, getImagePath, buttonCLick } from "../../app";
-import ScreenOrientation from '../../components/ScreenOrietation';
+import ScreenOrientation from '../OnScreenRotation/ScreenOrietation'
+import ExitScreenButton from '../ExitScreenButtton/ExitScreenButton';
 let screenOrientation=window.screen.orientation.type;
 
 const Wrapper = styled.div`
@@ -83,8 +84,14 @@ window.addEventListener('orientationchange', function(event) {
         }
     }
 );
+const onCLickExit=()=>{
+  let exitBtnId =document.getElementById("exitButton");
+  document.exitFullscreen();
+  exitBtnId.style.display="none";
+}
   return (
     <Wrapper>
+      <ExitScreenButton/>
     <div id = {!changeOrient ? "turn" : "notTurn"}>
       <audio id="soundtrack" src={introMusic}></audio>
       <img
@@ -92,7 +99,7 @@ window.addEventListener('orientationchange', function(event) {
         style={{
           position: "absolute",
           width: "100%",
-          height: "600px",
+          height: "100vh",
           zIndex: -2,
         }}
       ></img>

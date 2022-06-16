@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
-import AnimationType from './animations/AnimationType';
-import { getAudioPath, getImagePath, buttonCLick } from "../app";
+import { getAudioPath, getImagePath, buttonCLick } from "../../app";
 const ScreenOrientation=()=>{
 return(
     <div
@@ -56,12 +55,13 @@ return(
       <img
       src={getImagePath() + "onRotation.png"}
       style={{
+        backgroundColor:"white",
         position: "absolute",
-        width: "50%",
-        height: "200px",
+        width: "80%",
+        height: "400px",
         zIndex: -2,
-        top:"40%",
-        left:"25%",
+        top:"20%",
+        left:"10%",
       //  color:"white",
       //  fontWeight: "bold",
       //  fontFamily: "Oxygen",

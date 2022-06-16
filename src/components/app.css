@@ -101,7 +101,12 @@ p {
   align-items: left;
   margin: 24px auto;
 }
-
+.h5p-enable-fullscreen{
+  position: relative;
+  top: 10px;
+    right: 2052%;
+  align-self: start;
+}
 .h5p-actions {
   display: none;
 }

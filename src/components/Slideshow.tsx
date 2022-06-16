@@ -6,7 +6,8 @@ import cloud from "../../assets/images/cloud_v01.png";
 
 import SlideComponent from './Slide';
 import { getImagePath } from '../app';
-import ScreenOrientation from './ScreenOrietation';
+import ScreenOrientation from '../components/OnScreenRotation/ScreenOrietation';
+import ExitScreenButton from './ExitScreenButtton/ExitScreenButton';
 let screenOrientation = window.screen.orientation.type;
 
 let img = [
@@ -80,8 +81,22 @@ window.addEventListener('orientationchange', function(event) {
         }
     }
 );
+// window.addEventListener("resize",function(event){
+// if(document.fullscreenElement){ 
+//     console.log(">>>>>>>>>>>>>>>>>>")
+// }
+// })
+// const onClickHello=()=>{
+//     document.getElementById("mainDiv").requestFullscreen();
+// }
+
     return (
-        <div>
+        <div id="mainDiv">
+            {/* <button onClick={onClickHello} style={{
+                position:"absolute",
+                zIndex:1,
+            }}>hello</button> */}
+           <ExitScreenButton/>
         <div id = {!changeOrient ? "turn" : "notTurn"}>
             <MovingBackGroundComponent bgImage={getImagePath()+'cloud_v01.png'} />
             <SlideComponent data={data[activeSlide]} level= {data} images={img[activeSlide]} contentId={props.contentId} started={strt} time={initialTime} nextLevel={handleNav} editorData={props.editorData} feedbackTexts={props.feedbackTexts} feedbackAudios={props.feedbackAudios} generalData={props.generalData} 

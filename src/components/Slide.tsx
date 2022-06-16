@@ -665,7 +665,7 @@ const SlideComponent = (props: any) => {
         style={{
           position: "absolute",
           width: "100%",
-          height: "600px",
+          height: "100vh",
           zIndex: -2,
         }}
       ></img>
@@ -689,7 +689,7 @@ const SlideComponent = (props: any) => {
           <div
             style={{
               width: "100%",
-              height: "100%",
+              height: "100vh",
               background: "rgba(0,0,0,0.3)",
               display: "flex",
               flexDirection: "row",

@@ -18,7 +18,7 @@ const EndLevelComponent = (props: any) => {
       className="bg-left"
       style={{
         backgroundColor: "black",
-        height: "100%",
+        height: "100vh",
         width: "100%",
         position: "absolute",
       }}
