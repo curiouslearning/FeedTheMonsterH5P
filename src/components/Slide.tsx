@@ -31,7 +31,15 @@ import mapLock from "../../assets/images/mapLock.png";
 import { render } from "react-dom";
 import { buttonCLick, getAudioPath } from "../app";
 import { Howl } from "howler";
-import { BACKGROUND, MAP, MAP_ICON, MAP_LOCK, PIN_STAR1, PIN_STAR2, PIN_STAR3 } from "../data/base64Assets";
+import {
+  BACKGROUND,
+  MAP,
+  MAP_ICON,
+  MAP_LOCK,
+  PIN_STAR1,
+  PIN_STAR2,
+  PIN_STAR3,
+} from "../data/base64Assets";
 
 // let audio: HTMLAudioElement = null;
 let initialTime = 10;
@@ -65,6 +73,7 @@ const DragDropComp = (props: any) => {
   // const [gameStatus, setGameStatus] = useState(false);
   const feedbackArray: any[] = props.feedbackTexts;
   const feedbackAudiosArray: any[] = props.feedbackAudios;
+  props.getLevelCount(levelCount);
 
   // const timeOut = new Audio(getAudioPath() + "timeout.mp3");
   // const levelLost = new Audio(getAudioPath() + "LevelLoseFanfare.mp3");
@@ -267,35 +276,12 @@ const DragDropComp = (props: any) => {
   ]);
 
   console.log(props);
-  var levelsCompleted = JSON.parse(localStorage.getItem("LevelData"));
   console.log(levelCount);
-  console.log(
-    levelsCompleted != undefined
-      ? levelsCompleted[levelsCompleted.length - 1].data._levelScore
-      : "Sample  "
-  );
-  console.log(levelsCompleted);
-  const getPhaseCharacter = (levelsCompleted: number) => {
-    let phaseCharacterNumber = Math.floor(levelsCompleted / 4);
-    console.log(phaseCharacterNumber);
-    if (phaseCharacterNumber < 4) {
-      return phaseCharacterNumber;
-    } else {
-      return 3;
-    }
-  };
   return isLevelEnded ? (
     <EndLevelComponent
       score={score}
       lengthOfCurrentLevel={props.lengthOfCurrentLevel}
-      levelsCompleted={getPhaseCharacter(
-        levelsCompleted == null
-          ? 0
-          : levelsCompleted[levelsCompleted.length - 1].data._levelScore ==
-              undefined || levelCount != 0
-          ? levelsCompleted.length - 1
-          : levelsCompleted.length
-      )}
+      levelsCompleted={props.getPhaseCharacter}
       allLevelScreen={() => {
         props.allLevelScreen();
         setPauseMenu(false);
@@ -413,14 +399,7 @@ const DragDropComp = (props: any) => {
               props={props.puzzles[levelCount]}
               changePuzzel={levelUp}
               levelCount={levelCount}
-              levelsCompleted={getPhaseCharacter(
-                levelsCompleted == null
-                  ? 0
-                  : levelsCompleted[levelsCompleted.length - 1].data
-                      ._levelScore == undefined || levelCount != 0
-                  ? levelsCompleted.length - 1
-                  : levelsCompleted.length
-              )}
+              levelsCompleted={props.getPhaseCharacter}
               isMenuOpen={isMenuPopup}
               levelType={props.levelType}
               afterDropPause={afterDrop}
@@ -596,7 +575,17 @@ const SlideComponent = (props: any) => {
   let promptTextVisibilty = true;
   let stopPlaying;
   let startPlaying;
-
+  let levelCount;
+  var levelsCompleted = JSON.parse(localStorage.getItem("LevelData"));
+  const getPhaseCharacter = (levelsCompleted: number) => {
+    let phaseCharacterNumber = Math.floor(levelsCompleted / 4);
+    console.log(phaseCharacterNumber);
+    if (phaseCharacterNumber < 4) {
+      return phaseCharacterNumber;
+    } else {
+      return 3;
+    }
+  };
   if (levData != null) {
     promptTextVisibilty = props.editorData
       ? levData.PromptType == "Visible"
@@ -633,17 +622,20 @@ const SlideComponent = (props: any) => {
   }, [props.started]);
 
   const onStartClick = (url: any) => {
-    let id= document.getElementById("exitButton");
-    id.style.left="50%";
-    id.style.color="black";
-    if(window.innerWidth == screen.width && window.innerHeight == screen.height){ 
-      id.style.display="block";
-    }else{
-      id.style.display="none";
+    let id = document.getElementById("exitButton");
+    id.style.left = "50%";
+    id.style.color = "black";
+    if (
+      window.innerWidth == screen.width &&
+      window.innerHeight == screen.height
+    ) {
+      id.style.display = "block";
+    } else {
+      id.style.display = "none";
     }
     setTimeout(() => {
       setStart(true);
-      dropPause =false;
+      dropPause = false;
     }, 0);
     playAudio(url);
   };
@@ -663,10 +655,9 @@ const SlideComponent = (props: any) => {
 
   const allLevelScreen = () => {
     setStart(false);
-    let id= document.getElementById("exitButton");
-    id.style.left="2.6%";
-    id.style.color="white";
-    
+    let id = document.getElementById("exitButton");
+    id.style.left = "2.6%";
+    id.style.color = "white";
   };
 
   const monsterRef = useRef();
@@ -729,9 +720,7 @@ const SlideComponent = (props: any) => {
                                   border: "none",
                                   borderRadius: 70,
                                   outlineStyle: "none",
-                                  background: `url(${
-                                    MAP_ICON
-                                  })`,
+                                  background: `url(${MAP_ICON})`,
                                   backgroundPosition: 25,
                                   backgroundSize: "contain",
                                   backgroundRepeat: "no-repeat",
@@ -762,46 +751,28 @@ const SlideComponent = (props: any) => {
                                 {value.data._levelStars === 3 ? (
                                   <div className="row">
                                     <div className="pin-star">
-                                      <img
-                                        src={PIN_STAR1}
-                                        alt="star"
-                                      />
+                                      <img src={PIN_STAR1} alt="star" />
                                     </div>
                                     <div className="pin-star2">
-                                      <img
-                                        src={PIN_STAR2}
-                                        alt="star"
-                                      />
+                                      <img src={PIN_STAR2} alt="star" />
                                     </div>
                                     <div className="pin-star">
-                                      <img
-                                        src={PIN_STAR3}
-                                        alt="star"
-                                      />
+                                      <img src={PIN_STAR3} alt="star" />
                                     </div>
                                   </div>
                                 ) : value.data._levelStars === 2 ? (
                                   <div className="row">
                                     <div className="pin-star">
-                                      <img
-                                        src={PIN_STAR1}
-                                        alt="star"
-                                      />
+                                      <img src={PIN_STAR1} alt="star" />
                                     </div>
                                     <div className="pin-star2">
-                                      <img
-                                        src={PIN_STAR2}
-                                        alt="star"
-                                      />
+                                      <img src={PIN_STAR2} alt="star" />
                                     </div>
                                   </div>
                                 ) : value.data._levelStars === 1 ? (
                                   <div className="row">
                                     <div className="pin-star">
-                                      <img
-                                        src={PIN_STAR1}
-                                        alt="star"
-                                      />
+                                      <img src={PIN_STAR1} alt="star" />
                                     </div>
                                   </div>
                                 ) : (
@@ -824,9 +795,7 @@ const SlideComponent = (props: any) => {
                                 ) : (
                                   <div>
                                     <br></br>
-                                    <img
-                                      src={MAP_LOCK}
-                                    ></img>
+                                    <img src={MAP_LOCK}></img>
                                   </div>
                                 )}
                                 <br></br>
@@ -852,9 +821,7 @@ const SlideComponent = (props: any) => {
                                   border: "none",
                                   borderRadius: 70,
                                   outlineStyle: "none",
-                                  background: `url(${
-                                    MAP_ICON
-                                  })`,
+                                  background: `url(${MAP_ICON})`,
                                   backgroundPosition: 25,
                                   backgroundSize: "contain",
                                   backgroundRepeat: "no-repeat",
@@ -885,9 +852,7 @@ const SlideComponent = (props: any) => {
                                 ) : (
                                   <div>
                                     <br></br>
-                                    <img
-                                      src={MAP_LOCK}
-                                    ></img>
+                                    <img src={MAP_LOCK}></img>
                                   </div>
                                 )}
 
@@ -1020,6 +985,18 @@ const SlideComponent = (props: any) => {
             generalData={props.generalData}
             levelNumber={levData.LevelMeta.LevelNumber}
             allLevelScreen={allLevelScreen}
+            getLevelCount={(levelCnt: any) => {
+              console.log('**********',levelCnt)
+              levelCount = levelCnt;
+            }}
+            getPhaseCharacter={getPhaseCharacter(
+              levelsCompleted == null
+                ? 0
+                : levelsCompleted[levelsCompleted.length - 1].data
+                    ._levelScore == undefined || levelCount != 0
+                ? levelsCompleted.length - 1
+                : levelsCompleted.length
+            )}
           />
 
           <div style={{ display: "flex", justifyContent: "center" }}>
@@ -1032,7 +1009,17 @@ const SlideComponent = (props: any) => {
                 position: "absolute",
               }}
             >
-              <AnimationType type="idle" />
+              <AnimationType
+                type="idle"
+                getPhaseCharNo={getPhaseCharacter(
+                  levelsCompleted == null
+                    ? 0
+                    : levelsCompleted[levelsCompleted.length - 1].data
+                        ._levelScore == undefined || levelCount != 0
+                    ? levelsCompleted.length - 1
+                    : levelsCompleted.length
+                )}
+              />
             </div>
           </div>
         </>
