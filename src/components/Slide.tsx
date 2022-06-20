@@ -332,7 +332,7 @@ const DragDropComp = (props: any) => {
         }}
       >
         <PuzzelBar puzzelCount={4} activeIndicators={activeIndicators} />
-        <ScoreBoard score={score} />
+        {props.devMode ?(<><ScoreBoard levelNumber={props.levelNumber} levelCount={levelCount} /></>):(<></>)}
         <PauseMenu
           onClickPauseMenu={() => {
             buttonCLick();
@@ -1019,6 +1019,7 @@ const SlideComponent = (props: any) => {
             generalData={props.generalData}
             levelNumber={levData.LevelMeta.LevelNumber}
             allLevelScreen={allLevelScreen}
+            devMode={props.devMode}
           />
 
           <div style={{ display: "flex", justifyContent: "center" }}>

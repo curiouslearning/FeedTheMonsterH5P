@@ -8,11 +8,11 @@ const ScoreBoard = (props: any) => {
       className="score-board"
       style={{
         // backgroundImage: `url(${getImagePath() + "score_v01.png"})`,
-        backgroundSize: "contain",
-        backgroundRepeat: "no-repeat",
+        // backgroundSize: "contain",
+        // backgroundRepeat: "no-repeat",
       }}
     >
-      {/* <h3 style={{ textAlign: "center", fontSize: "2.1em" }}>{props.score}</h3> */}
+      <h3 style={{ textAlign: "center", fontSize: "1em"  }}>  LevelNum:{props.levelNumber+1} <br/> Sub-Level:{props.levelCount+1}</h3>
     </div>
   );
 };
