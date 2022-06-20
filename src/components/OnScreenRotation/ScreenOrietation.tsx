@@ -57,11 +57,9 @@ return(
       style={{
         backgroundColor:"white",
         position: "absolute",
-        width: "80%",
-        height: "400px",
+        width: "100vw",
+        height: "100vh",
         zIndex: -2,
-        top:"20%",
-        left:"10%",
       //  color:"white",
       //  fontWeight: "bold",
       //  fontFamily: "Oxygen",

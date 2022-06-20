@@ -8,6 +8,7 @@ import SlideComponent from './Slide';
 import { getImagePath } from '../app';
 import ScreenOrientation from '../components/OnScreenRotation/ScreenOrietation';
 import ExitScreenButton from './ExitScreenButtton/ExitScreenButton';
+import { FaCompress } from 'react-icons/fa';
 let screenOrientation = window.screen.orientation.type;
 
 let img = [
@@ -40,7 +41,18 @@ const NavButton = styled.button`
 let nextToggle = true
 const initialTime = 10;
 
+window.addEventListener("resize",function(){
+    let id = this.document.getElementById("exitButton");
+    if(window.innerWidth == screen.width && window.innerHeight == screen.height){ 
+        
+       id.style.display="block";
+    }else{
+        id.style.display="none";
+    }
+    })
 const Slideshow = (props: any) => {
+    let exitButtonId = document.getElementById("exitButton");
+
     const { data } = props;
     const [activeSlide, setActiveSlide] = useState(0);
     const [strt, setStrt] = useState(true);
@@ -62,11 +74,17 @@ const Slideshow = (props: any) => {
     console.log(props)
     console.log(activeSlide)
     console.log(data[activeSlide])
-
+    if(window.innerWidth == screen.width && window.innerHeight == screen.height){ 
+        exitButtonId.style.display="block";
+      }else{
+        exitButtonId.style.display="none";
+      }
 const [changeOrient, setChangeOrient] = useState(false);
 window.addEventListener('orientationchange', function(event) {
     let id;
+    let exitButtonId = this.document.getElementById("exitButton");
     if(this.window.screen.orientation.type !== screenOrientation) {
+        exitButtonId.style.color="black"; 
         id = document.getElementById("turn");
         console.log("change1")
         id.style.display="none";
@@ -89,14 +107,20 @@ window.addEventListener('orientationchange', function(event) {
 // const onClickHello=()=>{
 //     document.getElementById("mainDiv").requestFullscreen();
 // }
+const onClickExitScreenButton=()=>{    
+    document.exitFullscreen();
+}
 
     return (
         <div id="mainDiv">
-            {/* <button onClick={onClickHello} style={{
+           <FaCompress  id='exitButton' fontSize={"15px"} color="white" style={{
                 position:"absolute",
                 zIndex:1,
-            }}>hello</button> */}
-           <ExitScreenButton/>
+                top:"3%",
+                left:"2.6%",
+                // display:"none",
+            }}
+            onClick={onClickExitScreenButton}></FaCompress>
         <div id = {!changeOrient ? "turn" : "notTurn"}>
             <MovingBackGroundComponent bgImage={getImagePath()+'cloud_v01.png'} />
             <SlideComponent data={data[activeSlide]} level= {data} images={img[activeSlide]} contentId={props.contentId} started={strt} time={initialTime} nextLevel={handleNav} editorData={props.editorData} feedbackTexts={props.feedbackTexts} feedbackAudios={props.feedbackAudios} generalData={props.generalData} 

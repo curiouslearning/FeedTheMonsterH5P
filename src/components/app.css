@@ -102,11 +102,17 @@ p {
   margin: 24px auto;
 }
 
+.h5p-enable-fullscreen{
+  position: absolute;
+  top: 2%; 
+  /* left: -0.1%; */
+  
+}
 .h5p-content-controls {
   margin: 0;
   position: absolute;
   left: 1.5%;
-  top: 1.8%;
+  top: 2%;
   z-index: 3;
 }
 .h5p-actions {

@@ -242,9 +242,10 @@ const DragDrop = ({
         inputAlphabhet = "";
       } else {
         j = 1;
-        console.log("------------>>>>>>>>>>");
-        console.log(i);
-        if (count === inputAlphabhet.length && count >= 3 && i == 0) {
+         
+        // console.log(props.targetstones.length)
+        // console.log(i);
+        if ( i == 0) {
           // disappearPromptText();
           setScore(100);
           count = 0;

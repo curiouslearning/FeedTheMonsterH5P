@@ -1,7 +1,15 @@
 import * as React from 'react';
 import { FaCompress } from "react-icons/fa";
+window.addEventListener("resize",function(){
+    let id = this.document.getElementById("exitButton");
+    if(window.innerWidth == screen.width && window.innerHeight == screen.height){ 
+    id.style.display ="block";
+    }else{
+        id.style.display="none";
+    }
+})
 const ExitScreenButton=()=>{
-    const onClickFullScreenButton=()=>{
+    const onClickExitScreenButton=()=>{
         
             document.exitFullscreen();
        
@@ -34,13 +42,14 @@ const ExitScreenButton=()=>{
 // }
         return(
             <>
-            <FaCompress  id='exitButton' fontSize={"15px"} color='white' style={{
+            <FaCompress  id='exitButton' fontSize={"15px"}  style={{
                 position:"absolute",
                 zIndex:1,
                 top:"3%",
                 left:"2.6%",
+                display:"none"
             }}
-            onClick={onClickFullScreenButton}></FaCompress>
+            onClick={onClickExitScreenButton}></FaCompress>
             </>
         )
     

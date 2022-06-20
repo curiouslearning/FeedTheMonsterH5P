@@ -632,6 +632,14 @@ const SlideComponent = (props: any) => {
   }, [props.started]);
 
   const onStartClick = (url: any) => {
+    let id= document.getElementById("exitButton");
+    id.style.left="50%";
+    id.style.color="black";
+    if(window.innerWidth == screen.width && window.innerHeight == screen.height){ 
+      id.style.display="block";
+    }else{
+      id.style.display="none";
+    }
     setTimeout(() => {
       setStart(true);
       dropPause =false;
@@ -654,6 +662,10 @@ const SlideComponent = (props: any) => {
 
   const allLevelScreen = () => {
     setStart(false);
+    let id= document.getElementById("exitButton");
+    id.style.left="2.6%";
+    id.style.color="white";
+    
   };
 
   const monsterRef = useRef();
