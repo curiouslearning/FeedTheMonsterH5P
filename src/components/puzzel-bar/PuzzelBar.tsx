@@ -4,7 +4,7 @@ import classNames from "classnames";
 import indicatorBg from "../../../assets/images/puzzle_indicator.png";
 import emptyBarBg from "../../../assets/images/bar_empty_v01.png";
 import fullBarBg from "../../../assets/images/bar_full_v01.png";
-import { getImagePath } from "../../app";
+import { BAR_EMPTY, BAR_FULL, PUZZLE_INDICATOR } from "../../data/base64Assets";
 
 const PuzzelBar = (props: any) => {
   const { puzzelsIndicators } = PuzzelBarHook(
@@ -16,7 +16,7 @@ const PuzzelBar = (props: any) => {
     <div
       className="puzzel-indicator-container"
       style={{
-        backgroundImage: `url(${getImagePath() + "puzzle_indicator.png"})`,
+        backgroundImage: `url(${PUZZLE_INDICATOR})`,
         backgroundRepeat: "no-repeat",
         backgroundSize: '100% 100%',
       }}
@@ -41,8 +41,8 @@ export const PuzzelBarHook = (puzzelCount: any, activeIndicators: any) => {
           style={{
             backgroundImage:
               i < activeIndicators
-                ? `url(${getImagePath() + "bar_full_v01.png"})`
-                : `url(${getImagePath() + "bar_empty_v01.png"})`,
+                ? `url(${BAR_FULL})`
+                : `url(${BAR_EMPTY})`,
             backgroundRepeat: "no-repeat",
             backgroundSize: "contain",
           }}

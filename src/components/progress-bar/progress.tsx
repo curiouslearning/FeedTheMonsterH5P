@@ -1,8 +1,7 @@
 import React from "react";
 import "./progress.css";
 import emptyTimer from "../../../assets/images/timer_empty.png";
-import timer from "../../../assets/images/timer.png";
-import { getImagePath } from "../../app";
+import { TIMER, TIMER_EMPTY } from "../../data/base64Assets";
 
 const Progress = ({ done }: { done: string }) => {
   const { style } = ProgressHooks(done);
@@ -13,7 +12,7 @@ const Progress = ({ done }: { done: string }) => {
       <div
         className="progress"
         style={{
-          backgroundImage: `url(${getImagePath() + "timer_empty.png"})`,
+          backgroundImage: `url(${TIMER_EMPTY})`,
           width:'100%',
           backgroundRepeat: "no-repeat",
           backgroundSize: "100% 100%",
@@ -21,7 +20,7 @@ const Progress = ({ done }: { done: string }) => {
       >
         <div 
           style={{
-            backgroundImage: `url(${getImagePath() + "timer.png"})`,
+            backgroundImage: `url(${TIMER})`,
             width:'2.5em',
             height: '3.0em',
             position: 'relative',

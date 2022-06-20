@@ -10,6 +10,8 @@ const MovingBackGroundComponent = (props: any) => {
         height: "110px",
         backgroundSize: "cover",
         position: "absolute",
+
+        
       }}
     ></div>
   );

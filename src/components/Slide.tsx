@@ -29,8 +29,9 @@ import mapIcon from "../../assets/images/mapIcon.png";
 import map from "../../assets/images/map.jpg";
 import mapLock from "../../assets/images/mapLock.png";
 import { render } from "react-dom";
-import { buttonCLick, getAudioPath, getImagePath } from "../app";
+import { buttonCLick, getAudioPath } from "../app";
 import { Howl } from "howler";
+import { BACKGROUND, MAP, MAP_ICON, MAP_LOCK, PIN_STAR1, PIN_STAR2, PIN_STAR3 } from "../data/base64Assets";
 
 // let audio: HTMLAudioElement = null;
 let initialTime = 10;
@@ -673,7 +674,7 @@ const SlideComponent = (props: any) => {
   return (
     <Wrapper>
       <img
-        src={getImagePath() + "background.png"}
+        src={BACKGROUND}
         style={{
           position: "absolute",
           width: "100%",
@@ -692,7 +693,7 @@ const SlideComponent = (props: any) => {
         <div
           style={{
             height: "100%",
-            backgroundImage: `url(${getImagePath() + "map.jpg"})`,
+            backgroundImage: `url(${MAP})`,
             backgroundPosition: "center",
             backgroundRepeat: "no-repeat",
             backgroundSize: "cover",
@@ -729,7 +730,7 @@ const SlideComponent = (props: any) => {
                                   borderRadius: 70,
                                   outlineStyle: "none",
                                   background: `url(${
-                                    getImagePath() + "mapIcon.png"
+                                    MAP_ICON
                                   })`,
                                   backgroundPosition: 25,
                                   backgroundSize: "contain",
@@ -762,19 +763,19 @@ const SlideComponent = (props: any) => {
                                   <div className="row">
                                     <div className="pin-star">
                                       <img
-                                        src={getImagePath() + "pinStar1.png"}
+                                        src={PIN_STAR1}
                                         alt="star"
                                       />
                                     </div>
                                     <div className="pin-star2">
                                       <img
-                                        src={getImagePath() + "pinStar2.png"}
+                                        src={PIN_STAR2}
                                         alt="star"
                                       />
                                     </div>
                                     <div className="pin-star">
                                       <img
-                                        src={getImagePath() + "pinStar3.png"}
+                                        src={PIN_STAR3}
                                         alt="star"
                                       />
                                     </div>
@@ -783,13 +784,13 @@ const SlideComponent = (props: any) => {
                                   <div className="row">
                                     <div className="pin-star">
                                       <img
-                                        src={getImagePath() + "pinStar1.png"}
+                                        src={PIN_STAR1}
                                         alt="star"
                                       />
                                     </div>
                                     <div className="pin-star2">
                                       <img
-                                        src={getImagePath() + "pinStar2.png"}
+                                        src={PIN_STAR2}
                                         alt="star"
                                       />
                                     </div>
@@ -798,7 +799,7 @@ const SlideComponent = (props: any) => {
                                   <div className="row">
                                     <div className="pin-star">
                                       <img
-                                        src={getImagePath() + "pinStar1.png"}
+                                        src={PIN_STAR1}
                                         alt="star"
                                       />
                                     </div>
@@ -824,7 +825,7 @@ const SlideComponent = (props: any) => {
                                   <div>
                                     <br></br>
                                     <img
-                                      src={getImagePath() + "mapLock.png"}
+                                      src={MAP_LOCK}
                                     ></img>
                                   </div>
                                 )}
@@ -852,7 +853,7 @@ const SlideComponent = (props: any) => {
                                   borderRadius: 70,
                                   outlineStyle: "none",
                                   background: `url(${
-                                    getImagePath() + "mapIcon.png"
+                                    MAP_ICON
                                   })`,
                                   backgroundPosition: 25,
                                   backgroundSize: "contain",
@@ -885,7 +886,7 @@ const SlideComponent = (props: any) => {
                                   <div>
                                     <br></br>
                                     <img
-                                      src={getImagePath() + "mapLock.png"}
+                                      src={MAP_LOCK}
                                     ></img>
                                   </div>
                                 )}
@@ -912,7 +913,7 @@ const SlideComponent = (props: any) => {
                           border: "none",
                           borderRadius: 70,
                           outlineStyle: "none",
-                          background: `url(${getImagePath() + "mapIcon.png"})`,
+                          background: `url(${MAP_ICON})`,
                           backgroundPosition: 25,
                           backgroundSize: "contain",
                           backgroundRepeat: "no-repeat",
@@ -943,7 +944,7 @@ const SlideComponent = (props: any) => {
                           border: "none",
                           borderRadius: 70,
                           outlineStyle: "none",
-                          background: `url(${getImagePath() + "mapIcon.png"})`,
+                          background: `url(${MAP_ICON})`,
                           backgroundPosition: 25,
                           backgroundSize: "contain",
                           backgroundRepeat: "no-repeat",
@@ -974,7 +975,7 @@ const SlideComponent = (props: any) => {
                         ) : (
                           <div>
                             <br></br>
-                            <img src={getImagePath() + "mapLock.png"}></img>
+                            <img src={MAP_LOCK}></img>
                           </div>
                         )}
                         <br></br>

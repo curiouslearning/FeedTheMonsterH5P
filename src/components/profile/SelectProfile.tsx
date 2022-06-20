@@ -11,9 +11,10 @@ import closeBtnBg from "../../../assets/images/close_btn.png";
 import title from "../../../assets/images/title.png";
 import playButton from "../../../assets/images/Play_button.png";
 import AnimationType from "../animations/AnimationType";
-import { getAudioPath, getImagePath, buttonCLick } from "../../app";
+import { getAudioPath, buttonCLick } from "../../app";
 import ScreenOrientation from '../OnScreenRotation/ScreenOrietation'
 import ExitScreenButton from '../ExitScreenButtton/ExitScreenButton';
+import { AVATAR_04, BACKGROUND, CLOSE_BTN, PLAY_BTN, POPUP_BG, TITLE } from "../../data/base64Assets";
 let screenOrientation=window.screen.orientation.type;
 
 const Wrapper = styled.div`
@@ -95,7 +96,7 @@ const onCLickExit=()=>{
     <div id = {!changeOrient ? "turn" : "notTurn"}>
       <audio id="soundtrack" src={introMusic}></audio>
       <img
-        src={getImagePath() + "background.png"}
+        src={BACKGROUND}
         style={{
           position: "absolute",
           width: "100%",
@@ -104,7 +105,7 @@ const onCLickExit=()=>{
         }}
       ></img>
       <img
-        src={getImagePath() + "title.png"}
+        src={TITLE}
         style={{
           position: "relative",
           width: "80%",
@@ -137,9 +138,9 @@ const onCLickExit=()=>{
       </div>
 
       {popUpStatus ? (
-        <Popup title={getImagePath() + "popup_bg_v01.png"}>
+        <Popup title={POPUP_BG}>
           <ClosePopup
-            title={getImagePath() + "close_btn.png"}
+            title={CLOSE_BTN}
             onClick={(e) => {
               buttonCLick();
               setPopUpStatus(false);
@@ -201,7 +202,7 @@ const onCLickExit=()=>{
               position: "relative",
               height: 150,
               width: 150,
-              backgroundImage: `url(${getImagePath() + "Avatar_04.png"})`,
+              backgroundImage: `url(${AVATAR_04})`,
               backgroundSize: "contain",
               backgroundRepeat: "no-repeat",
               justifyContent: "center",
@@ -230,7 +231,7 @@ const onCLickExit=()=>{
         </Popup>
       ) : (
         <img
-          src={getImagePath() + "Play_button.png"}
+          src={PLAY_BTN}
           onClick={() => {
             buttonCLick();
             selectPLayer.play();

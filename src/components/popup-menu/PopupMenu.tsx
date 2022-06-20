@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import { buttonCLick, getImagePath } from "../../app";
+import { buttonCLick, } from "../../app";
+import { CLOSE_BTN, MAP_BTN, POPUP_BG, RETRY_BTN } from "../../data/base64Assets";
 const Popup = styled.div`
   width: 50%;
   left: 25%;
@@ -56,7 +57,7 @@ const PopupMenu = (props: any) => {
     >
       <div
         style={{
-          backgroundImage: `url(${getImagePath() + "popup_bg_v01.png"})`,
+          backgroundImage: `url(${POPUP_BG})`,
           backgroundSize: "100% 100%",
           backgroundRepeat: "no-repeat",
           width: "33em",
@@ -67,7 +68,7 @@ const PopupMenu = (props: any) => {
         }}
       >
         <ClosePopup
-          title={getImagePath() + "close_btn.png"}
+          title={CLOSE_BTN}
           onClick={(e) => {
             buttonCLick();
             props.onClickPauseMenu();
@@ -87,7 +88,7 @@ const PopupMenu = (props: any) => {
             }, 200);
           }}
           style={{
-            backgroundImage: `url(${getImagePath() + "map_btn.png"})`,
+            backgroundImage: `url(${MAP_BTN})`,
             backgroundSize: "contain",
             backgroundRepeat: "no-repeat",
             height: "7em",
@@ -106,7 +107,7 @@ const PopupMenu = (props: any) => {
             }, 200);
           }}
           style={{
-            backgroundImage: `url(${getImagePath() + "retry_btn.png"})`,
+            backgroundImage: `url(${RETRY_BTN})`,
             backgroundSize: "contain",
             backgroundRepeat: "no-repeat",
             height: "7em",

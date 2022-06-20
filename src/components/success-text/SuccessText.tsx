@@ -1,6 +1,5 @@
 import React from "react";
 import fantastic from "../../../assets/images/Fantastic_01.png";
-import { getImagePath } from "../../app";
 import great from "../../../assets/images/Great_01.png";
 import { opacity } from "../prompt-text/PromptText";
 

@@ -7,11 +7,12 @@ import stones from "../../../assets/images/stone_pink_v02.png";
 import { contains } from "jquery";
 import { PromptTextHook } from "../prompt-text/PromptText";
 import EndLevelComponent from "../end-level/EndLevelComponent";
-import { getAudioPath, getImagePath } from "../../app";
+import { getAudioPath } from "../../app";
 // import Draggable from "react-draggable";
 import Draggable from "react-draggable";
 import { DragDropContainer, DropTarget } from "react-drag-drop-container";
 import { Howl } from "howler";
+import { STONE_PINK } from "../../data/base64Assets";
 
 let optionDataSet: { id: number; alphabet: string }[] = [];
 let i = 0;
@@ -379,7 +380,7 @@ const DragDrop = ({
                       )}
                       style={{
                         backgroundImage: `url(${
-                          getImagePath() + "stone_pink_v02.png"
+                         STONE_PINK
                         })`,
                         backgroundSize: "100% 100%",
                         backgroundRepeat: "no-repeat",

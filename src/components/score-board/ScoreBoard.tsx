@@ -1,7 +1,6 @@
 import React from "react";
 import "./score-board.css";
 import scoreBoardBg from "../../../assets/images/score_v01.png";
-import { getImagePath } from "../../app";
 const ScoreBoard = (props: any) => {
   return (
     <div

@@ -6,7 +6,8 @@ import star from "../../../assets/images/star.png";
 import loseBg from "../../../assets/images/Lose_bg.png";
 import winBg from "../../../assets/images/WIN_screen_bg.png";
 import "./EndLevelComponent.css";
-import { buttonCLick, getImagePath } from "../../app";
+import { buttonCLick } from "../../app";
+import { MAP_BTN, NEXT_BTN, RETRY_BTN, STAR, WIN_SCREEN_BG } from "../../data/base64Assets";
 
 const EndLevelComponent = (props: any) => {
   const { score, lengthOfCurrentLevel, levelsCompleted } = props;
@@ -26,7 +27,7 @@ const EndLevelComponent = (props: any) => {
       <div
         className="end-level-container"
         style={{
-          backgroundImage: `url(${getImagePath() + "WIN_screen_bg.png"})`,
+          backgroundImage: `url(${WIN_SCREEN_BG})`,
           backgroundSize: "contains",
           margin: "auto",
           display: "flex",
@@ -36,17 +37,17 @@ const EndLevelComponent = (props: any) => {
         <div className="rating">
           {score > 100 ? (
             <div className="star">
-              <img src={getImagePath() + "star.png"} alt="star" />
+              <img src={STAR} alt="star" />
             </div>
           ) : null}
           {score > 200 ? (
             <div className="star">
-              <img src={getImagePath() + "star.png"} alt="star" />
+              <img src={STAR} alt="star" />
             </div>
           ) : null}
           {score > 400 ? (
             <div className="star">
-              <img src={getImagePath() + "star.png"} alt="star" />
+              <img src={STAR} alt="star" />
             </div>
           ) : null}
         </div>
@@ -92,7 +93,7 @@ export const HomeAndRestartComponent = (props: any) => {
           }, 200);
         }}
         style={{
-          backgroundImage: `url(${getImagePath() + "map_btn.png"})`,
+          backgroundImage: `url(${MAP_BTN})`,
           backgroundSize: "contain",
           backgroundRepeat: "no-repeat",
           height: 90,
@@ -111,7 +112,7 @@ export const HomeAndRestartComponent = (props: any) => {
           }, 200);
         }}
         style={{
-          backgroundImage: `url(${getImagePath() + "retry_btn.png"})`,
+          backgroundImage: `url(${RETRY_BTN})`,
           backgroundSize: "contain",
           backgroundRepeat: "no-repeat",
           height: 90,
@@ -130,7 +131,7 @@ export const HomeAndRestartComponent = (props: any) => {
             }, 200);
           }}
           style={{
-            backgroundImage: `url(${getImagePath() + "next_btn.png"})`,
+            backgroundImage: `url(${NEXT_BTN})`,
             backgroundSize: "contain",
             backgroundRepeat: "no-repeat",
             height: 90,

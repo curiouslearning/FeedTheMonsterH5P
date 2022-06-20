@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import { getAudioPath, getImagePath, buttonCLick } from "../../app";
+import { getAudioPath, buttonCLick } from "../../app";
+import { ON_ROTATION } from '../../data/base64Assets';
 const ScreenOrientation=()=>{
 return(
     <div
@@ -53,7 +54,7 @@ return(
         <AnimationType type="profile" />
       </div>  */}
       <img
-      src={getImagePath() + "onRotation.png"}
+      src={ON_ROTATION}
       style={{
         backgroundColor:"white",
         position: "absolute",
