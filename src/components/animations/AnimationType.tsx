@@ -8,43 +8,100 @@ import sad from "../../../assets/images/sad.png";
 import idle from "../../../assets/images/idle.png";
 import { SpriteAnimationComponent } from "./SpriteAnimation";
 import { getImagePath } from "../../app";
+import { base64Images } from "../profile/SelectProfile";
 
 var spritesheetobj: Spritesheet;
 const AnimationType = (props: any) => {
   const animationType = props.type;
-  const internalPhaseNo=props.getPhaseCharNo+1;
-  console.log(props.getPhaseCharNo)
-  console.log(internalPhaseNo)
+  const internalPhaseNo = props.getPhaseCharNo + 1;
+  console.log(props.getPhaseCharNo);
+  console.log(internalPhaseNo);
   console.log(props.type);
-  console.log(getImagePath()+'idle1'+internalPhaseNo+'.png')
+  console.log(getImagePath() + "idle1" + internalPhaseNo + ".png");
   switch (props.type) {
     case "eat": {
-      return <SpriteAnimationComponent spImage={getImagePath()+'eat1'+internalPhaseNo+'.png'} nFrames={18} />;
+      return (
+        <SpriteAnimationComponent
+          spImage={
+            base64Images.get("eat1" + internalPhaseNo + ".png")
+              ? base64Images.get("eat1" + internalPhaseNo + ".png")
+              : getImagePath() + "eat1" + internalPhaseNo + ".png"
+          }
+          nFrames={18}
+        />
+      );
     }
     case "spit": {
-      return <SpriteAnimationComponent spImage={getImagePath()+'spit1'+internalPhaseNo+'.png'}  nFrames={18} />;
+      return (
+        <SpriteAnimationComponent
+          spImage={
+            base64Images.get("spit1" + internalPhaseNo + ".png")
+              ? base64Images.get("spit1" + internalPhaseNo + ".png")
+              : getImagePath() + "spit1" + internalPhaseNo + ".png"
+          }
+          nFrames={18}
+        />
+      );
     }
-    
+
     case "idle": {
-      return <SpriteAnimationComponent spImage={getImagePath()+'idle1'+internalPhaseNo+'.png'} nFrames={18} />;
+      return (
+        <SpriteAnimationComponent
+          spImage={
+            base64Images.get("idle1" + internalPhaseNo + ".png")
+              ? base64Images.get("idle1" + internalPhaseNo + ".png")
+              : getImagePath() + "idle1" + internalPhaseNo + ".png"
+          }
+          nFrames={18}
+        />
+      );
     }
     case "happy": {
       return (
-        <SpriteAnimationComponent spImage={getImagePath()+'happy1'+internalPhaseNo+'.png'} nFrames={11} height={662}/>
+        <SpriteAnimationComponent
+          spImage={
+            base64Images.get("happy1" + internalPhaseNo + ".png")
+              ? base64Images.get("happy1" + internalPhaseNo + ".png")
+              : getImagePath() + "happy1" + internalPhaseNo + ".png"
+          }
+          nFrames={11}
+          height={662}
+        />
       );
     }
     case "sad": {
       return (
-        <SpriteAnimationComponent spImage={getImagePath()+'sad1'+internalPhaseNo+'.png'} nFrames={11} height={662} />
+        <SpriteAnimationComponent
+          spImage={
+            base64Images.get("sad1" + internalPhaseNo + ".png")
+              ? base64Images.get("sad1" + internalPhaseNo + ".png")
+              : getImagePath() + "sad1" + internalPhaseNo + ".png"
+          }
+          nFrames={11}
+          height={662}
+        />
       );
     }
     case "profile": {
       return (
-        <SpriteAnimationComponent spImage={getImagePath()+'idle14.png'} nFrames={11} height={1080} />
+        <SpriteAnimationComponent
+          spImage={
+            base64Images.get("idle14.png")
+              ? base64Images.get("idle14.png")
+              : getImagePath() + "idle14.png"
+          }
+          nFrames={11}
+          height={1080}
+        />
       );
     }
     default: {
-      return <SpriteAnimationComponent spImage={getImagePath()+'egg.png'} nFrames={18} />;
+      return (
+        <SpriteAnimationComponent
+          spImage={getImagePath() + "egg.png"}
+          nFrames={18}
+        />
+      );
     }
   }
 };
