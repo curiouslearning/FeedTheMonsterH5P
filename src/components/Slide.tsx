@@ -64,7 +64,7 @@ const DragDropComp = (props: any) => {
   // const [gameStatus, setGameStatus] = useState(false);
   const feedbackArray: any[] = props.feedbackTexts;
   const feedbackAudiosArray: any[] = props.feedbackAudios;
-
+  props.getLevelCount(levelCount);
   // const timeOut = new Audio(getAudioPath() + "timeout.mp3");
   // const levelLost = new Audio(getAudioPath() + "LevelLoseFanfare.mp3");
   // const levelWin = new Audio(getAudioPath() + "LevelWinFanfare.mp3");
@@ -266,35 +266,12 @@ const DragDropComp = (props: any) => {
   ]);
 
   console.log(props);
-  var levelsCompleted = JSON.parse(localStorage.getItem("LevelData"));
-  console.log(levelCount);
-  console.log(
-    levelsCompleted != undefined
-      ? levelsCompleted[levelsCompleted.length - 1].data._levelScore
-      : "Sample  "
-  );
-  console.log(levelsCompleted);
-  const getPhaseCharacter = (levelsCompleted: number) => {
-    let phaseCharacterNumber = Math.floor(levelsCompleted / 4);
-    console.log(phaseCharacterNumber);
-    if (phaseCharacterNumber < 4) {
-      return phaseCharacterNumber;
-    } else {
-      return 3;
-    }
-  };
+
   return isLevelEnded ? (
     <EndLevelComponent
       score={score}
       lengthOfCurrentLevel={props.lengthOfCurrentLevel}
-      levelsCompleted={getPhaseCharacter(
-        levelsCompleted == null
-          ? 0
-          : levelsCompleted[levelsCompleted.length - 1].data._levelScore ==
-              undefined || levelCount != 0
-          ? levelsCompleted.length - 1
-          : levelsCompleted.length
-      )}
+      levelsCompleted={props.getPhaseCharacter}
       allLevelScreen={() => {
         props.allLevelScreen();
         setPauseMenu(false);
@@ -332,7 +309,16 @@ const DragDropComp = (props: any) => {
         }}
       >
         <PuzzelBar puzzelCount={4} activeIndicators={activeIndicators} />
-        {props.devMode ?(<><ScoreBoard levelNumber={props.levelNumber} levelCount={levelCount} /></>):(<></>)}
+        {props.devMode ? (
+          <>
+            <ScoreBoard
+              levelNumber={props.levelNumber}
+              levelCount={levelCount}
+            />
+          </>
+        ) : (
+          <></>
+        )}
         <PauseMenu
           onClickPauseMenu={() => {
             buttonCLick();
@@ -412,14 +398,7 @@ const DragDropComp = (props: any) => {
               props={props.puzzles[levelCount]}
               changePuzzel={levelUp}
               levelCount={levelCount}
-              levelsCompleted={getPhaseCharacter(
-                levelsCompleted == null
-                  ? 0
-                  : levelsCompleted[levelsCompleted.length - 1].data
-                      ._levelScore == undefined || levelCount != 0
-                  ? levelsCompleted.length - 1
-                  : levelsCompleted.length
-              )}
+              levelsCompleted={props.getPhaseCharacter}
               isMenuOpen={isMenuPopup}
               levelType={props.levelType}
               afterDropPause={afterDrop}
@@ -595,7 +574,17 @@ const SlideComponent = (props: any) => {
   let promptTextVisibilty = true;
   let stopPlaying;
   let startPlaying;
-
+  let levelCount;
+  var levelsCompleted = JSON.parse(localStorage.getItem("LevelData"));
+  const getPhaseCharacter = (levelsCompleted: number) => {
+    let phaseCharacterNumber = Math.floor(levelsCompleted / 4);
+    console.log(phaseCharacterNumber);
+    if (phaseCharacterNumber < 4) {
+      return phaseCharacterNumber;
+    } else {
+      return 3;
+    }
+  };
   if (levData != null) {
     promptTextVisibilty = props.editorData
       ? levData.PromptType == "Visible"
@@ -632,17 +621,20 @@ const SlideComponent = (props: any) => {
   }, [props.started]);
 
   const onStartClick = (url: any) => {
-    let id= document.getElementById("exitButton");
-    id.style.left="50%";
-    id.style.color="black";
-    if(window.innerWidth == screen.width && window.innerHeight == screen.height){ 
-      id.style.display="block";
-    }else{
-      id.style.display="none";
+    let id = document.getElementById("exitButton");
+    id.style.left = "50%";
+    id.style.color = "black";
+    if (
+      window.innerWidth == screen.width &&
+      window.innerHeight == screen.height
+    ) {
+      id.style.display = "block";
+    } else {
+      id.style.display = "none";
     }
     setTimeout(() => {
       setStart(true);
-      dropPause =false;
+      dropPause = false;
     }, 0);
     playAudio(url);
   };
@@ -662,10 +654,9 @@ const SlideComponent = (props: any) => {
 
   const allLevelScreen = () => {
     setStart(false);
-    let id= document.getElementById("exitButton");
-    id.style.left="2.6%";
-    id.style.color="white";
-    
+    let id = document.getElementById("exitButton");
+    id.style.left = "2.6%";
+    id.style.color = "white";
   };
 
   const monsterRef = useRef();
@@ -1006,6 +997,17 @@ const SlideComponent = (props: any) => {
               // data.LevelMeta.PromptType == "Visible" ? true : false
               promptTextVisibilty
             }
+            getLevelCount={(levelCnt: any) => {
+              levelCount = levelCnt;
+            }}
+            getPhaseCharacter={getPhaseCharacter(
+              levelsCompleted == null
+                ? 0
+                : levelsCompleted[levelsCompleted.length - 1].data
+                    ._levelScore == undefined || levelCount != 0
+                ? levelsCompleted.length - 1
+                : levelsCompleted.length
+            )}
             puzzles={levData.Puzzles}
             startPlaying={startPlaying}
             stopPlaying={stopPlaying}
@@ -1032,7 +1034,17 @@ const SlideComponent = (props: any) => {
                 position: "absolute",
               }}
             >
-              <AnimationType type="idle" />
+              <AnimationType
+                type="idle"
+                getPhaseCharNo={getPhaseCharacter(
+                  levelsCompleted == null
+                    ? 0
+                    : levelsCompleted[levelsCompleted.length - 1].data
+                        ._levelScore == undefined || levelCount != 0
+                    ? levelsCompleted.length - 1
+                    : levelsCompleted.length
+                )}
+              />
             </div>
           </div>
         </>
