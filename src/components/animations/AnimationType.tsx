@@ -98,7 +98,11 @@ const AnimationType = (props: any) => {
     default: {
       return (
         <SpriteAnimationComponent
-          spImage={getImagePath() + "egg.png"}
+        spImage={
+          base64Images.get("egg.png")
+            ? base64Images.get("egg.png")
+            : getImagePath() + "egg.png"
+        }
           nFrames={18}
         />
       );

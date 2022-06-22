@@ -128,7 +128,11 @@ const SelectProfile = (props: any) => {
       <div id={!changeOrient ? "turn" : "notTurn"}>
         <audio id="soundtrack" src={introMusic}></audio>
         <img
-          src={getImagePath() + "background.png"}
+          src={
+            base64Images.get('background.png')
+              ? base64Images.get('background.png')
+              : getImagePath() + 'background.png'
+          }
           style={{
             position: "absolute",
             width: "100%",
@@ -146,7 +150,11 @@ const SelectProfile = (props: any) => {
         ) : (
           <div>
             <img
-              src={getImagePath() + "title.png"}
+              src={
+                base64Images.get('title.png')
+                  ? base64Images.get('title.png')
+                  : getImagePath() + 'title.png'
+              }
               style={{
                 position: "relative",
                 width: "80%",
@@ -178,9 +186,17 @@ const SelectProfile = (props: any) => {
               <AnimationType type="profile" />
             </div>
             {popUpStatus ? (
-              <Popup title={getImagePath() + "popup_bg_v01.png"}>
+              <Popup title={
+                base64Images.get('popup_bg_v01.png')
+                  ? base64Images.get('popup_bg_v01.png')
+                  : getImagePath() + 'popup_bg_v01.png'
+              }>
                 <ClosePopup
-                  title={getImagePath() + "close_btn.png"}
+                  title={
+                    base64Images.get('close_btn.png')
+                      ? base64Images.get('close_btn.png')
+                      : getImagePath() + 'close_btn.png'
+                  }
                   onClick={(e) => {
                     buttonCLick();
                     setPopUpStatus(false);
@@ -242,7 +258,11 @@ const SelectProfile = (props: any) => {
                     position: "relative",
                     height: 150,
                     width: 150,
-                    backgroundImage: `url(${getImagePath() + "Avatar_04.png"})`,
+                    backgroundImage: `url(${
+                      base64Images.get('Avatar_04.png')
+                        ? base64Images.get('Avatar_04.png')
+                        : getImagePath() + 'Avatar_04.png'
+                    })`,
                     backgroundSize: "contain",
                     backgroundRepeat: "no-repeat",
                     justifyContent: "center",
@@ -271,7 +291,11 @@ const SelectProfile = (props: any) => {
               </Popup>
             ) : (
               <img
-                src={getImagePath() + "Play_button.png"}
+                src={
+                  base64Images.get('Play_button.png')
+                    ? base64Images.get('Play_button.png')
+                    : getImagePath() + 'Play_button.png'
+                }
                 onClick={() => {
                   buttonCLick();
                   selectPLayer.play();

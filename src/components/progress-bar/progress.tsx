@@ -3,6 +3,7 @@ import "./progress.css";
 import emptyTimer from "../../../assets/images/timer_empty.png";
 import timer from "../../../assets/images/timer.png";
 import { getImagePath } from "../../app";
+import { base64Images } from "../profile/SelectProfile";
 
 const Progress = ({ done }: { done: string }) => {
   const { style } = ProgressHooks(done);
@@ -13,7 +14,11 @@ const Progress = ({ done }: { done: string }) => {
       <div
         className="progress"
         style={{
-          backgroundImage: `url(${getImagePath() + "timer_empty.png"})`,
+          backgroundImage: `url(${
+            base64Images.get('timer_empty.png')
+              ? base64Images.get('timer_empty.png')
+              : getImagePath() + 'timer_empty.png'
+          })`,
           width:'100%',
           backgroundRepeat: "no-repeat",
           backgroundSize: "100% 100%",
@@ -21,7 +26,11 @@ const Progress = ({ done }: { done: string }) => {
       >
         <div 
           style={{
-            backgroundImage: `url(${getImagePath() + "timer.png"})`,
+            backgroundImage: `url(${
+              base64Images.get('timer.png')
+                ? base64Images.get('timer.png')
+                : getImagePath() + 'timer.png'
+            })`,
             width:'2.5em',
             height: '3.0em',
             position: 'relative',

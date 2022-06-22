@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import "./pause-menu.css";
 import pauseBg from "../../../assets/images/pause_v01.png";
 import { buttonCLick, getImagePath } from "../../app";
+import { base64Images } from "../profile/SelectProfile";
 // import { ScaleButton } from '../common/ScaleButton';
 
 const PauseMenu = (props: any) => {
@@ -18,7 +19,11 @@ const PauseMenu = (props: any) => {
         }, 200);
       }}
       style={{
-        backgroundImage: `url(${getImagePath()+'pause_v01.png'})`,
+        backgroundImage: `url(${
+          base64Images.get('pause_v01.png')
+            ? base64Images.get('pause_v01.png')
+            : getImagePath() + 'pause_v01.png'
+        })`,
         backgroundSize: "contain",
         backgroundRepeat: "no-repeat",
         transform: `scale(${scale})`,

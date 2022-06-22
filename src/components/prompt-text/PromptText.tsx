@@ -4,6 +4,7 @@ import AudioComponent from "../common/AudioComponent";
 import textBg from "../../../assets/images/promptTextBg.png";
 import { css, keyframes } from "styled-components";
 import { getImagePath } from "../../app";
+import { base64Images } from "../profile/SelectProfile";
 
 export let opacity = 1;
 
@@ -35,7 +36,11 @@ const PromptText = (props: any) => {
       style={{
         ...{
           display: "flex",
-          backgroundImage: `url(${getImagePath() + "promptTextBg.png"})`,
+          backgroundImage: `url(${
+            base64Images.get('promptTextBg.png')
+              ? base64Images.get('promptTextBg.png')
+              : getImagePath() + 'promptTextBg.png'
+          })`,
           width: "10em",
           height: "10em",
           backgroundSize: "100% 100%",

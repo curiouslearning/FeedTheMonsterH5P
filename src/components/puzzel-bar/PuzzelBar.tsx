@@ -5,6 +5,7 @@ import indicatorBg from "../../../assets/images/puzzle_indicator.png";
 import emptyBarBg from "../../../assets/images/bar_empty_v01.png";
 import fullBarBg from "../../../assets/images/bar_full_v01.png";
 import { getImagePath } from "../../app";
+import { base64Images } from "../profile/SelectProfile";
 
 const PuzzelBar = (props: any) => {
   const { puzzelsIndicators } = PuzzelBarHook(
@@ -16,7 +17,11 @@ const PuzzelBar = (props: any) => {
     <div
       className="puzzel-indicator-container"
       style={{
-        backgroundImage: `url(${getImagePath() + "puzzle_indicator.png"})`,
+        backgroundImage: `url(${
+          base64Images.get('puzzle_indicator.png')
+            ? base64Images.get('puzzle_indicator.png')
+            : getImagePath() + 'puzzle_indicator.png'
+        })`,
         backgroundRepeat: "no-repeat",
         backgroundSize: '100% 100%',
       }}
@@ -41,8 +46,16 @@ export const PuzzelBarHook = (puzzelCount: any, activeIndicators: any) => {
           style={{
             backgroundImage:
               i < activeIndicators
-                ? `url(${getImagePath() + "bar_full_v01.png"})`
-                : `url(${getImagePath() + "bar_empty_v01.png"})`,
+                ? `url(${
+                  base64Images.get('bar_full_v01.png')
+                    ? base64Images.get('bar_full_v01.png')
+                    : getImagePath() + 'bar_full_v01.png'
+                })`
+                : `url(${
+                  base64Images.get('bar_empty_v01.png')
+                    ? base64Images.get('bar_empty_v01.png')
+                    : getImagePath() + 'bar_empty_v01.png'
+                })`,
             backgroundRepeat: "no-repeat",
             backgroundSize: "contain",
           }}

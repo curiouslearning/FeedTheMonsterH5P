@@ -31,6 +31,7 @@ import mapLock from "../../assets/images/mapLock.png";
 import { render } from "react-dom";
 import { buttonCLick, getAudioPath, getImagePath } from "../app";
 import { Howl } from "howler";
+import { base64Images } from "./profile/SelectProfile";
 
 // let audio: HTMLAudioElement = null;
 let initialTime = 10;
@@ -664,7 +665,11 @@ const SlideComponent = (props: any) => {
   return (
     <Wrapper>
       <img
-        src={getImagePath() + "background.png"}
+        src={
+            base64Images.get('background.png')
+              ? base64Images.get('background.png')
+              : getImagePath() + 'background.png'
+          }
         style={{
           position: "absolute",
           width: "100%",
@@ -683,7 +688,11 @@ const SlideComponent = (props: any) => {
         <div
           style={{
             height: "100%",
-            backgroundImage: `url(${getImagePath() + "map.jpg"})`,
+            backgroundImage: `url(${
+              base64Images.get('map.jpg')
+                ? base64Images.get('map.jpg')
+                : getImagePath() + 'map.jpg'
+            })`,
             backgroundPosition: "center",
             backgroundRepeat: "no-repeat",
             backgroundSize: "cover",
@@ -720,7 +729,9 @@ const SlideComponent = (props: any) => {
                                   borderRadius: 70,
                                   outlineStyle: "none",
                                   background: `url(${
-                                    getImagePath() + "mapIcon.png"
+                                    base64Images.get('mapIcon.png')
+                                      ? base64Images.get('mapIcon.png')
+                                      : getImagePath() + 'mapIcon.png'
                                   })`,
                                   backgroundPosition: 25,
                                   backgroundSize: "contain",
@@ -753,19 +764,31 @@ const SlideComponent = (props: any) => {
                                   <div className="row">
                                     <div className="pin-star">
                                       <img
-                                        src={getImagePath() + "pinStar1.png"}
+                                        src={
+                                          base64Images.get('pinStar1.png')
+                                            ? base64Images.get('pinStar1.png')
+                                            : getImagePath() + 'pinStar1.png'
+                                        }
                                         alt="star"
                                       />
                                     </div>
                                     <div className="pin-star2">
                                       <img
-                                        src={getImagePath() + "pinStar2.png"}
+                                        src={
+                                          base64Images.get('pinStar2.png')
+                                            ? base64Images.get('pinStar2.png')
+                                            : getImagePath() + 'pinStar2.png'
+                                        }
                                         alt="star"
                                       />
                                     </div>
                                     <div className="pin-star">
                                       <img
-                                        src={getImagePath() + "pinStar3.png"}
+                                        src={
+                                          base64Images.get('pinStar3.png')
+                                            ? base64Images.get('pinStar3.png')
+                                            : getImagePath() + 'pinStar3.png'
+                                        }
                                         alt="star"
                                       />
                                     </div>
@@ -774,13 +797,21 @@ const SlideComponent = (props: any) => {
                                   <div className="row">
                                     <div className="pin-star">
                                       <img
-                                        src={getImagePath() + "pinStar1.png"}
+                                        src={
+                                          base64Images.get('pinStar1.png')
+                                            ? base64Images.get('pinStar1.png')
+                                            : getImagePath() + 'pinStar1.png'
+                                        }
                                         alt="star"
                                       />
                                     </div>
                                     <div className="pin-star2">
                                       <img
-                                        src={getImagePath() + "pinStar2.png"}
+                                        src={
+                                          base64Images.get('pinStar2.png')
+                                            ? base64Images.get('pinStar2.png')
+                                            : getImagePath() + 'pinStar2.png'
+                                        }
                                         alt="star"
                                       />
                                     </div>
@@ -789,7 +820,11 @@ const SlideComponent = (props: any) => {
                                   <div className="row">
                                     <div className="pin-star">
                                       <img
-                                        src={getImagePath() + "pinStar1.png"}
+                                        src={
+                                          base64Images.get('pinStar1.png')
+                                            ? base64Images.get('pinStar1.png')
+                                            : getImagePath() + 'pinStar1.png'
+                                        }
                                         alt="star"
                                       />
                                     </div>
@@ -815,7 +850,11 @@ const SlideComponent = (props: any) => {
                                   <div>
                                     <br></br>
                                     <img
-                                      src={getImagePath() + "mapLock.png"}
+                                      src={
+                                        base64Images.get('mapLock.png')
+                                          ? base64Images.get('mapLock.png')
+                                          : getImagePath() + 'mapLock.png'
+                                      }
                                     ></img>
                                   </div>
                                 )}
@@ -843,7 +882,9 @@ const SlideComponent = (props: any) => {
                                   borderRadius: 70,
                                   outlineStyle: "none",
                                   background: `url(${
-                                    getImagePath() + "mapIcon.png"
+                                    base64Images.get('mapIcon.png')
+                                      ? base64Images.get('mapIcon.png')
+                                      : getImagePath() + 'mapIcon.png'
                                   })`,
                                   backgroundPosition: 25,
                                   backgroundSize: "contain",
@@ -876,7 +917,11 @@ const SlideComponent = (props: any) => {
                                   <div>
                                     <br></br>
                                     <img
-                                      src={getImagePath() + "mapLock.png"}
+                                      src={
+                                    base64Images.get('mapLock.png')
+                                      ? base64Images.get('mapLock.png')
+                                      : getImagePath() + 'mapLock.png'
+                                  }
                                     ></img>
                                   </div>
                                 )}
@@ -903,7 +948,11 @@ const SlideComponent = (props: any) => {
                           border: "none",
                           borderRadius: 70,
                           outlineStyle: "none",
-                          background: `url(${getImagePath() + "mapIcon.png"})`,
+                          background: `url(${
+                            base64Images.get('mapIcon.png')
+                              ? base64Images.get('mapIcon.png')
+                              : getImagePath() + 'mapIcon.png'
+                          })`,
                           backgroundPosition: 25,
                           backgroundSize: "contain",
                           backgroundRepeat: "no-repeat",
@@ -934,7 +983,11 @@ const SlideComponent = (props: any) => {
                           border: "none",
                           borderRadius: 70,
                           outlineStyle: "none",
-                          background: `url(${getImagePath() + "mapIcon.png"})`,
+                          background: `url(${
+                            base64Images.get('mapIcon.png')
+                              ? base64Images.get('mapIcon.png')
+                              : getImagePath() + 'mapIcon.png'
+                          })`,
                           backgroundPosition: 25,
                           backgroundSize: "contain",
                           backgroundRepeat: "no-repeat",
@@ -965,7 +1018,11 @@ const SlideComponent = (props: any) => {
                         ) : (
                           <div>
                             <br></br>
-                            <img src={getImagePath() + "mapLock.png"}></img>
+                            <img src={
+                            base64Images.get('mapLock.png')
+                              ? base64Images.get('mapLock.png')
+                              : getImagePath() + 'mapLock.png'
+                          }></img>
                           </div>
                         )}
                         <br></br>

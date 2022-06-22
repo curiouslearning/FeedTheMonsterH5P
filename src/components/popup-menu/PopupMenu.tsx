@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import { buttonCLick, getImagePath } from "../../app";
+import { base64Images } from "../profile/SelectProfile";
 const Popup = styled.div`
   width: 50%;
   left: 25%;
@@ -56,7 +57,11 @@ const PopupMenu = (props: any) => {
     >
       <div
         style={{
-          backgroundImage: `url(${getImagePath() + "popup_bg_v01.png"})`,
+          backgroundImage: `url(${
+            base64Images.get('popup_bg_v01.png')
+              ? base64Images.get('popup_bg_v01.png')
+              : getImagePath() + 'popup_bg_v01.png'
+          })`,
           backgroundSize: "100% 100%",
           backgroundRepeat: "no-repeat",
           width: "33em",
@@ -67,7 +72,11 @@ const PopupMenu = (props: any) => {
         }}
       >
         <ClosePopup
-          title={getImagePath() + "close_btn.png"}
+          title={
+            base64Images.get('close_btn.png')
+              ? base64Images.get('close_btn.png')
+              : getImagePath() + 'close_btn.png'
+          }
           onClick={(e) => {
             buttonCLick();
             props.onClickPauseMenu();
@@ -87,7 +96,11 @@ const PopupMenu = (props: any) => {
             }, 200);
           }}
           style={{
-            backgroundImage: `url(${getImagePath() + "map_btn.png"})`,
+            backgroundImage: `url(${
+              base64Images.get('map_btn.png')
+                ? base64Images.get('map_btn.png')
+                : getImagePath() + 'map_btn.png'
+            })`,
             backgroundSize: "contain",
             backgroundRepeat: "no-repeat",
             height: "7em",
@@ -106,7 +119,11 @@ const PopupMenu = (props: any) => {
             }, 200);
           }}
           style={{
-            backgroundImage: `url(${getImagePath() + "retry_btn.png"})`,
+            backgroundImage: `url(${
+              base64Images.get('retry_btn.png')
+                ? base64Images.get('retry_btn.png')
+                : getImagePath() + 'retry_btn.png'
+            })`,
             backgroundSize: "contain",
             backgroundRepeat: "no-repeat",
             height: "7em",

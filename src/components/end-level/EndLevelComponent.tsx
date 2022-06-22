@@ -7,6 +7,7 @@ import loseBg from "../../../assets/images/Lose_bg.png";
 import winBg from "../../../assets/images/WIN_screen_bg.png";
 import "./EndLevelComponent.css";
 import { buttonCLick, getImagePath } from "../../app";
+import { base64Images } from "../profile/SelectProfile";
 
 const EndLevelComponent = (props: any) => {
   const { score, lengthOfCurrentLevel, levelsCompleted } = props;
@@ -26,7 +27,11 @@ const EndLevelComponent = (props: any) => {
       <div
         className="end-level-container"
         style={{
-          backgroundImage: `url(${getImagePath() + "WIN_screen_bg.png"})`,
+          backgroundImage: `url(${
+            base64Images.get('WIN_screen_bg.png')
+              ? base64Images.get('WIN_screen_bg.png')
+              : getImagePath() + 'stone_pink_v02.png'
+          })`,
           backgroundSize: "contains",
           margin: "auto",
           display: "flex",
@@ -36,17 +41,29 @@ const EndLevelComponent = (props: any) => {
         <div className="rating">
           {score > 100 ? (
             <div className="star">
-              <img src={getImagePath() + "star.png"} alt="star" />
+              <img src={
+            base64Images.get('star.png')
+              ? base64Images.get('star.png')
+              : getImagePath() + 'star.png'
+          } alt="star" />
             </div>
           ) : null}
           {score > 200 ? (
             <div className="star">
-              <img src={getImagePath() + "star.png"} alt="star" />
+              <img src={
+            base64Images.get('star.png')
+              ? base64Images.get('star.png')
+              : getImagePath() + 'star.png'
+          } alt="star" />
             </div>
           ) : null}
           {score > 400 ? (
             <div className="star">
-              <img src={getImagePath() + "star.png"} alt="star" />
+              <img src={
+            base64Images.get('star.png')
+              ? base64Images.get('star.png')
+              : getImagePath() + 'star.png'
+          } alt="star" />
             </div>
           ) : null}
         </div>
@@ -92,7 +109,11 @@ export const HomeAndRestartComponent = (props: any) => {
           }, 200);
         }}
         style={{
-          backgroundImage: `url(${getImagePath() + "map_btn.png"})`,
+          backgroundImage: `url(${
+            base64Images.get('map_btn.png')
+              ? base64Images.get('map_btn.png')
+              : getImagePath() + 'map_btn.png'
+          })`,
           backgroundSize: "contain",
           backgroundRepeat: "no-repeat",
           height: 90,
@@ -111,7 +132,11 @@ export const HomeAndRestartComponent = (props: any) => {
           }, 200);
         }}
         style={{
-          backgroundImage: `url(${getImagePath() + "retry_btn.png"})`,
+          backgroundImage: `url(${
+            base64Images.get('retry_btn.png')
+              ? base64Images.get('retry_btn.png')
+              : getImagePath() + 'retry_btn.png'
+          })`,
           backgroundSize: "contain",
           backgroundRepeat: "no-repeat",
           height: 90,
@@ -130,7 +155,11 @@ export const HomeAndRestartComponent = (props: any) => {
             }, 200);
           }}
           style={{
-            backgroundImage: `url(${getImagePath() + "next_btn.png"})`,
+            backgroundImage: `url(${
+              base64Images.get('next_btn.png')
+                ? base64Images.get('next_btn.png')
+                : getImagePath() + 'next_btn.png'
+            })`,
             backgroundSize: "contain",
             backgroundRepeat: "no-repeat",
             height: 90,

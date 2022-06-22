@@ -12,6 +12,7 @@ import { getAudioPath, getImagePath } from "../../app";
 import Draggable from "react-draggable";
 import { DragDropContainer, DropTarget } from "react-drag-drop-container";
 import { Howl } from "howler";
+import { base64Images } from "../profile/SelectProfile";
 
 let optionDataSet: { id: number; alphabet: string }[] = [];
 let i = 0;
@@ -379,7 +380,9 @@ const DragDrop = ({
                       )}
                       style={{
                         backgroundImage: `url(${
-                          getImagePath() + "stone_pink_v02.png"
+                          base64Images.get('stone_pink_v02.png')
+                            ? base64Images.get('stone_pink_v02.png')
+                            : getImagePath() + 'stone_pink_v02.png'
                         })`,
                         backgroundSize: "100% 100%",
                         backgroundRepeat: "no-repeat",

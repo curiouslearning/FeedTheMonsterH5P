@@ -9,6 +9,7 @@ import { getImagePath } from '../app';
 import ScreenOrientation from '../components/OnScreenRotation/ScreenOrietation';
 import ExitScreenButton from './ExitScreenButtton/ExitScreenButton';
 import { FaCompress } from 'react-icons/fa';
+import { base64Images } from './profile/SelectProfile';
 let screenOrientation = window.screen.orientation.type;
 
 let img = [
@@ -122,7 +123,11 @@ const onClickExitScreenButton=()=>{
             }}
             onClick={onClickExitScreenButton}></FaCompress>
         <div id = {!changeOrient ? "turn" : "notTurn"}>
-            <MovingBackGroundComponent bgImage={getImagePath()+'cloud_v01.png'} />
+            <MovingBackGroundComponent bgImage={
+                            base64Images.get('cloud_v01.png')
+                              ? base64Images.get('cloud_v01.png')
+                              : getImagePath() + 'cloud_v01.png'
+                          } />
             <SlideComponent data={data[activeSlide]} level= {data} images={img[activeSlide]} contentId={props.contentId} started={strt} time={initialTime} nextLevel={handleNav} editorData={props.editorData} feedbackTexts={props.feedbackTexts} feedbackAudios={props.feedbackAudios} generalData={props.generalData} 
             devMode= {props.devMode}/>
         </div>
