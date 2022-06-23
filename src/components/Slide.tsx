@@ -597,7 +597,8 @@ const SlideComponent = (props: any) => {
   let stopPlaying;
   let startPlaying;
 
-  const isBigScreen = useMediaQuery({ query: '(min-width: 500px) and (min-height: 900px)' })
+  const isBigScreen = useMediaQuery({ query: '(min-width: 650px) and (min-height: 900px)' })
+  const isSmallScreen = useMediaQuery({ query: '(min-width: 525px)' })
 
   if (levData != null) {
     promptTextVisibilty = props.editorData
@@ -673,19 +674,27 @@ const SlideComponent = (props: any) => {
           zIndex: -2,
         }}
       ></img> */}
-        {isBigScreen ? <div id = "hill" style={{backgroundImage: `url(${getImagePath() + "hill.png"})`, backgroundSize: "contain", backgroundRepeat: "no-repeat", height: "100%", width: "110%", position: "absolute", left: "-5%", bottom: "-70vh"}}>
-        </div> : <div id = "hill" style={{backgroundImage: `url(${getImagePath() + "hill.png"})`, backgroundSize: "contain", backgroundRepeat: "no-repeat", height: "100%", width: "110%", position: "absolute", left: "-5%", bottom: "-80vh"}}></div>}
-          
-        <div id = "totem" style={{backgroundImage: `url(${getImagePath() + "Totem1.png"})`, backgroundSize: "contain", backgroundRepeat: "no-repeat", height: "100%", position: "relative", left: "60%", top: "-90%", transform: "scale(.7)", zIndex: -3}}>
-          
-        </div>
+        <div>
+            {/* {isBigScreen ? <div id = "hill" style={{backgroundImage: `url(${getImagePath() + "hill.png"})`, backgroundSize: "contain", backgroundRepeat: "no-repeat", height: "100%", width: "110%", position: "absolute", left: "-5%", bottom: "-60vh"}}>
+            <div id = "totem" style={{backgroundImage: `url(${getImagePath() + "Totem1.png"})`, backgroundSize: "contain", backgroundRepeat: "no-repeat", height: "100%", width: "80%", position: "absolute", backgroundPosition: "right", right: "-15%", top: "-55%", transform: "scale(.7)", zIndex: -3}}></div>
+            <div style={{backgroundImage: `url(${getImagePath() + "fence.png"})`, backgroundSize: "contain", backgroundRepeat: "no-repeat", height: "70%", width: "80%", position: "absolute", left: "-24%", top: "-25%", transform: "scale(.4) rotate(-30deg)", zIndex: -3}}></div>
+            <div style={{backgroundImage: `url(${getImagePath() + "FG.png"})`, backgroundSize: "contain", backgroundRepeat: "no-repeat", height: "100%", position: "relative", left: "0%", bottom: "2%"}}></div>
+            </div> : <div id = "hill" style={{backgroundImage: `url(${getImagePath() + "hill.png"})`, backgroundSize: "contain", backgroundRepeat: "no-repeat", height: "100%", width: "110%", position: "absolute", left: "-5%", bottom: "-75vh"}}>
+            <div id = "totem" style={{backgroundImage: `url(${getImagePath() + "Totem1.png"})`, backgroundSize: "contain", backgroundRepeat: "no-repeat", height: "100%", width: "80%", position: "absolute", backgroundPosition: "right", right: "-22%", top: "-60%", transform: "scale(.7)", zIndex: -3}}></div>
+            <div style={{backgroundImage: `url(${getImagePath() + "fence.png"})`, backgroundSize: "contain", backgroundRepeat: "no-repeat", height: "70%", width: "80%", position: "absolute", left: "-24%", top: "-23%", transform: "scale(.4) rotate(-30deg)", zIndex: -3}}></div>
+            <div style={{backgroundImage: `url(${getImagePath() + "FG.png"})`, backgroundSize: "contain", backgroundRepeat: "no-repeat", height: "100%", position: "relative", left: "0%", bottom: "-2%"}}></div>
+            </div>} */}
 
-        <div style={{backgroundImage: `url(${getImagePath() + "fence.png"})`, backgroundSize: "contain", backgroundRepeat: "no-repeat", height: "100%", position: "relative", left: "-35%", top: "-170%", transform: "scale(.4) rotate(-30deg)", zIndex: -3}}>
-          
-        </div>
-
-        <div style={{backgroundImage: `url(${getImagePath() + "FG.png"})`, backgroundSize: "contain", backgroundRepeat: "no-repeat", height: "100%", position: "relative", left: "0%", bottom: "250%", transform: "scale(1, .5)"}}>
-          
+          {
+            isSmallScreen ? 
+            <div id = "hill" style={{backgroundImage: `url(${getImagePath() + "hill.png"})`, backgroundSize: "contain", backgroundRepeat: "no-repeat", height: "100%", width: "110%", position: "absolute", left: "-5%", bottom: "-60vh"}}>
+            <div id = "totem" style={{backgroundImage: `url(${getImagePath() + "Totem1.png"})`, backgroundSize: "contain", backgroundRepeat: "no-repeat", height: "100%", width: "80%", position: "absolute", backgroundPosition: "right", right: "-15%", top: "-55%", transform: "scale(.7)", zIndex: -3}}></div>
+            <div style={{backgroundImage: `url(${getImagePath() + "fence.png"})`, backgroundSize: "contain", backgroundRepeat: "no-repeat", height: "70%", width: "80%", position: "absolute", left: "-24%", top: "-25%", transform: "scale(.4) rotate(-30deg)", zIndex: -3}}></div></div> :
+            
+            <div id = "hill" style={{backgroundImage: `url(${getImagePath() + "hill.png"})`, backgroundSize: "contain", backgroundRepeat: "no-repeat", height: "100%", width: "110%", position: "absolute", backgroundPosition: "bottom",  left: "-5%"}}>
+            <div id = "totem" style={{backgroundImage: `url(${getImagePath() + "Totem1.png"})`, backgroundSize: "contain", backgroundRepeat: "no-repeat", height: "100%", width: "80%", position: "absolute", backgroundPosition: "bottom", right: "15%", top: "55%", transform: "scale(.7)", zIndex: -3}}></div>
+            <div style={{backgroundImage: `url(${getImagePath() + "fence.png"})`, backgroundSize: "contain", backgroundRepeat: "no-repeat", height: "70%", width: "80%", position: "absolute", left: "-24%",backgroundPosition: "bottom", top: "-25%", transform: "scale(.4) rotate(-30deg)", zIndex: -3}}></div></div>
+          }
         </div>
 
       </div>

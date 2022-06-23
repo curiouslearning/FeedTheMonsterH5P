@@ -13,8 +13,6 @@ const Wrapper = styled.div`
 `;
 
 const Popup = styled.div`
-  height: 50%;
-  width: 50%;
   z-index: 9;
   display: flex;
 `;
@@ -38,6 +36,9 @@ const ClosePopup = styled.div`
   background-image: url(${(props) => props.title});
   background-size: contain;
   background-repeat: no-repeat;
+  position: relative;
+  top: -15px;
+  left: -115px;
 `;
 
 const SelectProfile = (props: any) => {
@@ -79,7 +80,7 @@ window.addEventListener('orientationchange', function(event) {
             display: "flex",
             flexDirection: "column",
             alignItems: "center",
-            justifyContent: "flex-start"
+            justifyContent: "space-around"
           }}>
           <img
             src={getImagePath() + "title.png"}
@@ -89,15 +90,6 @@ window.addEventListener('orientationchange', function(event) {
               objectFit: "contain"
             }}
           /> 
-          <div
-            ref={monsterRef}
-            style={{
-              width: "300px",
-              height: "100px"
-            }}
-            >
-            <AnimationType type="profile" />
-          </div>
           {popUpStatus ? (
             <Popup>
               <div
@@ -109,7 +101,8 @@ window.addEventListener('orientationchange', function(event) {
                   backgroundPosition: "center",
                   display: "flex",
                   flexDirection: "column",
-                  alignItems: "center"
+                  alignItems: "center",
+                  minWidth: "400px"
                 }}>
                   <ClosePopup
                     title={getImagePath() + "close_btn.png"}
@@ -252,11 +245,19 @@ window.addEventListener('orientationchange', function(event) {
                 setPopUpStatus(true);
               }}
               style={{
-                height: "200px",
-                marginTop: "300px"
+                height: "200px"
               }}
             ></img>
           )}
+          <div
+            ref={monsterRef}
+            style={{
+              width: "300px",
+              height: "200px"
+            }}
+            >
+            <AnimationType type="profile" />
+          </div>
         </div>
       {/* <div
         ref={monsterRef}

@@ -20,7 +20,6 @@ const EndLevelComponent = (props: any) => {
         backgroundColor: "black",
         height: "100%",
         width: "100%",
-        position: "absolute",
       }}
     >
       <div
@@ -28,9 +27,12 @@ const EndLevelComponent = (props: any) => {
         style={{
           backgroundImage: `url(${getImagePath() + "WIN_screen_bg.png"})`,
           backgroundSize: "contains",
+          backgroundPosition: "center",
           margin: "auto",
           display: "flex",
           flexDirection: "column",
+          minWidth: "400px",
+          maxWidth: "455px"
         }}
       >
         <div className="rating">
@@ -84,6 +86,8 @@ export const HomeAndRestartComponent = (props: any) => {
     >
       <div
         onClick={(e) => {
+          buttonCLick();
+          props.props.allLevelScreen();
           buttonCLick();
           props.props.allLevelScreen();
           setScaleNextBtn(0.9);
