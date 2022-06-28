@@ -104,7 +104,7 @@ p {
 
 .h5p-enable-fullscreen{
   position: absolute;
-  top: 2%; 
+  margin-top: 18px; 
   /* left: -0.1%; */
   
 }
@@ -134,6 +134,14 @@ p {
   display: none;
 }
 
+/* .dragAndDrop{
+  @media only screen and ((min-width: 650px) and (min-height: 900px)) {
+    body {
+      display:none;
+    }
+  }
+   
+} */
 /* .ball1{
     position: relative;
     width: 30px;

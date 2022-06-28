@@ -45,8 +45,8 @@ const ExitScreenButton=()=>{
             <FaCompress  id='exitButton' fontSize={"15px"}  style={{
                 position:"absolute",
                 zIndex:1,
-                top:"3%",
-                left:"2.6%",
+                 left:"2.6%",
+                 marginTop:"25px",
                 display:"none"
             }}
             onClick={onClickExitScreenButton}></FaCompress>
