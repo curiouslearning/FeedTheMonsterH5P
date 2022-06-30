@@ -65,19 +65,19 @@ const Slideshow = (props: any) => {
 const [changeOrient, setChangeOrient] = useState(false);
 window.addEventListener('orientationchange', function(event) {
     let id;
-    if(this.window.screen.orientation.type !== screenOrientation) {
-        id = document.getElementById("turn");
-        console.log("change1")
-        id.style.display="none";
-        // changeOrient = false;
-        setChangeOrient(true); 
-        } else {
-            id = document.getElementById("notTurn");
-            setChangeOrient(false);
-            console.log("change2")
-            id.style.display="block";
-            // changeOrient = true;
-        }
+    // if(this.window.screen.orientation.type !== screenOrientation) {
+    //     id = document.getElementById("turn");
+    //     console.log("change1")
+    //     id.style.display="none";
+    //     // changeOrient = false;
+    //     setChangeOrient(true); 
+    //     } else {
+    //         id = document.getElementById("notTurn");
+    //         setChangeOrient(false);
+    //         console.log("change2")
+    //         id.style.display="block";
+    //         // changeOrient = true;
+    //     }
     }
 );
     return (
