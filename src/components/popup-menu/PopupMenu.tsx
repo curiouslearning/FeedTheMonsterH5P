@@ -22,13 +22,12 @@ const PopupContent = styled.div`
   justify-content: center;
   align-items: center;
   z-index: 7;
-  margin-inline: 10px;
   border-radius: 50%;
 `;
 const ClosePopup = styled.div`
-  position: absolute;
-  top: 3.5em;
-  left: 9em;
+  position: relative;
+  top: 0%;
+  left: -28%;
   height: 5em;
   width: 5em;
   background-image: url(${(props) => props.title});
@@ -39,7 +38,6 @@ const PopupMenu = (props: any) => {
   const [scaleCloseBtn, setScaleCloseBtn] = useState(1);
   const [scaleNextBtn, setScaleNextBtn] = useState(1);
   const [scaleRestartBtn, setScaleRestartBtn] = useState(1);
-
   return (
     <div
       className="xyz"
@@ -57,13 +55,17 @@ const PopupMenu = (props: any) => {
       <div
         style={{
           backgroundImage: `url(${getImagePath() + "popup_bg_v01.png"})`,
-          backgroundSize: "100% 100%",
+          backgroundSize: "contain",
           backgroundRepeat: "no-repeat",
+          backgroundPosition: "center",
           width: "33em",
           height: "33em",
           display: "flex",
           justifyContent: "center",
           alignItems: "center",
+          minWidth: "400px",
+          maxHeight: "400px",
+          flexDirection: "column"
         }}
       >
         <ClosePopup
@@ -77,44 +79,45 @@ const PopupMenu = (props: any) => {
             }, 200);
           }}
         ></ClosePopup>
-        <div
-          onClick={(e) => {
-            buttonCLick();
-            props.allLevelScreen();
-            setScaleNextBtn(0.9);
-            setTimeout(() => {
-              setScaleNextBtn(1);
-            }, 200);
-          }}
-          style={{
-            backgroundImage: `url(${getImagePath() + "map_btn.png"})`,
-            backgroundSize: "contain",
-            backgroundRepeat: "no-repeat",
-            height: "7em",
-            width: "7em",
-            marginLeft: 10,
-            transform: `scale(${scaleNextBtn})`,
-          }}
-        ></div>
-        <div
-          onClick={(e) => {
-            buttonCLick();
-            props.onClickRestart();
-            setScaleRestartBtn(0.9);
-            setTimeout(() => {
-              setScaleRestartBtn(1);
-            }, 200);
-          }}
-          style={{
-            backgroundImage: `url(${getImagePath() + "retry_btn.png"})`,
-            backgroundSize: "contain",
-            backgroundRepeat: "no-repeat",
-            height: "7em",
-            width: "7em",
-            marginLeft: 35,
-            transform: `scale(${scaleRestartBtn})`,
-          }}
-        ></div>
+        <div style={{display: "flex", width: "75%", height: "80%", alignItems: "center", justifyContent: "space-evenly"}}>
+          <div
+            onClick={(e) => {
+              buttonCLick();
+              props.allLevelScreen();
+              setScaleNextBtn(0.9);
+              setTimeout(() => {
+                setScaleNextBtn(1);
+              }, 200);
+            }}
+            style={{
+              backgroundImage: `url(${getImagePath() + "map_btn.png"})`,
+              backgroundSize: "contain",
+              backgroundRepeat: "no-repeat",
+              height: "7em",
+              width: "7em",
+              transform: `scale(${scaleNextBtn})`,
+              
+            }}
+          ></div>
+          <div
+            onClick={(e) => {
+              buttonCLick();
+              props.onClickRestart();
+              setScaleRestartBtn(0.9);
+              setTimeout(() => {
+                setScaleRestartBtn(1);
+              }, 200);
+            }}
+            style={{
+              backgroundImage: `url(${getImagePath() + "retry_btn.png"})`,
+              backgroundSize: "contain",
+              backgroundRepeat: "no-repeat",
+              height: "7em",
+              width: "7em",
+              transform: `scale(${scaleRestartBtn})`,
+            }}
+          ></div>
+        </div>
       </div>
     </div>
   );

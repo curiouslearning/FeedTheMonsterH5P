@@ -672,15 +672,13 @@ const SlideComponent = (props: any) => {
   compared = [];
   return (
     <Wrapper>
-      <img
-        src={getImagePath() + "background.png"}
-        style={{
-          position: "absolute",
-          width: "100%",
-          height: "100vh",
-          zIndex: -2,
-        }}
-      ></img>
+     <div style={{backgroundImage: `url(${getImagePath() + "bg.jpg"})`, width: "100%", height: "100%", position: "absolute", backgroundSize: "100% 100%", zIndex: -2, overflow: "hidden"}}>
+              <div id = "hill" style={{backgroundImage: `url(${getImagePath() + "hill.png"})`, backgroundSize: "100% 100%", backgroundRepeat: "no-repeat", height: "50%", width: "110%", position: "absolute", left: "-5%", bottom: 0}}>
+              <div id = "totem" style={{backgroundImage: `url(${getImagePath() + "Totem1.png"})`, backgroundSize: "contain", backgroundRepeat: "no-repeat", height: "100%", width: "80%", position: "relative", backgroundPosition: "right", right: "-20%", top: "-55%", zIndex: -3}}></div>
+              <div style={{backgroundImage: `url(${getImagePath() + "fence.png"})`, backgroundSize: "contain", backgroundRepeat: "no-repeat", height: "100%", width: "100%", position: "absolute", left: "-36%", top: "-43%", transform: "scale(.7) rotate(-37deg)", zIndex: -3, backgroundPosition: "center"}}></div>
+        </div>
+      </div> 
+      
       {data.audio && data.audio.length > 0 ? (
         ""
       ) : (
