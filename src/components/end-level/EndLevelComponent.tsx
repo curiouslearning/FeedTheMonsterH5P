@@ -12,16 +12,16 @@ import { base64Images } from "../profile/SelectProfile";
 const EndLevelComponent = (props: any) => {
   const { score, lengthOfCurrentLevel, levelsCompleted } = props;
   console.log(score);
-
+  let id =document.getElementById("exitButton");
+  id.style.color="white";
   console.log(Math.ceil(lengthOfCurrentLevel / 2) * 100);
   return (
     <div
       className="bg-left"
       style={{
         backgroundColor: "black",
-        height: "100vh",
+        height: "100%",
         width: "100%",
-        position: "absolute",
       }}
     >
       <div
@@ -33,9 +33,12 @@ const EndLevelComponent = (props: any) => {
               : getImagePath() + 'stone_pink_v02.png'
           })`,
           backgroundSize: "contains",
+          backgroundPosition: "center",
           margin: "auto",
           display: "flex",
           flexDirection: "column",
+          minWidth: "400px",
+          maxWidth: "455px"
         }}
       >
         <div className="rating">

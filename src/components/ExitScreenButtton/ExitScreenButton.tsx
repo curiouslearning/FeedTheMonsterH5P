@@ -2,10 +2,16 @@ import * as React from 'react';
 import { FaCompress } from "react-icons/fa";
 window.addEventListener("resize",function(){
     let id = this.document.getElementById("exitButton");
+    let monsterId= this.document.getElementById("monsterId");
     if(window.innerWidth == screen.width && window.innerHeight == screen.height){ 
+       
+        monsterId.style.top="36vh";
     id.style.display ="block";
+    
+    
     }else{
         id.style.display="none";
+        monsterId.style.top="120px";
     }
 })
 const ExitScreenButton=()=>{
@@ -47,7 +53,7 @@ const ExitScreenButton=()=>{
                 zIndex:1,
                  left:"2.6%",
                  marginTop:"25px",
-                display:"none"
+                 display:"none"
             }}
             onClick={onClickExitScreenButton}></FaCompress>
             </>
