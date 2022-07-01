@@ -18,11 +18,10 @@ let screenOrientation = window.screen.orientation.type;
 export const data: Map<any, any> = new Map<any, any>();
 export const base64Images = data;
 import ReactLoading from "react-loading";
+import { useMediaQuery } from "react-responsive";
 const Wrapper = styled.div`
-  height: 600px;
+  height: 100vh;
   width: 100%;
-  position: relative;
-  color: "black";
 `;
 const Popup = styled.div`
   margin: auto;
@@ -116,6 +115,13 @@ const SelectProfile = (props: any) => {
       // changeOrient = true;
     }
   });
+  const isBigScreen = useMediaQuery({
+    query: "(min-width: 650px) and (min-height: 900px)",
+  });
+  const isSmallScreen = useMediaQuery({ query: "(max-width: 525px)" });
+  if (isBigScreen) {
+    console.log("<<<<<<<<<<<<<<<<<<<<<<<<<<<<<");
+  }
   const onCLickExit = () => {
     let exitBtnId = document.getElementById("exitButton");
     document.exitFullscreen();
@@ -129,15 +135,20 @@ const SelectProfile = (props: any) => {
         <audio id="soundtrack" src={introMusic}></audio>
         <img
           src={
-            base64Images.get('background.png')
-              ? base64Images.get('background.png')
-              : getImagePath() + 'background.png'
+            base64Images.get("background.png")
+              ? base64Images.get("background.png")
+              : getImagePath() + "background.png"
           }
           style={{
             position: "absolute",
             width: "100%",
-            height: "100vh",
+            height: "100%",
             zIndex: -2,
+            backgroundSize: "100% 100%",
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            justifyContent: "space-around",
           }}
         ></img>
         {!loading ? (
@@ -151,9 +162,9 @@ const SelectProfile = (props: any) => {
           <div>
             <img
               src={
-                base64Images.get('title.png')
-                  ? base64Images.get('title.png')
-                  : getImagePath() + 'title.png'
+                base64Images.get("title.png")
+                  ? base64Images.get("title.png")
+                  : getImagePath() + "title.png"
               }
               style={{
                 position: "relative",
@@ -168,34 +179,56 @@ const SelectProfile = (props: any) => {
                 zIndex: -2,
               }}
             ></img>
-            <div
-              ref={monsterRef}
-              style={{
-                width: "300px",
-                height: "100px",
-                zIndex: -2,
-                top: 120,
-                position: "relative",
-                justifyContent: "center",
-                textAlign: "center",
-                alignItems: "center",
-                margin: "auto",
-                display: "block",
-              }}
-            >
-              <AnimationType type="profile" />
-            </div>
+            {isBigScreen ? (
+              <div
+                ref={monsterRef}
+                style={{
+                  width: "300px",
+                  height: "100px",
+                  zIndex: -2,
+                  top: "57vh",
+                  position: "relative",
+                  justifyContent: "center",
+                  textAlign: "center",
+                  alignItems: "center",
+                  margin: "auto",
+                  display: "block",
+                }}
+              >
+                <AnimationType type="profile" />
+              </div>
+            ) : (
+              <div
+                ref={monsterRef}
+                style={{
+                  width: "300px",
+                  height: "100px",
+                  zIndex: -2,
+                  top: "36vh",
+                  position: "relative",
+                  justifyContent: "center",
+                  textAlign: "center",
+                  alignItems: "center",
+                  margin: "auto",
+                  display: "block",
+                }}
+              >
+                <AnimationType type="profile" />
+              </div>
+            )}
             {popUpStatus ? (
-              <Popup title={
-                base64Images.get('popup_bg_v01.png')
-                  ? base64Images.get('popup_bg_v01.png')
-                  : getImagePath() + 'popup_bg_v01.png'
-              }>
+              <Popup
+                title={
+                  base64Images.get("popup_bg_v01.png")
+                    ? base64Images.get("popup_bg_v01.png")
+                    : getImagePath() + "popup_bg_v01.png"
+                }
+              >
                 <ClosePopup
                   title={
-                    base64Images.get('close_btn.png')
-                      ? base64Images.get('close_btn.png')
-                      : getImagePath() + 'close_btn.png'
+                    base64Images.get("close_btn.png")
+                      ? base64Images.get("close_btn.png")
+                      : getImagePath() + "close_btn.png"
                   }
                   onClick={(e) => {
                     buttonCLick();
@@ -259,9 +292,9 @@ const SelectProfile = (props: any) => {
                     height: 150,
                     width: 150,
                     backgroundImage: `url(${
-                      base64Images.get('Avatar_04.png')
-                        ? base64Images.get('Avatar_04.png')
-                        : getImagePath() + 'Avatar_04.png'
+                      base64Images.get("Avatar_04.png")
+                        ? base64Images.get("Avatar_04.png")
+                        : getImagePath() + "Avatar_04.png"
                     })`,
                     backgroundSize: "contain",
                     backgroundRepeat: "no-repeat",
@@ -292,9 +325,9 @@ const SelectProfile = (props: any) => {
             ) : (
               <img
                 src={
-                  base64Images.get('Play_button.png')
-                    ? base64Images.get('Play_button.png')
-                    : getImagePath() + 'Play_button.png'
+                  base64Images.get("Play_button.png")
+                    ? base64Images.get("Play_button.png")
+                    : getImagePath() + "Play_button.png"
                 }
                 onClick={() => {
                   buttonCLick();

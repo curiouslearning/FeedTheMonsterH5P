@@ -15,31 +15,42 @@ const Progress = ({ done }: { done: string }) => {
         className="progress"
         style={{
           backgroundImage: `url(${
-            base64Images.get('timer_empty.png')
-              ? base64Images.get('timer_empty.png')
-              : getImagePath() + 'timer_empty.png'
+            base64Images.get("timer_empty.png")
+              ? base64Images.get("timer_empty.png")
+              : getImagePath() + "timer_empty.png"
           })`,
-          width:'100%',
+          width: "100%",
           backgroundRepeat: "no-repeat",
           backgroundSize: "100% 100%",
         }}
       >
-        <div 
+        <div
           style={{
-            backgroundImage: `url(${
-              base64Images.get('timer.png')
-                ? base64Images.get('timer.png')
-                : getImagePath() + 'timer.png'
-            })`,
-            width:'2.5em',
-            height: '3.0em',
-            position: 'relative',
-            top: '-1em',
-            left: '1.2em',
-            padding: '10px',
-            backgroundRepeat: "no-repeat",
-            backgroundSize: "100% 100%",
-          }}>
+            display: "flex",
+            flexDirection: "row",
+            position: "relative",
+            width: "100%",
+          }}
+        >
+          <div
+            style={{
+              backgroundImage: `url(${
+                base64Images.get("timer.png")
+                  ? base64Images.get("timer.png")
+                  : getImagePath() + "timer.png"
+              })`,
+              width: "2.5em",
+              height: "3.0em",
+              display: "flex",
+              flex: 1,
+              position: "relative",
+              top: "-1em",
+              left: "1em",
+              padding: "10px",
+              backgroundRepeat: "no-repeat",
+              backgroundSize: "100% 100%",
+            }}
+          >
             {/* <div 
               className="timer-watch"
                 style={{
@@ -54,8 +65,11 @@ const Progress = ({ done }: { done: string }) => {
                   backgroundSize: "100% 100%",
                 }}>
             </div> */}
+          </div>
+          <div style={{ display: "flex", flex: 8 }}>
+            <div className="progress-done" style={style}></div>
+          </div>
         </div>
-        <div className="progress-done" style={style}></div>
       </div>
     </div>
   );
