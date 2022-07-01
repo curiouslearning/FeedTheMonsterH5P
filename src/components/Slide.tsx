@@ -45,7 +45,7 @@ let gameStatus: boolean = false;
 let screenRotation = window.screen.orientation.type;
 
 const Wrapper = styled.div`
-  height: 600px;
+  height: 100vh;
   width: 100%;
   position: relative;
 `;
@@ -395,7 +395,7 @@ const DragDropComp = (props: any) => {
         <DndProvider backend={HTML5Backend}>
           <div
             className="dragAndDrop"
-            style={{ height: "50%", display: "flex", margin: "auto" }}
+            style={{ height: "50%", display: "flex", margin: "auto" ,flexDirection:"column-reverse",position:"relative",bottom:"16vh"}}
           >
             <DragDrop
               IsGamePlayStatus={gameStatus}
@@ -633,7 +633,7 @@ const SlideComponent = (props: any) => {
 
   const onStartClick = (url: any) => {
     let id= document.getElementById("exitButton");
-    id.style.left="50%";
+    id.style.left="52%";
     id.style.color="black";
     if(window.innerWidth == screen.width && window.innerHeight == screen.height){ 
       id.style.display="block";
@@ -701,7 +701,7 @@ const SlideComponent = (props: any) => {
           <div
             style={{
               width: "100%",
-              height: "100vh",
+              height: "100%",
               background: "rgba(0,0,0,0.3)",
               display: "flex",
               flexDirection: "row",

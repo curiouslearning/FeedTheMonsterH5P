@@ -51,7 +51,6 @@ window.addEventListener("resize",function(){
     }
     })
 const Slideshow = (props: any) => {
-    let exitButtonId = document.getElementById("exitButton");
 
     const { data } = props;
     const [activeSlide, setActiveSlide] = useState(0);
@@ -74,11 +73,6 @@ const Slideshow = (props: any) => {
     console.log(props)
     console.log(activeSlide)
     console.log(data[activeSlide])
-    if(window.innerWidth == screen.width && window.innerHeight == screen.height){ 
-        exitButtonId.style.display="block";
-      }else{
-        exitButtonId.style.display="none";
-      }
 const [changeOrient, setChangeOrient] = useState(false);
 window.addEventListener('orientationchange', function(event) {
     let id;
@@ -116,9 +110,9 @@ const onClickExitScreenButton=()=>{
            <FaCompress  id='exitButton' fontSize={"15px"} color="white" style={{
                 position:"absolute",
                 zIndex:1,
-                top:"3%",
+                marginTop:"25px",
                 left:"2.6%",
-                // display:"none",
+                display:"none",
             }}
             onClick={onClickExitScreenButton}></FaCompress>
         <div id = {!changeOrient ? "turn" : "notTurn"}>

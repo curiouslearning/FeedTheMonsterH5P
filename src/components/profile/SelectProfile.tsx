@@ -14,13 +14,12 @@ import AnimationType from "../animations/AnimationType";
 import { getAudioPath, getImagePath, buttonCLick } from "../../app";
 import ScreenOrientation from '../OnScreenRotation/ScreenOrietation'
 import ExitScreenButton from '../ExitScreenButtton/ExitScreenButton';
+import { useMediaQuery } from "react-responsive";
 let screenOrientation=window.screen.orientation.type;
 
 const Wrapper = styled.div`
-  height: 600px;
+  height: 100vh;
   width: 100%;
-  position: relative;
-  color: "black";
 `;
 const Popup = styled.div`
   margin: auto;
@@ -84,6 +83,12 @@ window.addEventListener('orientationchange', function(event) {
         }
     }
 );
+
+const isBigScreen = useMediaQuery({ query: '(min-width: 650px) and (min-height: 900px)' })
+const isSmallScreen = useMediaQuery({ query: '(max-width: 525px)' })
+if(isBigScreen){
+  console.log("<<<<<<<<<<<<<<<<<<<<<<<<<<<<<")
+}
 const onCLickExit=()=>{
   let exitBtnId =document.getElementById("exitButton");
   document.exitFullscreen();
@@ -99,8 +104,13 @@ const onCLickExit=()=>{
         style={{
           position: "absolute",
           width: "100%",
-          height: "100vh",
+          height: "100%",
           zIndex: -2,
+          backgroundSize: "100% 100%",
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+          justifyContent: "space-around",
         }}
       ></img>
       <img
@@ -118,7 +128,41 @@ const onCLickExit=()=>{
           zIndex: -2,
         }}
       ></img>
-      <div
+      
+      {isBigScreen ?<div
+        ref={monsterRef}
+        style={{
+          width: "300px",
+          height: "100px",
+          zIndex: -2,
+          top: "57vh",
+          position: "relative",
+          justifyContent: "center",
+          textAlign: "center",
+          alignItems: "center",
+          margin: "auto",
+          display: "block",
+        }}
+      >
+        <AnimationType type="profile" />
+      </div>:<div
+        ref={monsterRef}
+        style={{
+          width: "300px",
+          height: "100px",
+          zIndex: -2,
+          top: "36vh",
+          position: "relative",
+          justifyContent: "center",
+          textAlign: "center",
+          alignItems: "center",
+          margin: "auto",
+          display: "block",
+        }}
+      >
+        <AnimationType type="profile" />
+      </div>}
+      {/* <div id="monsterId"
         ref={monsterRef}
         style={{
           width: "300px",
@@ -134,7 +178,8 @@ const onCLickExit=()=>{
         }}
       >
         <AnimationType type="profile" />
-      </div>
+      </div> */}
+      
 
       {popUpStatus ? (
         <Popup title={getImagePath() + "popup_bg_v01.png"}>
