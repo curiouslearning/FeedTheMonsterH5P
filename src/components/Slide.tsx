@@ -48,6 +48,7 @@ const Wrapper = styled.div`
   height: 100vh;
   width: 100%;
   position: relative;
+  overflow-y: hidden;
 `;
 const DragDropComp = (props: any) => {
   console.log("DRAGDROPCOMP PROPS ==> ", props);
