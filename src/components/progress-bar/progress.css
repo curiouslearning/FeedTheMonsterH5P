@@ -15,7 +15,6 @@
 	background: repeating-linear-gradient(45deg, #F2709C, #F2709C 10px, red 10px, red 20px), linear-gradient(to left, #F2709C, red);
 	height: 15;
 	opacity: 0;
-	margin-left: 29px;
     margin-top: 3px;
 }
 

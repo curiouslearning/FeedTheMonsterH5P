@@ -7,12 +7,9 @@ import loseBg from "../../../assets/images/Lose_bg.png";
 import winBg from "../../../assets/images/WIN_screen_bg.png";
 import "./EndLevelComponent.css";
 import { buttonCLick, getImagePath } from "../../app";
-
 const EndLevelComponent = (props: any) => {
   const { score, lengthOfCurrentLevel, levelsCompleted } = props;
   console.log(score);
-  let id =document.getElementById("exitButton");
-  id.style.color="white";
   console.log(Math.ceil(lengthOfCurrentLevel / 2) * 100);
   return (
     <div
@@ -33,7 +30,7 @@ const EndLevelComponent = (props: any) => {
           display: "flex",
           flexDirection: "column",
           minWidth: "400px",
-          maxWidth: "455px"
+          maxWidth: "455px",
         }}
       >
         <div className="rating">
@@ -64,9 +61,7 @@ const EndLevelComponent = (props: any) => {
     </div>
   );
 };
-
 export default EndLevelComponent;
-
 export const HomeAndRestartComponent = (props: any) => {
   const [scaleCloseBtn, setScaleCloseBtn] = useState(1);
   const [scaleNextBtn, setScaleNextBtn] = useState(1);
@@ -89,6 +84,8 @@ export const HomeAndRestartComponent = (props: any) => {
         onClick={(e) => {
           buttonCLick();
           props.props.allLevelScreen();
+          buttonCLick();
+          props.props.allLevelScreen();
           setScaleNextBtn(0.9);
           setTimeout(() => {
             setScaleNextBtn(1);
@@ -103,7 +100,6 @@ export const HomeAndRestartComponent = (props: any) => {
           transform: `scale(${scaleNextBtn})`,
         }}
       ></div>
-
       <div
         onClick={(e) => {
           buttonCLick();
