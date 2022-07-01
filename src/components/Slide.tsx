@@ -666,10 +666,10 @@ const SlideComponent = (props: any) => {
     <Wrapper>
       <img
         src={
-            base64Images.get('background.png')
-              ? base64Images.get('background.png')
-              : getImagePath() + 'background.png'
-          }
+          base64Images.get("background.png")
+            ? base64Images.get("background.png")
+            : getImagePath() + "background.png"
+        }
         style={{
           position: "absolute",
           width: "100%",
@@ -689,9 +689,9 @@ const SlideComponent = (props: any) => {
           style={{
             height: "100%",
             backgroundImage: `url(${
-              base64Images.get('map.jpg')
-                ? base64Images.get('map.jpg')
-                : getImagePath() + 'map.jpg'
+              base64Images.get("map.jpg")
+                ? base64Images.get("map.jpg")
+                : getImagePath() + "map.jpg"
             })`,
             backgroundPosition: "center",
             backgroundRepeat: "no-repeat",
@@ -729,9 +729,9 @@ const SlideComponent = (props: any) => {
                                   borderRadius: 70,
                                   outlineStyle: "none",
                                   background: `url(${
-                                    base64Images.get('mapIcon.png')
-                                      ? base64Images.get('mapIcon.png')
-                                      : getImagePath() + 'mapIcon.png'
+                                    base64Images.get("mapIcon.png")
+                                      ? base64Images.get("mapIcon.png")
+                                      : getImagePath() + "mapIcon.png"
                                   })`,
                                   backgroundPosition: 25,
                                   backgroundSize: "contain",
@@ -765,9 +765,9 @@ const SlideComponent = (props: any) => {
                                     <div className="pin-star">
                                       <img
                                         src={
-                                          base64Images.get('pinStar1.png')
-                                            ? base64Images.get('pinStar1.png')
-                                            : getImagePath() + 'pinStar1.png'
+                                          base64Images.get("pinStar1.png")
+                                            ? base64Images.get("pinStar1.png")
+                                            : getImagePath() + "pinStar1.png"
                                         }
                                         alt="star"
                                       />
@@ -775,9 +775,9 @@ const SlideComponent = (props: any) => {
                                     <div className="pin-star2">
                                       <img
                                         src={
-                                          base64Images.get('pinStar2.png')
-                                            ? base64Images.get('pinStar2.png')
-                                            : getImagePath() + 'pinStar2.png'
+                                          base64Images.get("pinStar2.png")
+                                            ? base64Images.get("pinStar2.png")
+                                            : getImagePath() + "pinStar2.png"
                                         }
                                         alt="star"
                                       />
@@ -785,9 +785,9 @@ const SlideComponent = (props: any) => {
                                     <div className="pin-star">
                                       <img
                                         src={
-                                          base64Images.get('pinStar3.png')
-                                            ? base64Images.get('pinStar3.png')
-                                            : getImagePath() + 'pinStar3.png'
+                                          base64Images.get("pinStar3.png")
+                                            ? base64Images.get("pinStar3.png")
+                                            : getImagePath() + "pinStar3.png"
                                         }
                                         alt="star"
                                       />
@@ -798,9 +798,9 @@ const SlideComponent = (props: any) => {
                                     <div className="pin-star">
                                       <img
                                         src={
-                                          base64Images.get('pinStar1.png')
-                                            ? base64Images.get('pinStar1.png')
-                                            : getImagePath() + 'pinStar1.png'
+                                          base64Images.get("pinStar1.png")
+                                            ? base64Images.get("pinStar1.png")
+                                            : getImagePath() + "pinStar1.png"
                                         }
                                         alt="star"
                                       />
@@ -808,9 +808,9 @@ const SlideComponent = (props: any) => {
                                     <div className="pin-star2">
                                       <img
                                         src={
-                                          base64Images.get('pinStar2.png')
-                                            ? base64Images.get('pinStar2.png')
-                                            : getImagePath() + 'pinStar2.png'
+                                          base64Images.get("pinStar2.png")
+                                            ? base64Images.get("pinStar2.png")
+                                            : getImagePath() + "pinStar2.png"
                                         }
                                         alt="star"
                                       />
@@ -821,9 +821,9 @@ const SlideComponent = (props: any) => {
                                     <div className="pin-star">
                                       <img
                                         src={
-                                          base64Images.get('pinStar1.png')
-                                            ? base64Images.get('pinStar1.png')
-                                            : getImagePath() + 'pinStar1.png'
+                                          base64Images.get("pinStar1.png")
+                                            ? base64Images.get("pinStar1.png")
+                                            : getImagePath() + "pinStar1.png"
                                         }
                                         alt="star"
                                       />
@@ -851,9 +851,9 @@ const SlideComponent = (props: any) => {
                                     <br></br>
                                     <img
                                       src={
-                                        base64Images.get('mapLock.png')
-                                          ? base64Images.get('mapLock.png')
-                                          : getImagePath() + 'mapLock.png'
+                                        base64Images.get("mapLock.png")
+                                          ? base64Images.get("mapLock.png")
+                                          : getImagePath() + "mapLock.png"
                                       }
                                     ></img>
                                   </div>
@@ -882,9 +882,9 @@ const SlideComponent = (props: any) => {
                                   borderRadius: 70,
                                   outlineStyle: "none",
                                   background: `url(${
-                                    base64Images.get('mapIcon.png')
-                                      ? base64Images.get('mapIcon.png')
-                                      : getImagePath() + 'mapIcon.png'
+                                    base64Images.get("mapIcon.png")
+                                      ? base64Images.get("mapIcon.png")
+                                      : getImagePath() + "mapIcon.png"
                                   })`,
                                   backgroundPosition: 25,
                                   backgroundSize: "contain",
@@ -918,10 +918,10 @@ const SlideComponent = (props: any) => {
                                     <br></br>
                                     <img
                                       src={
-                                    base64Images.get('mapLock.png')
-                                      ? base64Images.get('mapLock.png')
-                                      : getImagePath() + 'mapLock.png'
-                                  }
+                                        base64Images.get("mapLock.png")
+                                          ? base64Images.get("mapLock.png")
+                                          : getImagePath() + "mapLock.png"
+                                      }
                                     ></img>
                                   </div>
                                 )}
@@ -949,9 +949,9 @@ const SlideComponent = (props: any) => {
                           borderRadius: 70,
                           outlineStyle: "none",
                           background: `url(${
-                            base64Images.get('mapIcon.png')
-                              ? base64Images.get('mapIcon.png')
-                              : getImagePath() + 'mapIcon.png'
+                            base64Images.get("mapIcon.png")
+                              ? base64Images.get("mapIcon.png")
+                              : getImagePath() + "mapIcon.png"
                           })`,
                           backgroundPosition: 25,
                           backgroundSize: "contain",
@@ -984,9 +984,9 @@ const SlideComponent = (props: any) => {
                           borderRadius: 70,
                           outlineStyle: "none",
                           background: `url(${
-                            base64Images.get('mapIcon.png')
-                              ? base64Images.get('mapIcon.png')
-                              : getImagePath() + 'mapIcon.png'
+                            base64Images.get("mapIcon.png")
+                              ? base64Images.get("mapIcon.png")
+                              : getImagePath() + "mapIcon.png"
                           })`,
                           backgroundPosition: 25,
                           backgroundSize: "contain",
@@ -1018,11 +1018,13 @@ const SlideComponent = (props: any) => {
                         ) : (
                           <div>
                             <br></br>
-                            <img src={
-                            base64Images.get('mapLock.png')
-                              ? base64Images.get('mapLock.png')
-                              : getImagePath() + 'mapLock.png'
-                          }></img>
+                            <img
+                              src={
+                                base64Images.get("mapLock.png")
+                                  ? base64Images.get("mapLock.png")
+                                  : getImagePath() + "mapLock.png"
+                              }
+                            ></img>
                           </div>
                         )}
                         <br></br>
@@ -1080,7 +1082,7 @@ const SlideComponent = (props: any) => {
             allLevelScreen={allLevelScreen}
             devMode={props.devMode}
           />
-
+          {console.log("*******", props.levelNumber)}
           <div style={{ display: "flex", justifyContent: "center" }}>
             <div
               ref={monsterRef}

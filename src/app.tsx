@@ -6,6 +6,7 @@ import SelectProfile from "./components/profile/SelectProfile";
 import Slideshow from "./components/Slideshow";
 import gameData from "./data/example-return";
 import {Howl} from "howler";
+import GameScreen from "./components/GameScreen";
 
 declare var H5P: any;
 declare var H5PIntegration: any;
@@ -36,17 +37,7 @@ export default class ReactDemoApp extends (H5P.EventDispatcher as {
     console.log(this.editorData);
     $wrapper.get(0).appendChild(this.$element);
     render(
-      <SelectProfile
-        config={this.config}
-        contentId={this.contentId}
-        editorData={this.editorData}
-        wrapper={$wrapper}
-        element={this.$element}
-        feedbackPhrases={this.feedbackPhrases}
-        feedbackAudios={this.feedbackAudios}
-        generalData={this.generalData}
-        devMode={this.devMode}
-      />,
+     <GameScreen/>,
       this.$element
     );
     //render(<Slideshow data={this.config} contentId={this.contentId} editorData={this.editorData}/>, this.$element);
@@ -63,7 +54,7 @@ const playAUDIO = (src: any) => {
 
 const getImagePath=function()
 {
-  return H5P.getLibraryPath("H5P.ReactSlideshowDemo-0.1")+"/assets/images/"
+  return H5P.getLibraryPath("H5P.FeedTheMonster-0.1")+"/assets/images/"
 }
 const buttonCLick=function(){
  return playAUDIO(getAudioPath()+'ButtonClick.wav');
@@ -72,7 +63,7 @@ const buttonCLick=function(){
 
 const getAudioPath=function()
 {
-  return H5P.getLibraryPath("H5P.ReactSlideshowDemo-0.1")+"/assets/audios/"
+  return H5P.getLibraryPath("H5P.FeedTheMonster-0.1")+"/assets/audios/"
 }
 
 
