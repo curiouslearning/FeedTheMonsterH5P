@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
-import { render } from "react-dom";
 import { getImagePath } from "../app";
 import AnimationType from "./animations/AnimationType";
 import useWindowDimensions from "./common/GetWindowDimensions";
+import classNames from "classnames";
 import PauseMenu from "./pause-menu/PauseMenu";
 import { base64Images } from "./profile/SelectProfile";
 import Progress from "./progress-bar/progress";
@@ -10,113 +10,191 @@ import PromptText from "./prompt-text/PromptText";
 import PuzzelBar from "./puzzel-bar/PuzzelBar";
 import ScoreBoard from "./score-board/ScoreBoard";
 import SuccessText from "./success-text/SuccessText";
-class GameScreen extends React.Component {
-  render() {
-    return (
+import { DragDropContainer, DropTarget } from "react-drag-drop-container";
+const GameScreen = (props: any) => {
+  const { height, width } = useWindowDimensions();
+  const [levelCount, setLevelCount] = useState(0);
+  const [activeIndicators, setActiveIndicators] = useState(
+    props.data.Puzzles.length
+  );
+  const [animationType, setAnimationType] = useState("idle");
+  return (
+    <div
+      id="13"
+      style={{
+        overflow: "hidden",
+        height: height,
+        width: width,
+        display: "flex",
+        zIndex: 3,
+        backgroundSize: "100% 100%",
+        flexDirection: "column",
+        backgroundImage: `url(${
+          base64Images.get("background.png")
+            ? base64Images.get("background.png")
+            : getImagePath() + "background.png"
+        })`,
+      }}
+    >
       <div
-        id="13"
+        className="pause_menu"
         style={{
-          overflow: "hidden",
-          height: '600px',
-          width: '600px',
           display: "flex",
-          zIndex: 3,
-          backgroundSize: "100% 100%",
-          flexDirection: "column",
-          backgroundImage: `url(${
-            base64Images.get("background.png")
-              ? base64Images.get("background.png")
-              : getImagePath() + "background.png"
-          })`,
+          flexDirection: "row",
+          justifyContent: "space-between",
+          margin: "10px",
         }}
       >
-        <div
-          className="pause_menu"
-          style={{
-            display: "flex",
-            flexDirection: "row",
-            justifyContent: "space-between",
-            margin: "10px",
+        <PuzzelBar
+          puzzelCount={props.data.Puzzles.length - 1}
+          activeIndicators={activeIndicators}
+        />
+        {props.devMode ? (
+          <>
+            <ScoreBoard levelNumber={props.levelNumber} levelCount={2} />
+          </>
+        ) : (
+          <></>
+        )}
+        <PauseMenu
+          onClickPauseMenu={() => {
+            // buttonCLick();
+            // onClickPauseMenu();
           }}
-        >
-          <PuzzelBar puzzelCount={4} activeIndicators={2} />
-          {true ? (
-            <>
-              <ScoreBoard levelNumber={2} levelCount={2} />
-            </>
-          ) : (
-            <></>
-          )}
-          <PauseMenu
-            onClickPauseMenu={() => {
-              // buttonCLick();
-              // onClickPauseMenu();
-            }}
-          />
-        </div>
-        <Progress done={(10).toString()} />
+        />
+      </div>
+      <Progress done={(10).toString()} />
+      <div
+        style={{
+          display: "flex",
+          flex: 5,
+          flexDirection: "column",
+          justifyContent: "space-between",
+        }}
+        className="game_play"
+      >
         <div
           style={{
             display: "flex",
-            flex: 5,
+            alignItems: "start",
+            margin: "0 auto",
             flexDirection: "column",
-            justifyContent: "space-between",
           }}
-          className="game_play"
+        >
+          <PromptText
+            IsGamePlay={(status: any) => {
+              //   !gameStatus ? playAUDIO(getAudioPath() + "StonesAppear.mp3") : null;
+              //   gameStatus = status;
+            }}
+            letter={props.data.Puzzles[levelCount].prompt.PromptText}
+            audioUrl={""}
+            isAudioPlaying={true}
+            textVisbility={true}
+            levelType={"word"}
+            generalData={props.generalData}
+            targetedLetters={"b"}
+          />
+          <SuccessText word={"Hai"} />
+        </div>
+        <div
+          style={{
+            display: "grid",
+            height: "100%",
+            justifyContent: "center",
+            alignItems: "center",
+          }}
         >
           <div
             style={{
-              display: "flex",
-              alignItems: "start",
-              margin: "0 auto",
-              flexDirection: "column",
+              gridColumn: 1,
+              gridRow: 1,
+              zIndex: 2,
+              width: "120px",
+              height: "150px",
+              margin: "auto",
             }}
           >
-            <PromptText
-              IsGamePlay={(status: any) => {
-                //   !gameStatus ? playAUDIO(getAudioPath() + "StonesAppear.mp3") : null;
-                //   gameStatus = status;
+            <DropTarget
+              onHit={(e: any) => {
+                e.containerElem.style.visibility = "hidden";
+                setActiveIndicators(activeIndicators - 1);
+                console.log("dropped", e.containerElem.innerText);
+
+                e.containerElem.innerText ==
+                props.data.Puzzles[levelCount].prompt.PromptText
+                  ? setAnimationType("eat")
+                  : setAnimationType("spit");
+                setTimeout(() => {
+                  setLevelCount((preCount) => preCount + 1);
+                  setAnimationType("idle");
+                }, 4000);
               }}
-              letter={"a"}
-              audioUrl={""}
-              isAudioPlaying={true}
-              textVisbility={true}
-              levelType={"word"}
-              generalData={""}
-              targetedLetters={"b"}
-            />
-            <SuccessText word={"Hai"} />
+              targetKey="box"
+              dropData={{ name: props.name }}
+            >
+              <div
+                onClick={() => {}}
+                style={{
+                  border: "solid",
+                  width: "120px",
+                  height: "150px",
+                  zIndex: 5,
+                }}
+              ></div>
+            </DropTarget>
           </div>
           <div
             style={{
-              width: "22em",
-              display: "flex",
-              alignItems: "end",
+              gridColumn: 1,
+              gridRow: 1,
+              transform: "scale(0.4)",
               position: "relative",
-              bottom: "20%",
-              zIndex: 5,
-              flex: 1,
-              margin: "0 auto",
+              bottom: "10%",
             }}
           >
-            <AnimationType type="idle" getPhaseCharNo={3} />
+            <AnimationType type={animationType} getPhaseCharNo={3} />
           </div>
         </div>
-        {/* <div
-          style={{
-            display: "flex",
-            flex: 2,
-            zIndex: 4,
-            backgroundImage: `url(${getImagePath() + "hill.png"})`,
-            backgroundSize: "100% 110%",
-            backgroundRepeat: "no-repeat",
-            position: "relative",
-            width: "110%",
-            left: "-5%",
+        {gameOptions(props.data.Puzzles[levelCount])}
+      </div>
+    </div>
+  );
+};
+
+const gameOptions = (options: any) => {
+  return options.foilstones.map((item: any, index: any) => {
+    return (
+      <div className={classNames("ball" + index)}>
+        <DragDropContainer
+          targetKey="box"
+          dragData={"ball" + index}
+          // customDragElement={customDragElement}
+          onDragStart={(e: any) => {
+            // playAUDIO(getAudioPath() + "onDrag.mp3");
           }}
-        ></div> */}
+          onDrag={() => console.log("dragging")}
+          onDragEnd={() => console.log("end")}
+          onDrop={(e: any) => console.log(e)}
+        >
+          <div
+            className={classNames("ball" + index)}
+            style={{
+              backgroundImage: `url(${
+                base64Images.get("stone_pink_v02.png")
+                  ? base64Images.get("stone_pink_v02.png")
+                  : getImagePath() + "stone_pink_v02.png"
+              })`,
+              backgroundSize: "100% 100%",
+              backgroundRepeat: "no-repeat",
+            }}
+            // draggable={!timeOver && !isMenuOpen}
+            key={index}
+          >
+            <p className="stones-letter">{item.StoneText}</p>
+          </div>
+        </DragDropContainer>
       </div>
     );
-  }
-}
+  });
+};
 export default GameScreen;

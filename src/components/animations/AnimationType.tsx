@@ -23,9 +23,7 @@ const AnimationType = (props: any) => {
       return (
         <SpriteAnimationComponent
           spImage={
-            base64Images.get("eat1" + internalPhaseNo + ".png")
-              ? base64Images.get("eat1" + internalPhaseNo + ".png")
-              : getImagePath() + "eat1" + internalPhaseNo + ".png"
+            localStorage.getItem('eat14')
           }
           nFrames={18}
         />
@@ -35,9 +33,7 @@ const AnimationType = (props: any) => {
       return (
         <SpriteAnimationComponent
           spImage={
-            base64Images.get("spit1" + internalPhaseNo + ".png")
-              ? base64Images.get("spit1" + internalPhaseNo + ".png")
-              : getImagePath() + "spit1" + internalPhaseNo + ".png"
+            localStorage.getItem('spit14')
           }
           nFrames={18}
         />
@@ -48,9 +44,7 @@ const AnimationType = (props: any) => {
       return (
         <SpriteAnimationComponent
           spImage={
-            base64Images.get("idle1" + internalPhaseNo + ".png")
-              ? base64Images.get("idle1" + internalPhaseNo + ".png")
-              : getImagePath() + "idle1" + internalPhaseNo + ".png"
+            localStorage.getItem('idle14')
           }
           nFrames={18}
         />
@@ -60,9 +54,7 @@ const AnimationType = (props: any) => {
       return (
         <SpriteAnimationComponent
           spImage={
-            base64Images.get("happy1" + internalPhaseNo + ".png")
-              ? base64Images.get("happy1" + internalPhaseNo + ".png")
-              : getImagePath() + "happy1" + internalPhaseNo + ".png"
+            localStorage.getItem('happy')
           }
           nFrames={11}
           height={662}
