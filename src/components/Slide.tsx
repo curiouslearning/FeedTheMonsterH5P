@@ -49,6 +49,7 @@ const Wrapper = styled.div`
   width: 100%;
   position: relative;
   overflow-y: hidden;
+  overscroll-behavior: contain;                       
 `;
 const DragDropComp = (props: any) => {
   console.log("DRAGDROPCOMP PROPS ==> ", props);
@@ -178,7 +179,7 @@ const DragDropComp = (props: any) => {
             ? playAUDIO(getAudioPath() + "LevelWinFanfare.mp3")
             : playAUDIO(getAudioPath() + "LevelLoseFanfare.mp3");
         }
-      }, 3000);
+      }, currentProgressCount==0? 0:3000);
     } else {
       //disappearPromptText()
       setTimeout(
