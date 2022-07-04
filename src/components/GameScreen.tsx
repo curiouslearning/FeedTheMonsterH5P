@@ -11,16 +11,27 @@ import PuzzelBar from "./puzzel-bar/PuzzelBar";
 import ScoreBoard from "./score-board/ScoreBoard";
 import SuccessText from "./success-text/SuccessText";
 import { DragDropContainer, DropTarget } from "react-drag-drop-container";
+var gameRunningStatus = true;
+
 const GameScreen = (props: any) => {
   const { height, width } = useWindowDimensions();
   const [levelCount, setLevelCount] = useState(0);
+  const [progressBarValue, setProgressBarValue] = useState(10);
   const [activeIndicators, setActiveIndicators] = useState(
     props.data.Puzzles.length
   );
   const [animationType, setAnimationType] = useState("idle");
+
+  setTimeout(() => {
+    if (gameRunningStatus) {
+      setProgressBarValue(progressBarValue - 0.5);
+    }
+  }, 800);
+  const correctAnswer = () => {};
+  const wrongAnswer = () => {};
+  
   return (
     <div
-      id="13"
       style={{
         overflow: "hidden",
         height: height,
@@ -63,7 +74,7 @@ const GameScreen = (props: any) => {
           }}
         />
       </div>
-      <Progress done={(10).toString()} />
+      <Progress done={(progressBarValue * 10).toString()} />
       <div
         style={{
           display: "flex",
@@ -116,7 +127,7 @@ const GameScreen = (props: any) => {
           >
             <DropTarget
               onHit={(e: any) => {
-                e.containerElem.style.visibility = "hidden";
+                gameRunningStatus = false;
                 setActiveIndicators(activeIndicators - 1);
                 console.log("dropped", e.containerElem.innerText);
 
@@ -125,8 +136,11 @@ const GameScreen = (props: any) => {
                   ? setAnimationType("eat")
                   : setAnimationType("spit");
                 setTimeout(() => {
+                  setProgressBarValue(0);
                   setLevelCount((preCount) => preCount + 1);
+                  setProgressBarValue(10);
                   setAnimationType("idle");
+                  gameRunningStatus = true;
                 }, 4000);
               }}
               targetKey="box"
@@ -187,7 +201,6 @@ const gameOptions = (options: any) => {
               backgroundSize: "100% 100%",
               backgroundRepeat: "no-repeat",
             }}
-            // draggable={!timeOver && !isMenuOpen}
             key={index}
           >
             <p className="stones-letter">{item.StoneText}</p>
