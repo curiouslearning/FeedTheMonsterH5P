@@ -18,8 +18,6 @@ const EndLevelComponent = (props: any) => {
         backgroundColor: "black",
         height: "100%",
         width: "100%",
-        overflowY:"hidden",
-        overscrollBehavior:"contain",
       }}
     >
       <div

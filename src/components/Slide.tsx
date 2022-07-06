@@ -47,9 +47,7 @@ let screenRotation = window.screen.orientation.type;
 const Wrapper = styled.div`
   height: 100vh;
   width: 100%;
-  position: relative;
-  overflow-y: hidden;
-  overscroll-behavior: contain;                       
+  position: relative;                      
 `;
 const DragDropComp = (props: any) => {
   console.log("DRAGDROPCOMP PROPS ==> ", props);
@@ -397,7 +395,7 @@ const DragDropComp = (props: any) => {
         <DndProvider backend={HTML5Backend}>
           <div
             className="dragAndDrop"
-            style={{ height: "50%", display: "flex", margin: "auto" ,flexDirection:"column-reverse",position:"relative",bottom:"32%"}}
+            style={{ height: "50%", display: "flex", margin: "auto"}}
           >
             <DragDrop
               IsGamePlayStatus={gameStatus}
