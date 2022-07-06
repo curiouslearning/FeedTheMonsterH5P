@@ -7,6 +7,7 @@ import Slideshow from "./components/Slideshow";
 import gameData from "./data/example-return";
 import { Howl } from "howler";
 import GameScreen from "./components/GameScreen";
+import LevelController from "./components/LevelController";
 
 declare var H5P: any;
 declare var H5PIntegration: any;
@@ -44,122 +45,117 @@ export default class ReactDemoApp extends (H5P.EventDispatcher as {
     console.log(this.editorData);
     $wrapper.get(0).appendChild(this.$element);
     render(
-      <GameScreen
+      <LevelController
         data={{
-          LevelMeta: {
-            LevelNumber: 0,
-            LevelType: "LetterOnly",
-            PromptType: "Visible",
-            LetterGroup: "1",
-            PromptFadeout: 0,
+          "LevelMeta": {
+            "LevelNumber": 0,
+            "LevelType": "LetterOnly",
+            "PromptType": "Visible",
+            "LetterGroup": "1",
+            "PromptFadeout": 0
           },
-          Puzzles: [
+          "Puzzles": [
             {
-              targetstones: [
+              "targetstones": [
                 {
-                  StoneText: "a",
-                },
+                  "StoneText": "a"
+                }
               ],
-              foilstones: [
+              "foilstones": [
                 {
-                  StoneText: "a",
+                  "StoneText": "a"
                 },
                 {
-                  StoneText: "c",
-                },
+                  "StoneText": "c"
+                }
               ],
-              prompt: {
-                PromptAudio:
-                  "https://curiousreader.org/wp-content/uploads/USENGLISH_sounds_letters_a.wav",
-                PromptText: "a",
+              "prompt": {
+                "PromptAudio": "https://curiousreader.org/wp-content/uploads/USENGLISH_sounds_letters_a.wav",
+                "PromptText": "a"
               },
-              SegmentNumber: 0,
+              "SegmentNumber": 0
             },
             {
-              targetstones: [
+              "targetstones": [
                 {
-                  StoneText: "c",
-                },
+                  "StoneText": "c"
+                }
               ],
-              foilstones: [
+              "foilstones": [
                 {
-                  StoneText: "a",
+                  "StoneText": "a"
                 },
                 {
-                  StoneText: "c",
-                },
+                  "StoneText": "c"
+                }
               ],
-              prompt: {
-                PromptAudio:
-                  "https://curiousreader.org/wp-content/uploads/USENGLISH_sounds_letters_c.wav",
-                PromptText: "c",
+              "prompt": {
+                "PromptAudio": "https://curiousreader.org/wp-content/uploads/USENGLISH_sounds_letters_c.wav",
+                "PromptText": "c"
               },
-              SegmentNumber: 1,
+              "SegmentNumber": 1
             },
             {
-              targetstones: [
+              "targetstones": [
                 {
-                  StoneText: "a",
-                },
+                  "StoneText": "a"
+                }
               ],
-              foilstones: [
+              "foilstones": [
                 {
-                  StoneText: "c",
+                  "StoneText": "c"
                 },
                 {
-                  StoneText: "a",
-                },
+                  "StoneText": "a"
+                }
               ],
-              prompt: {
-                PromptAudio:
-                  "https://curiousreader.org/wp-content/uploads/USENGLISH_sounds_letters_a.wav",
-                PromptText: "a",
+              "prompt": {
+                "PromptAudio": "https://curiousreader.org/wp-content/uploads/USENGLISH_sounds_letters_a.wav",
+                "PromptText": "a"
               },
-              SegmentNumber: 2,
+              "SegmentNumber": 2
             },
             {
-              targetstones: [
+              "targetstones": [
                 {
-                  StoneText: "c",
-                },
+                  "StoneText": "c"
+                }
               ],
-              foilstones: [
+              "foilstones": [
                 {
-                  StoneText: "c",
+                  "StoneText": "c"
                 },
                 {
-                  StoneText: "a",
-                },
+                  "StoneText": "a"
+                }
               ],
-              prompt: {
-                PromptAudio:
-                  "https://curiousreader.org/wp-content/uploads/USENGLISH_sounds_letters_c.wav",
-                PromptText: "c",
+              "prompt": {
+                "PromptAudio": "https://curiousreader.org/wp-content/uploads/USENGLISH_sounds_letters_c.wav",
+                "PromptText": "c"
               },
-              SegmentNumber: 3,
+              "SegmentNumber": 3
             },
             {
-              targetstones: [
+              "targetstones": [
                 {
-                  StoneText: "t",
-                },
+                  "StoneText": "t"
+                }
               ],
-              foilstones: [
+              "foilstones": [
                 {
-                  StoneText: "t",
+                  "StoneText": "t"
                 },
                 {
-                  StoneText: "a",
-                },
+                  "StoneText": "a"
+                }
               ],
-              prompt: {
-                PromptAudio:
-                  "https://curiousreader.org/wp-content/uploads/USENGLISH_sounds_letters_t.wav",
-                PromptText: "t",
+              "prompt": {
+                "PromptAudio": "https://curiousreader.org/wp-content/uploads/USENGLISH_sounds_letters_t.wav",
+                "PromptText": "t"
               },
-              SegmentNumber: 4,
-            },
-          ],
+              "SegmentNumber": 4
+            }
+          ]
         }}
       />,
       this.$element
