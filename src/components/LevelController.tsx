@@ -5,10 +5,13 @@ import useWindowDimensions from "./common/GetWindowDimensions";
 import Screen1 from "./screen1";
 import Screen2 from "./Screen2";
 import LevelFields from "./constants/constants";
+import { base64Images } from "./profile/SelectProfile";
+import { getImagePath } from "../app";
 var levelIndex = 0;
 
 const LevelController = (props: any) => {
-  console.log("!!!!!", props);
+  const { height, width } = useWindowDimensions();
+  console.log("!!!!!Level");
   var levelFields = new LevelFields(
     props.data.LevelMeta.LevelNumber,
     props.data.LevelMeta.LevelType,
@@ -19,14 +22,31 @@ const LevelController = (props: any) => {
     props.data.Puzzles
   );
   return (
-    <Screen1
-      fields={levelFields}
-      props={props}
-      levelIndexIncrement={(value: number) => {
-        levelIndex = value;
+    <div
+      style={{
+        overflow: "hidden",
+        height: height,
+        width: width,
+        display: "flex",
+        zIndex: 3,
+        backgroundSize: "100% 100%",
+        flexDirection: "column",
+        backgroundImage: `url(${
+          base64Images.get("background.png")
+            ? base64Images.get("background.png")
+            : getImagePath() + "background.png"
+        })`,
       }}
-      currentLevelIndex={levelIndex}
-    />
+    >
+      <GameScreen
+        fields={levelFields}
+        props={props}
+        levelIndexIncrement={(value: number) => {
+          levelIndex = value;
+        }}
+        currentLevelIndex={levelIndex}
+      />
+    </div>
   );
 };
 

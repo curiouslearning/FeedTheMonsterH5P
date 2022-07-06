@@ -1,18 +1,3 @@
-// export interface LevelFields {
-//   LevelNumber: number;
-//   LevelType: string;
-//   PromptType: string;
-//   LetterGroup: string;
-//   PromptFadeout: number;
-//   Puzzle: PuzzleFields;
-//   PuzzleLength: number;
-// }
-
-export interface PuzzleFields {
-  targetstones: [];
-  foilstones: [];
-  prompt: { PromptAudio: string; PromptText: string };
-}
 export default class LevelFields {
   LevelNumber: number;
   LevelType: string;

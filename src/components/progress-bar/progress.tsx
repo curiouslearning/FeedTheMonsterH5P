@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import "./progress.css";
 import emptyTimer from "../../../assets/images/timer_empty.png";
 import timer from "../../../assets/images/timer.png";
@@ -6,7 +6,14 @@ import { getImagePath } from "../../app";
 import { base64Images } from "../profile/SelectProfile";
 
 const Progress = ({ done }: { done: string }) => {
-  const { style } = ProgressHooks(done);
+  const [progressBarValue, setProgressBarValue] = useState(10);
+  console.log()
+  setTimeout(() => {
+    if (progressBarValue >= 0) {
+      setProgressBarValue(progressBarValue - 0.5);
+    }
+  }, 800);
+  const { style } = ProgressHooks((progressBarValue * 10).toString());
 
   return (
     <div className="time-container">

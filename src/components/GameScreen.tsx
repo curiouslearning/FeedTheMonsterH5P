@@ -11,27 +11,28 @@ import PuzzelBar from "./puzzel-bar/PuzzelBar";
 import ScoreBoard from "./score-board/ScoreBoard";
 import SuccessText from "./success-text/SuccessText";
 import { DragDropContainer, DropTarget } from "react-drag-drop-container";
+import LevelFields from "./constants/constants";
+import LevelController from "./LevelController";
 var gameRunningStatus = true;
 
-const GameScreen = (props: any) => {
+const GameScreen = (props: {
+  fields: LevelFields;
+  props: any;
+  levelIndexIncrement: Function;
+  currentLevelIndex: number;
+}) => {
   const { height, width } = useWindowDimensions();
-  const [levelCount, setLevelCount] = useState(0);
-  const [progressBarValue, setProgressBarValue] = useState(10);
-  const [activeIndicators, setActiveIndicators] = useState(
-    props.data.Puzzles.length
-  );
-  const [animationType, setAnimationType] = useState("idle");
 
-  setTimeout(() => {
-    if (gameRunningStatus) {
-      setProgressBarValue(progressBarValue - 0.5);
-    }
-  }, 800);
+  const [gameScreen, setGameScreen] = useState(false);
+  const [animationType, setAnimationType] = useState("idle");
+  console.log("1111111111111");
+
   const correctAnswer = () => {};
   const wrongAnswer = () => {};
-  
-  return (
+
+  return !gameScreen ? (
     <div
+      className="GameScreen"
       style={{
         overflow: "hidden",
         height: height,
@@ -40,11 +41,6 @@ const GameScreen = (props: any) => {
         zIndex: 3,
         backgroundSize: "100% 100%",
         flexDirection: "column",
-        backgroundImage: `url(${
-          base64Images.get("background.png")
-            ? base64Images.get("background.png")
-            : getImagePath() + "background.png"
-        })`,
       }}
     >
       <div
@@ -57,12 +53,17 @@ const GameScreen = (props: any) => {
         }}
       >
         <PuzzelBar
-          puzzelCount={props.data.Puzzles.length - 1}
-          activeIndicators={activeIndicators}
+          puzzelCount={props.fields._puzzles.length - 1}
+          activeIndicators={
+            props.fields._puzzles.length - props.currentLevelIndex
+          }
         />
-        {props.devMode ? (
+        {true ? (
           <>
-            <ScoreBoard levelNumber={props.levelNumber} levelCount={2} />
+            <ScoreBoard
+              levelNumber={props.fields._levelNumber}
+              levelCount={2}
+            />
           </>
         ) : (
           <></>
@@ -74,7 +75,7 @@ const GameScreen = (props: any) => {
           }}
         />
       </div>
-      <Progress done={(progressBarValue * 10).toString()} />
+      <Progress done={(1).toString()} />
       <div
         style={{
           display: "flex",
@@ -97,12 +98,12 @@ const GameScreen = (props: any) => {
               //   !gameStatus ? playAUDIO(getAudioPath() + "StonesAppear.mp3") : null;
               //   gameStatus = status;
             }}
-            letter={props.data.Puzzles[levelCount].prompt.PromptText}
+            letter={props.fields._puzzle.prompt.PromptText}
             audioUrl={""}
             isAudioPlaying={true}
             textVisbility={true}
             levelType={"word"}
-            generalData={props.generalData}
+            generalData={""}
             targetedLetters={"b"}
           />
           <SuccessText word={"Hai"} />
@@ -128,23 +129,23 @@ const GameScreen = (props: any) => {
             <DropTarget
               onHit={(e: any) => {
                 gameRunningStatus = false;
-                setActiveIndicators(activeIndicators - 1);
                 console.log("dropped", e.containerElem.innerText);
-
-                e.containerElem.innerText ==
-                props.data.Puzzles[levelCount].prompt.PromptText
-                  ? setAnimationType("eat")
-                  : setAnimationType("spit");
-                setTimeout(() => {
-                  setProgressBarValue(0);
-                  setLevelCount((preCount) => preCount + 1);
-                  setProgressBarValue(10);
-                  setAnimationType("idle");
-                  gameRunningStatus = true;
-                }, 4000);
+                props.levelIndexIncrement(props.currentLevelIndex + 1);
+                setGameScreen(true);
+                // e.containerElem.innerText ==
+                // props.fields._puzzle.prompt.PromptTextFeedTheMonster
+                //   ? setAnimationType("eat")
+                //   : setAnimationType("spit");
+                // setTimeout(() => {
+                //   setProgressBarValue(0);
+                //
+                //   setProgressBarValue(10);
+                //   setAnimationType("idle");
+                //   gameRunningStatus = true;
+                // }, 4000);
               }}
               targetKey="box"
-              dropData={{ name: props.name }}
+              dropData={{ name: props.fields._puzzle.prompt.PromptText }}
             >
               <div
                 onClick={() => {}}
@@ -169,9 +170,11 @@ const GameScreen = (props: any) => {
             <AnimationType type={animationType} getPhaseCharNo={3} />
           </div>
         </div>
-        {gameOptions(props.data.Puzzles[levelCount])}
+        {gameOptions(props.fields.Puzzle)}
       </div>
     </div>
+  ) : (
+    <LevelController data={props.props.data} />
   );
 };
 
