@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import useWindowDimensions from "./common/GetWindowDimensions";
 import LevelFields from "./constants/constants";
 import LevelController from "./LevelController";
+import Progress from "./progress-bar/progress";
 import Screen2 from "./Screen2";
 const Screen1 = (props: {
   fields: LevelFields;
@@ -28,7 +29,7 @@ const Screen1 = (props: {
       >
         Hai
       </button>
-      <h6></h6>
+      <Progress done="1" />
     </div>
   ) : (
     <LevelController data={props.props.data} />

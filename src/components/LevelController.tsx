@@ -10,6 +10,11 @@ import { getImagePath } from "../app";
 var levelIndex = 0;
 
 const LevelController = (props: any) => {
+  var element = document.getElementsByClassName("LevelController");
+  console.log("******", element[1]);
+  if (!!element[1]) {
+    element[1].parentNode.removeChild(element[1]);
+  }
   const { height, width } = useWindowDimensions();
   console.log("!!!!!Level");
   var levelFields = new LevelFields(
@@ -23,6 +28,7 @@ const LevelController = (props: any) => {
   );
   return (
     <div
+      className="LevelController"
       style={{
         overflow: "hidden",
         height: height,

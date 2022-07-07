@@ -128,10 +128,10 @@ const GameScreen = (props: {
           >
             <DropTarget
               onHit={(e: any) => {
+                setGameScreen(true);
                 gameRunningStatus = false;
                 console.log("dropped", e.containerElem.innerText);
                 props.levelIndexIncrement(props.currentLevelIndex + 1);
-                setGameScreen(true);
                 // e.containerElem.innerText ==
                 // props.fields._puzzle.prompt.PromptTextFeedTheMonster
                 //   ? setAnimationType("eat")
