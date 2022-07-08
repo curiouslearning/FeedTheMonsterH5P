@@ -134,6 +134,9 @@ p {
   display: none;
 }
 
+body{
+  overscroll-behavior: Contain;
+}
 /* .dragAndDrop{
   @media only screen and ((min-width: 650px) and (min-height: 900px)) {
     body {
