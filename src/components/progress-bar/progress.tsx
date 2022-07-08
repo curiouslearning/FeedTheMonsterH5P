@@ -4,17 +4,6 @@ import emptyTimer from "../../../assets/images/timer_empty.png";
 import timer from "../../../assets/images/timer.png";
 import { getImagePath } from "../../app";
 const Progress = ({ done }: { done: string }) => {
-  const timer: any = document.getElementsByClassName("progress-done");
-  var initialTimer = 100;
-  var timerInterval: any;
-  timerInterval = setInterval(() => {
-    if (initialTimer > 0) {
-      timer[0].style.width = (initialTimer -= 0.8).toString() + "%";
-    } else {
-      clearInterval(timerInterval);
-    }
-  }, 100);
-
   return (
     <div className="time-container">
       <div

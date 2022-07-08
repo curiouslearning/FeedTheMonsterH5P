@@ -83,10 +83,10 @@ export default class ReactDemoApp extends (H5P.EventDispatcher as {
               ],
               "foilstones": [
                 {
-                  "StoneText": "a"
+                  "StoneText": "t"
                 },
                 {
-                  "StoneText": "c"
+                  "StoneText": "b"
                 }
               ],
               "prompt": {

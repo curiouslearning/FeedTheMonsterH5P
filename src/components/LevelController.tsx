@@ -7,16 +7,32 @@ import Screen2 from "./Screen2";
 import LevelFields from "./constants/constants";
 import { base64Images } from "./profile/SelectProfile";
 import { getImagePath } from "../app";
-var levelIndex = 0;
-
+import PuzzelBar from "./puzzel-bar/PuzzelBar";
+import ScoreBoard from "./score-board/ScoreBoard";
+import PauseMenu from "./pause-menu/PauseMenu";
+import Progress from "./progress-bar/progress";
+var gameStatus = true;
+var timerInterval: any;
 const LevelController = (props: any) => {
-  var element = document.getElementsByClassName("LevelController");
-  console.log("******", element[1]);
-  if (!!element[1]) {
-    element[1].parentNode.removeChild(element[1]);
-  }
+  const timerComponent: any = document.getElementsByClassName("progress-done");
+  const [levelIndex, setLevelIndex] = useState(0);
+  const timer = () => {
+    var initialTimer = 100;
+    if (timerInterval == undefined) {
+      timerInterval = setInterval(() => {
+        if (gameStatus) {
+          if (initialTimer > 0) {
+            timerComponent[0].style.width =
+              (initialTimer -= 0.2).toString() + "%";
+          } else {
+            clearInterval(timerInterval);
+          }
+        }
+      }, 15);
+    }
+  };
+  timer();
   const { height, width } = useWindowDimensions();
-  console.log("!!!!!Level");
   var levelFields = new LevelFields(
     props.data.LevelMeta.LevelNumber,
     props.data.LevelMeta.LevelType,
@@ -44,13 +60,52 @@ const LevelController = (props: any) => {
         })`,
       }}
     >
+      <div
+        className="pause_menu"
+        style={{
+          display: "flex",
+          flexDirection: "row",
+          justifyContent: "space-between",
+          margin: "10px",
+        }}
+      >
+        <PuzzelBar
+          puzzelCount={props.data.Puzzles.length - 1}
+          activeIndicators={levelIndex}
+        />
+        {true ? (
+          <>
+            <ScoreBoard levelNumber={props.data.LevelNumber} levelCount={2} />
+          </>
+        ) : (
+          <></>
+        )}
+        <PauseMenu
+          onClickPauseMenu={() => {
+            // buttonCLick();
+            // onClickPauseMenu();
+          }}
+        />
+      </div>
+      <Progress done={(1).toString()} />
       <GameScreen
         fields={levelFields}
         props={props}
-        levelIndexIncrement={(value: number) => {
-          levelIndex = value;
-        }}
         currentLevelIndex={levelIndex}
+        onDrag={(value: any) => {
+          if (value == true) {
+            clearInterval(timerInterval);
+            timerInterval = undefined;
+            gameStatus = false;
+          }
+        }}
+        onComplete={(value: any) => {
+          if (value == true) {
+            timer();
+            setLevelIndex(levelIndex + 1);
+            gameStatus = true;
+          }
+        }}
       />
     </div>
   );

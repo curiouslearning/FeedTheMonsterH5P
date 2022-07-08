@@ -18,19 +18,17 @@ var gameRunningStatus = true;
 const GameScreen = (props: {
   fields: LevelFields;
   props: any;
-  levelIndexIncrement: Function;
   currentLevelIndex: number;
+  onDrag: Function;
+  onComplete: Function;
 }) => {
   const { height, width } = useWindowDimensions();
-
-  const [gameScreen, setGameScreen] = useState(false);
   const [animationType, setAnimationType] = useState("idle");
-  console.log("1111111111111");
 
   const correctAnswer = () => {};
   const wrongAnswer = () => {};
 
-  return !gameScreen ? (
+  return (
     <div
       className="GameScreen"
       style={{
@@ -43,39 +41,6 @@ const GameScreen = (props: {
         flexDirection: "column",
       }}
     >
-      <div
-        className="pause_menu"
-        style={{
-          display: "flex",
-          flexDirection: "row",
-          justifyContent: "space-between",
-          margin: "10px",
-        }}
-      >
-        <PuzzelBar
-          puzzelCount={props.fields._puzzles.length - 1}
-          activeIndicators={
-            props.fields._puzzles.length - props.currentLevelIndex
-          }
-        />
-        {true ? (
-          <>
-            <ScoreBoard
-              levelNumber={props.fields._levelNumber}
-              levelCount={2}
-            />
-          </>
-        ) : (
-          <></>
-        )}
-        <PauseMenu
-          onClickPauseMenu={() => {
-            // buttonCLick();
-            // onClickPauseMenu();
-          }}
-        />
-      </div>
-      <Progress done={(1).toString()} />
       <div
         style={{
           display: "flex",
@@ -128,21 +93,19 @@ const GameScreen = (props: {
           >
             <DropTarget
               onHit={(e: any) => {
-                setGameScreen(true);
+                props.onDrag(true);
                 gameRunningStatus = false;
-                console.log("dropped", e.containerElem.innerText);
-                props.levelIndexIncrement(props.currentLevelIndex + 1);
-                // e.containerElem.innerText ==
-                // props.fields._puzzle.prompt.PromptTextFeedTheMonster
-                //   ? setAnimationType("eat")
-                //   : setAnimationType("spit");
-                // setTimeout(() => {
-                //   setProgressBarValue(0);
-                //
-                //   setProgressBarValue(10);
-                //   setAnimationType("idle");
-                //   gameRunningStatus = true;
-                // }, 4000);
+                e.containerElem.innerText ==
+                props.fields._puzzle.prompt.PromptText
+                  ? setAnimationType("eat")
+                  : setAnimationType("spit");
+                e.containerElem.style.visibility = "hidden";
+                setTimeout(() => {
+                  e.containerElem.style.visibility = "visible";
+                  setAnimationType("idle");
+                  gameRunningStatus = true;
+                  props.onComplete(true);
+                }, 4000);
               }}
               targetKey="box"
               dropData={{ name: props.fields._puzzle.prompt.PromptText }}
@@ -173,12 +136,11 @@ const GameScreen = (props: {
         {gameOptions(props.fields.Puzzle)}
       </div>
     </div>
-  ) : (
-    <LevelController data={props.props.data} />
   );
 };
 
 const gameOptions = (options: any) => {
+  console.log("&&&&&&&&&&&&&");
   return options.foilstones.map((item: any, index: any) => {
     return (
       <div className={classNames("ball" + index)}>
