@@ -143,6 +143,7 @@ const DragDrop = ({
     }, 6000);
   };
   useEffect(() => {
+    window.clearTimeout(initialTimer);
     !initialStartTimer ? initialStart() : null;
     setTimeout(function () {
       optionCollectData(options);
