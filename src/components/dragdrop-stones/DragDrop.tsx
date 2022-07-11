@@ -20,7 +20,7 @@ let count = 0;
 let j = 0;
 let k = 0;
 let initialTimer: any;
-let initialStartTimer:boolean = false;
+let initialStartTimer: boolean = false;
 
 function shuffleArray(array: any[]) {
   for (var i = array.length - 1; i > 0; i--) {
@@ -66,7 +66,6 @@ const DragDrop = ({
   editorData: boolean;
   afterDropPause: Function;
 }) => {
-  console.log("DRAGDROP PROPS ==> ", props);
   console.log(props.targetstones);
   console.log(props.foilstones);
   let options = [...props.targetstones, ...props.foilstones];
@@ -75,7 +74,7 @@ const DragDrop = ({
   const [gameStatus, setGameStatus] = useState(false);
   const [dragging, setDragging] = useState(false);
   const [dropped, setDropped] = useState(false);
-  
+
   const [animationType, setAnimationType] = useState("idle");
   // const onDrag = new Audio(getAudioPath()+'onDrag.mp3');
   // const monsterSplit = new Audio(getAudioPath()+'Monster Spits wrong stones-01.mp3');
@@ -138,13 +137,14 @@ const DragDrop = ({
   };
   const initialStart = () => {
     initialTimer = window.setTimeout(() => {
-      initialStartTimer = true
+      initialStartTimer = true;
       IsGamePlay(true);
       setGameStatus(true);
     }, 6000);
   };
   useEffect(() => {
-   !initialStartTimer? initialStart():null;
+    window.clearTimeout(initialTimer);
+    !initialStartTimer ? initialStart() : null;
     setTimeout(function () {
       optionCollectData(options);
     }, 100);
@@ -242,10 +242,10 @@ const DragDrop = ({
         inputAlphabhet = "";
       } else {
         j = 1;
-         
+
         // console.log(props.targetstones.length)
         // console.log(i);
-        if ( i == 0) {
+        if (i == 0) {
           // disappearPromptText();
           setScore(100);
           count = 0;
@@ -285,18 +285,6 @@ const DragDrop = ({
   };
   return (
     <>
-      {/* <Draggable */}
-      {/* // disabled={true} */}
-      {/* onStop={(e)=>{
-      console.log(e)
-      console.log("The element was dropped here")
-    }}
-    onMouseDown={(e)=>{
-      console.log(e)
-      console.log("The element was dropped here")
-    }}
-    
-    > */}
       <div style={{ display: "grid" }}>
         <DropTarget
           onHit={(e: any) => {
@@ -321,6 +309,8 @@ const DragDrop = ({
               width: "100px",
               height: "150px",
               gridColumn: 1,
+              position: "relative",
+              top: "50px",
               gridRow: 1,
               zIndex: 2,
             }}
@@ -341,7 +331,6 @@ const DragDrop = ({
           />
         </div>
       </div>
-      {/* </Draggable> */}
 
       {gameStatus || IsGamePlayStatus
         ? optionDataSet.map((item, index) => {
