@@ -47,12 +47,13 @@ let screenRotation = window.screen.orientation.type;
 const Wrapper = styled.div`
   height: 100vh;
   width: 100%;
-  position: relative;                      
-  overflow: hidden;       
+  position: relative;
+  overflow: hidden;
 `;
 const DragDropComp = (props: any) => {
   console.log("DRAGDROPCOMP PROPS ==> ", props);
   const [timeOver, setTimeOver] = useState(false);
+  const [game, setGame] = useState(false);
   const [correctDrop, setCorrectDrop] = useState(false);
   const [levelCount, setLevelCount] = useState(0);
   const [currentProgressCount, setProgressCount] = useState(initialTime);
@@ -169,16 +170,19 @@ const DragDropComp = (props: any) => {
     gameStatus = false;
     if (props.lengthOfCurrentLevel - 1 == levelCount) {
       setActiveIndicator(props.lengthOfCurrentLevel);
-      setTimeout(() => {
-        if (!dropPause) {
-          afterDropPause = false;
+      setTimeout(
+        () => {
+          if (!dropPause) {
+            afterDropPause = false;
 
-          setIsLevelEnded(true);
-          score > 100
-            ? playAUDIO(getAudioPath() + "LevelWinFanfare.mp3")
-            : playAUDIO(getAudioPath() + "LevelLoseFanfare.mp3");
-        }
-      }, currentProgressCount==0? 0:3000);
+            setIsLevelEnded(true);
+            score > 100
+              ? playAUDIO(getAudioPath() + "LevelWinFanfare.mp3")
+              : playAUDIO(getAudioPath() + "LevelLoseFanfare.mp3");
+          }
+        },
+        currentProgressCount == 0 ? 0 : 3000
+      );
     } else {
       //disappearPromptText()
       setTimeout(
@@ -242,8 +246,18 @@ const DragDropComp = (props: any) => {
         // setProgressCount(10);
         // props.stopPlaying()
         levelUp(true);
+
         return;
       }, 1000);
+    }
+    if (currentProgressCount <= 0) {
+      setTimeout(() => {
+        setGame(true);
+        setGame(false);
+      }, 2000);
+      setTimeout(() => {
+        gameStatus = true;
+      }, 7000);
     }
 
     if (currentProgressCount <= 0 || correctDrop) {
@@ -264,6 +278,7 @@ const DragDropComp = (props: any) => {
     correctDrop,
     isMenuPopup,
     isLevelEnded,
+    game,
   ]);
 
   console.log(props);
@@ -334,7 +349,16 @@ const DragDropComp = (props: any) => {
         }}
       >
         <PuzzelBar puzzelCount={4} activeIndicators={activeIndicators} />
-        {props.devMode ?(<><ScoreBoard levelNumber={props.levelNumber} levelCount={levelCount} /></>):(<></>)}
+        {props.devMode ? (
+          <>
+            <ScoreBoard
+              levelNumber={props.levelNumber}
+              levelCount={levelCount}
+            />
+          </>
+        ) : (
+          <></>
+        )}
         <PauseMenu
           onClickPauseMenu={() => {
             buttonCLick();
@@ -397,7 +421,12 @@ const DragDropComp = (props: any) => {
         <DndProvider backend={HTML5Backend}>
           <div
             className="dragAndDrop"
-            style={{ height: "50%", display: "flex", margin: "auto"}}
+            style={{
+              height: "50%",
+              display: "flex",
+              margin: "auto",
+              alignItems: "flex-start",
+            }}
           >
             <DragDrop
               IsGamePlayStatus={gameStatus}
@@ -634,17 +663,20 @@ const SlideComponent = (props: any) => {
   }, [props.started]);
 
   const onStartClick = (url: any) => {
-    let id= document.getElementById("exitButton");
-    id.style.left="52%";
-    id.style.color="black";
-    if(window.innerWidth == screen.width && window.innerHeight == screen.height){ 
-      id.style.display="block";
-    }else{
-      id.style.display="none";
+    let id = document.getElementById("exitButton");
+    id.style.left = "52%";
+    id.style.color = "black";
+    if (
+      window.innerWidth == screen.width &&
+      window.innerHeight == screen.height
+    ) {
+      id.style.display = "block";
+    } else {
+      id.style.display = "none";
     }
     setTimeout(() => {
       setStart(true);
-      dropPause =false;
+      dropPause = false;
     }, 0);
     playAudio(url);
   };
@@ -664,23 +696,72 @@ const SlideComponent = (props: any) => {
 
   const allLevelScreen = () => {
     setStart(false);
-    let id= document.getElementById("exitButton");
-    id.style.left="2.6%";
-    id.style.color="white";
-    
+    let id = document.getElementById("exitButton");
+    id.style.left = "2.6%";
+    id.style.color = "white";
   };
 
   const monsterRef = useRef();
   compared = [];
   return (
     <Wrapper>
-     <div style={{backgroundImage: `url(${getImagePath() + "bg.jpg"})`, width: "100%", height: "100%", position: "absolute", backgroundSize: "100% 100%", zIndex: -2, overflow: "hidden"}}>
-              <div id = "hill" style={{backgroundImage: `url(${getImagePath() + "hill.png"})`, backgroundSize: "100% 100%", backgroundRepeat: "no-repeat", height: "50%", width: "110%", position: "absolute", left: "-5%", bottom: 0}}>
-              <div id = "totem" style={{backgroundImage: `url(${getImagePath() + "Totem1.png"})`, backgroundSize: "contain", backgroundRepeat: "no-repeat", height: "100%", width: "80%", position: "relative", backgroundPosition: "right", right: "-20%", top: "-55%", zIndex: -3}}></div>
-              <div style={{backgroundImage: `url(${getImagePath() + "fence.png"})`, backgroundSize: "contain", backgroundRepeat: "no-repeat", height: "100%", width: "100%", position: "absolute", left: "-36%", top: "-43%", transform: "scale(.7) rotate(-37deg)", zIndex: -3, backgroundPosition: "center"}}></div>
+      <div
+        style={{
+          backgroundImage: `url(${getImagePath() + "bg.jpg"})`,
+          width: "100%",
+          height: "100%",
+          position: "absolute",
+          backgroundSize: "100% 100%",
+          zIndex: -2,
+          overflow: "hidden",
+        }}
+      >
+        <div
+          id="hill"
+          style={{
+            backgroundImage: `url(${getImagePath() + "hill.png"})`,
+            backgroundSize: "100% 100%",
+            backgroundRepeat: "no-repeat",
+            height: "50%",
+            width: "110%",
+            position: "absolute",
+            left: "-5%",
+            bottom: 0,
+          }}
+        >
+          <div
+            id="totem"
+            style={{
+              backgroundImage: `url(${getImagePath() + "Totem1.png"})`,
+              backgroundSize: "contain",
+              backgroundRepeat: "no-repeat",
+              height: "100%",
+              width: "80%",
+              position: "relative",
+              backgroundPosition: "right",
+              right: "-20%",
+              top: "-55%",
+              zIndex: -3,
+            }}
+          ></div>
+          <div
+            style={{
+              backgroundImage: `url(${getImagePath() + "fence.png"})`,
+              backgroundSize: "contain",
+              backgroundRepeat: "no-repeat",
+              height: "100%",
+              width: "100%",
+              position: "absolute",
+              left: "-36%",
+              top: "-43%",
+              transform: "scale(.7) rotate(-37deg)",
+              zIndex: -3,
+              backgroundPosition: "center",
+            }}
+          ></div>
         </div>
-      </div> 
-      
+      </div>
+
       {data.audio && data.audio.length > 0 ? (
         ""
       ) : (
