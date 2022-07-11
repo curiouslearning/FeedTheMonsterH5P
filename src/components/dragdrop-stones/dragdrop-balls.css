@@ -8,78 +8,78 @@
 .stones-letter {
     font-size: 2.4em;
     color: white;
-    width: 100%;
-    height: 100%;
+    display: flex;
+    justify-content: center;
 }
 
 .ball0 {
     position: absolute;
-    width: 50px;
-    height: 50px;
+    width: 4.4em;
+    height: 4.4em;
     top: 60%;
     left: 8%
 }
 
 .ball1 {
     position: absolute;
-    width: 50px;
-    height: 50px;
+    width: 4.4em;
+    height: 4.4em;
     top: 60%;
     left: 82%
 }
 
 .ball2{
     position: absolute;
-    width: 50px;
-    height: 50px;
+    width: 4.4em;
+    height: 4.4em;
     top: 35%;
     left: 59%;
 }
 
 .ball3{
     position: absolute;
-    width: 50px;
-    height: 50px;
+    width: 4.4em;
+    height: 4.4em;
     top:  25%;
     left: 5%
 }
 
 .ball4{
     position: absolute;
-    width: 50px;
-    height: 50px;
+    width: 4.4em;
+    height: 4.4em;
     top: 25%;
     left: 82%
 }
 
 .ball5{
     position: absolute;
-    width: 50px;
-    height: 50px;
+    width: 4.4em;
+    height: 4.4em;
     top: 85%;
     left: 35%
 }
 
 .ball6{
     position: absolute;
-    width: 50px;
-    height: 50px;
+    width: 4.4em;
+    height: 4.4em;
     top: 70%;
     left: 90%
 }
 
 .ball7{
     position: absolute;
-    width: 50px;
-    height: 50px;
+    width: 4.4em;
+    height: 4.4em;
     top: 70%;
     left: 20%;
 }
 
 .ball8{
     position: relative;
-    width: 30px;
-    height: 30px;
+    width: 4.4em;
+    height: 4.4em;
 }
 
 .no-ball0 {
