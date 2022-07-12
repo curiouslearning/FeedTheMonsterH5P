@@ -429,6 +429,7 @@ const DragDropComp = (props: any) => {
             }}
           >
             <DragDrop
+              isReplayed={isReplayed}
               IsGamePlayStatus={gameStatus}
               IsGamePlay={(status: any) => {
                 !gameStatus

@@ -49,6 +49,7 @@ const DragDrop = ({
   setScore,
   editorData,
   afterDropPause,
+  isReplayed,
 }: {
   currentProgressCount: number;
   timeOver: boolean;
@@ -65,6 +66,7 @@ const DragDrop = ({
   setScore?: Function;
   editorData: boolean;
   afterDropPause: Function;
+  isReplayed:boolean;
 }) => {
   console.log(props.targetstones);
   console.log(props.foilstones);
@@ -90,6 +92,11 @@ const DragDrop = ({
   };
 
   const checkOptions = (options: any[]) => {
+    
+    if(isReplayed){
+      console.log(">>>>>>>>>>>>>>>>>>>>>>>>>")
+      initialStartTimer=false;
+    }
     if (options.length > 8) {
       var duplicateCount = Math.abs(8 - options.length);
       var finalOptions = options.filter(function (elem, index, self) {
