@@ -118,6 +118,7 @@ const DragDropComp = (props: any) => {
   const onClickRestart = () => {
     gameStatus = false;
     isReplayed = true;
+    dropPause = false;
     buttonCLick();
     setTimeOver(false);
     setCorrectDrop(false);
@@ -374,6 +375,8 @@ const DragDropComp = (props: any) => {
           }}
           onClickRestart={onClickRestart}
           allLevelScreen={() => {
+            gameStatus = false;
+            isReplayed  = true;
             props.allLevelScreen();
             setPauseMenu(false);
             setTimeout(() => {
