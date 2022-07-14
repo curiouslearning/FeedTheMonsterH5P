@@ -8,7 +8,7 @@ import { getImagePath } from "../../app";
 export let opacity = 1;
 
 const PromptText = (props: any) => {
-  const { playing, setPlaying, playAudio } = AudioComponent();
+  const { playing, setPlaying, playAudio } = AudioComponent(props.audioUrl);
   const textVisbility = props.textVisbility;
   const levelType = props.levelType;
   const letter = props.letter;
@@ -16,24 +16,32 @@ const PromptText = (props: any) => {
   let nonHighlightText = "";
   if (levelType == "LetterInWord") {
     highlightText = letter.slice(0, props.targetedLetters[0].StoneText.length);
-    nonHighlightText = letter.slice(props.targetedLetters[0].StoneText.length, letter.length);
+    nonHighlightText = letter.slice(
+      props.targetedLetters[0].StoneText.length,
+      letter.length
+    );
   }
-
+ 
+  const onPromptClick = () => {
+    props.IsGamePlay(true)
+    setPlaying(true);
+    playAudio(props.url);
+    setPlaying(false);
+  };
   return (
     <div
-      onClick={playAudio}
+      onClick={onPromptClick}
       className="ans-pop-up"
       style={{
         ...{
-          margin: "auto",
-          marginTop: "-20px",
           display: "flex",
           backgroundImage: `url(${getImagePath() + "promptTextBg.png"})`,
-          width: "163px",
-          height: "152px",
-          backgroundSize: "contain",
+          width: "10em",
+          height: "10em",
+          backgroundSize: "100% 100%",
           justifyContent: "center",
           alignItems: "center",
+          alignSelf: "center",
         },
         ...{ opacity: opacity },
       }}
@@ -61,13 +69,16 @@ const PromptText = (props: any) => {
 
 export default PromptText;
 
-export const PromptTextHook = () => {
+export const PromptTextHook = (levelType: any) => {
   const disappearPromptText = () => {
     opacity = 0;
 
-    setTimeout(() => {
-      opacity = 1;
-    }, 3000);
+    setTimeout(
+      () => {
+        opacity = 1;
+      },
+      levelType == "Word" ? 4000 : 4000
+    );
   };
 
   return { disappearPromptText };

@@ -9,6 +9,7 @@ import PuzzelBar, { PuzzelBarHook } from "./puzzel-bar/PuzzelBar";
 import ScoreBoard from "./score-board/ScoreBoard";
 import PauseMenu from "./pause-menu/PauseMenu";
 import PromptText from "./prompt-text/PromptText";
+import { PromptTextHook } from "../components/prompt-text/PromptText";
 import PopupMenu from "./popup-menu/PopupMenu";
 import bg from "../../assets/images/background.png";
 import { url } from "inspector";
@@ -29,25 +30,30 @@ import map from "../../assets/images/map.jpg";
 import mapLock from "../../assets/images/mapLock.png";
 import { render } from "react-dom";
 import { buttonCLick, getAudioPath, getImagePath } from "../app";
+import { Howl } from "howler";
 
-let audio: HTMLAudioElement = null;
+// let audio: HTMLAudioElement = null;
 let initialTime = 10;
 let id: NodeJS.Timeout;
 let timeoutId: NodeJS.Timeout;
-
+let afterDropPause: boolean = false;
+let dropPause: boolean = false;
 // create HTMLAudioElement
-
+let isReplayed = false;
 let _levelNumber: number;
+let gameStatus: boolean = false;
+let screenRotation = window.screen.orientation.type;
 
 const Wrapper = styled.div`
-  height: 600px;
+  height: 100vh;
   width: 100%;
   position: relative;
+  overflow: hidden;
 `;
-
 const DragDropComp = (props: any) => {
-  console.log(props);
+  console.log("DRAGDROPCOMP PROPS ==> ", props);
   const [timeOver, setTimeOver] = useState(false);
+  const [game, setGame] = useState(false);
   const [correctDrop, setCorrectDrop] = useState(false);
   const [levelCount, setLevelCount] = useState(0);
   const [currentProgressCount, setProgressCount] = useState(initialTime);
@@ -57,44 +63,79 @@ const DragDropComp = (props: any) => {
   const [isLevelEnded, setIsLevelEnded] = useState(false);
   const [score, setScore] = useState(0);
   const [text, setText] = useState("");
+  // const [gameStatus, setGameStatus] = useState(false);
   const feedbackArray: any[] = props.feedbackTexts;
-  const timeOut = new Audio(getAudioPath() + "timeout.mp3");
-  const levelLost = new Audio(getAudioPath() + "LevelLoseFanfare.mp3");
-  const levelWin = new Audio(getAudioPath() + "LevelWinFanfare.mp3");
-  const scoreCount = new Audio(getAudioPath() + "ScoreCountingDown.ogg");
-  const audioFantastic = new Audio(getAudioPath() + "fantastic.WAV");
-  const audioGreat = new Audio(getAudioPath() + "great.wav");
-  const audiogoodJob = new Audio(getAudioPath() + "good job.WAV");
+  const feedbackAudiosArray: any[] = props.feedbackAudios;
+
+  // const timeOut = new Audio(getAudioPath() + "timeout.mp3");
+  // const levelLost = new Audio(getAudioPath() + "LevelLoseFanfare.mp3");
+  // const levelWin = new Audio(getAudioPath() + "LevelWinFanfare.mp3");
+  // const scoreCount = new Audio(getAudioPath() + "ScoreCountingDown.ogg");
+  document.addEventListener(
+    "visibilitychange",
+    function () {
+      if (document.hidden) {
+        if (!isMenuPopup) {
+          onClickPauseMenu();
+        }
+      } else {
+      }
+    },
+    false
+  );
+  window.addEventListener("orientationchange", function () {
+    if (window.screen.orientation.type !== screenRotation) {
+      if (!isMenuPopup) {
+        onClickPauseMenu();
+      } else {
+      }
+    }
+  });
+  const playAUDIO = (src: any) => {
+    const sound = new Howl({
+      src,
+      html5: true,
+    });
+    sound.play();
+  };
 
   const resetState = () => {
-    buttonCLick().play();
+    dropPause = false;
+    buttonCLick();
     setTimeOver(false);
     setCorrectDrop(false);
+    setIsLevelEnded(false);
+    setText("");
     setLevelCount(0);
+    setPauseMenu(false);
     setProgressCount(initialTime);
     setPromted(props.promptVisibility);
     setActiveIndicator(0);
-    setPauseMenu(false);
-    setIsLevelEnded(false);
     setScore(0);
-    setText("");
+    props.playAudio(props.puzzles[0].prompt.PromptAudio);
   };
 
   const onClickRestart = () => {
-    buttonCLick().play();
-    setTimeout(() => {
-      setLevelCount(0);
-      setPauseMenu(false);
-      setProgressCount(initialTime);
-      setActiveIndicator(0);
-      setScore(0);
-    }, 1000);
+    gameStatus = false;
+    isReplayed = true;
+    dropPause = false;
+    buttonCLick();
+    setTimeOver(false);
+    setCorrectDrop(false);
+    setIsLevelEnded(false);
+    setText("");
+    setLevelCount(0);
+    setPauseMenu(false);
+    setProgressCount(initialTime);
+    setPromted(props.promptVisibility);
+    setActiveIndicator(0);
+    setScore(0);
+    props.playAudio(props.puzzles[0].prompt.PromptAudio);
   };
-
   const onClickPauseMenu = () => {
-    buttonCLick().play();
     if (!isMenuPopup) {
       setPauseMenu(true);
+      dropPause = true;
       // if (props.playing) {
       //   audio.pause();
       // }
@@ -102,39 +143,85 @@ const DragDropComp = (props: any) => {
 
     if (isMenuPopup) {
       setPauseMenu(false);
+      if (afterDropPause) {
+        levelUp(true);
+        afterDropPause = false;
+      }
+      dropPause = false;
     }
   };
 
   const answerDrop = () => {
     setCorrectDrop(true);
   };
+  const afterDrop = (k: number, i: number) => {
+    if (k == 1 && i == 0) {
+      afterDropPause = true;
+      if (isReplayed) {
+        dropPause = false;
 
-  const levelUp = () => {
-    // TODo here
-    if (props.lengthOfCurrentLevel - 1 == levelCount) {
-      setTimeout(() => {
-        setIsLevelEnded(true);
-        score > 100 ? levelWin.play() : levelLost.play();
-      }, 2000);
-    } else {
-      setTimeout(() => {
-        setLevelCount((preCount) => preCount + 1);
-        setCorrectDrop(false);
-        setProgressCount(initialTime);
-        setActiveIndicator((pre) => pre + 1);
-        setPromted(true);
-        setIsLevelEnded(false);
-        props.stopPlaying();
-        props.playAudio();
-      }, 4000);
+        isReplayed = false;
+      }
     }
   };
+  const { disappearPromptText } = PromptTextHook(props.levelType);
+
+  const levelUp = (noDrag: boolean) => {
+    // TODo here
+    gameStatus = false;
+    if (props.lengthOfCurrentLevel - 1 == levelCount) {
+      setActiveIndicator(props.lengthOfCurrentLevel);
+      setTimeout(
+        () => {
+          if (!dropPause) {
+            afterDropPause = false;
+
+            setIsLevelEnded(true);
+            score > 100
+              ? playAUDIO(getAudioPath() + "LevelWinFanfare.mp3")
+              : playAUDIO(getAudioPath() + "LevelLoseFanfare.mp3");
+          }
+        },
+        currentProgressCount == 0 ? 0 : 3000
+      );
+    } else {
+      //disappearPromptText()
+      setTimeout(
+        () => {
+          if (!dropPause) {
+            afterDropPause = false;
+            // dropPause=false;
+            setLevelCount((preCount) => preCount + 1);
+            setCorrectDrop(false);
+            setProgressCount(initialTime);
+            setActiveIndicator((pre) => pre + 1);
+            setPromted(true);
+            setIsLevelEnded(false);
+            if (currentProgressCount != 0) {
+              props.stopPlaying();
+            }
+            props.playAudio(
+              props.puzzles[activeIndicators + 1].prompt.PromptAudio
+            );
+          }
+        },
+        noDrag ? 0 : 4000
+      );
+    }
+  };
+  if (!props.playing) {
+    setTimeout(() => {
+      props.startPlaying();
+    }, 4000);
+  }
 
   const timer = () => {
-    if (props.playing && !isMenuPopup) {
+    if (props.playing && !isMenuPopup && gameStatus) {
       setProgressCount((preValue) => preValue - 0.5);
       {
-        currentProgressCount == 1.5 ? timeOut.play() : null;
+        currentProgressCount == 1.5
+          ? playAUDIO(getAudioPath() + "timeout.mp3")
+          : null;
       }
     }
   };
@@ -155,13 +242,23 @@ const DragDropComp = (props: any) => {
       return;
     }
 
-    if (currentProgressCount <= 0 && !timeOver) {
+    if (currentProgressCount <= 0 || timeOver) {
       timeoutId = setTimeout(() => {
         // setProgressCount(10);
         // props.stopPlaying()
-        levelUp();
+        levelUp(true);
+
         return;
       }, 1000);
+    }
+    if (currentProgressCount <= 0) {
+      setTimeout(() => {
+        setGame(true);
+        setGame(false);
+      }, 2000);
+      setTimeout(() => {
+        gameStatus = true;
+      }, 7000);
     }
 
     if (currentProgressCount <= 0 || correctDrop) {
@@ -182,38 +279,113 @@ const DragDropComp = (props: any) => {
     correctDrop,
     isMenuPopup,
     isLevelEnded,
+    game,
   ]);
-  console.log(props);
 
+  console.log(props);
+  var levelsCompleted = JSON.parse(localStorage.getItem("LevelData"));
+  console.log(levelCount);
+  console.log(
+    levelsCompleted != undefined
+      ? levelsCompleted[levelsCompleted.length - 1].data._levelScore
+      : "Sample  "
+  );
+  console.log(levelsCompleted);
+  const getPhaseCharacter = (levelsCompleted: number) => {
+    let phaseCharacterNumber = Math.floor(levelsCompleted / 4);
+    console.log(phaseCharacterNumber);
+    if (phaseCharacterNumber < 4) {
+      return phaseCharacterNumber;
+    } else {
+      return 3;
+    }
+  };
   return isLevelEnded ? (
+    document.getElementById("exitButton").style.color="white",
     <EndLevelComponent
       score={score}
       lengthOfCurrentLevel={props.lengthOfCurrentLevel}
-      onClickPauseMenu={onClickPauseMenu}
+      levelsCompleted={getPhaseCharacter(
+        levelsCompleted == null
+          ? 0
+          : levelsCompleted[levelsCompleted.length - 1].data._levelScore ==
+              undefined || levelCount != 0
+          ? levelsCompleted.length - 1
+          : levelsCompleted.length
+      )}
+      allLevelScreen={() => {
+        props.allLevelScreen();
+        setPauseMenu(false);
+        setTimeout(() => {
+          setLevelCount(0);
+          setProgressCount(initialTime);
+          setActiveIndicator(0);
+          setScore(0);
+        }, 1000);
+      }}
       onClickRestart={() => {
         resetState();
       }}
-      nextLevel={props.nextLevel}
+      nextLevel={() => {
+        props.nextLevel();
+        setTimeOver(false);
+        setCorrectDrop(false);
+        setLevelCount(0);
+        setProgressCount(initialTime);
+        setPromted(props.promptVisibility);
+        setActiveIndicator(0);
+        setPauseMenu(false);
+        setIsLevelEnded(false);
+        setScore(0);
+        setText("");
+      }}
     />
   ) : (
-    <div style={{ display: "flex", flexDirection: "column" }}>
+    <div style={{ display: "flex", flexDirection: "column", height: "100%" }}>
       <div
         style={{
           display: "flex",
-          justifyContent: "space-between",
-          marginInline: "50px",
+          justifyContent: "space-around",
           marginTop: "10px",
         }}
       >
         <PuzzelBar puzzelCount={4} activeIndicators={activeIndicators} />
-        <ScoreBoard score={score} />
-        <PauseMenu onClickPauseMenu={onClickPauseMenu} />
+        {props.devMode ? (
+          <>
+            <ScoreBoard
+              levelNumber={props.levelNumber}
+              levelCount={levelCount}
+            />
+          </>
+        ) : (
+          <></>
+        )}
+        <PauseMenu
+          onClickPauseMenu={() => {
+            buttonCLick();
+            onClickPauseMenu();
+          }}
+        />
       </div>
       {isMenuPopup ? (
         <PopupMenu
-          onClickPauseMenu={onClickPauseMenu}
+          onClickPauseMenu={() => {
+            buttonCLick();
+            onClickPauseMenu();
+          }}
           onClickRestart={onClickRestart}
-          nextLevel={props.nextLevel}
+          allLevelScreen={() => {
+            gameStatus = false;
+            isReplayed  = true;
+            props.allLevelScreen();
+            setPauseMenu(false);
+            setTimeout(() => {
+              setLevelCount(0);
+              setProgressCount(initialTime);
+              setActiveIndicator(0);
+              setScore(0);
+            }, 1000);
+          }}
         />
       ) : (
         <></>
@@ -221,6 +393,10 @@ const DragDropComp = (props: any) => {
 
       <Progress done={(currentProgressCount * 10).toString()} />
       <PromptText
+        IsGamePlay={(status: any) => {
+          !gameStatus ? playAUDIO(getAudioPath() + "StonesAppear.mp3") : null;
+          gameStatus = status;
+        }}
         letter={
           props.puzzles[levelCount]
             ? props.editorData
@@ -228,9 +404,17 @@ const DragDropComp = (props: any) => {
               : props.puzzles[levelCount].prompt.PromptText
             : ""
         }
+        audioUrl={
+          props.puzzles[levelCount]
+            ? props.editorData
+              ? props.puzzles[levelCount].PromptAudio
+              : props.puzzles[levelCount].prompt.PromptAudio
+            : ""
+        }
         isAudioPlaying={props.playing}
         textVisbility={props.promptVisibility}
         levelType={props.levelType}
+        generalData={props.generalData}
         targetedLetters={props.puzzles[levelCount].targetstones}
       />
       <SuccessText word={text} />
@@ -238,18 +422,45 @@ const DragDropComp = (props: any) => {
         <></>
       ) : (
         <DndProvider backend={HTML5Backend}>
-          <div className="dragAndDrop" style={{ height: "200px" }}>
+          <div
+            className="dragAndDrop"
+            style={{
+              height: "50%",
+              display: "flex",
+              margin: "auto",
+              alignItems: "flex-start",
+            }}
+          >
             <DragDrop
+              isReplayed={isReplayed}
+              IsGamePlayStatus={gameStatus}
+              IsGamePlay={(status: any) => {
+                !gameStatus
+                  ? playAUDIO(getAudioPath() + "StonesAppear.mp3")
+                  : null;
+                gameStatus = status;
+              }}
+              currentProgressCount={currentProgressCount}
               timeOver={timeOver}
               answerDrop={answerDrop}
               startDrag={false}
               props={props.puzzles[levelCount]}
               changePuzzel={levelUp}
               levelCount={levelCount}
+              levelsCompleted={getPhaseCharacter(
+                levelsCompleted == null
+                  ? 0
+                  : levelsCompleted[levelsCompleted.length - 1].data
+                      ._levelScore == undefined || levelCount != 0
+                  ? levelsCompleted.length - 1
+                  : levelsCompleted.length
+              )}
               isMenuOpen={isMenuPopup}
               levelType={props.levelType}
+              afterDropPause={afterDrop}
               setScore={(count: number) => {
-                scoreCount.play();
+                //scoreCount.play();
+                playAUDIO(getAudioPath() + "ScoreCountingDown.ogg");
                 setScore(score + count);
                 if (count == 100) {
                   const feedbackPhrase =
@@ -257,6 +468,9 @@ const DragDropComp = (props: any) => {
                       Math.floor(Math.random() * feedbackArray.length)
                     ];
                   setText(feedbackPhrase);
+                  const audioIndex =
+                    props.feedbackTexts.indexOf(feedbackPhrase);
+                  playAUDIO(feedbackAudiosArray[audioIndex]);
 
                   let playerProfile = [
                     {
@@ -297,87 +511,96 @@ const DragDropComp = (props: any) => {
                       data.forEach(function (value: any) {
                         if (value._levelNumber == props.levelNumber + 1) {
                           value.data._levelName = props.levelType.toString();
-                          value.data._levelScore = value.data._levelScore > score + count?
-                          value.data._levelScore: score + count;
-                          value.data._levelStars = value.data._levelScore > score + count?
-                          (value.data._levelScore === props.lengthOfCurrentLevel * 100 ? 3 :
-                           value.data._levelScore >= Math.ceil(props.lengthOfCurrentLevel / 2) * 100 ? 2 
-                           : value.data._levelScore <= 100 ? 0 : 1):
-                            (score + count === props.lengthOfCurrentLevel * 100
+                          value.data._levelScore =
+                            value.data._levelScore > score + count
+                              ? value.data._levelScore
+                              : score + count;
+                          value.data._levelStars =
+                            value.data._levelScore > score + count
+                              ? value.data._levelScore ===
+                                props.lengthOfCurrentLevel * 100
+                                ? 3
+                                : value.data._levelScore >=
+                                  Math.ceil(props.lengthOfCurrentLevel / 2) *
+                                    100
+                                ? 2
+                                : value.data._levelScore <= 100
+                                ? 0
+                                : 1
+                              : score + count ===
+                                props.lengthOfCurrentLevel * 100
                               ? 3
                               : score + count >=
                                 Math.ceil(props.lengthOfCurrentLevel / 2) * 100
                               ? 2
                               : score + count <= 100
                               ? 0
-                              : 1);
-                              value.data._levelUnlocked = value.data._levelUnlocked
-                              ? value.data._levelUnlocked:
-                              value.data._levelScore > score + count?
-                              (value.data._levelScore > 100 ? true : false):
-                            (score + count > 100 ? true : false);
+                              : 1;
+                          value.data._levelUnlocked = value.data._levelUnlocked
+                            ? value.data._levelUnlocked
+                            : value.data._levelScore > score + count
+                            ? value.data._levelScore > 100
+                              ? true
+                              : false
+                            : score + count > 100
+                            ? true
+                            : false;
 
-                            (value.data._levelScore == 200) ?
-                            data.push({
-                              _levelNumber: props.levelNumber + 2,
-                              data: {
-                                _levelUnlocked: true,
-                              },
-                            }):
-                            value.data._levelScore <= 100 ? 
-                           data.push({
-                              _levelNumber: props.levelNumber + 2,
-                              data: {
-                                _levelUnlocked: false,
-                              },
-                            }):console.log('nothing')
-
+                          value.data._levelScore == 200
+                            ? data.push({
+                                _levelNumber: props.levelNumber + 2,
+                                data: {
+                                  _levelUnlocked: true,
+                                },
+                              })
+                            : value.data._levelScore <= 100
+                            ? data.push({
+                                _levelNumber: props.levelNumber + 2,
+                                data: {
+                                  _levelUnlocked: false,
+                                },
+                              })
+                            : console.log("nothing");
                         } else if (
                           value._levelNumber ==
                           props.levelNumber + 2
                         ) {
                           if (value.data._levelUnlocked == false) {
-                              value.data._levelUnlocked = score + count > 100 ? true : false;
-                          }
-                          else if (value.data._levelUnlocked == true) {
+                            value.data._levelUnlocked =
+                              score + count > 100 ? true : false;
+                          } else if (value.data._levelUnlocked == true) {
                             value.data._levelScore = value.data._levelScore
                               ? value.data._levelScore
                               : 0;
-                              value.data._levelStars = value.data._levelStars
+                            value.data._levelStars = value.data._levelStars
                               ? value.data._levelStars
                               : 0;
-                              value.data._levelUnlocked = value.data._levelUnlocked
+                            value.data._levelUnlocked = value.data
+                              ._levelUnlocked
                               ? value.data._levelUnlocked
                               : false;
                           }
-
-                        } 
-                        else {
-                          console.log('NOT FOUND');
+                        } else {
+                          console.log("NOT FOUND");
                         }
-                      }); 
+                      });
 
                       playerProfile = [];
-                      const obj = [...new Map(data.map((item:any) => [JSON.stringify(item), item])).values()];
+                      const obj = [
+                        ...new Map(
+                          data.map((item: any) => [JSON.stringify(item), item])
+                        ).values(),
+                      ];
 
                       obj.forEach(function (value: any) {
                         playerProfile.push(value);
                       });
-                      
                     }
                   }
                   localStorage.setItem(
                     "LevelData",
                     JSON.stringify(playerProfile)
                   );
-
-                  if (feedbackPhrase == "Fantastic!") {
-                    audioFantastic.play();
-                  } else if (feedbackPhrase == "Great!") {
-                    audioGreat.play();
-                  } else {
-                    audiogoodJob.play();
-                  }
                   setTimeout(function () {
                     setText("");
                   }, 3500);
@@ -402,10 +625,12 @@ const SlideComponent = (props: any) => {
   const [levData, setlevData] = useState(null);
   console.log(props);
   const lengthOfCurrentLevel = props.data.Puzzles.length;
-  const { playing, setPlaying, playAudio } = AudioComponent();
+  const { playing, setPlaying, playAudio } = AudioComponent(props);
   const [start, setStart] = useState(false);
   let promptTextVisibilty = true;
   let stopPlaying;
+  let startPlaying;
+
   if (levData != null) {
     promptTextVisibilty = props.editorData
       ? levData.PromptType == "Visible"
@@ -421,42 +646,126 @@ const SlideComponent = (props: any) => {
       }
     };
   }
-
+  startPlaying = () => {
+    if (!playing) {
+      setPlaying(true);
+    }
+  };
   useEffect(() => {
     setStart(false);
     return () => {
-      if (playing) {
-        if (audio != null) {
-          audio.pause();
-        }
-      }
-      audio = null;
+      // if (playing) {
+      //   if (audio != null) {
+      //     audio.pause();
+      //   }
+      // }
+      // audio = null;
       initialTime = 10;
       clearInterval(id);
       setPlaying(false);
     };
   }, [props.started]);
 
-  const onStartClick = () => {
+  const onStartClick = (url: any) => {
+    let id = document.getElementById("exitButton");
+    id.style.left = "52%";
+    id.style.color = "black";
+    if (
+      window.innerWidth == screen.width &&
+      window.innerHeight == screen.height
+    ) {
+      id.style.display = "block";
+    } else {
+      id.style.display = "none";
+    }
     setTimeout(() => {
       setStart(true);
+      dropPause = false;
     }, 0);
-    playAudio();
+    playAudio(url);
+  };
+
+  const nextLevel = () => {
+    dropPause = false;
+    if (levData.LevelMeta.LevelNumber == level.length) {
+      let temp = level[0];
+      setlevData(temp);
+      onStartClick(temp[0].Puzzles[0].prompt.PromptAudio);
+    } else {
+      let temp = level[levData.LevelMeta.LevelNumber + 1];
+      setlevData(temp);
+      onStartClick(temp.Puzzles[0].prompt.PromptAudio);
+    }
+  };
+
+  const allLevelScreen = () => {
+    setStart(false);
+    let id = document.getElementById("exitButton");
+    id.style.left = "2.6%";
+    id.style.color = "white";
   };
 
   const monsterRef = useRef();
   compared = [];
   return (
     <Wrapper>
-      <img
-        src={getImagePath() + "background.png"}
+      <div
         style={{
-          position: "absolute",
+          backgroundImage: `url(${getImagePath() + "bg.jpg"})`,
           width: "100%",
-          height: "600px",
+          height: "100%",
+          position: "absolute",
+          backgroundSize: "100% 100%",
           zIndex: -2,
+          overflow: "hidden",
         }}
-      ></img>
+      >
+        <div
+          id="hill"
+          style={{
+            backgroundImage: `url(${getImagePath() + "hill.png"})`,
+            backgroundSize: "100% 100%",
+            backgroundRepeat: "no-repeat",
+            height: "50%",
+            width: "110%",
+            position: "absolute",
+            left: "-5%",
+            bottom: 0,
+          }}
+        >
+          <div
+            id="totem"
+            style={{
+              backgroundImage: `url(${getImagePath() + "Totem1.png"})`,
+              backgroundSize: "contain",
+              backgroundRepeat: "no-repeat",
+              height: "100%",
+              width: "80%",
+              position: "relative",
+              backgroundPosition: "right",
+              right: "-20%",
+              top: "-55%",
+              zIndex: -3,
+            }}
+          ></div>
+          <div
+            style={{
+              backgroundImage: `url(${getImagePath() + "fence.png"})`,
+              backgroundSize: "contain",
+              backgroundRepeat: "no-repeat",
+              height: "100%",
+              width: "100%",
+              position: "absolute",
+              left: "-36%",
+              top: "-43%",
+              transform: "scale(.7) rotate(-37deg)",
+              zIndex: -3,
+              backgroundPosition: "center",
+            }}
+          ></div>
+        </div>
+      </div>
+
       {data.audio && data.audio.length > 0 ? (
         ""
       ) : (
@@ -468,7 +777,7 @@ const SlideComponent = (props: any) => {
         <div
           style={{
             height: "100%",
-            backgroundImage: `url(${map})`,
+            backgroundImage: `url(${getImagePath() + "map.jpg"})`,
             backgroundPosition: "center",
             backgroundRepeat: "no-repeat",
             backgroundSize: "cover",
@@ -510,11 +819,11 @@ const SlideComponent = (props: any) => {
                                   backgroundPosition: 25,
                                   backgroundSize: "contain",
                                   backgroundRepeat: "no-repeat",
-                                  width: "10vw",
-                                  height: "20vh",
-                                  padding: 10,
-                                  objectFit: "contain",
-                                  flexDirection: "column",
+                                  width: "8em",
+                                  height: "9em",
+                                  // padding: 10,
+                                  // objectFit: "contain",
+                                  // flexDirection: "column",
                                 }}
                                 onClick={
                                   (data1.LevelMeta.LevelNumber + 1 ===
@@ -523,9 +832,11 @@ const SlideComponent = (props: any) => {
                                   data1.LevelMeta.LevelNumber + 1 == 1 ||
                                   props.devMode
                                     ? () => {
-                                        buttonCLick().play();
+                                        buttonCLick();
                                         setlevData(data1);
-                                        onStartClick();
+                                        onStartClick(
+                                          data1.Puzzles[0].prompt.PromptAudio
+                                        );
                                       }
                                     : () => {
                                         console.log("Nothing");
@@ -631,17 +942,19 @@ const SlideComponent = (props: any) => {
                                   backgroundPosition: 25,
                                   backgroundSize: "contain",
                                   backgroundRepeat: "no-repeat",
-                                  width: "10vw",
-                                  height: "20vh",
-                                  padding: 10,
-                                  objectFit: "contain",
+                                  width: "8em",
+                                  height: "9em",
+                                  // padding: 10,
+                                  // objectFit: "contain",
                                 }}
                                 onClick={
                                   props.devMode
                                     ? () => {
-                                        buttonCLick().play();
+                                        buttonCLick();
                                         setlevData(data1);
-                                        onStartClick();
+                                        onStartClick(
+                                          data1.Puzzles[0].prompt.PromptAudio
+                                        );
                                       }
                                     : () => {
                                         console.log("Nothing");
@@ -688,15 +1001,15 @@ const SlideComponent = (props: any) => {
                           backgroundPosition: 25,
                           backgroundSize: "contain",
                           backgroundRepeat: "no-repeat",
-                          width: "10vw",
-                          height: "20vh",
-                          padding: 10,
-                          objectFit: "contain",
+                          width: "8em",
+                          height: "9em",
+                          // padding: 10,
+                          // objectFit: "contain",
                         }}
                         onClick={() => {
-                          buttonCLick().play();
+                          buttonCLick();
                           setlevData(data1);
-                          onStartClick();
+                          onStartClick(data1.Puzzles[0].prompt.PromptAudio);
                         }}
                       >
                         <h3>{data1.LevelMeta.LevelNumber + 1}</h3>
@@ -715,21 +1028,23 @@ const SlideComponent = (props: any) => {
                           border: "none",
                           borderRadius: 70,
                           outlineStyle: "none",
-                          background: `url(${mapIcon})`,
+                          background: `url(${getImagePath() + "mapIcon.png"})`,
                           backgroundPosition: 25,
                           backgroundSize: "contain",
                           backgroundRepeat: "no-repeat",
-                          width: "10vw",
-                          height: "20vh",
-                          padding: 10,
-                          objectFit: "contain",
+                          width: "8em",
+                          height: "9em",
+                          // padding: 10,
+                          // objectFit: "contain",
                         }}
                         onClick={
                           props.devMode
                             ? () => {
-                                buttonCLick().play();
+                                buttonCLick();
                                 setlevData(data1);
-                                onStartClick();
+                                onStartClick(
+                                  data1.Puzzles[0].prompt.PromptAudio
+                                );
                               }
                             : () => {
                                 console.log("Nothing");
@@ -777,27 +1092,33 @@ const SlideComponent = (props: any) => {
               promptTextVisibilty
             }
             puzzles={levData.Puzzles}
+            startPlaying={startPlaying}
             stopPlaying={stopPlaying}
             playAudio={playAudio}
-            nextLevel={props.nextLevel}
+            nextLevel={nextLevel}
             monsterRef={monsterRef}
             lengthOfCurrentLevel={lengthOfCurrentLevel}
             editorData={props.editorData}
             feedbackTexts={props.feedbackTexts}
+            feedbackAudios={props.feedbackAudios}
+            generalData={props.generalData}
             levelNumber={levData.LevelMeta.LevelNumber}
+            allLevelScreen={allLevelScreen}
+            devMode={props.devMode}
           />
 
-          <div
-            ref={monsterRef}
-            style={{
-              width: "300px",
-              height: "100px",
-              top: "50%",
-              left: "30%",
-              position: "absolute",
-            }}
-          >
-            <AnimationType type="idle" />
+          <div style={{ display: "flex", justifyContent: "center" }}>
+            <div
+              ref={monsterRef}
+              style={{
+                width: "300px",
+                height: "100px",
+                bottom: "35%",
+                position: "absolute",
+              }}
+            >
+              <AnimationType type="idle" />
+            </div>
           </div>
         </>
       )}

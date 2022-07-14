@@ -5,15 +5,15 @@ import spit from "../../assets/images/eating1.png";
 
 var spritesheetobj: Spritesheet;
 const SpriteAnimationComponent = (props: any) => {
-  const { spImage, nFrames, height } = props;
+  const { spImage, nFrames, height ,width} = props;
   return (
     <Spritesheet
       direction={`forward`}
       style={{ width: "100%", height: "100%", display: "inline-block" }}
       image={spImage}
-      widthFrame={768}
-      heightFrame={height ? height : 632}
-      steps={6}
+      widthFrame={width?width:768}
+      heightFrame={height ? height : 662}
+      steps={7}
       loop={true}
       fps={5}
       onInit={(spritesheet) => {

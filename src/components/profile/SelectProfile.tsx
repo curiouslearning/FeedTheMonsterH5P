@@ -12,11 +12,14 @@ import title from "../../../assets/images/title.png";
 import playButton from "../../../assets/images/Play_button.png";
 import AnimationType from "../animations/AnimationType";
 import { getAudioPath, getImagePath, buttonCLick } from "../../app";
+import ScreenOrientation from '../OnScreenRotation/ScreenOrietation'
+import ExitScreenButton from '../ExitScreenButtton/ExitScreenButton';
+import { useMediaQuery } from "react-responsive";
+let screenOrientation=window.screen.orientation.type;
+
 const Wrapper = styled.div`
-  height: 600px;
+  height: 100vh;
   width: 100%;
-  position: relative;
-  color: "black";
 `;
 const Popup = styled.div`
   margin: auto;
@@ -59,20 +62,55 @@ const SelectProfile = (props: any) => {
   const introSound = new Audio(getAudioPath() + "intro.wav");
   const selectPLayer = new Audio(getAudioPath() + "select_player.WAV");
   const introMusic = getAudioPath() + "intro.wav";
-
   // document.body.addEventListener("mousemove", function () {
   //   introSound.play()
   // })
+  const [changeOrient, setChangeOrient] = useState(false);
+window.addEventListener('orientationchange', function(event) {
+    let id;
+    if(this.window.screen.orientation.type !== screenOrientation) {
+        id = document.getElementById("turn");
+        console.log("change1")
+        id.style.display="none";
+        // changeOrient = false;
+        setChangeOrient(true); 
+        } else {
+            id = document.getElementById("notTurn");
+            setChangeOrient(false);
+            console.log("change2")
+            id.style.display="block";
+            // changeOrient = true;
+        }
+    }
+);
+
+const isBigScreen = useMediaQuery({ query: '(min-width: 650px) and (min-height: 900px)' })
+const isSmallScreen = useMediaQuery({ query: '(max-width: 525px)' })
+if(isBigScreen){
+  console.log("<<<<<<<<<<<<<<<<<<<<<<<<<<<<<")
+}
+const onCLickExit=()=>{
+  let exitBtnId =document.getElementById("exitButton");
+  document.exitFullscreen();
+  exitBtnId.style.display="none";
+}
   return (
     <Wrapper>
+      <ExitScreenButton/>
+    <div id = {!changeOrient ? "turn" : "notTurn"}>
       <audio id="soundtrack" src={introMusic}></audio>
       <img
         src={getImagePath() + "background.png"}
         style={{
           position: "absolute",
           width: "100%",
-          height: "600px",
+          height: "100%",
           zIndex: -2,
+          backgroundSize: "100% 100%",
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+          justifyContent: "space-around",
         }}
       ></img>
       <img
@@ -90,13 +128,14 @@ const SelectProfile = (props: any) => {
           zIndex: -2,
         }}
       ></img>
-      <div
+      
+      {isBigScreen ?<div
         ref={monsterRef}
         style={{
           width: "300px",
           height: "100px",
           zIndex: -2,
-          top: 20,
+          top: "57vh",
           position: "relative",
           justifyContent: "center",
           textAlign: "center",
@@ -105,15 +144,49 @@ const SelectProfile = (props: any) => {
           display: "block",
         }}
       >
-        <AnimationType type="idle" />
-      </div>
+        <AnimationType type="profile" />
+      </div>:<div
+        ref={monsterRef}
+        style={{
+          width: "300px",
+          height: "100px",
+          zIndex: -2,
+          top: "36vh",
+          position: "relative",
+          justifyContent: "center",
+          textAlign: "center",
+          alignItems: "center",
+          margin: "auto",
+          display: "block",
+        }}
+      >
+        <AnimationType type="profile" />
+      </div>}
+      {/* <div id="monsterId"
+        ref={monsterRef}
+        style={{
+          width: "300px",
+          height: "100px",
+          zIndex: -2,
+          top: 120,
+          position: "relative",
+          justifyContent: "center",
+          textAlign: "center",
+          alignItems: "center",
+          margin: "auto",
+          display: "block",
+        }}
+      >
+        <AnimationType type="profile" />
+      </div> */}
+      
 
       {popUpStatus ? (
         <Popup title={getImagePath() + "popup_bg_v01.png"}>
           <ClosePopup
             title={getImagePath() + "close_btn.png"}
             onClick={(e) => {
-              buttonCLick().play();
+              buttonCLick();
               setPopUpStatus(false);
             }}
           ></ClosePopup>
@@ -156,6 +229,8 @@ const SelectProfile = (props: any) => {
                     contentId={props.contentId}
                     editorData={props.editorData}
                     feedbackTexts={props.feedbackPhrases}
+                    feedbackAudios={props.feedbackAudios}
+                    generalData={props.generalData}
                     devMode={true}
                   />,
                   props.element
@@ -180,7 +255,7 @@ const SelectProfile = (props: any) => {
               display: "block",
             }}
             onClick={() => {
-              buttonCLick().play();
+              buttonCLick();
               selectPLayer.pause();
               props.wrapper.get(0).appendChild(props.element);
               render(
@@ -189,6 +264,8 @@ const SelectProfile = (props: any) => {
                   contentId={props.contentId}
                   editorData={props.editorData}
                   feedbackTexts={props.feedbackPhrases}
+                  feedbackAudios={props.feedbackAudios}
+                  generalData={props.generalData}
                   devMode={props.devMode}
                 />,
                 props.element
@@ -200,7 +277,7 @@ const SelectProfile = (props: any) => {
         <img
           src={getImagePath() + "Play_button.png"}
           onClick={() => {
-            buttonCLick().play();
+            buttonCLick();
             selectPLayer.play();
             setPopUpStatus(true);
           }}
@@ -208,7 +285,7 @@ const SelectProfile = (props: any) => {
             width: 250,
             height: 250,
             position: "relative",
-            top: "130px",
+            top: "-150px",
             justifyContent: "center",
             textAlign: "center",
             alignItems: "center",
@@ -217,6 +294,10 @@ const SelectProfile = (props: any) => {
           }}
         ></img>
       )}
+       </div>
+       { changeOrient ? <div>
+            <ScreenOrientation/>
+            </div> : <></> }
     </Wrapper>
   );
 };

@@ -1,14 +1,14 @@
 .puzzel-indicator-container {
     display: flex;
-    height: 77px;
-    width: 154px;
+    height: 5em;
+    width: 12em;
     justify-content: center;
     align-items: center;
 }
 
 .completed-puzzel {
     height: 25px;
-    width: 15px;
+    width: 13px;
     margin: 8px;
 }
 

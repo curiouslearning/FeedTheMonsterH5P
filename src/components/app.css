@@ -1,107 +1,150 @@
 .mainDiv {
-    width: 47em;
-    display: flex;
-    flex-wrap: wrap;
-    margin: auto;
-    justify-content: space-around;
+  width: 47em;
+  display: flex;
+  flex-wrap: wrap;
+  margin: auto;
+  justify-content: space-around;
 }
 
-.buttonStyle{
-    width: 16em;
-    text-align: center;
-    line-height: 3em;
-    justify-content: center;
+.buttonStyle {
+  width: 16em;
+  text-align: center;
+  line-height: 3em;
+  justify-content: center;
 }
 
 .dropArea {
-    display: flex;
-    width: 100px;
-    height: 100px;
-    background-color: green;
-    border-radius: 50%;
-    align-items: center;
-    justify-content: center;
-    margin: 24px auto;
+  display: flex;
+  width: 100px;
+  height: 100px;
+  background-color: green;
+  border-radius: 50%;
+  align-items: center;
+  justify-content: center;
+  margin: 24px auto;
 }
 
 .drop {
-    display: flex;
-    width: 100px;
-    height: 100px;
-    background-color: green;
-    border-radius: 50%;
-    align-items: center;
-    justify-content: center;
-    margin: 24px auto;
-    text-align: center;
+  display: flex;
+  width: 100px;
+  height: 100px;
+  background-color: green;
+  border-radius: 50%;
+  align-items: center;
+  justify-content: center;
+  margin: 24px auto;
+  text-align: center;
 }
 
 @keyframes cloud-moving {
-    from {
-      left: 0px;
-    }
-    to {
-      left: 450px;
-    }
+  from {
+    left: 0%;
   }
+  to {
+    left: 70%;
+  }
+}
 
 .cloud-css {
-    animation-name: cloud-moving;
-    animation-duration: 15s;
-    animation-delay: 1s;
-    animation-iteration-count: infinite;
-    animation-direction: alternate;
-  }
+  animation-name: cloud-moving;
+  animation-duration: 15s;
+  animation-delay: 1s;
+  animation-iteration-count: infinite;
+  animation-direction: alternate;
+}
 
 .balls {
-    width: 30px;
-    height: 30px;
-    background-color: red;
-    border-radius: 50%;
-    align-items: left;
-    margin: 24px auto;
-    text-align: center;
+  width: 30px;
+  height: 30px;
+  background-color: red;
+  border-radius: 50%;
+  align-items: left;
+  margin: 24px auto;
+  text-align: center;
 }
 
 .right-answer {
-    display: flex;
-    align-items: center;
-    justify-content: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .bal {
-    width: 30px;
-    height: 30px;
-    background-color: red;
-    border-radius: 50%;
-    margin: 24px auto;
+  width: 30px;
+  height: 30px;
+  background-color: red;
+  border-radius: 50%;
+  margin: 24px auto;
 }
 
 p {
-    color: black;
-    font-size: 1.2em;
-    text-align: center;
+  color: black;
+  font-size: 1.2em;
+  text-align: center;
 }
 
 .no-balls {
-    width: 30px;
-    height: 30px;
-    background-color:white;
-    color: white;
-    border-radius: 50%;
-    display: flex;
-    flex-direction: "row";
+  width: 30px;
+  height: 30px;
+  background-color: white;
+  color: white;
+  border-radius: 50%;
+  display: flex;
+  flex-direction: "row";
 }
 
 .current {
-    width: 30px;
-    height: 30px;
-    background-color:red;
-    border-radius: 50%;
-    align-items: left;
-    margin: 24px auto;
+  width: 30px;
+  height: 30px;
+  background-color: red;
+  border-radius: 50%;
+  align-items: left;
+  margin: 24px auto;
 }
 
+.h5p-enable-fullscreen{
+  position: absolute;
+  margin-top: 18px; 
+  /* left: -0.1%; */
+  
+}
+.h5p-content-controls {
+  margin: 0;
+  position: absolute;
+  left: 1.5%;
+  top: 2%;
+  z-index: 3;
+}
+.h5p-actions {
+  display: none;
+}
+.fl-resource-full {
+  display: inline;
+}
+.fl-resource-full__sticky-header sticky {
+  display: none;
+}
+.fl-resource-full__title {
+  display: none;
+}
+.fl-resource-full__sticky-header__btn {
+  display: none;
+}
+.fl-cookie-popup--open {
+  display: none;
+}
+
+body{
+  overscroll-behavior: Contain;
+}
+/* .dragAndDrop{
+  @media only screen and ((min-width: 650px) and (min-height: 900px)) {
+    body {
+      display:none;
+    }
+  }
+   
+} */
 /* .ball1{
     position: relative;
     width: 30px;

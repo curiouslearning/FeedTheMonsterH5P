@@ -12,25 +12,35 @@ import { getImagePath } from "../../app";
 var spritesheetobj: Spritesheet;
 const AnimationType = (props: any) => {
   const animationType = props.type;
+  const internalPhaseNo=props.getPhaseCharNo+1;
+  console.log(props.getPhaseCharNo)
+  console.log(internalPhaseNo)
   console.log(props.type);
+  console.log(getImagePath()+'idle1'+internalPhaseNo+'.png')
   switch (props.type) {
     case "eat": {
-      return <SpriteAnimationComponent spImage={getImagePath()+'eating12.png'} nFrames={18} />;
+      return <SpriteAnimationComponent spImage={getImagePath()+'eat1'+internalPhaseNo+'.png'} nFrames={18} />;
     }
     case "spit": {
-      return <SpriteAnimationComponent spImage={getImagePath()+'spit.png'} nFrames={18} />;
+      return <SpriteAnimationComponent spImage={getImagePath()+'spit1'+internalPhaseNo+'.png'}  nFrames={18} />;
     }
+    
     case "idle": {
-      return <SpriteAnimationComponent spImage={getImagePath()+'idle.png'} nFrames={18} />;
+      return <SpriteAnimationComponent spImage={getImagePath()+'idle1'+internalPhaseNo+'.png'} nFrames={18} />;
     }
     case "happy": {
       return (
-        <SpriteAnimationComponent spImage={getImagePath()+'happy.png'} nFrames={11} height={662} />
+        <SpriteAnimationComponent spImage={getImagePath()+'happy1'+internalPhaseNo+'.png'} nFrames={11} height={662}/>
       );
     }
     case "sad": {
       return (
-        <SpriteAnimationComponent spImage={getImagePath()+'sad.png'} nFrames={11} height={1080} />
+        <SpriteAnimationComponent spImage={getImagePath()+'sad1'+internalPhaseNo+'.png'} nFrames={11} height={662} />
+      );
+    }
+    case "profile": {
+      return (
+        <SpriteAnimationComponent spImage={getImagePath()+'idle14.png'} nFrames={11} height={1080} />
       );
     }
     default: {

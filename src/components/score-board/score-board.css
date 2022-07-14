@@ -1,10 +1,10 @@
 .score-board {
     display: flex;
     flex-direction: column;
-    height: 80px;
-    width: 130px;
-    align-items: center;
-    justify-content: center;
+    height: 5em;
+    width: 9em;
+    align-items: end;
+    justify-content: flex-start;
 }
 
 h3 {
