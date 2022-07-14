@@ -63,7 +63,7 @@ const playAUDIO = (src: any) => {
 
 const getImagePath=function()
 {
-  return H5P.getLibraryPath("H5P.FeedTheMonster-0.1")+"/assets/images/"
+  return H5P.getLibraryPath("H5P.ReactSlideshowDemo-0.1")+"/assets/images/"
 }
 const buttonCLick=function(){
  return playAUDIO(getAudioPath()+'ButtonClick.wav');
@@ -72,7 +72,7 @@ const buttonCLick=function(){
 
 const getAudioPath=function()
 {
-  return H5P.getLibraryPath("H5P.FeedTheMonster-0.1")+"/assets/audios/"
+  return H5P.getLibraryPath("H5P.ReactSlideshowDemo-0.1")+"/assets/audios/"
 }
 
 

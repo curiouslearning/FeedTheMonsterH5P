@@ -1,13 +1,13 @@
 {
-  "title": "Feed The Monster",
+  "title": "OER React Slideshow New",
   "description": "A demo content type from OER.",
   "majorVersion": 0,
   "minorVersion": 1,
-  "patchVersion": 52,
+  "patchVersion": 9,
   "runnable": 1,
   "author": "OER",
   "license": "cc-by-sa",
-  "machineName": "H5P.FeedTheMonster",
+  "machineName": "H5P.ReactSlideshowDemo",
   "coreApi": {
     "majorVersion": 0,
     "minorVersion": 1

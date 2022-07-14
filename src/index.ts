@@ -5,4 +5,4 @@ declare var H5P: any;
 // Load lib
 H5P = H5P || {};
 
-H5P.FeedTheMonster = ReactDemoApp;
+H5P.ReactSlideshowDemo = ReactDemoApp;
