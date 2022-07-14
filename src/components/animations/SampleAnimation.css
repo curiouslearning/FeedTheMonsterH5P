@@ -1,7 +1,7 @@
 .monster {
     width: 800px;
     height: 632px;
-    animation: run 1s steps(7) infinite;
+    animation: run 1.5s steps(7) infinite;
   }
   @keyframes run {
     100% {

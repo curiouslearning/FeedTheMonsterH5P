@@ -292,7 +292,7 @@ const DragDrop = ({
   };
   return (
     <>
-      <div style={{ display: "grid" }}>
+      <div style={{ display: "grid",alignSelf:'baseline' }}>
         <DropTarget
           onHit={(e: any) => {
             console.log(e);
@@ -330,6 +330,11 @@ const DragDrop = ({
             gridColumn: 1,
             gridRow: 1,
             zIndex: 0,
+            position:'relative',
+            bottom:'50px',
+            display:'flex',
+            justifyContent:'center',
+            transform:'scale(0.5)'
           }}
         >
           <AnimationType

@@ -4,12 +4,12 @@ export const SpriteAnimationContainer = (props: any) => {
   return (
     <div
       style={{
-        width: "22em",
-        display:"flex",
-        alignItems:'center'
+        display: "flex",
+        alignItems: "center",
+        transform: "scale(0.5)",
       }}
     >
-      <AnimationType type={props.type} getPhaseCharNo={props.getPhaseCharNo}/>
+      <AnimationType type={props.type} getPhaseCharNo={props.getPhaseCharNo} />
     </div>
   );
 };

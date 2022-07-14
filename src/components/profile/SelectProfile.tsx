@@ -12,10 +12,10 @@ import title from "../../../assets/images/title.png";
 import playButton from "../../../assets/images/Play_button.png";
 import AnimationType from "../animations/AnimationType";
 import { getAudioPath, getImagePath, buttonCLick } from "../../app";
-import ScreenOrientation from '../OnScreenRotation/ScreenOrietation'
-import ExitScreenButton from '../ExitScreenButtton/ExitScreenButton';
+import ScreenOrientation from "../OnScreenRotation/ScreenOrietation";
+import ExitScreenButton from "../ExitScreenButtton/ExitScreenButton";
 import { useMediaQuery } from "react-responsive";
-let screenOrientation=window.screen.orientation.type;
+let screenOrientation = window.screen.orientation.type;
 
 const Wrapper = styled.div`
   height: 100vh;
@@ -65,239 +65,207 @@ const SelectProfile = (props: any) => {
   // document.body.addEventListener("mousemove", function () {
   //   introSound.play()
   // })
+  console.log("22222");
   const [changeOrient, setChangeOrient] = useState(false);
-window.addEventListener('orientationchange', function(event) {
-    let id;
-    if(this.window.screen.orientation.type !== screenOrientation) {
-        id = document.getElementById("turn");
-        console.log("change1")
-        id.style.display="none";
-        // changeOrient = false;
-        setChangeOrient(true); 
-        } else {
-            id = document.getElementById("notTurn");
-            setChangeOrient(false);
-            console.log("change2")
-            id.style.display="block";
-            // changeOrient = true;
-        }
-    }
-);
+  // window.addEventListener('orientationchange', function(event) {
+  //     let id;
+  //     if(this.window.screen.orientation.type !== screenOrientation) {
+  //         id = document.getElementById("turn");
+  //         console.log("change1")
+  //         id.style.display="none";
+  //         // changeOrient = false;
+  //         setChangeOrient(true);
+  //         } else {
+  //             id = document.getElementById("notTurn");
+  //             setChangeOrient(false);
+  //             console.log("change2")
+  //             id.style.display="block";
+  //             // changeOrient = true;
+  //         }
+  //     }
+  // );
 
-const isBigScreen = useMediaQuery({ query: '(min-width: 650px) and (min-height: 900px)' })
-const isSmallScreen = useMediaQuery({ query: '(max-width: 525px)' })
-if(isBigScreen){
-  console.log("<<<<<<<<<<<<<<<<<<<<<<<<<<<<<")
-}
-const onCLickExit=()=>{
-  let exitBtnId =document.getElementById("exitButton");
-  document.exitFullscreen();
-  exitBtnId.style.display="none";
-}
+  const isBigScreen = useMediaQuery({
+    query: "(min-width: 650px) and (min-height: 900px)",
+  });
+  const isSmallScreen = useMediaQuery({ query: "(max-width: 525px)" });
+  if (isBigScreen) {
+    console.log("<<<<<<<<<<<<<<<<<<<<<<<<<<<<<");
+  }
+  const onCLickExit = () => {
+    let exitBtnId = document.getElementById("exitButton");
+    document.exitFullscreen();
+    exitBtnId.style.display = "none";
+  };
   return (
     <Wrapper>
-      <ExitScreenButton/>
-    <div id = {!changeOrient ? "turn" : "notTurn"}>
-      <audio id="soundtrack" src={introMusic}></audio>
-      <img
-        src={getImagePath() + "background.png"}
-        style={{
-          position: "absolute",
-          width: "100%",
-          height: "100%",
-          zIndex: -2,
-          backgroundSize: "100% 100%",
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "center",
-          justifyContent: "space-around",
-        }}
-      ></img>
-      <img
-        src={getImagePath() + "title.png"}
-        style={{
-          position: "relative",
-          width: "80%",
-          height: 100,
-          top: "5%",
-          justifyContent: "center",
-          textAlign: "center",
-          alignItems: "center",
-          margin: "auto",
-          display: "block",
-          zIndex: -2,
-        }}
-      ></img>
-      
-      {isBigScreen ?<div
-        ref={monsterRef}
-        style={{
-          width: "300px",
-          height: "100px",
-          zIndex: -2,
-          top: "57vh",
-          position: "relative",
-          justifyContent: "center",
-          textAlign: "center",
-          alignItems: "center",
-          margin: "auto",
-          display: "block",
-        }}
-      >
-        <AnimationType type="profile" />
-      </div>:<div
-        ref={monsterRef}
-        style={{
-          width: "300px",
-          height: "100px",
-          zIndex: -2,
-          top: "36vh",
-          position: "relative",
-          justifyContent: "center",
-          textAlign: "center",
-          alignItems: "center",
-          margin: "auto",
-          display: "block",
-        }}
-      >
-        <AnimationType type="profile" />
-      </div>}
-      {/* <div id="monsterId"
-        ref={monsterRef}
-        style={{
-          width: "300px",
-          height: "100px",
-          zIndex: -2,
-          top: 120,
-          position: "relative",
-          justifyContent: "center",
-          textAlign: "center",
-          alignItems: "center",
-          margin: "auto",
-          display: "block",
-        }}
-      >
-        <AnimationType type="profile" />
-      </div> */}
-      
-
-      {popUpStatus ? (
-        <Popup title={getImagePath() + "popup_bg_v01.png"}>
-          <ClosePopup
-            title={getImagePath() + "close_btn.png"}
-            onClick={(e) => {
-              buttonCLick();
-              setPopUpStatus(false);
-            }}
-          ></ClosePopup>
-          <h1
+      <ExitScreenButton />
+      <div id={!changeOrient ? "turn" : "notTurn"}>
+        <audio id="soundtrack" src={introMusic}></audio>
+        <div
+          style={{
+            position: "absolute",
+            backgroundImage: `url(${getImagePath() + "background.png"})`,
+            width: "100%",
+            height: "100%",
+            backgroundSize: "100% 100%",
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            justifyContent: "space-around",
+          }}
+        >
+          <img
+            src={getImagePath() + "title.png"}
             style={{
               position: "relative",
-              fontSize: 22,
-              fontWeight: "bold",
-              fontFamily: "Oxygen",
-              color: "white",
-              justifyContent: "center",
-              textAlign: "center",
-              alignItems: "center",
-              margin: "auto",
-              display: "block",
+              width: "80%",
+              height: 100,
+              display: "flex",
+              top: "5%",
+              flex: 1,
             }}
-          >
-            Select your Player
-          </h1>
-          <div>
-            <button
-              style={{
-                position: "relative",
-                top: "20",
-                justifyContent: "center",
-                textAlign: "center",
-                alignItems: "center",
-                margin: "auto",
-                display: "block",
-                border: "solid",
-                width: 150,
-                height: 25,
-              }}
-              onClick={() => {
-                selectPLayer.pause();
-                props.wrapper.get(0).appendChild(props.element);
-                render(
-                  <Slideshow
-                    data={props.config}
-                    contentId={props.contentId}
-                    editorData={props.editorData}
-                    feedbackTexts={props.feedbackPhrases}
-                    feedbackAudios={props.feedbackAudios}
-                    generalData={props.generalData}
-                    devMode={true}
-                  />,
-                  props.element
-                );
-              }}
-            >
-              {" "}
-              Developer Mode
-            </button>
-          </div>
-          <div
-            style={{
-              position: "relative",
-              height: 150,
-              width: 150,
-              backgroundImage: `url(${getImagePath() + "Avatar_04.png"})`,
-              backgroundSize: "contain",
-              backgroundRepeat: "no-repeat",
-              justifyContent: "center",
-              alignItems: "center",
-              margin: "auto",
-              display: "block",
-            }}
+          ></img>
+          <img
+            src={getImagePath() + "Play_button.png"}
             onClick={() => {
               buttonCLick();
-              selectPLayer.pause();
-              props.wrapper.get(0).appendChild(props.element);
-              render(
-                <Slideshow
-                  data={props.config}
-                  contentId={props.contentId}
-                  editorData={props.editorData}
-                  feedbackTexts={props.feedbackPhrases}
-                  feedbackAudios={props.feedbackAudios}
-                  generalData={props.generalData}
-                  devMode={props.devMode}
-                />,
-                props.element
-              );
+              selectPLayer.play();
+              setPopUpStatus(true);
             }}
-          ></div>
-        </Popup>
+            style={{
+              width: 250,
+              height: 250,
+              display: "flex",
+              flex: 2,
+            }}
+          ></img>
+          {popUpStatus ? (
+            <div
+              style={{
+                width: "100%",
+                height: "100%",
+                zIndex: 10,
+                top: 0,
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+                position: "absolute",
+                background: "rgba(0, 0, 0, 0.5)",
+              }}
+            >
+              <Popup title={getImagePath() + "popup_bg_v01.png"}>
+                <ClosePopup
+                  title={getImagePath() + "close_btn.png"}
+                  onClick={(e) => {
+                    buttonCLick();
+                    setPopUpStatus(false);
+                  }}
+                ></ClosePopup>
+                <h1
+                  style={{
+                    position: "relative",
+                    fontSize: 22,
+                    fontWeight: "bold",
+                    fontFamily: "Oxygen",
+                    color: "white",
+                    justifyContent: "center",
+                    textAlign: "center",
+                    alignItems: "center",
+                    margin: "auto",
+                    display: "block",
+                  }}
+                >
+                  Select your Player
+                </h1>
+                <div>
+                  <button
+                    style={{
+                      position: "relative",
+                      top: "20",
+                      justifyContent: "center",
+                      textAlign: "center",
+                      alignItems: "center",
+                      margin: "auto",
+                      display: "block",
+                      border: "solid",
+                      width: 150,
+                      height: 25,
+                    }}
+                    onClick={() => {
+                      selectPLayer.pause();
+                      props.wrapper.get(0).appendChild(props.element);
+                      render(
+                        <Slideshow
+                          data={props.config}
+                          contentId={props.contentId}
+                          editorData={props.editorData}
+                          feedbackTexts={props.feedbackPhrases}
+                          feedbackAudios={props.feedbackAudios}
+                          generalData={props.generalData}
+                          devMode={true}
+                        />,
+                        props.element
+                      );
+                    }}
+                  >
+                    {" "}
+                    Developer Mode
+                  </button>
+                </div>
+                <div
+                  style={{
+                    position: "relative",
+                    height: 150,
+                    width: 150,
+                    backgroundImage: `url(${getImagePath() + "Avatar_04.png"})`,
+                    backgroundSize: "contain",
+                    backgroundRepeat: "no-repeat",
+                    justifyContent: "center",
+                    alignItems: "center",
+                    margin: "auto",
+                    display: "block",
+                  }}
+                  onClick={() => {
+                    buttonCLick();
+                    selectPLayer.pause();
+                    props.wrapper.get(0).appendChild(props.element);
+                    render(
+                      <Slideshow
+                        data={props.config}
+                        contentId={props.contentId}
+                        editorData={props.editorData}
+                        feedbackTexts={props.feedbackPhrases}
+                        feedbackAudios={props.feedbackAudios}
+                        generalData={props.generalData}
+                        devMode={props.devMode}
+                      />,
+                      props.element
+                    );
+                  }}
+                ></div>
+              </Popup>
+            </div>
+          ) : null}
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "center",
+              transform: "scale(0.5)",
+              flex: 1,
+            }}
+          >
+            <AnimationType type="profile" />
+          </div>
+        </div>
+      </div>
+      {changeOrient ? (
+        <div>
+          <ScreenOrientation />
+        </div>
       ) : (
-        <img
-          src={getImagePath() + "Play_button.png"}
-          onClick={() => {
-            buttonCLick();
-            selectPLayer.play();
-            setPopUpStatus(true);
-          }}
-          style={{
-            width: 250,
-            height: 250,
-            position: "relative",
-            top: "-150px",
-            justifyContent: "center",
-            textAlign: "center",
-            alignItems: "center",
-            margin: "auto",
-            display: "block",
-          }}
-        ></img>
+        <></>
       )}
-       </div>
-       { changeOrient ? <div>
-            <ScreenOrientation/>
-            </div> : <></> }
     </Wrapper>
   );
 };

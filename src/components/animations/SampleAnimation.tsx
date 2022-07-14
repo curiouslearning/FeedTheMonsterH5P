@@ -20,7 +20,7 @@ const SampleAnimation=(props:any) =>{
           setMonster(img1);
         }, 2000)
       }}>change Img</button> */}
-      <div className='monster' style={{background: `transparent url(${monster}) 0 0 no-repeat`}}></div>
+      <div className='monster' style={{background: `transparent url(${props.imgs}) 0 0 no-repeat`}}></div>
     </div>
     // </div>
   );

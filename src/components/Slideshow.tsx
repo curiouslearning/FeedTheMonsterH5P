@@ -75,24 +75,24 @@ const Slideshow = (props: any) => {
   console.log(activeSlide);
   console.log(data[activeSlide]);
   const [changeOrient, setChangeOrient] = useState(false);
-  window.addEventListener("orientationchange", function (event) {
-    let id;
-    let exitButtonId = this.document.getElementById("exitButton");
-    if (this.window.screen.orientation.type !== screenOrientation) {
-      exitButtonId.style.color = "black";
-      id = document.getElementById("turn");
-      console.log("change1");
-      id.style.display = "none";
-      // changeOrient = false;
-      setChangeOrient(true);
-    } else {
-      id = document.getElementById("notTurn");
-      setChangeOrient(false);
-      console.log("change2");
-      id.style.display = "block";
-      // changeOrient = true;
-    }
-  });
+  // window.addEventListener("orientationchange", function (event) {
+  //   let id;
+  //   let exitButtonId = this.document.getElementById("exitButton");
+  //   if (this.window.screen.orientation.type !== screenOrientation) {
+  //     exitButtonId.style.color = "black";
+  //     id = document.getElementById("turn");
+  //     console.log("change1");
+  //     id.style.display = "none";
+  //     // changeOrient = false;
+  //     setChangeOrient(true);
+  //   } else {
+  //     id = document.getElementById("notTurn");
+  //     setChangeOrient(false);
+  //     console.log("change2");
+  //     id.style.display = "block";
+  //     // changeOrient = true;
+  //   }
+  // });
   // window.addEventListener("resize",function(event){
   // if(document.fullscreenElement){
   //     console.log(">>>>>>>>>>>>>>>>>>")
