@@ -350,13 +350,20 @@ const DragDropComp = (props: any) => {
         }}
       >
         <PuzzelBar puzzelCount={4} activeIndicators={activeIndicators} />
+        <ScoreBoard score={score} />
         {props.devMode ? (
-          <>
-            <ScoreBoard
-              levelNumber={props.levelNumber}
-              levelCount={levelCount}
-            />
-          </>
+          <div
+          style={{
+            
+          }}>
+            <h3>
+              LevelNum:{props.levelNumber+1}
+            </h3>
+            <h3>
+            LevelCount:{levelCount+1}
+            </h3>
+
+          </div>
         ) : (
           <></>
         )}
