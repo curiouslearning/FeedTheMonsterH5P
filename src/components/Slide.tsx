@@ -47,6 +47,7 @@ let screenRotation = window.screen.orientation.type;
 const Wrapper = styled.div`
   height: 100vh;
   width: 100%;
+  aspect-ratio: 16/9;
   position: relative;
   overflow: hidden;
 `;
@@ -1109,7 +1110,7 @@ const SlideComponent = (props: any) => {
             feedbackTexts={props.feedbackTexts}
             feedbackAudios={props.feedbackAudios}
             generalData={props.generalData}
-            levelNumber={levData.LevelMeta.LevelNumber}
+            levelNumber={parseInt(levData.LevelMeta.LevelNumber)}
             allLevelScreen={allLevelScreen}
             devMode={props.devMode}
           />
