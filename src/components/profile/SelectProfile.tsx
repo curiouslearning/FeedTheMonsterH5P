@@ -20,7 +20,6 @@ let screenOrientation=window.screen.orientation.type;
 const Wrapper = styled.div`
 height: 100vh;
 width: 100%;
-aspect-ratio: 16/9;
 `;
 const Popup = styled.div`
   margin: auto;
