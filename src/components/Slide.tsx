@@ -47,7 +47,6 @@ let screenRotation = window.screen.orientation.type;
 const Wrapper = styled.div`
   height: 100vh;
   width: 100%;
-  max-width: 455px;
   position: relative;
   overflow: hidden;
 `;

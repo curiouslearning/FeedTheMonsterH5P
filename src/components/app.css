@@ -41,7 +41,7 @@
     left: 0%;
   }
   to {
-    left: 30%;
+    left: 70%;
   }
 }
 
@@ -137,18 +137,11 @@ p {
 body{
   overscroll-behavior: Contain;
 }
-.h5p-container-h5p-standalone-h5p-fullscreen{
-  display: flex;
-  justify-content: center;
-}
 @media only screen and  (min-width: 780px){
-  .sc-gKclnd diaEcL{
-    margin-left: "30vw";
-  }
-  .sc-hKwDye iWdOdo{
-    margin-left: "30vw";
-  }
-  
+  .section{
+    padding-right: "20vw";
+    padding-left: "20vw";
+  } 
 }
 /* .dragAndDrop{
   @media only screen and ((min-width: 650px) and (min-height: 900px)) {

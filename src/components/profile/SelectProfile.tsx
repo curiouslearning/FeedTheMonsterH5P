@@ -19,7 +19,7 @@ let screenOrientation=window.screen.orientation.type;
 
 const Wrapper = styled.div`
 height: 100vh;
-max-width: 455px;
+width: 100%;
 `;
 const Popup = styled.div`
   margin: auto;
@@ -103,7 +103,6 @@ const onCLickExit=()=>{
         style={{
           backgroundImage: `url(${getImagePath() + "bg.jpg"})`,
           width: "100%",
-          maxWidth:"455px",
           height: "100%",
           position: "absolute",
           backgroundSize: "100% 100%",
