@@ -84,10 +84,10 @@ window.addEventListener('orientationchange', function(event) {
     }
 );
 
-const isBigScreen = useMediaQuery({ query: '(min-width: 650px) and (min-height: 900px)' })
+const isBigScreen = useMediaQuery({ query: '(min-width: 780px) ' })
 const isSmallScreen = useMediaQuery({ query: '(max-width: 525px)' })
 if(isBigScreen){
-  console.log("<<<<<<<<<<<<<<<<<<<<<<<<<<<<<")
+  // console.log("<<<<<<<<<<<<<<<<<<<<<<<<<<<<<")
 }
 const onCLickExit=()=>{
   let exitBtnId =document.getElementById("exitButton");
@@ -172,23 +172,7 @@ const onCLickExit=()=>{
         }}
       ></img>
       
-      {isBigScreen ?<div
-        ref={monsterRef}
-        style={{
-          width: "300px",
-          height: "100px",
-          zIndex: -2,
-          top: "57vh",
-          position: "relative",
-          justifyContent: "center",
-          textAlign: "center",
-          alignItems: "center",
-          margin: "auto",
-          display: "block",
-        }}
-      >
-        <AnimationType type="profile" />
-      </div>:<div
+     <div
         ref={monsterRef}
         style={{
           width: "300px",
@@ -204,7 +188,7 @@ const onCLickExit=()=>{
         }}
       >
         <AnimationType type="profile" />
-      </div>}
+      </div>
       {/* <div id="monsterId"
         ref={monsterRef}
         style={{
