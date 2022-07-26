@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { forwardRef,useImperativeHandle,useEffect, useRef, useState } from "react";
 import "./dragdrop-balls.css";
 import classNames from "classnames";
 import AnimationType from "../animations/AnimationType";
@@ -50,6 +50,9 @@ const DragDrop = ({
   editorData,
   afterDropPause,
   isReplayed,
+  ref,
+  setFunction,
+  setAnimationType,
 }: {
   currentProgressCount: number;
   timeOver: boolean;
@@ -67,7 +70,10 @@ const DragDrop = ({
   editorData: boolean;
   afterDropPause: Function;
   isReplayed:boolean;
-}) => {
+  ref:any;
+  setFunction:Function;
+  setAnimationType:Function;
+} ) => {
   console.log(props.targetstones);
   console.log(props.foilstones);
   let options = [...props.targetstones, ...props.foilstones];
@@ -77,12 +83,19 @@ const DragDrop = ({
   const [dragging, setDragging] = useState(false);
   const [dropped, setDropped] = useState(false);
 
-  const [animationType, setAnimationType] = useState("idle");
+  
   // const onDrag = new Audio(getAudioPath()+'onDrag.mp3');
   // const monsterSplit = new Audio(getAudioPath()+'Monster Spits wrong stones-01.mp3');
   // const monsterHappy = new Audio(getAudioPath()+'Cheering-02.mp3');
   // const monsterDisapointment = new Audio(getAudioPath()+'Disapointed-05.mp3');
 
+  const nextSampleFunction=(value:any)=>{
+    console.log('Called the next Sample Function '+value)
+  }
+
+
+
+  
   const playAUDIO = (src: any) => {
     const sound = new Howl({
       src,
@@ -290,9 +303,12 @@ const DragDrop = ({
     }
     dragItem.current = null;
   };
+
+  setFunction(checkResult,setAnimationType)
+
   return (
     <>
-      <div style={{ display: "grid",alignSelf:'baseline' }}>
+      {/* <div style={{ display: "grid",alignSelf:'baseline' }}>
         <DropTarget
           onHit={(e: any) => {
             console.log(e);
@@ -342,7 +358,7 @@ const DragDrop = ({
             getPhaseCharNo={levelsCompleted}
           />
         </div>
-      </div>
+      </div> */}
 
       {gameStatus || IsGamePlayStatus
         ? optionDataSet.map((item, index) => {

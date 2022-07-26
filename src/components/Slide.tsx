@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { forwardRef, useImperativeHandle, useRef,useEffect, useState } from "react";
 import styled from "styled-components";
 import "./app.css";
 import { DndProvider } from "react-dnd";
@@ -31,6 +31,7 @@ import mapLock from "../../assets/images/mapLock.png";
 import { render } from "react-dom";
 import { buttonCLick, getAudioPath, getImagePath } from "../app";
 import { Howl } from "howler";
+import { DropTarget } from "react-drag-drop-container";
 
 // let audio: HTMLAudioElement = null;
 let initialTime = 10;
@@ -43,6 +44,8 @@ let isReplayed = false;
 let _levelNumber: number;
 let gameStatus: boolean = false;
 let screenRotation = window.screen.orientation.type;
+// const reference = useRef(null);
+
 
 const Wrapper = styled.div`
   height: 100vh;
@@ -66,7 +69,16 @@ const DragDropComp = (props: any) => {
   // const [gameStatus, setGameStatus] = useState(false);
   const feedbackArray: any[] = props.feedbackTexts;
   const feedbackAudiosArray: any[] = props.feedbackAudios;
+  const childRef = useRef(null);
+  const [animationType, setAnimationType] = useState("idle");
+  const onem=()=>{}
+  const mtwo=()=>{}
+  let checkResult: Function;
+  let setAnimation:Function;
+  let sample;
+  childRef.current=DragDrop;
 
+  
   // const timeOut = new Audio(getAudioPath() + "timeout.mp3");
   // const levelLost = new Audio(getAudioPath() + "LevelLoseFanfare.mp3");
   // const levelWin = new Audio(getAudioPath() + "LevelWinFanfare.mp3");
@@ -300,6 +312,8 @@ const DragDropComp = (props: any) => {
       return 3;
     }
   };
+
+
   return isLevelEnded ? (
     document.getElementById("exitButton").style.color="white",
     <EndLevelComponent
@@ -421,6 +435,62 @@ const DragDropComp = (props: any) => {
       {prompted ? (
         <></>
       ) : (
+        <div>
+         <div style={{ display: "grid",alignSelf:'baseline' }}>
+        <DropTarget
+          onHit={(e: any) => {
+            console.log(e);
+            console.log("dropped");
+            console.log(e.containerElem.innerText);
+            checkResult(e.containerElem.innerText);
+            // console.log(childRef.current.checkResult)
+            // childRef.current.checkResult(e.containerElem.innerText)
+            if (currentProgressCount != 0) {
+              // checkResult(e.containerElem.innerText);
+            }
+
+            e.containerElem.style.visibility = "hidden";
+          }}
+          targetKey="box"
+          dropData={{ name: props.name }}
+        >
+          <div
+            onClick={() => {
+              // IsGamePlay(true);
+              // setGameStatus(true);
+            }}
+            style={{
+              border: "solid",
+              width: "100px",
+              height: "150px",
+              gridColumn: 1,
+              position: "relative",
+              top: "50px",
+              gridRow: 1,
+              zIndex: 2,
+            }}
+          ></div>
+        </DropTarget>
+        <div
+          style={{
+            width: "300px",
+            height: "0px",
+            gridColumn: 1,
+            gridRow: 1,
+            zIndex: 0,
+            position:'relative',
+            bottom:'50px',
+            display:'flex',
+            justifyContent:'center',
+            transform:'scale(0.5)'
+          }}
+        >
+          <AnimationType
+            type={animationType}
+            getPhaseCharNo={1}
+          />
+        </div>
+        </div> 
         <DndProvider backend={HTML5Backend}>
           <div
             className="dragAndDrop"
@@ -432,6 +502,7 @@ const DragDropComp = (props: any) => {
             }}
           >
             <DragDrop
+              ref={childRef}
               isReplayed={isReplayed}
               IsGamePlayStatus={gameStatus}
               IsGamePlay={(status: any) => {
@@ -458,6 +529,12 @@ const DragDropComp = (props: any) => {
               isMenuOpen={isMenuPopup}
               levelType={props.levelType}
               afterDropPause={afterDrop}
+              setFunction={(func:Function)=>{
+                checkResult=func
+                // func();
+                // sampleFunction();
+              }}
+              setAnimationType={setAnimationType}
               setScore={(count: number) => {
                 //scoreCount.play();
                 playAUDIO(getAudioPath() + "ScoreCountingDown.ogg");
@@ -607,9 +684,11 @@ const DragDropComp = (props: any) => {
                 }
               }}
               editorData={props.editorData}
+            
             />
           </div>
         </DndProvider>
+        </div>
       )}
     </div>
   );
@@ -630,7 +709,7 @@ const SlideComponent = (props: any) => {
   let promptTextVisibilty = true;
   let stopPlaying;
   let startPlaying;
-
+ 
   if (levData != null) {
     promptTextVisibilty = props.editorData
       ? levData.PromptType == "Visible"
