@@ -115,7 +115,7 @@ const Slideshow = (props: any) => {
           position: "absolute",
           zIndex: 1,
           marginTop: "25px",
-          left: "2.6%",
+          marginLeft:"1vw",
           display: "none",
         }}
         onClick={onClickExitScreenButton}

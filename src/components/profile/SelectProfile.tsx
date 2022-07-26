@@ -18,8 +18,8 @@ import { useMediaQuery } from "react-responsive";
 let screenOrientation = window.screen.orientation.type;
 
 const Wrapper = styled.div`
-  height: 100vh;
-  width: 100%;
+height: 100vh;
+max-width: 455px;
 `;
 const Popup = styled.div`
   margin: auto;

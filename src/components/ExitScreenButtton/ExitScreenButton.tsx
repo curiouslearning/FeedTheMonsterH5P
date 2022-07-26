@@ -7,7 +7,7 @@ window.addEventListener("resize",function(){
        
         monsterId.style.top="36vh";
     id.style.display ="block";
-    
+    id.style.color="white";
     
     }else{
         id.style.display="none";
@@ -51,7 +51,7 @@ const ExitScreenButton=()=>{
             <FaCompress  id='exitButton' fontSize={"15px"}  style={{
                 position:"absolute",
                 zIndex:1,
-                 left:"2.6%",
+                 marginLeft:"1vw",
                  marginTop:"25px",
                  display:"none"
             }}

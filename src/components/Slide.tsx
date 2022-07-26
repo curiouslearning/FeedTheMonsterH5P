@@ -50,6 +50,7 @@ let screenRotation = window.screen.orientation.type;
 const Wrapper = styled.div`
   height: 100vh;
   width: 100%;
+  max-width: 455px;
   position: relative;
   overflow: hidden;
 `;
@@ -304,7 +305,17 @@ const DragDropComp = (props: any) => {
   );
   console.log(levelsCompleted);
   const getPhaseCharacter = (levelsCompleted: number) => {
-    let phaseCharacterNumber = Math.floor(levelsCompleted / 4);
+    
+    console.log(levelsCompleted);
+    let levelNumber = props.levelNumber;
+    let phaseCharacterNumber = Math.floor(levelsCompleted / 4); 
+    if(levelNumber==levelsCompleted){
+      if(levelNumber!=0 ){
+        console.log("<<<<<<<<<<<<<<<<<<<<<<<<<<<"); 
+         console.log(props.levelNumber);
+      phaseCharacterNumber=phaseCharacterNumber +1; 
+     
+    }}
     console.log(phaseCharacterNumber);
     if (phaseCharacterNumber < 4) {
       return phaseCharacterNumber;
@@ -364,13 +375,20 @@ const DragDropComp = (props: any) => {
         }}
       >
         <PuzzelBar puzzelCount={4} activeIndicators={activeIndicators} />
+        <ScoreBoard score={score} />
         {props.devMode ? (
-          <>
-            <ScoreBoard
-              levelNumber={props.levelNumber}
-              levelCount={levelCount}
-            />
-          </>
+          <div
+          style={{
+            
+          }}>
+            <h3>
+              LevelNum:{props.levelNumber+1}
+            </h3>
+            <h3>
+            LevelCount:{levelCount+1}
+            </h3>
+
+          </div>
         ) : (
           <></>
         )}
@@ -780,7 +798,7 @@ const SlideComponent = (props: any) => {
   const allLevelScreen = () => {
     setStart(false);
     let id = document.getElementById("exitButton");
-    id.style.left = "2.6%";
+    id.style.left="unset";
     id.style.color = "white";
   };
 
@@ -1181,7 +1199,7 @@ const SlideComponent = (props: any) => {
             feedbackTexts={props.feedbackTexts}
             feedbackAudios={props.feedbackAudios}
             generalData={props.generalData}
-            levelNumber={levData.LevelMeta.LevelNumber}
+            levelNumber={parseInt(levData.LevelMeta.LevelNumber)}
             allLevelScreen={allLevelScreen}
             devMode={props.devMode}
           />
