@@ -110,7 +110,7 @@ p {
 }
 .h5p-content-controls {
   margin: 0;
-  position: absolute;
+  position: relative;
   left: 1.5%;
   top: 2%;
   z-index: 3;
@@ -143,6 +143,17 @@ body{
     display: flex;
     justify-content: center;
   }
+  .h5p-container.h5p-standalone{
+    display: flex;
+    justify-content: center;
+  }
+  .sc-gKclnd.diaEcL{
+    height: "84vh";
+  }
+  .sc-hKwDye.iWdOdo{
+    height: "84vh";
+  }
+
   @keyframes cloud-moving {
     from {
       left: 32%;

@@ -178,7 +178,7 @@ const onCLickExit=()=>{
           width: "300px",
           height: "100px",
           zIndex: -2,
-          top: "36vh",
+          top: "26vh",
           position: "relative",
           justifyContent: "center",
           textAlign: "center",

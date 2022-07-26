@@ -236,7 +236,9 @@ const DragDrop = ({
       clearTimeout(initialTimer);
       initialStartTimer = false;
       playAUDIO(getAudioPath() + "Cheering-02.mp3");
-      setAnimationType("eat");
+      setTimeout(() => {
+        setAnimationType("eat");  
+      }, 0);
       inputAlphabhet = inputAlphabhet + dropData;
       count = count + targetStone.length;
 
@@ -266,7 +268,9 @@ const DragDrop = ({
     } else {
       count = 0;
       inputAlphabhet = "";
+      setTimeout(()=>{
       setAnimationType("spit");
+    },0)
       //monsterDisapointment.play()
       playAUDIO(getAudioPath() + "Disapointed-05.mp3");
       clearTimeout(initialTimer);
@@ -280,9 +284,6 @@ const DragDrop = ({
       optionDataSet = [];
       answerDrop();
       changePuzzel();
-      // if(levelType=="Word"){
-      //   changePuzzel();
-      // }
       setTimeout(() => {
         setAnimationType("idle");
       }, 2000);

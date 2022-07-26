@@ -293,7 +293,17 @@ const DragDropComp = (props: any) => {
   );
   console.log(levelsCompleted);
   const getPhaseCharacter = (levelsCompleted: number) => {
-    let phaseCharacterNumber = Math.floor(levelsCompleted / 4);
+    
+    console.log(levelsCompleted);
+    let levelNumber = props.levelNumber;
+    let phaseCharacterNumber = Math.floor(levelsCompleted / 4); 
+    if(levelNumber==levelsCompleted){
+      if(levelNumber!=0 ){
+        console.log("<<<<<<<<<<<<<<<<<<<<<<<<<<<"); 
+         console.log(props.levelNumber);
+      phaseCharacterNumber=phaseCharacterNumber +1; 
+     
+    }}
     console.log(phaseCharacterNumber);
     if (phaseCharacterNumber < 4) {
       return phaseCharacterNumber;
@@ -709,7 +719,7 @@ const SlideComponent = (props: any) => {
   const allLevelScreen = () => {
     setStart(false);
     let id = document.getElementById("exitButton");
-    id.style.left = "2.6%";
+    id.style.left="unset";
     id.style.color = "white";
   };
 
