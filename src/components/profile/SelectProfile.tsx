@@ -96,14 +96,18 @@ const SelectProfile = (props: any) => {
         <div
           style={{
             backgroundImage: `url(${getImagePath() + "bg.jpg"})`,
-            width: "100%",
+            width: '100%',
             height: "100%",
+            maxWidth:'455px',
             position: "absolute",
             backgroundSize: "100% 100%",
             zIndex: 1,
             overflow: "hidden",
             display: "flex",
             flexDirection: "column",
+            margin:'auto',
+            left:0,
+            right:0
           }}
         >
           {popUpStatus ? (

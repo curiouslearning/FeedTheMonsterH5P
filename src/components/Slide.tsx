@@ -1,4 +1,10 @@
-import React, { forwardRef, useImperativeHandle, useRef,useEffect, useState } from "react";
+import React, {
+  forwardRef,
+  useImperativeHandle,
+  useRef,
+  useEffect,
+  useState,
+} from "react";
 import styled from "styled-components";
 import "./app.css";
 import { DndProvider } from "react-dnd";
@@ -46,7 +52,6 @@ let gameStatus: boolean = false;
 let screenRotation = window.screen.orientation.type;
 // const reference = useRef(null);
 
-
 const Wrapper = styled.div`
   height: 100vh;
   width: 100%;
@@ -72,14 +77,13 @@ const DragDropComp = (props: any) => {
   const feedbackAudiosArray: any[] = props.feedbackAudios;
   const childRef = useRef(null);
   const [animationType, setAnimationType] = useState("idle");
-  const onem=()=>{}
-  const mtwo=()=>{}
+  const onem = () => {};
+  const mtwo = () => {};
   let checkResult: Function;
-  let setAnimation:Function;
+  let setAnimation: Function;
   let sample;
-  childRef.current=DragDrop;
+  childRef.current = DragDrop;
 
-  
   // const timeOut = new Audio(getAudioPath() + "timeout.mp3");
   // const levelLost = new Audio(getAudioPath() + "LevelLoseFanfare.mp3");
   // const levelWin = new Audio(getAudioPath() + "LevelWinFanfare.mp3");
@@ -96,14 +100,14 @@ const DragDropComp = (props: any) => {
     },
     false
   );
-  window.addEventListener("orientationchange", function () {
-    if (window.screen.orientation.type !== screenRotation) {
-      if (!isMenuPopup) {
-        onClickPauseMenu();
-      } else {
-      }
-    }
-  });
+  // window.addEventListener("orientationchange", function () {
+  //   if (window.screen.orientation.type !== screenRotation) {
+  //     if (!isMenuPopup) {
+  //       onClickPauseMenu();
+  //     } else {
+  //     }
+  //   }
+  // });
   const playAUDIO = (src: any) => {
     const sound = new Howl({
       src,
@@ -305,17 +309,16 @@ const DragDropComp = (props: any) => {
   );
   console.log(levelsCompleted);
   const getPhaseCharacter = (levelsCompleted: number) => {
-    
     console.log(levelsCompleted);
     let levelNumber = props.levelNumber;
-    let phaseCharacterNumber = Math.floor(levelsCompleted / 4); 
-    if(levelNumber==levelsCompleted){
-      if(levelNumber!=0 ){
-        console.log("<<<<<<<<<<<<<<<<<<<<<<<<<<<"); 
-         console.log(props.levelNumber);
-      phaseCharacterNumber=phaseCharacterNumber +1; 
-     
-    }}
+    let phaseCharacterNumber = Math.floor(levelsCompleted / 4);
+    if (levelNumber == levelsCompleted) {
+      if (levelNumber != 0) {
+        console.log("<<<<<<<<<<<<<<<<<<<<<<<<<<<");
+        console.log(props.levelNumber);
+        phaseCharacterNumber = phaseCharacterNumber + 1;
+      }
+    }
     console.log(phaseCharacterNumber);
     if (phaseCharacterNumber < 4) {
       return phaseCharacterNumber;
@@ -324,47 +327,48 @@ const DragDropComp = (props: any) => {
     }
   };
 
-
   return isLevelEnded ? (
-    document.getElementById("exitButton").style.color="white",
-    <EndLevelComponent
-      score={score}
-      lengthOfCurrentLevel={props.lengthOfCurrentLevel}
-      levelsCompleted={getPhaseCharacter(
-        levelsCompleted == null
-          ? 0
-          : levelsCompleted[levelsCompleted.length - 1].data._levelScore ==
-              undefined || levelCount != 0
-          ? levelsCompleted.length - 1
-          : levelsCompleted.length
-      )}
-      allLevelScreen={() => {
-        props.allLevelScreen();
-        setPauseMenu(false);
-        setTimeout(() => {
+    ((document.getElementById("exitButton").style.color = "white"),
+    (
+      <EndLevelComponent
+        score={score}
+        lengthOfCurrentLevel={props.lengthOfCurrentLevel}
+        levelsCompleted={getPhaseCharacter(
+          levelsCompleted == null
+            ? 0
+            : levelsCompleted[levelsCompleted.length - 1].data._levelScore ==
+                undefined || levelCount != 0
+            ? levelsCompleted.length - 1
+            : levelsCompleted.length
+        )}
+        allLevelScreen={() => {
+          props.allLevelScreen();
+          setPauseMenu(false);
+          setTimeout(() => {
+            setLevelCount(0);
+            setProgressCount(initialTime);
+            setActiveIndicator(0);
+            setScore(0);
+          }, 1000);
+        }}
+        onClickRestart={() => {
+          resetState();
+        }}
+        nextLevel={() => {
+          props.nextLevel();
+          setTimeOver(false);
+          setCorrectDrop(false);
           setLevelCount(0);
           setProgressCount(initialTime);
+          setPromted(props.promptVisibility);
           setActiveIndicator(0);
+          setPauseMenu(false);
+          setIsLevelEnded(false);
           setScore(0);
-        }, 1000);
-      }}
-      onClickRestart={() => {
-        resetState();
-      }}
-      nextLevel={() => {
-        props.nextLevel();
-        setTimeOver(false);
-        setCorrectDrop(false);
-        setLevelCount(0);
-        setProgressCount(initialTime);
-        setPromted(props.promptVisibility);
-        setActiveIndicator(0);
-        setPauseMenu(false);
-        setIsLevelEnded(false);
-        setScore(0);
-        setText("");
-      }}
-    />
+          setText("");
+        }}
+      />
+    ))
   ) : (
     <div style={{ display: "flex", flexDirection: "column", height: "100%" }}>
       <div
@@ -377,17 +381,9 @@ const DragDropComp = (props: any) => {
         <PuzzelBar puzzelCount={4} activeIndicators={activeIndicators} />
         <ScoreBoard score={score} />
         {props.devMode ? (
-          <div
-          style={{
-            
-          }}>
-            <h3>
-              LevelNum:{props.levelNumber+1}
-            </h3>
-            <h3>
-            LevelCount:{levelCount+1}
-            </h3>
-
+          <div style={{}}>
+            <h3>LevelNum:{props.levelNumber + 1}</h3>
+            <h3>LevelCount:{levelCount + 1}</h3>
           </div>
         ) : (
           <></>
@@ -408,7 +404,7 @@ const DragDropComp = (props: any) => {
           onClickRestart={onClickRestart}
           allLevelScreen={() => {
             gameStatus = false;
-            isReplayed  = true;
+            isReplayed = true;
             props.allLevelScreen();
             setPauseMenu(false);
             setTimeout(() => {
@@ -454,258 +450,267 @@ const DragDropComp = (props: any) => {
         <></>
       ) : (
         <div>
-         <div style={{ display: "grid",alignSelf:'baseline' }}>
-        <DropTarget
-          onHit={(e: any) => {
-            console.log(e);
-            console.log("dropped");
-            console.log(e.containerElem.innerText);
-            checkResult(e.containerElem.innerText);
-            // console.log(childRef.current.checkResult)
-            // childRef.current.checkResult(e.containerElem.innerText)
-            if (currentProgressCount != 0) {
-              // checkResult(e.containerElem.innerText);
-            }
-
-            e.containerElem.style.visibility = "hidden";
-          }}
-          targetKey="box"
-          dropData={{ name: props.name }}
-        >
           <div
-            onClick={() => {
-              // IsGamePlay(true);
-              // setGameStatus(true);
-            }}
             style={{
-              border: "solid",
-              width: "100px",
-              height: "150px",
-              gridColumn: 1,
-              position: "relative",
-              top: "50px",
-              gridRow: 1,
-              zIndex: 2,
-            }}
-          ></div>
-        </DropTarget>
-        <div
-          style={{
-            width: "300px",
-            height: "0px",
-            gridColumn: 1,
-            gridRow: 1,
-            zIndex: 0,
-            position:'relative',
-            bottom:'50px',
-            display:'flex',
-            justifyContent:'center',
-            transform:'scale(0.5)'
-          }}
-        >
-          <AnimationType
-            type={animationType}
-            getPhaseCharNo={1}
-          />
-        </div>
-        </div> 
-        <DndProvider backend={HTML5Backend}>
-          <div
-            className="dragAndDrop"
-            style={{
-              height: "50%",
-              display: "flex",
-              margin: "auto",
-              alignItems: "flex-start",
+              display: "grid",
+              position: "absolute",
+              alignItems: "center",
+              bottom: "200px",
+              left: 0,
+              right: 0,
+          
             }}
           >
-            <DragDrop
-              ref={childRef}
-              isReplayed={isReplayed}
-              IsGamePlayStatus={gameStatus}
-              IsGamePlay={(status: any) => {
-                !gameStatus
-                  ? playAUDIO(getAudioPath() + "StonesAppear.mp3")
-                  : null;
-                gameStatus = status;
-              }}
-              currentProgressCount={currentProgressCount}
-              timeOver={timeOver}
-              answerDrop={answerDrop}
-              startDrag={false}
-              props={props.puzzles[levelCount]}
-              changePuzzel={levelUp}
-              levelCount={levelCount}
-              levelsCompleted={getPhaseCharacter(
-                levelsCompleted == null
-                  ? 0
-                  : levelsCompleted[levelsCompleted.length - 1].data
-                      ._levelScore == undefined || levelCount != 0
-                  ? levelsCompleted.length - 1
-                  : levelsCompleted.length
-              )}
-              isMenuOpen={isMenuPopup}
-              levelType={props.levelType}
-              afterDropPause={afterDrop}
-              setFunction={(func:Function)=>{
-                checkResult=func
-                // func();
-                // sampleFunction();
-              }}
-              setAnimationType={setAnimationType}
-              setScore={(count: number) => {
-                //scoreCount.play();
-                playAUDIO(getAudioPath() + "ScoreCountingDown.ogg");
-                setScore(score + count);
-                if (count == 100) {
-                  const feedbackPhrase =
-                    feedbackArray[
-                      Math.floor(Math.random() * feedbackArray.length)
-                    ];
-                  setText(feedbackPhrase);
-                  const audioIndex =
-                    props.feedbackTexts.indexOf(feedbackPhrase);
-                  playAUDIO(feedbackAudiosArray[audioIndex]);
+            <DropTarget
+              onHit={(e: any) => {
+                console.log(e);
+                console.log("dropped");
+                console.log(e.containerElem.innerText);
+                checkResult(e.containerElem.innerText);
+                // console.log(childRef.current.checkResult)
+                // childRef.current.checkResult(e.containerElem.innerText)
+                if (currentProgressCount != 0) {
+                  // checkResult(e.containerElem.innerText);
+                }
 
-                  let playerProfile = [
-                    {
-                      _levelNumber: props.levelNumber + 1,
-                      data: {
-                        _levelName: props.levelType.toString(),
-                        _levelScore: score + count,
-                        _levelStars:
-                          score + count === props.lengthOfCurrentLevel * 100
-                            ? 3
-                            : score + count >=
-                              Math.ceil(props.lengthOfCurrentLevel / 2) * 100
-                            ? 2
-                            : score + count <= 100
-                            ? 0
-                            : 1,
-                        _levelUnlocked: false,
-                      },
-                    },
-                    score + count > 100
-                      ? {
-                          _levelNumber: props.levelNumber + 1 + 1,
-                          data: {
-                            _levelUnlocked: true,
-                          },
-                        }
-                      : {
-                          _levelNumber: props.levelNumber + 1 + 1,
-                          data: {
-                            _levelUnlocked: false,
-                          },
-                        },
-                  ];
+                e.containerElem.style.visibility = "hidden";
+              }}
+              targetKey="box"
+              dropData={{ name: props.name }}
+            >
+              <div
+                onClick={() => {
+                  // IsGamePlay(true);
+                  // setGameStatus(true);
+                }}
+                style={{
+                  width: "100px",
+                  height: "150px",
+                  gridColumn: 1,
+                  position: "absolute",
+                  top: "-41px",
+                  gridRow: 1,
+                  zIndex: 2,
+                }}
+              ></div>
+            </DropTarget>
+            <div
+              style={{
+                gridColumn: 1,
+                gridRow: 1,
+                zIndex: 0,
+                position: "absolute",
+                display: "flex",
+                left: 0,
+                right: 0,
+                justifyContent: "center",
+                transform: "scale(0.5)",
+              }}
+            >
+              <AnimationType type={animationType} getPhaseCharNo={1} />
+            </div>
+          </div>
+          <DndProvider backend={HTML5Backend}>
+            <div
+              className="dragAndDrop"
+              style={{
+                height: "50%",
+                display: "flex",
+                margin: "auto",
+                alignItems: "flex-start",
+              }}
+            >
+              <DragDrop
+                ref={childRef}
+                isReplayed={isReplayed}
+                IsGamePlayStatus={gameStatus}
+                IsGamePlay={(status: any) => {
+                  !gameStatus
+                    ? playAUDIO(getAudioPath() + "StonesAppear.mp3")
+                    : null;
+                  gameStatus = status;
+                }}
+                currentProgressCount={currentProgressCount}
+                timeOver={timeOver}
+                answerDrop={answerDrop}
+                startDrag={false}
+                props={props.puzzles[levelCount]}
+                changePuzzel={levelUp}
+                levelCount={levelCount}
+                levelsCompleted={getPhaseCharacter(
+                  levelsCompleted == null
+                    ? 0
+                    : levelsCompleted[levelsCompleted.length - 1].data
+                        ._levelScore == undefined || levelCount != 0
+                    ? levelsCompleted.length - 1
+                    : levelsCompleted.length
+                )}
+                isMenuOpen={isMenuPopup}
+                levelType={props.levelType}
+                afterDropPause={afterDrop}
+                setFunction={(func: Function) => {
+                  checkResult = func;
+                  // func();
+                  // sampleFunction();
+                }}
+                setAnimationType={setAnimationType}
+                setScore={(count: number) => {
+                  //scoreCount.play();
+                  playAUDIO(getAudioPath() + "ScoreCountingDown.ogg");
+                  setScore(score + count);
+                  if (count == 100) {
+                    const feedbackPhrase =
+                      feedbackArray[
+                        Math.floor(Math.random() * feedbackArray.length)
+                      ];
+                    setText(feedbackPhrase);
+                    const audioIndex =
+                      props.feedbackTexts.indexOf(feedbackPhrase);
+                    playAUDIO(feedbackAudiosArray[audioIndex]);
 
-                  const data = JSON.parse(localStorage.getItem("LevelData"));
-                  if (data != null) {
-                    if (data.length >= 0) {
-                      data.forEach(function (value: any) {
-                        if (value._levelNumber == props.levelNumber + 1) {
-                          value.data._levelName = props.levelType.toString();
-                          value.data._levelScore =
-                            value.data._levelScore > score + count
-                              ? value.data._levelScore
-                              : score + count;
-                          value.data._levelStars =
-                            value.data._levelScore > score + count
-                              ? value.data._levelScore ===
-                                props.lengthOfCurrentLevel * 100
-                                ? 3
-                                : value.data._levelScore >=
-                                  Math.ceil(props.lengthOfCurrentLevel / 2) *
-                                    100
-                                ? 2
-                                : value.data._levelScore <= 100
-                                ? 0
-                                : 1
-                              : score + count ===
-                                props.lengthOfCurrentLevel * 100
+                    let playerProfile = [
+                      {
+                        _levelNumber: props.levelNumber + 1,
+                        data: {
+                          _levelName: props.levelType.toString(),
+                          _levelScore: score + count,
+                          _levelStars:
+                            score + count === props.lengthOfCurrentLevel * 100
                               ? 3
                               : score + count >=
                                 Math.ceil(props.lengthOfCurrentLevel / 2) * 100
                               ? 2
                               : score + count <= 100
                               ? 0
-                              : 1;
-                          value.data._levelUnlocked = value.data._levelUnlocked
-                            ? value.data._levelUnlocked
-                            : value.data._levelScore > score + count
-                            ? value.data._levelScore > 100
-                              ? true
-                              : false
-                            : score + count > 100
-                            ? true
-                            : false;
+                              : 1,
+                          _levelUnlocked: false,
+                        },
+                      },
+                      score + count > 100
+                        ? {
+                            _levelNumber: props.levelNumber + 1 + 1,
+                            data: {
+                              _levelUnlocked: true,
+                            },
+                          }
+                        : {
+                            _levelNumber: props.levelNumber + 1 + 1,
+                            data: {
+                              _levelUnlocked: false,
+                            },
+                          },
+                    ];
 
-                          value.data._levelScore == 200
-                            ? data.push({
-                                _levelNumber: props.levelNumber + 2,
-                                data: {
-                                  _levelUnlocked: true,
-                                },
-                              })
-                            : value.data._levelScore <= 100
-                            ? data.push({
-                                _levelNumber: props.levelNumber + 2,
-                                data: {
-                                  _levelUnlocked: false,
-                                },
-                              })
-                            : console.log("nothing");
-                        } else if (
-                          value._levelNumber ==
-                          props.levelNumber + 2
-                        ) {
-                          if (value.data._levelUnlocked == false) {
-                            value.data._levelUnlocked =
-                              score + count > 100 ? true : false;
-                          } else if (value.data._levelUnlocked == true) {
-                            value.data._levelScore = value.data._levelScore
-                              ? value.data._levelScore
-                              : 0;
-                            value.data._levelStars = value.data._levelStars
-                              ? value.data._levelStars
-                              : 0;
+                    const data = JSON.parse(localStorage.getItem("LevelData"));
+                    if (data != null) {
+                      if (data.length >= 0) {
+                        data.forEach(function (value: any) {
+                          if (value._levelNumber == props.levelNumber + 1) {
+                            value.data._levelName = props.levelType.toString();
+                            value.data._levelScore =
+                              value.data._levelScore > score + count
+                                ? value.data._levelScore
+                                : score + count;
+                            value.data._levelStars =
+                              value.data._levelScore > score + count
+                                ? value.data._levelScore ===
+                                  props.lengthOfCurrentLevel * 100
+                                  ? 3
+                                  : value.data._levelScore >=
+                                    Math.ceil(props.lengthOfCurrentLevel / 2) *
+                                      100
+                                  ? 2
+                                  : value.data._levelScore <= 100
+                                  ? 0
+                                  : 1
+                                : score + count ===
+                                  props.lengthOfCurrentLevel * 100
+                                ? 3
+                                : score + count >=
+                                  Math.ceil(props.lengthOfCurrentLevel / 2) *
+                                    100
+                                ? 2
+                                : score + count <= 100
+                                ? 0
+                                : 1;
                             value.data._levelUnlocked = value.data
                               ._levelUnlocked
                               ? value.data._levelUnlocked
+                              : value.data._levelScore > score + count
+                              ? value.data._levelScore > 100
+                                ? true
+                                : false
+                              : score + count > 100
+                              ? true
                               : false;
+
+                            value.data._levelScore == 200
+                              ? data.push({
+                                  _levelNumber: props.levelNumber + 2,
+                                  data: {
+                                    _levelUnlocked: true,
+                                  },
+                                })
+                              : value.data._levelScore <= 100
+                              ? data.push({
+                                  _levelNumber: props.levelNumber + 2,
+                                  data: {
+                                    _levelUnlocked: false,
+                                  },
+                                })
+                              : console.log("nothing");
+                          } else if (
+                            value._levelNumber ==
+                            props.levelNumber + 2
+                          ) {
+                            if (value.data._levelUnlocked == false) {
+                              value.data._levelUnlocked =
+                                score + count > 100 ? true : false;
+                            } else if (value.data._levelUnlocked == true) {
+                              value.data._levelScore = value.data._levelScore
+                                ? value.data._levelScore
+                                : 0;
+                              value.data._levelStars = value.data._levelStars
+                                ? value.data._levelStars
+                                : 0;
+                              value.data._levelUnlocked = value.data
+                                ._levelUnlocked
+                                ? value.data._levelUnlocked
+                                : false;
+                            }
+                          } else {
+                            console.log("NOT FOUND");
                           }
-                        } else {
-                          console.log("NOT FOUND");
-                        }
-                      });
+                        });
 
-                      playerProfile = [];
-                      const obj = [
-                        ...new Map(
-                          data.map((item: any) => [JSON.stringify(item), item])
-                        ).values(),
-                      ];
+                        playerProfile = [];
+                        const obj = [
+                          ...new Map(
+                            data.map((item: any) => [
+                              JSON.stringify(item),
+                              item,
+                            ])
+                          ).values(),
+                        ];
 
-                      obj.forEach(function (value: any) {
-                        playerProfile.push(value);
-                      });
+                        obj.forEach(function (value: any) {
+                          playerProfile.push(value);
+                        });
+                      }
                     }
+                    localStorage.setItem(
+                      "LevelData",
+                      JSON.stringify(playerProfile)
+                    );
+                    setTimeout(function () {
+                      setText("");
+                    }, 3500);
                   }
-                  localStorage.setItem(
-                    "LevelData",
-                    JSON.stringify(playerProfile)
-                  );
-                  setTimeout(function () {
-                    setText("");
-                  }, 3500);
-                }
-              }}
-              editorData={props.editorData}
-            
-            />
-          </div>
-        </DndProvider>
+                }}
+                editorData={props.editorData}
+              />
+            </div>
+          </DndProvider>
         </div>
       )}
     </div>
@@ -727,7 +732,7 @@ const SlideComponent = (props: any) => {
   let promptTextVisibilty = true;
   let stopPlaying;
   let startPlaying;
- 
+
   if (levData != null) {
     promptTextVisibilty = props.editorData
       ? levData.PromptType == "Visible"
@@ -798,7 +803,7 @@ const SlideComponent = (props: any) => {
   const allLevelScreen = () => {
     setStart(false);
     let id = document.getElementById("exitButton");
-    id.style.left="unset";
+    id.style.left = "unset";
     id.style.color = "white";
   };
 
