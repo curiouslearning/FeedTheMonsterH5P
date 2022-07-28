@@ -46,7 +46,7 @@ let screenRotation = window.screen.orientation.type;
 
 const Wrapper = styled.div`
   height: 100vh;
-  width: 100%;
+  width: 100vw;
   max-width: 455px;
   position: relative;
   overflow: hidden;
@@ -178,9 +178,9 @@ const DragDropComp = (props: any) => {
             afterDropPause = false;
 
             setIsLevelEnded(true);
-            score > 100
-              ? playAUDIO(getAudioPath() + "LevelWinFanfare.mp3")
-              : playAUDIO(getAudioPath() + "LevelLoseFanfare.mp3");
+           currentProgressCount!=0?( score > 100
+            ? playAUDIO(getAudioPath() + "LevelWinFanfare.mp3")
+            : playAUDIO(getAudioPath() + "LevelLoseFanfare.mp3")):(null)
           }
         },
         currentProgressCount == 0 ? 0 : 3000
@@ -253,11 +253,19 @@ const DragDropComp = (props: any) => {
       }, 1000);
     }
     if (currentProgressCount <= 0) {
+      if(isLevelEnded){
+        console.log("?????????")
+        score > 100
+        ? playAUDIO(getAudioPath() + "LevelWinFanfare.mp3")
+        : playAUDIO(getAudioPath() + "LevelLoseFanfare.mp3");
+        setGame(true);
+      }
       setTimeout(() => {
         setGame(true);
-        setGame(false);
+        // setGame(false);
       }, 2000);
       setTimeout(() => {
+        
         gameStatus = true;
       }, 7000);
     }
@@ -266,6 +274,7 @@ const DragDropComp = (props: any) => {
       setTimeOver(false);
       return;
     }
+   
     id = setInterval(timer, 500, props.start);
 
     return () => {
@@ -299,8 +308,11 @@ const DragDropComp = (props: any) => {
     let phaseCharacterNumber = Math.floor(levelsCompleted / 4); 
     if(levelNumber==levelsCompleted){
       if(levelNumber!=0 ){
-        console.log("<<<<<<<<<<<<<<<<<<<<<<<<<<<"); 
+         
          console.log(props.levelNumber);
+         if(Math.floor(levelNumber/4)>phaseCharacterNumber){
+          console.log("<<<<<<<<<<<<<<<<<<<<<<<<<<<");
+         }
       phaseCharacterNumber=phaseCharacterNumber +1; 
      
     }}
