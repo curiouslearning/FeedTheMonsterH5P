@@ -716,13 +716,14 @@ const SlideComponent = (props: any) => {
   };
 
   const nextLevel = () => {
+
     dropPause = false;
-    if (levData.LevelMeta.LevelNumber == level.length) {
+    if (parseInt(levData.LevelMeta.LevelNumber) == level.length) {
       let temp = level[0];
       setlevData(temp);
       onStartClick(temp[0].Puzzles[0].prompt.PromptAudio);
     } else {
-      let temp = level[levData.LevelMeta.LevelNumber + 1];
+      let temp = level[parseInt(levData.LevelMeta.LevelNumber) + 1];
       setlevData(temp);
       onStartClick(temp.Puzzles[0].prompt.PromptAudio);
     }
@@ -831,10 +832,10 @@ const SlideComponent = (props: any) => {
                 <div key={index}>
                   {levelData != null ? (
                     levelData.map((value, i) => {
-                      return compared.includes(data1.LevelMeta.LevelNumber + 1)
+                      return compared.includes(parseInt(data1.LevelMeta.LevelNumber) + 1)
                         ? console.log("compared")
-                        : data1.LevelMeta.LevelNumber + 1 === value._levelNumber
-                        ? compared.push(data1.LevelMeta.LevelNumber + 1) && (
+                        : parseInt(data1.LevelMeta.LevelNumber) + 1 === value._levelNumber
+                        ? compared.push(parseInt(data1.LevelMeta.LevelNumber) + 1) && (
                             <div key={i}>
                               <div className="topSpace"></div>
 
@@ -856,10 +857,11 @@ const SlideComponent = (props: any) => {
                                   // flexDirection: "column",
                                 }}
                                 onClick={
-                                  (data1.LevelMeta.LevelNumber + 1 ===
+                      
+                                  (parseInt(data1.LevelMeta.LevelNumber) + 1 ===
                                     value._levelNumber &&
                                     value.data._levelUnlocked) ||
-                                  data1.LevelMeta.LevelNumber + 1 == 1 ||
+                                  parseInt(data1.LevelMeta.LevelNumber) + 1 == 1 ||
                                   props.devMode
                                     ? () => {
                                         buttonCLick();
@@ -869,6 +871,7 @@ const SlideComponent = (props: any) => {
                                         );
                                       }
                                     : () => {
+                                     
                                         console.log("Nothing");
                                       }
                                 }
@@ -925,15 +928,16 @@ const SlideComponent = (props: any) => {
                                     </div>
                                   </div>
                                 )}
+                                
 
-                                {(data1.LevelMeta.LevelNumber + 1 ===
+                                {(parseInt(data1.LevelMeta.LevelNumber) + 1 ===
                                   value._levelNumber &&
                                   value.data._levelUnlocked) ||
-                                data1.LevelMeta.LevelNumber + 1 == 1 ||
+                                parseInt(data1.LevelMeta.LevelNumber) + 1 == 1 ||
                                 props.devMode ? (
                                   <h3>
                                     <br></br>
-                                    {data1.LevelMeta.LevelNumber + 1}
+                                    {parseInt(data1.LevelMeta.LevelNumber) + 1}
                                   </h3>
                                 ) : (
                                   <div>
@@ -956,9 +960,9 @@ const SlideComponent = (props: any) => {
                             </div>
                           )
                         : value._levelNumber <= len &&
-                          data1.LevelMeta.LevelNumber + 1 <= len
+                          parseInt(data1.LevelMeta.LevelNumber) + 1 <= len
                         ? console.log("done")
-                        : compared.push(data1.LevelMeta.LevelNumber + 1) && (
+                        : compared.push(parseInt(data1.LevelMeta.LevelNumber) + 1) && (
                             <div>
                               <div className="topSpace"></div>
                               <button
@@ -994,7 +998,7 @@ const SlideComponent = (props: any) => {
                                 {props.devMode ? (
                                   <h3>
                                     <br></br>
-                                    {data1.LevelMeta.LevelNumber + 1}
+                                    {parseInt(data1.LevelMeta.LevelNumber) + 1}
                                   </h3>
                                 ) : (
                                   <div>
@@ -1019,7 +1023,7 @@ const SlideComponent = (props: any) => {
                             </div>
                           );
                     })
-                  ) : data1.LevelMeta.LevelNumber + 1 == 1 ? (
+                  ) : parseInt(data1.LevelMeta.LevelNumber) + 1 == 1 ? (
                     <div>
                       <br></br>
                       <button
@@ -1042,7 +1046,7 @@ const SlideComponent = (props: any) => {
                           onStartClick(data1.Puzzles[0].prompt.PromptAudio);
                         }}
                       >
-                        <h3>{data1.LevelMeta.LevelNumber + 1}</h3>
+                        <h3>{parseInt(data1.LevelMeta.LevelNumber) + 1}</h3>
                         <br></br>
                         <br></br>
                         <h2 style={{ color: "white", textAlign: "center" }}>
@@ -1084,7 +1088,7 @@ const SlideComponent = (props: any) => {
                         {props.devMode ? (
                           <h3>
                             <br></br>
-                            {data1.LevelMeta.LevelNumber + 1}
+                            {parseInt(data1.LevelMeta.LevelNumber) + 1}
                           </h3>
                         ) : (
                           <div>
