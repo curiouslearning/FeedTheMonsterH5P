@@ -18,8 +18,8 @@ import { useMediaQuery } from "react-responsive";
 let screenOrientation=window.screen.orientation.type;
 
 const Wrapper = styled.div`
-  height: 100vh;
-  width: 100%;
+height: 100vh;
+max-width: 455px;
 `;
 const Popup = styled.div`
   margin: auto;
@@ -84,10 +84,10 @@ window.addEventListener('orientationchange', function(event) {
     }
 );
 
-const isBigScreen = useMediaQuery({ query: '(min-width: 650px) and (min-height: 900px)' })
+const isBigScreen = useMediaQuery({ query: '(min-width: 780px) ' })
 const isSmallScreen = useMediaQuery({ query: '(max-width: 525px)' })
 if(isBigScreen){
-  console.log("<<<<<<<<<<<<<<<<<<<<<<<<<<<<<")
+  // console.log("<<<<<<<<<<<<<<<<<<<<<<<<<<<<<")
 }
 const onCLickExit=()=>{
   let exitBtnId =document.getElementById("exitButton");
@@ -99,20 +99,63 @@ const onCLickExit=()=>{
       <ExitScreenButton/>
     <div id = {!changeOrient ? "turn" : "notTurn"}>
       <audio id="soundtrack" src={introMusic}></audio>
-      <img
-        src={getImagePath() + "background.png"}
+      <div
         style={{
-          position: "absolute",
+          backgroundImage: `url(${getImagePath() + "bg.jpg"})`,
           width: "100%",
+          maxWidth:"455px",
           height: "100%",
-          zIndex: -2,
+          position: "absolute",
           backgroundSize: "100% 100%",
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "center",
-          justifyContent: "space-around",
+          zIndex: -2,
+          overflow: "hidden",
         }}
-      ></img>
+      >
+        <div
+          id="hill"
+          style={{
+            backgroundImage: `url(${getImagePath() + "hill.png"})`,
+            backgroundSize: "100% 100%",
+            backgroundRepeat: "no-repeat",
+            height: "50%",
+            width: "110%",
+            position: "absolute",
+            left: "-5%",
+            bottom: 0,
+          }}
+        >
+          <div
+            id="totem"
+            style={{
+              backgroundImage: `url(${getImagePath() + "Totem1.png"})`,
+              backgroundSize: "contain",
+              backgroundRepeat: "no-repeat",
+              height: "100%",
+              width: "80%",
+              position: "relative",
+              backgroundPosition: "right",
+              right: "-20%",
+              top: "-55%",
+              zIndex: -3,
+            }}
+          ></div>
+          <div
+            style={{
+              backgroundImage: `url(${getImagePath() + "fence.png"})`,
+              backgroundSize: "contain",
+              backgroundRepeat: "no-repeat",
+              height: "100%",
+              width: "100%",
+              position: "absolute",
+              left: "-36%",
+              top: "-43%",
+              transform: "scale(.7) rotate(-37deg)",
+              zIndex: -3,
+              backgroundPosition: "center",
+            }}
+          ></div>
+        </div>
+      </div>
       <img
         src={getImagePath() + "title.png"}
         style={{
@@ -129,13 +172,13 @@ const onCLickExit=()=>{
         }}
       ></img>
       
-      {isBigScreen ?<div
+     <div
         ref={monsterRef}
         style={{
           width: "300px",
           height: "100px",
           zIndex: -2,
-          top: "57vh",
+          top: "26vh",
           position: "relative",
           justifyContent: "center",
           textAlign: "center",
@@ -145,23 +188,7 @@ const onCLickExit=()=>{
         }}
       >
         <AnimationType type="profile" />
-      </div>:<div
-        ref={monsterRef}
-        style={{
-          width: "300px",
-          height: "100px",
-          zIndex: -2,
-          top: "36vh",
-          position: "relative",
-          justifyContent: "center",
-          textAlign: "center",
-          alignItems: "center",
-          margin: "auto",
-          display: "block",
-        }}
-      >
-        <AnimationType type="profile" />
-      </div>}
+      </div>
       {/* <div id="monsterId"
         ref={monsterRef}
         style={{

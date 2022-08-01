@@ -46,7 +46,8 @@ let screenRotation = window.screen.orientation.type;
 
 const Wrapper = styled.div`
   height: 100vh;
-  width: 100%;
+  width: 100vw;
+  max-width: 455px;
   position: relative;
   overflow: hidden;
 `;
@@ -177,9 +178,9 @@ const DragDropComp = (props: any) => {
             afterDropPause = false;
 
             setIsLevelEnded(true);
-            score > 100
-              ? playAUDIO(getAudioPath() + "LevelWinFanfare.mp3")
-              : playAUDIO(getAudioPath() + "LevelLoseFanfare.mp3");
+           currentProgressCount!=0?( score > 100
+            ? playAUDIO(getAudioPath() + "LevelWinFanfare.mp3")
+            : playAUDIO(getAudioPath() + "LevelLoseFanfare.mp3")):(null)
           }
         },
         currentProgressCount == 0 ? 0 : 3000
@@ -252,11 +253,19 @@ const DragDropComp = (props: any) => {
       }, 1000);
     }
     if (currentProgressCount <= 0) {
+      if(isLevelEnded){
+        console.log("?????????")
+        score > 100
+        ? playAUDIO(getAudioPath() + "LevelWinFanfare.mp3")
+        : playAUDIO(getAudioPath() + "LevelLoseFanfare.mp3");
+        setGame(true);
+      }
       setTimeout(() => {
         setGame(true);
-        setGame(false);
+        // setGame(false);
       }, 2000);
       setTimeout(() => {
+        
         gameStatus = true;
       }, 7000);
     }
@@ -265,6 +274,7 @@ const DragDropComp = (props: any) => {
       setTimeOver(false);
       return;
     }
+   
     id = setInterval(timer, 500, props.start);
 
     return () => {
@@ -292,7 +302,20 @@ const DragDropComp = (props: any) => {
   );
   console.log(levelsCompleted);
   const getPhaseCharacter = (levelsCompleted: number) => {
-    let phaseCharacterNumber = Math.floor(levelsCompleted / 4);
+    
+    console.log(levelsCompleted);
+    let levelNumber = props.levelNumber;
+    let phaseCharacterNumber = Math.floor(levelsCompleted / 4); 
+    if(levelNumber==levelsCompleted){
+      if(levelNumber!=0 ){
+         
+         console.log(props.levelNumber);
+         if(Math.floor(levelNumber/4)>phaseCharacterNumber){
+          console.log("<<<<<<<<<<<<<<<<<<<<<<<<<<<");
+         }
+      phaseCharacterNumber=phaseCharacterNumber +1; 
+     
+    }}
     console.log(phaseCharacterNumber);
     if (phaseCharacterNumber < 4) {
       return phaseCharacterNumber;
@@ -350,13 +373,20 @@ const DragDropComp = (props: any) => {
         }}
       >
         <PuzzelBar puzzelCount={4} activeIndicators={activeIndicators} />
+        <ScoreBoard score={score} />
         {props.devMode ? (
-          <>
-            <ScoreBoard
-              levelNumber={props.levelNumber}
-              levelCount={levelCount}
-            />
-          </>
+          <div
+          style={{
+            
+          }}>
+            <h3>
+              LevelNum:{props.levelNumber+1}
+            </h3>
+            <h3>
+            LevelCount:{levelCount+1}
+            </h3>
+
+          </div>
         ) : (
           <></>
         )}
@@ -686,13 +716,14 @@ const SlideComponent = (props: any) => {
   };
 
   const nextLevel = () => {
+
     dropPause = false;
-    if (levData.LevelMeta.LevelNumber == level.length) {
+    if (parseInt(levData.LevelMeta.LevelNumber) == level.length) {
       let temp = level[0];
       setlevData(temp);
       onStartClick(temp[0].Puzzles[0].prompt.PromptAudio);
     } else {
-      let temp = level[levData.LevelMeta.LevelNumber + 1];
+      let temp = level[parseInt(levData.LevelMeta.LevelNumber) + 1];
       setlevData(temp);
       onStartClick(temp.Puzzles[0].prompt.PromptAudio);
     }
@@ -701,7 +732,7 @@ const SlideComponent = (props: any) => {
   const allLevelScreen = () => {
     setStart(false);
     let id = document.getElementById("exitButton");
-    id.style.left = "2.6%";
+    id.style.left="unset";
     id.style.color = "white";
   };
 
@@ -801,10 +832,10 @@ const SlideComponent = (props: any) => {
                 <div key={index}>
                   {levelData != null ? (
                     levelData.map((value, i) => {
-                      return compared.includes(data1.LevelMeta.LevelNumber + 1)
+                      return compared.includes(parseInt(data1.LevelMeta.LevelNumber) + 1)
                         ? console.log("compared")
-                        : data1.LevelMeta.LevelNumber + 1 === value._levelNumber
-                        ? compared.push(data1.LevelMeta.LevelNumber + 1) && (
+                        : parseInt(data1.LevelMeta.LevelNumber) + 1 === value._levelNumber
+                        ? compared.push(parseInt(data1.LevelMeta.LevelNumber) + 1) && (
                             <div key={i}>
                               <div className="topSpace"></div>
 
@@ -826,10 +857,11 @@ const SlideComponent = (props: any) => {
                                   // flexDirection: "column",
                                 }}
                                 onClick={
-                                  (data1.LevelMeta.LevelNumber + 1 ===
+                      
+                                  (parseInt(data1.LevelMeta.LevelNumber) + 1 ===
                                     value._levelNumber &&
                                     value.data._levelUnlocked) ||
-                                  data1.LevelMeta.LevelNumber + 1 == 1 ||
+                                  parseInt(data1.LevelMeta.LevelNumber) + 1 == 1 ||
                                   props.devMode
                                     ? () => {
                                         buttonCLick();
@@ -839,6 +871,7 @@ const SlideComponent = (props: any) => {
                                         );
                                       }
                                     : () => {
+                                     
                                         console.log("Nothing");
                                       }
                                 }
@@ -895,15 +928,16 @@ const SlideComponent = (props: any) => {
                                     </div>
                                   </div>
                                 )}
+                                
 
-                                {(data1.LevelMeta.LevelNumber + 1 ===
+                                {(parseInt(data1.LevelMeta.LevelNumber) + 1 ===
                                   value._levelNumber &&
                                   value.data._levelUnlocked) ||
-                                data1.LevelMeta.LevelNumber + 1 == 1 ||
+                                parseInt(data1.LevelMeta.LevelNumber) + 1 == 1 ||
                                 props.devMode ? (
                                   <h3>
                                     <br></br>
-                                    {data1.LevelMeta.LevelNumber + 1}
+                                    {parseInt(data1.LevelMeta.LevelNumber) + 1}
                                   </h3>
                                 ) : (
                                   <div>
@@ -926,9 +960,9 @@ const SlideComponent = (props: any) => {
                             </div>
                           )
                         : value._levelNumber <= len &&
-                          data1.LevelMeta.LevelNumber + 1 <= len
+                          parseInt(data1.LevelMeta.LevelNumber) + 1 <= len
                         ? console.log("done")
-                        : compared.push(data1.LevelMeta.LevelNumber + 1) && (
+                        : compared.push(parseInt(data1.LevelMeta.LevelNumber) + 1) && (
                             <div>
                               <div className="topSpace"></div>
                               <button
@@ -964,7 +998,7 @@ const SlideComponent = (props: any) => {
                                 {props.devMode ? (
                                   <h3>
                                     <br></br>
-                                    {data1.LevelMeta.LevelNumber + 1}
+                                    {parseInt(data1.LevelMeta.LevelNumber) + 1}
                                   </h3>
                                 ) : (
                                   <div>
@@ -989,7 +1023,7 @@ const SlideComponent = (props: any) => {
                             </div>
                           );
                     })
-                  ) : data1.LevelMeta.LevelNumber + 1 == 1 ? (
+                  ) : parseInt(data1.LevelMeta.LevelNumber) + 1 == 1 ? (
                     <div>
                       <br></br>
                       <button
@@ -1012,7 +1046,7 @@ const SlideComponent = (props: any) => {
                           onStartClick(data1.Puzzles[0].prompt.PromptAudio);
                         }}
                       >
-                        <h3>{data1.LevelMeta.LevelNumber + 1}</h3>
+                        <h3>{parseInt(data1.LevelMeta.LevelNumber) + 1}</h3>
                         <br></br>
                         <br></br>
                         <h2 style={{ color: "white", textAlign: "center" }}>
@@ -1054,7 +1088,7 @@ const SlideComponent = (props: any) => {
                         {props.devMode ? (
                           <h3>
                             <br></br>
-                            {data1.LevelMeta.LevelNumber + 1}
+                            {parseInt(data1.LevelMeta.LevelNumber) + 1}
                           </h3>
                         ) : (
                           <div>
@@ -1102,7 +1136,7 @@ const SlideComponent = (props: any) => {
             feedbackTexts={props.feedbackTexts}
             feedbackAudios={props.feedbackAudios}
             generalData={props.generalData}
-            levelNumber={levData.LevelMeta.LevelNumber}
+            levelNumber={parseInt(levData.LevelMeta.LevelNumber)}
             allLevelScreen={allLevelScreen}
             devMode={props.devMode}
           />
