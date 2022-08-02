@@ -219,17 +219,21 @@ b.	Library development directory (for programmers only)
 
 
 
-1. Got to the (C:\xampp\htdocs\drupal\sites\default\files\h5p\development),
+21. Cloning the Repository is the next step 
 
-2. Clone the repo here
+ Go to the 
+ 
+ (C:\xampp\htdocs\drupal\sites\default\files\h5p\development),
+
+21. Clone the repo here
    ```sh
    git clone https://github.com/curiouslearning/FeedTheMonsterH5P.git
    ```
-3. Install NPM packages
+23. Install NPM packages
    ```sh
    npm install
    ```
-4. Run 
+24. Run 
 ```sh
 npm run dev
 ```
@@ -290,7 +294,7 @@ export default gameData;
 
 ### Compile and build the new version
 
-Step1 : For Compiling newer versions go to the library.json file and increase the "patchVersion" by 1 in both the 
+1.  For Compiling newer versions go to the library.json file and increase the "patchVersion" by 1 in both the 
 
 C:\xampp\htdocs\drupal\sites\default\files\h5p\development\FeedTheMonsterH5P\library.json
 
@@ -298,9 +302,9 @@ C:\xampp\htdocs\drupal\sites\default\files\h5p\development\FeedTheMonsterH5P\lib
 
   C:\xampp\htdocs\drupal\sites\default\files\h5p\development\FeedTheMonsterH5P\src\library.json folder.
 
-Step2:  To get the new h5p file,Open the  http://localhost/drupal/  and Click on Add content,then click on interactive content there select the content type having the same title provided in library.json.
+2.  To get the new h5p file,Open the  http://localhost/drupal/  and Click on Add content,then click on interactive content there select the content type having the same title provided in library.json.
 
-Step3: After adding the content new H5p file will get created in this 
+3. After adding the content new H5p file will get created in this 
 
 "C:\xampp\htdocs\drupal\sites\default\files\h5p\exports" directory, use this file to upload to server
 
@@ -308,7 +312,7 @@ Step3: After adding the content new H5p file will get created in this
 
 ### Export and upload to webserver
 
-step1:  Open the WordPress Server and Click on the H5P Content.
+1.  Open the WordPress Server and Click on the H5P Content.
 
    step2: Click on add new and select upload option and select  the H5p file present in this
    "C:\xampp\htdocs\drupal\sites\default\files\h5p\exports" directory and then click on the create Button , make sure to  remember the H5p Id .
@@ -329,11 +333,13 @@ step1:  Open the WordPress Server and Click on the H5P Content.
  there you will find the ```SlideComponent``` where you can use your components and share data using props as per the requirement.
    For example adding  Score-Board feature to the main gameplay screen:
    
-   Step 1 : Create a folder named Score-Board in that create both in src\components  ```ScoreBard.tsx ``` and ```score-board.css``` file.
+   1. Create a folder named Score-Board in that create both in src\components  ```ScoreBard.tsx ``` and ```score-board.css``` file.
 
-   Step 2 : Create and Export your ```ScoreBoard``` Component along with all the necessary imports of components and Css.
+   2. Create and Export your ```ScoreBoard``` Component along with all the necessary imports of components and Css.
 
-   Step 3 : go to the ```slide.tsx``` there in  ```SlideComponent``` import your component there and utilise your component there.
+   3. go to the ```slide.tsx``` there in  ```SlideComponent``` import your component in ```C:\xampp\htdocs\drupal\sites\default\files\h5p\development\FeedTheMonsterH5P\src\components\Slide.tsx ```
+   
+    and utilise your component there.
 
    For the reference the ```ScoreBoard``` is already done and is being commented.
 
@@ -365,28 +371,30 @@ export default ScoreBoard;
 ```
 
 
+## Additional Languages Version's
+ 
+ Here are some of project versions for different languages
+
+ #### English: 
+ * https://devcuriousreader.wpcomstaging.com/book/feed-the-monsterenglish/
+
+ #### French
+ * https://devcuriousreader.wpcomstaging.com/book/feedthemonsterfrench-1-0/
+
+ #### Swahili
+ * https://devcuriousreader.wpcomstaging.com/book/feed-the-monsterswahili/
+
+ #### Arabic
+ * https://devcuriousreader.wpcomstaging.com/book/feed-the-monsterarabic/
 
 
-<!-- ROADMAP -->
-## Roadmap
-
-
-
-<p align="right">(<a href="#top">back to top</a>)</p>
 
 
 
 <!-- CONTRIBUTING -->
 ## Contributing
 
-
-
-<p align="right">(<a href="#top">back to top</a>)</p>
-
-
-
-<!-- LICENSE -->
-## License
+#### Contribution guidelines coming soon
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
@@ -394,6 +402,7 @@ export default ScoreBoard;
 
 <!-- CONTACT -->
 ## Contact
+#### If you'd like to contact us, please feel free to e-mail us at info@curiouslearning.org.
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
