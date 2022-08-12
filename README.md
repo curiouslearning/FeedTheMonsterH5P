@@ -217,28 +217,28 @@ b.	Library development directory (for programmers only)
 
 
 
+21. Cloning the project
 
+* Got to the (C:\xampp\htdocs\drupal\sites\default\files\h5p\development),
 
-1. Got to the (C:\xampp\htdocs\drupal\sites\default\files\h5p\development),
-
-2. Clone the repo here
+* Clone the repo here
    ```sh
    git clone https://github.com/curiouslearning/FeedTheMonsterH5P.git
    ```
-3. Install NPM packages
+* Install NPM packages
    ```sh
    npm install
    ```
-4. Run 
+* Run 
 ```sh
 npm run dev
 ```
 in the terminal.
 
 
-25. Open Any Browser and go to http://localhost/drupal/.
+22. Open Any Browser and go to http://localhost/drupal/.
 
-26. Click on Add content,then click on interactive content there select the content type having the same title provided in library.json.
+23. Click on Add content,then click on interactive content there select the content type having the same title provided in library.json.
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
@@ -290,7 +290,7 @@ export default gameData;
 
 ### Compile and build the new version
 
-Step1 : For Compiling newer versions go to the library.json file and increase the "patchVersion" by 1 in both the 
+1.  For Compiling newer versions go to the library.json file and increase the "patchVersion" by 1 in both the 
 
 C:\xampp\htdocs\drupal\sites\default\files\h5p\development\FeedTheMonsterH5P\library.json
 
@@ -298,9 +298,9 @@ C:\xampp\htdocs\drupal\sites\default\files\h5p\development\FeedTheMonsterH5P\lib
 
   C:\xampp\htdocs\drupal\sites\default\files\h5p\development\FeedTheMonsterH5P\src\library.json folder.
 
-Step2:  To get the new h5p file,Open the  http://localhost/drupal/  and Click on Add content,then click on interactive content there select the content type having the same title provided in library.json.
+2.  To get the new h5p file,Open the  http://localhost/drupal/  and Click on Add content,then click on interactive content there select the content type having the same title provided in library.json.
 
-Step3: After adding the content new H5p file will get created in this 
+3. After adding the content new H5p file will get created in this 
 
 "C:\xampp\htdocs\drupal\sites\default\files\h5p\exports" directory, use this file to upload to server
 
@@ -308,14 +308,14 @@ Step3: After adding the content new H5p file will get created in this
 
 ### Export and upload to webserver
 
-step1:  Open the WordPress Server and Click on the H5P Content.
+1.  Open the WordPress Server and Click on the H5P Content.
 
-   step2: Click on add new and select upload option and select  the H5p file present in this
+   2. Click on add new and select upload option and select  the H5p file present in this
    "C:\xampp\htdocs\drupal\sites\default\files\h5p\exports" directory and then click on the create Button , make sure to  remember the H5p Id .
 
-   step3: Click on the Books > Add new,   Write the Title
-   step4: In the Custom field select name in the dropdown as h5pId and give the value (from step2 you can get the value)
-   step5: Add new Language Tag as English ,Then Click on Publish
+   3. Click on the Books > Add new,   Write the Title
+   4. In the Custom field select name in the dropdown as h5p Id and give the value (from step you can get the value)
+   5. Add new Language Tag as English ,Then Click on Publish
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
@@ -329,11 +329,11 @@ step1:  Open the WordPress Server and Click on the H5P Content.
  there you will find the ```SlideComponent``` where you can use your components and share data using props as per the requirement.
    For example adding  Score-Board feature to the main gameplay screen:
    
-   Step 1 : Create a folder named Score-Board in that create both in src\components  ```ScoreBard.tsx ``` and ```score-board.css``` file.
+   1. Create a folder named Score-Board in that create both in src\components  ```ScoreBard.tsx ``` and ```score-board.css``` file.
 
-   Step 2 : Create and Export your ```ScoreBoard``` Component along with all the necessary imports of components and Css.
+   2. Create and Export your ```ScoreBoard``` Component along with all the necessary imports of components and Css.
 
-   Step 3 : go to the ```slide.tsx``` there in  ```SlideComponent``` import your component there and utilise your component there.
+   3. go to the ```slide.tsx``` there in  ```SlideComponent``` import your component there and utilise your component there.
 
    For the reference the ```ScoreBoard``` is already done and is being commented.
 
@@ -364,37 +364,40 @@ const ScoreBoard = (props: any) => {
 export default ScoreBoard;
 ```
 
+### Other Language Version
+ Here are other Versions for the game built for different Languages:
+
+ #### English Version
+ * https://devcuriousreader.wpcomstaging.com/book/feed-the-monsterenglish/
+
+ #### French Version
+ * https://devcuriousreader.wpcomstaging.com/book/feedthemonsterfrench-1-0/
+ #### Swahili Version
+ * https://devcuriousreader.wpcomstaging.com/book/feed-the-monsterswahili/
+
+ #### Arabic Version
+ * https://devcuriousreader.wpcomstaging.com/book/feed-the-monsterarabic/
 
 
 
-<!-- ROADMAP -->
-## Roadmap
-
-
-
-<p align="right">(<a href="#top">back to top</a>)</p>
 
 
 
 <!-- CONTRIBUTING -->
 ## Contributing
 
-
-
-<p align="right">(<a href="#top">back to top</a>)</p>
-
-
-
-<!-- LICENSE -->
-## License
+#### Contribution guidelines coming soon
 
 <p align="right">(<a href="#top">back to top</a>)</p>
+
+
+
 
 
 
 <!-- CONTACT -->
 ## Contact
-
+ #### If you'd like to contact us, please feel free to e-mail us at info@curiouslearning.org.
 <p align="right">(<a href="#top">back to top</a>)</p>
 
 
@@ -402,7 +405,14 @@ export default ScoreBoard;
 <!-- ACKNOWLEDGMENTS -->
 ## Acknowledgments
 
-
+#### The Sutara Development Team --
+* Rajesh Kumar Choudhary,
+*  P Vinay Kumar Reddy,
+* Rakshith Acharya
+* ASHISH KUMAR
+* Mary Harshitha A
+* Ashish M
+* Amit Kumar Singh
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
