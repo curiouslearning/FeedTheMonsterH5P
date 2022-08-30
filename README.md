@@ -30,14 +30,15 @@
     <li>
       <a href="#about-the-project">About The Project</a>
       <ul>
+        <li><a href="#play-the-game">Play the Game</a></li>
         <li><a href="#built-with">Built With</a></li>
-        <li><a href="#additional-dependencies-utilised">Additional Dependencies Utilised</a></li>
+        <li><a href="#additional-dependencies">Additional Dependencies</a></li>
       </ul>
     </li>
     <li>
       <a href="#getting-started">Getting Started</a>
       <ul>
-        <li><a href="#prerequisites">Prerequisites</a></li>
+        <li><a href="#pre-requisites">Pre-requisites</a></li>
         <li><a href="#installation">Installation</a></li>
       </ul>
     </li>
@@ -45,7 +46,7 @@
     <ul>
     <li><a href="#adding-new-languages">Adding New Languages</a></li>
     <li><a href="#compiling-new-versions">Compiling New Versions</a></li>
-    <li><a href="#creating-new-wordpress-build">Creating New Wordpress Build</a></li>
+    <li><a href="#creating-new-wordpress-build">Creating a New Wordpress Build</a></li>
     </ul></li>
     <li><a href="#roadmap">Roadmap</a></li>
     <li><a href="#contributing">Contributing</a></li>
@@ -62,12 +63,26 @@
 
 Feed The Monster teaches your child the fundamentals of reading. Collect monster eggs and feed them letters so they can grow into new friends!
 
-WHAT IS FEED THE MONSTER?
+### Play the Game
+This version of Feed The Monster was created specifically for web-enabled smartphone and tablet devices. To play the game, please follow the appropriate language links on a phone or tablet:
+
+ #### [English Version](https://devcuriousreader.wpcomstaging.com/book/feed-the-monsterenglish/)
+
+ #### [French Version](https://devcuriousreader.wpcomstaging.com/book/feedthemonsterfrench-1-0/)
+
+ #### [Swahili Version](https://devcuriousreader.wpcomstaging.com/book/feed-the-monsterswahili/)
+
+ #### [Arabic Version](https://devcuriousreader.wpcomstaging.com/book/feed-the-monsterarabic/)
+
+To create new language versions, please refer to our [Adding New Languages](https://github.com/curiouslearning/FeedTheMonsterH5P/edit/main/README.md#adding-new-languages) section below which will detail how to create a new version using pre-populated JSON files from 50+ languages and links to the Creative Commons audio files for those languages.
+
+
+**WHAT IS FEED THE MONSTER?**
 
 Feed The Monster uses proven ‘play to learn’ techniques to engage kids and help them learn to read. Children enjoy collecting and growing pet monsters while learning reading fundamentals.
 
 
-GAME FEATURES TO PROMOTE READING SKILLS:
+**GAME FEATURES TO PROMOTE READING SKILLS:**
 
 • Fun and engaging phonics puzzles 
 
@@ -83,40 +98,37 @@ GAME FEATURES TO PROMOTE READING SKILLS:
 
 • Designed to promote socio-emotional skills.
 
-DEVELOPED BY EXPERTS FOR YOUR CHILD.
+**DEVELOPED BY EXPERTS FOR YOUR CHILD.**
 
 The game is based on years of research and experience into the science of literacy. It incorporates key skills for literacy, including Phonological Awareness, Letter Recognition, Phonics, Vocabulary, and Sight Word Reading so kids can develop a strong foundation for reading. Built around the concept of caring for a collection of monsters, it is designed to encourage empathy, perseverance and socio-emotional development for children.
 
-WHO ARE WE?
+**WHO ARE WE?**
 
-Feed the monster was funded by the Norwegian Ministry of Foreign Affairs as part of the EduApp4Syria-competition. The original Arabic app was developed as a joint venture between Apps Factory, The Center for Educational Technology (CET) and The International Rescue Committee (IRC).
-
+Feed the Monster was funded by the Norwegian Ministry of Foreign Affairs as part of the EduApp4Syria-competition. The original Arabic app was developed as a joint venture between Apps Factory, The Center for Educational Technology (CET) and The International Rescue Committee (IRC).
 
 Feed the Monster was adapted to English by Curious Learning, a non-profit dedicated to promoting access to effective literacy content for everyone who needs it. We're a team of researchers, developers, and educators dedicated to giving children everywhere literacy education in their native language based on evidence and data – and are working to bring Feed The Monster to 100+ high-impact languages around the world.
+
 <p align="right">(<a href="#top">back to top</a>)</p>
 
-**_NOTE:_**  The Following content is created with respective to Windows Operating System and the home path will be ``` C:\xampp\htdocs\```. It will not be efftective on any other Opearating System.
 
 
 <!-- GETTING STARTED -->
 ## Getting Started
 
-These are the neccesary steps for setting up the project locally.
-To get a local copy up and running follow these simple example steps.
+**_NOTE:_**  The following documentation was created respective to the Windows operating system. When describing file paths, the home path will be ``` C:\xampp\htdocs\```-- please substitute your own home path if you are using an operating system other than Windows.
 
 
 ### Built With
 
 
 * [![React][React.js]][React-url]
+* H5P
 
 
-<p align="right">(<a href="#top">back to top</a>)</p>
+### Additional Dependencies
 
-
-### Additional Dependencies Utilised 
-
- ```"classnames": "^2.3.1",
+ ```
+    "classnames": "^2.3.1",
     "drag-drop": "^7.2.0",
     "howler": "^2.2.3",
     "react": "^17.0.2",
@@ -128,78 +140,92 @@ To get a local copy up and running follow these simple example steps.
     "react-icons": "^4.4.0",
     "react-responsive": "^9.0.0-beta.10",
     "react-responsive-spritesheet": "^2.3.9" 
-
-
 ```
+
+<p align="right">(<a href="#top">back to top</a>)</p>
+
+
 
 <!-- GETTING STARTED -->
 
-### Prerequisites
+### Pre-requisites
 
-These are the following Prerequisities required for the project:
-* npm
-  ```sh
+In order to utilize the contents of this repository, we will need to install the Node Package Manager locally on a development machine using the command prompt: 
+ 
+ ```sh
   npm install npm@latest -g
   ```
-* H5p
+  
+Additionally we will need access to a Content Management System or Learning Management System (like Drupal, Wordpress, etc.) that is [compatible with H5P](https://h5p.org/installation). For this particular documentation, we will be utilizing a Drupal 7 installation.  
 
-
-
-
+<p align="right">(<a href="#top">back to top</a>)</p>
 
 ### Installation
 
-XAMPP, Drupal 7 & H5P Installation Guide
+The following steps will walk through a local development setup for building and deploying Feed The Monster using an XAMPP, Drupal 7 & H5P infrastructure stack.
 
-1.	Download and install the XAMPP for your operating system with PHP version 7.4.16 from here https://www.apachefriends.org/download.html.
+1.	[Download and install XAMPP](https://www.apachefriends.org/download.html) for your operating system with PHP version 7.4.16.
 
 2.	When trying to run the Apache server, if it complains about port 80 being taken:
 
-a.	Open the XAMPP control panel.
+    a.	Open the XAMPP control panel.
 
-b.	On the row that has Apache controls click ‘Config’ and choose the very first option ‘Apache (httpd.conf)’.
+    b.	On the row that has Apache controls click ‘Config’ and choose the very first option ‘Apache (httpd.conf)’.
 
-c.	In that file look for the line that starts with ‘Listen 80’.
+    c.	In this file, find the line that starts with: 
 
-d.	Change 80 to a new port number, 5555 as an example like so ‘Listen 5555’.
+      `Listen 80`
 
-e.	Save the configuration file.
+    d.	Change 80 to a new, unused port number-- such as 5555-- like so:
 
-f.	Exit the text editor and restart the apache server from the XAMPP control panel.
+      `Listen 5555`
 
-3.	Next, we need to install Drupal 7.x which can be found and downloaded from here https://www.drupal.org/project/drupal/releases/7.80. Please pick the latest Drupal 7.x version from the Other Releases sidebar on the website. Unpack the downloaded file under /xampp/htdocs/.
+    e.	Save the configuration file.
 
-4.	(Optional) Change the title of the unpacked folder to ‘drupal’ as an example.
+    f.	Exit the text editor and restart the Apache server from the XAMPP control panel.
 
-5.	Open up a web browser of your choice, type in the address bar ‘localhost:5555/phpmyadmin’ (5555 is the port number that you set in the httpd.conf file), and press enter.
+3.	Next, we need to [download and install Drupal 7.x](https://www.drupal.org/project/drupal/releases/7.80). Please pick the latest Drupal 7.x version from the Other Releases sidebar on the website. Unpack the downloaded file under the default location for XAMPP which is `~/xampp/htdocs/`.
 
-6.	In the PHPMyAdmin panel find and click the ‘Databases’ navigation menu button.
+4.	(Optional) Change the title of the unpacked folder to ‘drupal’ for later clarity.
 
-7.	Under the ‘Create Database’ type in the database name e.g ‘drupal-h5p’ and click the ‘Create’ button.
+5.	Open up a web browser of choice and navigate to: 
+`localhost:5555/phpmyadmin` (5555 being the port number that you set in the httpd.conf file in step 3).
 
-8.	Open up a web browser, type in ‘localhost:5555/drupal’, and press enter. You should be able to see the Drupal installation guide. If the guide displays an error message that says the extension ‘gd’ is not enabled:
+6.	In the PHPMyAdmin panel, find and click the ‘Databases’ navigation menu button.
 
-a.	Open the XAMPP control panel.
+7.	Under ‘Create Database’, type in a database name (e.g ‘drupal-h5p’), and click the ‘Create’ button.
 
-b.	On the row that has Apache controls click ‘Config’ and choose the very first option ‘PHP (php.ini)’.
+8.	Open up a web browser and navigate to:
 
-c.	In that file find the line that starts with ‘;extension=gd2’ replace it with ‘extension=gd2’.
+`localhost:5555/drupal`
 
-d.	Save the file, reload the Apache server and visit the same drupal installation guide page ‘localhost:5555/drupal’.
+If all is well, we will be able to see the Drupal installation guide. If the guide displays an error message that says the extension ‘gd’ is not enabled:
+
+    a.	Open the XAMPP control panel.
+
+    b.	On the row that has Apache controls click ‘Config’ and choose the very first option ‘PHP (php.ini)’.
+
+    c.	In that file find the line that starts with ‘;extension=gd2’ replace it with ‘extension=gd2’.
+
+    d.	Save the file, reload the Apache server and visit the same Drupal installation guide page:
+
+    `localhost:5555/drupal`
 
 9.	If the Drupal installation guide displays a warning that says ‘PHP OPCODE CACHING’ you either have to install the displayed plugin or scroll down and click the ‘continue anyway’ option.
 
-10.	On the ‘Set up database’ step type in the name of the database that you created e.g ‘drupal-h5p’. In the ‘Database username’ field type in root and the password field is optional.
+10.	On the ‘Set up database’ step, type in the name of the database created in step 7 (e.g ‘drupal-h5p’). In the ‘Database username’ field type in root and the password field is optional.
 
 11.	Wait for the Drupal installation to complete.
 
 12.	Fill in the details in the ‘Configure Site’ form and Drupal should be ready to go.
 
-13.	Find the latest version of H5P for Drupal 7.x here https://www.drupal.org/project/h5p e.g ‘7.x-1.48 released 22 April 2019’ and click download either in .zip or .tar.gz format.
+13.	Find the [latest version of H5P for Drupal 7.x](https://www.drupal.org/project/h5p) (e.g ‘7.x-1.48 released 22 April 2019’) and click download either in .zip or .tar.gz format.
 
-14.	Unpack the download archive file under /xampp/htdocs/drupal/modules.
+14.	Unpack the download archive file under `~/xampp/htdocs/drupal/modules`.
 
-15.	In the web browser go back to the Drupal admin panel ‘localhost:5555/drupal/’.
+15.	In the web browser go back to the Drupal admin panel:
+
+`localhost:5555/drupal/`
 
 16.	Click the ‘Modules’ navigation button.
 
@@ -209,34 +235,32 @@ d.	Save the file, reload the Apache server and visit the same drupal installatio
 
 19.	Click the ‘Configure’ navigation button on the top navbar, then click on H5P under the system configuration group, scroll down, and enable both:
 
-a.	H5P development mode
+    a.	H5P development mode
 
-b.	Library development directory (for programmers only)
+    b.	Library development directory (for programmers only)
 
-20.	If everything is working correctly you should see the Interactive Content type when you click Add Content from the top menu.
+20.	If everything is working correctly you should see the Interactive Content type when you click ‘Add Content’ from the top menu.
 
+21. Next let's clone the project:
 
+    a. In a command prompt, navigate to ```C:\xampp\htdocs\drupal\sites\default\files\h5p\development)```.
 
-21. Cloning the project
-
-* Got to the (C:\xampp\htdocs\drupal\sites\default\files\h5p\development),
-
-* Clone the repo here
+    b. Clone the repo by runing the following prompt:
    ```sh
    git clone https://github.com/curiouslearning/FeedTheMonsterH5P.git
    ```
-* Install NPM packages
+    c. Next install NPM packages
    ```sh
    npm install
    ```
-* Run 
+    d. And finally run the final command prompt:
 ```sh
 npm run dev
 ```
-in the terminal.
 
+22. Open any browser and navigate to: 
 
-22. Open Any Browser and go to http://localhost/drupal/.
+`http://localhost/drupal/`
 
 23. Click on Add content,then click on interactive content there select the content type having the same title provided in library.json.
 
@@ -364,20 +388,6 @@ const ScoreBoard = (props: any) => {
 export default ScoreBoard;
 ```
 
-### Other Language Version
- Here are other Versions for the game built for different Languages:
-
- #### English Version
- * https://devcuriousreader.wpcomstaging.com/book/feed-the-monsterenglish/
-
- #### French Version
- * https://devcuriousreader.wpcomstaging.com/book/feedthemonsterfrench-1-0/
- #### Swahili Version
- * https://devcuriousreader.wpcomstaging.com/book/feed-the-monsterswahili/
-
- #### Arabic Version
- * https://devcuriousreader.wpcomstaging.com/book/feed-the-monsterarabic/
-
 
 
 
@@ -434,19 +444,5 @@ export default ScoreBoard;
 [linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
 [linkedin-url]: https://linkedin.com/in/othneildrew
 [product-screenshot]: images/screenshot.png
-[Next.js]: https://img.shields.io/badge/next.js-000000?style=for-the-badge&logo=nextdotjs&logoColor=white
-[Next-url]: https://nextjs.org/
 [React.js]: https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB
 [React-url]: https://reactjs.org/
-[Vue.js]: https://img.shields.io/badge/Vue.js-35495E?style=for-the-badge&logo=vuedotjs&logoColor=4FC08D
-[Vue-url]: https://vuejs.org/
-[Angular.io]: https://img.shields.io/badge/Angular-DD0031?style=for-the-badge&logo=angular&logoColor=white
-[Angular-url]: https://angular.io/
-[Svelte.dev]: https://img.shields.io/badge/Svelte-4A4A55?style=for-the-badge&logo=svelte&logoColor=FF3E00
-[Svelte-url]: https://svelte.dev/
-[Laravel.com]: https://img.shields.io/badge/Laravel-FF2D20?style=for-the-badge&logo=laravel&logoColor=white
-[Laravel-url]: https://laravel.com
-[Bootstrap.com]: https://img.shields.io/badge/Bootstrap-563D7C?style=for-the-badge&logo=bootstrap&logoColor=white
-[Bootstrap-url]: https://getbootstrap.com
-[JQuery.com]: https://img.shields.io/badge/jQuery-0769AD?style=for-the-badge&logo=jquery&logoColor=white
-[JQuery-url]: https://jquery.com 
