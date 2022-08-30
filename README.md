@@ -10,8 +10,6 @@
 
 
 [![Contributors][contributors-shield]][contributors-url]
-[![Forks][forks-shield]][forks-url]
-[![Stargazers][stars-shield]][stars-url]
 [![Issues][issues-shield]][issues-url]
 
 
@@ -31,13 +29,13 @@
       <a href="#about-the-project">About The Project</a>
       <ul>
         <li><a href="#play-the-game">Play the Game</a></li>
-        <li><a href="#built-with">Built With</a></li>
-        <li><a href="#additional-dependencies">Additional Dependencies</a></li>
       </ul>
     </li>
     <li>
       <a href="#getting-started">Getting Started</a>
       <ul>
+        <li><a href="#built-with">Built With</a></li>
+        <li><a href="#additional-dependencies">Additional Dependencies</a></li>
         <li><a href="#pre-requisites">Pre-requisites</a></li>
         <li><a href="#installation">Installation</a></li>
       </ul>
@@ -61,19 +59,6 @@
 ## About The Project
 
 Feed The Monster teaches your child the fundamentals of reading. Collect monster eggs and feed them letters so they can grow into new friends!
-
-### Play the Game
-This version of Feed The Monster was created specifically for web-enabled smartphone and tablet devices. To play the game, please follow the appropriate language links on a phone or tablet:
-
- #### [English Version](https://devcuriousreader.wpcomstaging.com/book/feed-the-monsterenglish/)
-
- #### [French Version](https://devcuriousreader.wpcomstaging.com/book/feedthemonsterfrench-1-0/)
-
- #### [Swahili Version](https://devcuriousreader.wpcomstaging.com/book/feed-the-monsterswahili/)
-
- #### [Arabic Version](https://devcuriousreader.wpcomstaging.com/book/feed-the-monsterarabic/)
-
-To create new language versions, please refer to our [Adding New Languages](https://github.com/curiouslearning/FeedTheMonsterH5P/edit/main/README.md#adding-new-languages) section below which will detail the process of making the app using pre-populated JSON files for 50+ languages and links to the Creative Commons audio files for those languages.
 
 
 **WHAT IS FEED THE MONSTER?**
@@ -106,6 +91,19 @@ The game is based on years of research and experience into the science of litera
 Feed the Monster was funded by the Norwegian Ministry of Foreign Affairs as part of the EduApp4Syria-competition. The original Arabic app was developed as a joint venture between Apps Factory, The Center for Educational Technology (CET) and The International Rescue Committee (IRC).
 
 Feed the Monster was adapted to English by Curious Learning, a non-profit dedicated to promoting access to effective literacy content for everyone who needs it. We're a team of researchers, developers, and educators dedicated to giving children everywhere literacy education in their native language based on evidence and data – and are working to bring Feed The Monster to 100+ high-impact languages around the world.
+
+### Play the Game
+This version of Feed The Monster was created specifically for web-enabled smartphone and tablet devices. To play the game, please follow the appropriate language links on a phone or tablet:
+
+ #### [English Version](https://devcuriousreader.wpcomstaging.com/book/feed-the-monsterenglish/)
+
+ #### [French Version](https://devcuriousreader.wpcomstaging.com/book/feedthemonsterfrench-1-0/)
+
+ #### [Swahili Version](https://devcuriousreader.wpcomstaging.com/book/feed-the-monsterswahili/)
+
+ #### [Arabic Version](https://devcuriousreader.wpcomstaging.com/book/feed-the-monsterarabic/)
+
+To create new language versions, please refer to our [Adding New Languages](https://github.com/curiouslearning/FeedTheMonsterH5P/edit/main/README.md#adding-new-languages) section below which will detail the process of making the app using pre-populated JSON files for 50+ languages and links to the Creative Commons audio files for those languages.
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
