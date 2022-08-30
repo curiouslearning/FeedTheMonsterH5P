@@ -44,13 +44,12 @@
     </li>
     <li><a href="#usage">Usage</a>
     <ul>
-    <li><a href="#adding-new-languages">Adding New Languages</a></li>
-    <li><a href="#compiling-new-versions">Compiling New Versions</a></li>
-    <li><a href="#creating-new-wordpress-build">Creating a New Wordpress Build</a></li>
+    <li><a href="#creating-a-new-language-version">Creating a new language version</a></li>
+    <li><a href="#compile-and-build-the-new-version">Compile and build the new version</a></li>
+    <li><a href="#export-and-upload-to-a-wordpress-server">Export and upload to a Wordpress server</a></li>
+    <li><a href="#creating-a-new-gameplay-feature">Creating a new gameplay feature</a></li>
     </ul></li>
-    <li><a href="#roadmap">Roadmap</a></li>
     <li><a href="#contributing">Contributing</a></li>
-    <li><a href="#license">License</a></li>
     <li><a href="#contact">Contact</a></li>
     <li><a href="#acknowledgments">Acknowledgments</a></li>
   </ol>
@@ -74,7 +73,7 @@ This version of Feed The Monster was created specifically for web-enabled smartp
 
  #### [Arabic Version](https://devcuriousreader.wpcomstaging.com/book/feed-the-monsterarabic/)
 
-To create new language versions, please refer to our [Adding New Languages](https://github.com/curiouslearning/FeedTheMonsterH5P/edit/main/README.md#adding-new-languages) section below which will detail how to create a new version using pre-populated JSON files from 50+ languages and links to the Creative Commons audio files for those languages.
+To create new language versions, please refer to our [Adding New Languages](https://github.com/curiouslearning/FeedTheMonsterH5P/edit/main/README.md#adding-new-languages) section below which will detail the process of making the app using pre-populated JSON files for 50+ languages and links to the Creative Commons audio files for those languages.
 
 
 **WHAT IS FEED THE MONSTER?**
@@ -174,11 +173,11 @@ The following steps will walk through a local development setup for building and
 
     c.	In this file, find the line that starts with: 
 
-      `Listen 80`
+        `Listen 80`
 
     d.	Change 80 to a new, unused port number-- such as 5555-- like so:
 
-      `Listen 5555`
+        `Listen 5555`
 
     e.	Save the configuration file.
 
@@ -189,7 +188,8 @@ The following steps will walk through a local development setup for building and
 4.	(Optional) Change the title of the unpacked folder to ‘drupal’ for later clarity.
 
 5.	Open up a web browser of choice and navigate to: 
-`localhost:5555/phpmyadmin` (5555 being the port number that you set in the httpd.conf file in step 3).
+
+    `localhost:5555/phpmyadmin` (5555 being the port number that you set in the httpd.conf file in step 3).
 
 6.	In the PHPMyAdmin panel, find and click the ‘Databases’ navigation menu button.
 
@@ -197,35 +197,31 @@ The following steps will walk through a local development setup for building and
 
 8.	Open up a web browser and navigate to:
 
-`localhost:5555/drupal`
-
-If all is well, we will be able to see the Drupal installation guide. If the guide displays an error message that says the extension ‘gd’ is not enabled:
-
-    a.	Open the XAMPP control panel.
-
-    b.	On the row that has Apache controls click ‘Config’ and choose the very first option ‘PHP (php.ini)’.
-
-    c.	In that file find the line that starts with ‘;extension=gd2’ replace it with ‘extension=gd2’.
-
-    d.	Save the file, reload the Apache server and visit the same Drupal installation guide page:
-
     `localhost:5555/drupal`
+
+    If all is well, we will be able to see the Drupal installation guide. If the guide displays an error message that says the extension ‘gd’ is not  enabled:
+
+      a.	Open the XAMPP control panel.
+
+      b.	On the row that has Apache controls click ‘Config’ and choose the very first option ‘PHP (php.ini)’.
+
+      c.	In that file find the line that starts with ‘;extension=gd2’ replace it with ‘extension=gd2’.
+
+      d.	Save the file, reload the Apache server, and visit the same Drupal installation guide page at `localhost:5555/drupal`.
 
 9.	If the Drupal installation guide displays a warning that says ‘PHP OPCODE CACHING’ you either have to install the displayed plugin or scroll down and click the ‘continue anyway’ option.
 
 10.	On the ‘Set up database’ step, type in the name of the database created in step 7 (e.g ‘drupal-h5p’). In the ‘Database username’ field type in root and the password field is optional.
 
-11.	Wait for the Drupal installation to complete.
+11. After the Drupal installation completes,	fill in the details in the ‘Configure Site’ form and Drupal should be ready to go.
 
-12.	Fill in the details in the ‘Configure Site’ form and Drupal should be ready to go.
+12.	Find the [latest version of H5P for Drupal 7.x](https://www.drupal.org/project/h5p) (e.g ‘7.x-1.48 released 22 April 2019’) and click download either in .zip or .tar.gz format.
 
-13.	Find the [latest version of H5P for Drupal 7.x](https://www.drupal.org/project/h5p) (e.g ‘7.x-1.48 released 22 April 2019’) and click download either in .zip or .tar.gz format.
+13.	Unpack the download archive file on your local machine under `~/xampp/htdocs/drupal/modules`.
 
-14.	Unpack the download archive file under `~/xampp/htdocs/drupal/modules`.
+15.	In a web browser, go back to the Drupal admin panel:
 
-15.	In the web browser go back to the Drupal admin panel:
-
-`localhost:5555/drupal/`
+  `localhost:5555/drupal/`
 
 16.	Click the ‘Modules’ navigation button.
 
@@ -243,26 +239,28 @@ If all is well, we will be able to see the Drupal installation guide. If the gui
 
 21. Next let's clone the project:
 
-    a. In a command prompt, navigate to ```C:\xampp\htdocs\drupal\sites\default\files\h5p\development)```.
+    a. In a command prompt, navigate to `C:\xampp\htdocs\drupal\sites\default\files\h5p\development`
 
-    b. Clone the repo by runing the following prompt:
-   ```sh
-   git clone https://github.com/curiouslearning/FeedTheMonsterH5P.git
-   ```
-    c. Next install NPM packages
-   ```sh
-   npm install
-   ```
-    d. And finally run the final command prompt:
-```sh
-npm run dev
-```
+    b. Clone the repo by running the following:
+        ```
+        git clone https://github.com/curiouslearning/FeedTheMonsterH5P.git
+        ```
+        
+    c. Next install NPM packages:
+        ```
+        npm install
+        ```
+        
+    d. And finally run the final command:
+        ```
+        npm run dev
+        ```
 
-22. Open any browser and navigate to: 
+22. Open a browser and navigate to: 
 
-`http://localhost/drupal/`
+  `http://localhost/drupal/`
 
-23. Click on Add content,then click on interactive content there select the content type having the same title provided in library.json.
+23. Click on ‘Add Content’, then ‘Interactive Content’, and finally select the content type having the same title provided in library.json (e.g. OER React Slideshow New).
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
@@ -273,17 +271,13 @@ npm run dev
 
 ### Creating a new language version
  
-For adding new languages the older json shall be replaced by downloading the Language specific json file from
+For creating a new language version of Feed The Monster, we will need to replace the current repo's JSON file with an [appropriate language JSON file](https://github.com/curiouslearning/ftm-asset-api/tree/main/fulljsons) or create a new language JSON file using any of the language JSON files linked as a template.  
 
- ```https://github.com/curiouslearning/ftm-asset-api/tree/main/fulljsons``` 
-
-and replace the older json from  
+Once a language JSON file has been selected, we will need to replace and update the existing JSON content located here: 
 
 ```C:\xampp\htdocs\drupal\sites\default\files\h5p\development\FeedTheMonsterH5P\src\data\example-return.js.```
 
-then save and  compile it.
-
-Here's is code snippet from ```C:\xampp\htdocs\drupal\sites\default\files\h5p\development\FeedTheMonsterH5P\src\data\example-return.js```for the Reference
+Here is a code snippet from ```C:\xampp\htdocs\drupal\sites\default\files\h5p\development\FeedTheMonsterH5P\src\data\example-return.js``` for reference to where the new JSON will need to be inserted:
 
 
 ``` const gameData = {
@@ -294,7 +288,7 @@ Here's is code snippet from ```C:\xampp\htdocs\drupal\sites\default\files\h5p\de
     GeneralAudio: {
       GreatAudio: "http://server.com/audio/english/feedback/great.wav",
       FantasticAudio: "http://server.com/audio/english/feedback/fantastic.wav",
-      A: "https://curiousreader.org/wp-content/uploads/2022/05/USENGLISH_sounds_letters_a.wav",
+      A: "https://server.com/USENGLISH_sounds_letters_a.wav",
     },
     GeneralImages: {
       GreatImage: "http://server.com/images/english/feedback/great.png",
@@ -312,54 +306,59 @@ Here's is code snippet from ```C:\xampp\htdocs\drupal\sites\default\files\h5p\de
 export default gameData;
 ```
 
-### Compile and build the new version
-
-1.  For Compiling newer versions go to the library.json file and increase the "patchVersion" by 1 in both the 
-
-C:\xampp\htdocs\drupal\sites\default\files\h5p\development\FeedTheMonsterH5P\library.json
-
- and
-
-  C:\xampp\htdocs\drupal\sites\default\files\h5p\development\FeedTheMonsterH5P\src\library.json folder.
-
-2.  To get the new h5p file,Open the  http://localhost/drupal/  and Click on Add content,then click on interactive content there select the content type having the same title provided in library.json.
-
-3. After adding the content new H5p file will get created in this 
-
-"C:\xampp\htdocs\drupal\sites\default\files\h5p\exports" directory, use this file to upload to server
-
-
-
-### Export and upload to webserver
-
-1.  Open the WordPress Server and Click on the H5P Content.
-
-   2. Click on add new and select upload option and select  the H5p file present in this
-   "C:\xampp\htdocs\drupal\sites\default\files\h5p\exports" directory and then click on the create Button , make sure to  remember the H5p Id .
-
-   3. Click on the Books > Add new,   Write the Title
-   4. In the Custom field select name in the dropdown as h5p Id and give the value (from step you can get the value)
-   5. Add new Language Tag as English ,Then Click on Publish
+Please note that above the language JSON in this JS file are meta variables that will help distinguish different language builds (e.g. LanguageName) and even versioning information (e.g. LanguageVersion) for the JSON itself that are helpful in maintaining the app or troubleshooting issues. Also note that all server URLs such as server.com/... and curiousreader.org/... will need to be replaced with the URLs where language-specific images or audio are uploaded ultimately. All existing [language-specific images and audio](https://github.com/curiouslearning/ftm-languagepacks) can be downloaded and used as Creative Commons.
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
-### Creating a New Gameplay Feature
+### Compile and build the new version
+
+1.  For compiling a newer version of the Feed The Monster app, go to the library.json file and increase the "patchVersion" by 1 in both the 
+
+`C:\xampp\htdocs\drupal\sites\default\files\h5p\development\FeedTheMonsterH5P\library.json`
+
+ and
+
+`C:\xampp\htdocs\drupal\sites\default\files\h5p\development\FeedTheMonsterH5P\src\library.json` files.
+
+2.  To get the new .h5p file, open http://localhost/drupal/, click on 'Add Content', click on 'Interactive Content', and from there select the content type having the same title provided in the library.json file.
+
+3. After adding the content, a new H5P file will get created on your local machine's `C:\xampp\htdocs\drupal\sites\default\files\h5p\exports` directory. At this point, we should have a new build of our Feed The Monster app that can be ported to other CMS's or LMS's!
 
 
+<p align="right">(<a href="#top">back to top</a>)</p>
+
+### Export and upload to a Wordpress server
+
+The following section is NOT necessary in understanding the Feed The Monster build process but is supplementary information if we have decided to use a Wordpress server with the Freelearning Wordpress theme for publishing the app.
+
+1.  Open the Wordpress server and click on 'H5P Content' in the navigation sidebar.
+
+2. Click on 'Add New', select 'Upload' option, and upload the .h5p file we exported to this
+   `C:\xampp\htdocs\drupal\sites\default\files\h5p\exports` directory. Click on the 'Create' button and make sure to remember the H5P ID number.
+
+3. In the navigation sidebar, click on the 'Books', then 'Add New', and write the title of the upload.
+
+4. In the 'Custom' field select 'H5P ID' and input the number we received in step 2.
+
+5. Add a new language tag in the sidebar on the right for filtering purposes and then click 'Publish' to make this version of the app live on a Wordpress server using the Freelearning Wordpress theme.
+
+<p align="right">(<a href="#top">back to top</a>)</p>
+
+### Creating a new gameplay feature
     
-    
- For creating new gameplay features go to the ```slide.tsx```(C:\xampp\htdocs\drupal\sites\default\files\h5p\development\FeedTheMonsterH5P\src\components\Slide.tsx) 
+To help understand how to extend functionality of this version of Feed The Monster, we will be creating a theoretical feature of adding a scoreboard to the main gameplay screen when a user answers a question in Feed The Monster.
+
+For creating this new gameplay feature, navigate to `C:\xampp\htdocs\drupal\sites\default\files\h5p\development\FeedTheMonsterH5P\src\components\Slide.tsx` on your local machine.
  
- there you will find the ```SlideComponent``` where you can use your components and share data using props as per the requirement.
-   For example adding  Score-Board feature to the main gameplay screen:
+Here you will find the ```SlideComponent``` where you can use your components and share data using props as per the requirement.
    
-   1. Create a folder named Score-Board in that create both in src\components  ```ScoreBard.tsx ``` and ```score-board.css``` file.
+   1. Create a folder named Score-Board both in src\components ```ScoreBoard.tsx ``` and ```score-board.css``` file.
 
-   2. Create and Export your ```ScoreBoard``` Component along with all the necessary imports of components and Css.
+   2. Create and export your ```ScoreBoard``` component along with all the necessary imports of components and CSS.
 
-   3. go to the ```slide.tsx``` there in  ```SlideComponent``` import your component there and utilise your component there.
+   3. Go to the ```slide.tsx``` there in  ```SlideComponent``` import your component there and utilise your component there.
 
-   For the reference the ```ScoreBoard``` is already done and is being commented.
+   For the reference the ```ScoreBoard``` is already done and has been commented out.
 
    In order to utilise the ```ScoreBoard``` just go to ```ScoreBoard.tsx``` and uncomment all the commented part.
 
@@ -388,13 +387,16 @@ const ScoreBoard = (props: any) => {
 export default ScoreBoard;
 ```
 
-
-
+<p align="right">(<a href="#top">back to top</a>)</p>
 
 
 
 <!-- CONTRIBUTING -->
 ## Contributing
+
+The Feed The Monster codebase is open source and we freely encourage others to extend, remix, or localize the content herein, including the audio and graphical content which is licensed under CC-BY. 
+
+In our exploration of this React version of Feed The Monster, we found React to have a few major shortcomings-- namely the ability to play fluid, pre-loaded animations which we feel is paramount to child engagement. We are embarking on a re-write of the code instead using [vanilla Javascript and HTML canvas](https://github.com/curiouslearning/FeedTheMonsterJS) and encourage you to follow along with the progress of this project.
 
 #### Contribution guidelines coming soon
 
@@ -402,12 +404,10 @@ export default ScoreBoard;
 
 
 
-
-
-
 <!-- CONTACT -->
 ## Contact
  #### If you'd like to contact us, please feel free to e-mail us at info@curiouslearning.org.
+
 <p align="right">(<a href="#top">back to top</a>)</p>
 
 
@@ -415,9 +415,9 @@ export default ScoreBoard;
 <!-- ACKNOWLEDGMENTS -->
 ## Acknowledgments
 
-#### The Sutara Development Team --
-* Rajesh Kumar Choudhary,
-*  P Vinay Kumar Reddy,
+#### The Sutara Development Team
+* Rajesh Kumar Choudhary
+* P Vinay Kumar Reddy
 * Rakshith Acharya
 * ASHISH KUMAR
 * Mary Harshitha A
